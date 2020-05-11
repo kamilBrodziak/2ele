@@ -12,5 +12,10 @@
     "minimum-stability": "dev",
     "require": {
         "timber/timber": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+          "Inc\\": "./inc"
+        }
     }
 }

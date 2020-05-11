@@ -1,0 +1,38 @@
+/*
+=====================================================
+    HEADER NAVBAR MOBILE BUTTON
+=====================================================
+*/
+
+.hdrNavbarMobileBars {
+    height: 12%;
+    border-radius: 5px;
+    background: silver;
+    transition: all 0.3s ease;
+}
+
+.changeMobileNavButtonState {
+
+    &:after {
+        z-index: -15;
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 30vw;
+        height: 100vh;
+        cursor: auto;
+    }
+
+    #hdrNavbarMobileBar1 {
+        transform: rotate(-45deg) translate(-50%, 50%);
+    }
+
+    #hdrNavbarMobileBar2 {
+        opacity: 0;
+    }
+
+    #hdrNavbarMobileBar3 {
+        transform: rotate(45deg) translate(-50%, -50%);
+    }
+}

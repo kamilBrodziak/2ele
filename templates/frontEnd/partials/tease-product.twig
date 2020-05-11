@@ -1,17 +1,17 @@
 <article {{ fn('post_class', ['$classes', 'entry', 'teaseProduct'] ) }}>
     {{ fn('timber_set_product', post) }}
-    <a class="teaseProductAnchor" href="{{ post.link }}">
-        <figure class="teaseProductPictureContainer">
-            <img class="teaseProductPicture" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}"/>
+    <a class='teaseProductAnchor' href='{{ post.link }}'>
+        <figure class='teaseProductPictureContainer'>
+            <img class='teaseProductPicture' src='{{ post.thumbnail.src }}' alt='{{ post.thumbnail.alt }}'/>
         </figure>
-        <header class="teaseProductHeader">
-            <h3 class="teaseProductTitle textAlignCenter">{{ post.title }}</h3>
+        <header class='teaseProductHeader'>
+            <h3 class='teaseProductTitle textAlignCenter'>{{ post.title }}</h3>
         </header>
     </a>
-    <div class="teaseProductPrice textAlignCenter">
+    <div class='teaseProductPrice textAlignCenter'>
         {% do action( 'woocommerce_after_shop_loop_item_title' ) %}
     </div>
-    <footer class="teaseProductMoreAnchorContainer buttonGradient">
-        <a class="teaseProductMoreAnchor textAlignCenter flexCenterCenter colorSilver">Dowiedz się więcej!</a>
+    <footer class='teaseProductMoreAnchorContainer buttonGradient'>
+        <a class='teaseProductMoreAnchor textAlignCenter flexCenterCenter colorSilver'>Learn more!</a>
     </footer>
 </article>

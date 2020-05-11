@@ -1,16 +1,16 @@
-{% extends "base.twig" %}
+{% extends 'base.twig' %}
 
 {% block content %}
-    <article id="page">
-        <header id="pageHeader">
-            <h1 id="pageTitle">Sklep</h1>
+    <article id='page'>
+        <header id='pageHeader'>
+            <h1 id='pageTitle'>Sklep</h1>
         </header>
-        <section id="pageContent">
+        <section id='pageContent'>
             {{post.content}}
             {% block products %}
-                <div id="productList">
+                <div id='productList'>
                     {% for post in products %}
-                        {% include ["partials/tease-product.twig"] %}
+                        {% include ['partials/tease-product.twig'] %}
                     {% endfor %}
                 </div>
             {% endblock %}

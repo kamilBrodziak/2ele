@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/kamilBrodziak/starterWordpressTheme/issues"
   },
-  "homepage": "https://github.com/kamilBrodziak/starterWordpressTheme#readme"
+  "homepage": "https://github.com/kamilBrodziak/starterWordpressTheme#readme",
+  "devDependencies": {
+    "csso": "^4.0.3",
+    "google-closure-compiler": "^20200504.0.0"
+  }
 }

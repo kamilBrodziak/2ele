@@ -1,21 +1,28 @@
 {% if newsletterTitle %}
-<h4 {% if location %}id="{{ location }}NewsletterTitle" {% endif %}class="newsletterTitle">{{ newsletterTitle }}</h4>
+<h4 {% if location %}id='{{ location }}NewsletterTitle' {% endif %}class='newsletterTitle'>{{ newsletterTitle }}</h4>
 {% endif %}
 {% if newsletterSubtitle %}
-<h5 {% if location %}id="{{ location }}NewsletterSubtitle" {% endif %}class="newsletterSubtitle">{{ newsletterSubtitle }}</h5>
+<h5 {% if location %}id='{{ location }}NewsletterSubtitle' {% endif %}class='newsletterSubtitle'>{{ newsletterSubtitle }}</h5>
 {% endif %}
 {% if newsletterDescription %}
-    <div {% if location %}id="{{ location }}NewsletterDescription" {% endif %}class="newsletterDescription">{{ newsletterDescription }}</div>
+    <div {% if location %}id='{{ location }}NewsletterDescription' {% endif %}class='newsletterDescription'>{{ newsletterDescription }}</div>
 {% endif %}
-<form method="post" action="" {% if location %}id="{{ location }}NewsletterForm"{% endif %}class="newsletterForm">
-    <label for="{% if location %}{{ location }}NewsletterNameInput{% endif %}">Wpisz swoje imię</label>
-    <input {% if location %}id="{{ location }}NewsletterNameInput" {% endif %}class="newsletterNameInput" name="fname" type="text" required pattern="[a-zA-Z0-9 ]+" placeholder="Twoje imię*"
-           oninvalid="this.setCustomValidity('Proszę wprowadź swoje imię używając tylko liter.')"
-           oninput="setCustomValidity('')">
-    <label for="{% if location %}{{ location }}NewsletterEmailInput{% endif %}">Wpisz swój adres email</label>
-    <input {% if location %}id="{{ location }}NewsletterEmailInput" {% endif %}class="newsletterEmailInput" name="email" type="email" required
-           pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" placeholder="Twój email*"
-           oninvalid="this.setCustomValidity('Proszę wprowadź poprawny email. Przykład: nazwa@gmail.com')"
-           oninput="setCustomValidity('')">
-    <input {% if location %}id="{{ location }}NewsletterSubmitButton" {% endif %}class="newsletterSubmitButton blackGradientSubmit" type="submit" value="Zapisz się">
+<form method='post' action='{{ formAction }}' {% if location %}id='{{ location }}NewsletterForm' {% endif %}class='newsletterForm'>
+    <label {% if location %}id='{{ location }}NewsletterNameLabel' {% endif %}class='newsletterNameLabel'>
+        Your name*:
+        <input name='name' type='text' required pattern='[a-zA-Z0-9 ]+' placeholder='Your name*'
+               oninvalid='this.setCustomValidity("Insert your name using only letters.")'
+               title='Insert proper name using only letters.'
+               oninput='setCustomValidity("")'>
+    </label>
+    <label {% if location %}id='{{ location }}NewsletterEmailLabel' {% endif %}class='newsletterEmailLabel'>
+        Your email*:
+        <input name='email' type='email' required
+               pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$' placeholder='Your email*'
+               title='Insert proper email, example: example@example.example'
+               oninvalid='this.setCustomValidity("Insert proper email, example: example@example.example")'
+               oninput='setCustomValidity("")'>
+    </label>
+    <input {% if location %}id='{{ location }}NewsletterSubmitButton' {% endif %}
+           class='newsletterSubmitButton blackGradientSubmit' type='submit' value='Sign up'>
 </form>

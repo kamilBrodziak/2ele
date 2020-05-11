@@ -17,7 +17,6 @@ final class Init {
 
     public static function getServices() {
         return [
-            Base\StarterSite::class,
             Base\WooCommerceSettings::class,
 	        Controllers\DashboardController::class,
 	        Base\Enqueue::class,

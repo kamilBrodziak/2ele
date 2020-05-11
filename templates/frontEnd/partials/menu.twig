@@ -1,22 +1,9 @@
 {% if menu %}
-	<ul {% if menuLocation %} id="{{ menuLocation }}NavbarList" {% endif %}>
+	<ul id='{% if menuLocation %}{{ menuLocation }}NavList'{% endif %} class='navList'>
 		{% for item in items %}
-{#			{{ item.classes | join(' ') }}#}
-			<li class="{% if menuLocation %}{{ menuLocation }}NavbarListItem{% endif %} {% if item.title == 'Sklep' %}hdrNavbarShopItem {% if navShopItemAnimation != 'disabled' %}{{ navShopItemAnimation }}{% endif %}{% endif %}">
-				<a class="hdrNavbarListItemAnchor textAlignCenter colorSilver flexCenterCenter fontBold" href="{{ item.link }}">{{ item.title }}</a>
-				{% if item.title == 'Sklep' %}
-					<div id="shopPreview">
-						{% for post in fn('getWCProducts') %}
-							{% include ["partials/tease-product.twig"] %}
-						{% endfor %}
-					</div>
-				{% endif %}
-				{% if item.title == "Sklep" and navShopItemAnimation == 'snakeAnimationButton' %}
-					<div class="leftButtonAnimation"></div>
-					<div class="rightButtonAnimation"></div>
-					<div class="topButtonAnimation"></div>
-					<div class="bottomButtonAnimation"></div>
-				{% endif %}
+			<li class='{% if menuLocation %}{{ menuLocation }}NavListItem {% else %}navListItem {% endif %}{{ navItemAnimation }}'>
+				<a class='textAlignCenter colorSilver flexCenterCenter fontBold'
+                   href='{{ item.link }}'>{{ item.title }}</a>
 			</li>
 		{% endfor %}
 	</ul>

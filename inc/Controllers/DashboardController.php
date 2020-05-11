@@ -11,13 +11,12 @@ use Inc\Api\SettingsApi;
 use Inc\Api\Callbacks\AdminCallbacks;
 
 class DashboardController extends BaseController {
-	public $settings;
-	public $pages;
-	public $subPages;
-	public $callbacks;
-	public $pageSlug = '';
+	public SettingsApi $settings;
+	public array $pages;
+	public AdminCallbacks $callbacks;
+	public string $pageSlug = '';
 	public function register() {
-		$this->pageSlug = ''; // admin page of theme
+		$this->pageSlug = 'themeNameDashboard'; // admin page of theme
 		$this->settings = new SettingsApi();
 		$this->callbacks = new AdminCallbacks();
 		$this->setPages();
@@ -29,8 +28,8 @@ class DashboardController extends BaseController {
 	    // dashboard theme page
 	    $this->pages = [
 		    [
-			    'pageTitle' => '',
-			    'menuTitle' => '',
+			    'pageTitle' => 'themeName Dashboard',
+			    'menuTitle' => 'themeName',
 			    'capability' => 'manage_options',
 			    'menuSlug' => $this->pageSlug,
 			    'callback' => array($this->callbacks, 'dashboard'),
