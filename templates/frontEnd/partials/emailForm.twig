@@ -1,0 +1,17 @@
+<form {% if location %}id="{{ location }}ContactForm" {% endif %}class="contactForm textAlignCenter" name="contactForm" method="post" action="#" data-url="{{ fn('admin_url', 'admin-ajax.php') }}">
+    <div {% if location %}id="{{ location }}ContactFormSuccessInfo" {% endif %}class="contactFormSuccessInfo textAlignCenter flexCenterCenter">Twoja wiadomość została wysłana pomyślnie!</div>
+{#    <div>Wystąpił problem z Twoją wiadomością, spróbuj ponownie</div>#}
+    <label for="{% if location %}{{ location }}ContactFormName{% endif %}">Wpisz swoję imię</label>
+    <input type="text" {% if location %}id="{{ location }}ContactFormName" {% endif %}class="name" name="name" pattern="[a-zA-Z0-9 ]+" maxlength="50"
+           oninvalid="this.setCustomValidity('Proszę wprowadź swoje imię używając tylko liter.')"
+           oninput="this.setCustomValidity('')"
+           placeholder="Twoje imię*" required>
+    <label for="{% if location %}{{ location }}ContactFormEmail{% endif %}">Wpisz swój adres email</label>
+    <input type="email" {% if location %}id="{{ location }}ContactFormEmail" {% endif %}class="email" name="email" maxlength="80" placeholder="Twój email*"
+           pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" required
+           oninvalid="this.setCustomValidity('Proszę wprowadź poprawny email. Przykład: nazwa@gmail.com')"
+           oninput="this.setCustomValidity('')">
+    <label for="{% if location %}{{ location }}ContactFormMessage{% endif %}">Wpisz swoją wiadomość</label>
+    <textarea {% if location %}id="{{ location }}ContactFormMessage" {% endif %}class="message" name="message" maxlength="1000" placeholder="Wiadomość*" rows=7 required></textarea>
+    <input {% if location %}id="{{ location }}ContactFormSubmit" {% endif %}class="submit blackGradientSubmit" name="submit" type="submit" value="Wyślij">
+</form>

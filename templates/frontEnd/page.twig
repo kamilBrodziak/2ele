@@ -1,0 +1,14 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	<article id="pageArticle">
+		<header id="pageHeader">
+			<h1 id="pageTitle" class="textAlignCenter flexCenterCenter">{{post.title}}</h1>
+		</header>
+		<section id="pageContent">
+			{% block pageContent %}
+				{{post.content}}
+			{% endblock %}
+		</section>
+	</article>
+{% endblock %}

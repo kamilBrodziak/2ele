@@ -1,0 +1,33 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	<article id="postArticle">
+		<header id="postHeader"{% if post.thumbnail %} class="parallaxBg" style="background-image: url({{ post.thumbnail.src }});" {% endif %}>
+{#			padding-top: calc({{ ((post.thumbnail.height / post.thumbnail.width) * 100)|number_format(1) }}% - 4rem - 3%); padding-bottom: 1%;#}
+			<style> :root {--parallaxBgHeight: {{ ((post.thumbnail.height / post.thumbnail.width) * 100)|number_format(1) }}%}</style>
+			<h1 id="postTitle" class="textAlignCenter flexCenterCenter">{{ post.title }}</h1>
+		</header>
+		<section id="postContent">
+				{{post.content}}
+		</section>
+		<footer id="postPagination">
+			<div id="postPaginationPrev" class="{% if post.prev != null %}buttonGradient{% endif %}">
+				{% if post.prev != null %}
+					<a id="postPaginationPrevLink" href="{{ post.prev.link }}" class="textAlignCenter flexCenterCenter colorSilver">
+						<span>Poprzedni post:</span>
+						<span>{{post.prev.title}}</span>
+					</a>
+				{% endif %}
+			</div>
+			<div id="postPaginationNext" class="{% if post.next != null %}buttonGradient{% endif %}">
+				{% if post.next != null %}
+					<a id="postPaginationNextLink" href="{{ post.next.link }}" class="textAlignCenter flexCenterCenter colorSilver">
+						<span>Następny post:</span>
+						<span>{{post.next.title}}</span>
+					</a>
+				{% endif %}
+			</div>
+		</footer>
+	</article>
+{% endblock %}
+

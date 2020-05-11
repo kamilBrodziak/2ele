@@ -1,0 +1,24 @@
+{
+  "name": "starterwordpresstheme",
+  "version": "1.0.0",
+  "description": "starter theme made by kamil brodziak",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamilBrodziak/starterWordpressTheme.git"
+  },
+  "keywords": [
+    "starter",
+    "theme",
+    "wordpress"
+  ],
+  "author": "Kamil Brodziak",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/kamilBrodziak/starterWordpressTheme/issues"
+  },
+  "homepage": "https://github.com/kamilBrodziak/starterWordpressTheme#readme"
+}

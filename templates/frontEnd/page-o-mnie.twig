@@ -1,0 +1,8 @@
+{% extends "page.twig" %}
+
+{% block pageContent %}
+    <figure id="aboutMeImgContainer">
+        <img id="aboutMeImg" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}"/>
+    </figure>
+    {{post.content}}
+{% endblock %}

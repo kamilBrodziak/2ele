@@ -1,0 +1,25 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <article itemscope itemtype="http://schema.org/Product" class="single-product-details singleProduct {{ post.class }}">
+        <header id="pageHeader">
+            <h1 id="pageTitle">{{ post.title }}</h1>
+        </header>
+        <div id="singleProductContainer">
+            <div id="singleProductPictureContainer">
+                <img id="singleProductPicture" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}" />
+            </div>
+            <section id="singleProductSummary">
+                {% do action("woocommerce_single_product_summary") %}
+            </section>
+            <section id="singleProductDescription">
+                <h2 id="singleProductDescriptionHeader" class="flexCenterCenter textAlignCenter">Opis produktu:</h2>
+                <div id="singleProductDescriptionContent">{{ post.content }}</div>
+                <div id="singleProductRedirectToBuyAnchorContainer" class="buttonGradient">
+                    <a href="#singleProductContainer" id="singleProductRedirectToBuyAnchor" class="textAlignCenter flexCenterCenter colorSilver">Kup teraz</a>
+                </div>
+            </section>
+        </div>
+        <meta itemprop="url" content="{{ post.link }}" />
+    </article>
+{% endblock  %}

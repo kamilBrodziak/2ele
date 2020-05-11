@@ -1,0 +1,7 @@
+{% extends "page.twig" %}
+
+{% block pageContent %}
+    {% filter shortcodes %}
+        [woocommerce_checkout]
+    {% endfilter %}
+{% endblock %}

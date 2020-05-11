@@ -1,0 +1,17 @@
+{% extends "base.twig" %}
+{% block content %}
+    <article id="frontPageArticle">
+        <figure id="frontPagePictureContainer" class="flexCenterCenter">
+            <img class="frontPagePicture" src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}" height="{{ post.thumbnail.height }}" width="{{ post.thumbnail.width }}">
+        </figure>
+        <div id="frontPageContentContainer" class="textAlignCenter">
+            <header id="frontPageHeader">
+                <h1 id="frontPageTitle">{{ post.title }}</h1>
+            </header>
+            <section id="frontPageContent">{{post.content}}</section>
+            <footer id="frontPageFooter" class="buttonGradient">
+                <a href="{{site.url}}/zacznij-tutaj" id="frontPageFirstArticleAnchor" class="textAlignCenter flexCenterCenter colorSilver">Zacznij tutaj</a>
+            </footer>
+        </div>
+    </article>
+{% endblock %}

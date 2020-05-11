@@ -1,0 +1,16 @@
+<h1 id="hdrLogo">
+    <a id="hdrLogoLink" class="colorSilver flexCenterCenter textAlignCenter" href="{{site.url}}" rel="home">{{site.name}}</a>
+</h1>
+<section id="hdrNewsletter" class="flexCenterCenter">
+    {% include "newsletter.twig" with
+        {'newsletterTitle': fn('sZThemeHdrNewsletterH1OptionValue', fn('sZThemeHdrNewsletterH1OptionName')),
+         'location': 'hdr'} %}
+</section>
+<div id="hdrNavbarMobileButton">
+    <div id="hdrNavbarMobileBar1" class="hdrNavbarMobileBars"></div>
+    <div id="hdrNavbarMobileBar2" class="hdrNavbarMobileBars"></div>
+    <div id="hdrNavbarMobileBar3" class="hdrNavbarMobileBars"></div>
+</div>
+<nav id="hdrNavbar">
+    {% include "menu.twig" with {'items': menu.get_items, 'menuLocation': 'hdr', 'navShopItemAnimation': fn('sZThemeSettingsShopMenuOptionValue')} %}
+</nav>

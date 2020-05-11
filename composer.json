@@ -1,0 +1,16 @@
+{
+    "name": "kamilbrodziak/starterwordpresstheme",
+    "description": "starter theme made by kamil brodziak",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "kamilBrodziak",
+            "email": "kamil98brodziak@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "timber/timber": "dev-master"
+    }
+}
