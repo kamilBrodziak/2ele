@@ -33,7 +33,7 @@ class DashboardController extends BaseController {
 			    'menuTitle' => '',
 			    'capability' => 'manage_options',
 			    'menuSlug' => $this->pageSlug,
-			    'callback' => array($this->callbacks, 'adminDashboard'),
+			    'callback' => array($this->callbacks, 'dashboard'),
 			    'iconUrl' => 'dashicons-chart-area',
 			    'position' => 110
 		    ]

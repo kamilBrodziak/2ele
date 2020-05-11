@@ -4,12 +4,17 @@ namespace Inc\Base;
 
 class StarterSite extends Timber\Site{
     /** Add timber support. */
-    public function __construct() {
+    public function register() {
         add_action( 'after_setup_theme', array( $this, 'themeSupports' ) );
         add_filter( 'timber/context', array( $this, 'addToContext' ) );
         add_filter( 'timber/twig', array( $this, 'addToTwig' ) );
         add_action( 'init', array( $this, 'registerPostTypes' ) );
         add_action( 'init', array( $this, 'registerTaxonomies' ) );
+        $this->removeWordpressUnnecessaryActions();
+        parent::__construct();
+    }
+
+    public function removeWordpressUnnecessaryActions() {
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
         remove_action( 'wp_print_styles', 'print_emoji_styles' );
         remove_action ('wp_head', 'rsd_link');
@@ -17,10 +22,7 @@ class StarterSite extends Timber\Site{
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
         remove_action('template_redirect', 'rest_output_link_header', 11, 0);
-        parent::__construct();
     }
-
-
 
     public function registerPostTypes() {}
     public function registerTaxonomies() {}
@@ -58,10 +60,9 @@ class StarterSite extends Timber\Site{
         add_theme_support( 'woocommerce' );
     }
 
-
     public function addToTwig( $twig ) {
         $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
-        $twig->addFilter( new Twig\TwigFilter( 'myfoo', array( $this, 'myfoo' ) ) );
+//        $twig->addFilter( new Twig\TwigFilter( 'myfoo', array( $this, 'myfoo' ) ) );
         return $twig;
     }
 }

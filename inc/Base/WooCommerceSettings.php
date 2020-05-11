@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Inc\Base;
-
 
 class WooCommerceSettings {
 
-    public function __construct() {
+    public function register() {
         $this->filters();
         $this->actions();
     }
