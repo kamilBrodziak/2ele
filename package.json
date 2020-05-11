@@ -23,6 +23,7 @@
   "homepage": "https://github.com/kamilBrodziak/starterWordpressTheme#readme",
   "devDependencies": {
     "csso": "^4.0.3",
+    "csso-cli": "^3.0.0",
     "google-closure-compiler": "^20200504.0.0"
   }
 }

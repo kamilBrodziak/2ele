@@ -1,0 +1,134 @@
+/*
+=====================================================
+    NORMALIZATION
+=====================================================
+*/
+html {
+  font-size: 8px;
+}
+
+@media only screen and (min-width: 600px) {
+  html {
+    font-size: 10px;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div, a, section, article {
+  width: 100%;
+  height: 100%;
+}
+
+html, body, #siteContainer {
+  min-height: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+input[type=submit] {
+  cursor: pointer;
+}
+input:disabled {
+  cursor: not-allowed;
+}
+
+/*
+=====================================================
+    COMMON
+=====================================================
+*/
+.transitionEase {
+  transition: all 0.3s ease;
+}
+
+.fontBold {
+  font-weight: bold;
+}
+
+.textAlignCenter {
+  text-align: center;
+}
+
+.colorSilver {
+  color: silver;
+}
+
+.flexCenterCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+=====================================================
+    NEWSLETTER
+=====================================================
+*/
+.newsletterForm {
+  width: 100%;
+  height: 100%;
+}
+.newsletterForm input {
+  border: 0;
+}
+/*
+=====================================================
+    ANIMATIONS
+=====================================================
+*/
+.pulseAnimationButton {
+  animation: pulse 3s infinite;
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  20% {
+    box-shadow: 0 0 20px 20px rgba(204, 169, 44, 0);
+  }
+  30%, 100% {
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+/*
+=====================================================
+    HEADER NAVBAR MOBILE BUTTON
+=====================================================
+*/
+.hdrNavbarMobileBars {
+  height: 12%;
+  border-radius: 5px;
+  background: silver;
+  transition: all 0.3s ease;
+}
+
+.changeMobileNavButtonState:after {
+  z-index: -15;
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30vw;
+  height: 100vh;
+  cursor: auto;
+}
+.changeMobileNavButtonState #hdrNavbarMobileBar1 {
+  transform: rotate(-45deg) translate(-50%, 50%);
+}
+.changeMobileNavButtonState #hdrNavbarMobileBar2 {
+  opacity: 0;
+}
+.changeMobileNavButtonState #hdrNavbarMobileBar3 {
+  transform: rotate(45deg) translate(-50%, -50%);
+}
+
+/*# sourceMappingURL=style.css.map */

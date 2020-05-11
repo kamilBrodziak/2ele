@@ -100,9 +100,7 @@ class StarterSite extends Timber\Site {
 }
 new StarterSite();
 
-echo 'pupa';
 if(class_exists('Inc\\Init')) {
-    echo 'dupa';
     Inc\Init::registerServices();
 }
 
