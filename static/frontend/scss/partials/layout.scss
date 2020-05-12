@@ -1,0 +1,109 @@
+/*
+=====================================================
+    SITE LAYOUT
+=====================================================
+*/
+
+//$bgGradient:
+//        radial-gradient(circle at 0%,
+//                rgba(45, 45, 45, 0.1), rgba(45, 45, 45, 0.3) 50%,
+//                rgba(25, 25, 25, 0.5) 75%, transparent 75%),
+//        rgb(89, 14, 189);
+
+$bgGradient: linear-gradient(to top,#15152d,#29104b,#15152d);
+$desktopNavWidth: 250px;
+#siteContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas: "header" "main" "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 300px auto auto;
+
+    #siteHeader {
+        grid-area: header;
+        background: $bgGradient;
+    }
+
+    #siteMain {
+        grid-area: main;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        #shopNav {
+            width: 100%;
+            height: 80px;
+            position: sticky;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            #shopNavMobileButton {
+                height: 80px;
+            }
+
+            #shopSearch {
+                height: calc(10% - 40px);
+                display: none;
+                background: red;
+            }
+
+            #shopNavList {
+                width: 100%;
+                height: calc(90% - 40px);
+                flex-direction: column;
+                display: none;
+            }
+        }
+
+        #mainContent {
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    #siteFooter {
+        grid-area: footer;
+    }
+}
+
+@media screen and (min-height: 600px) and (min-width: 996px) {
+    #siteContainer {
+
+        #siteMain {
+            flex-direction: row;
+            #shopNav {
+                height: 100vh;
+                width: $desktopNavWidth;
+                overflow-y: auto;
+                background: black;
+
+                #shopNavMobileButton {
+                    display: none;
+                }
+
+                #shopSearch {
+                    height: 10%;
+                    display: block;
+                }
+
+                #shopNavList {
+                    display: flex;
+                    flex-direction: column;
+                    height: 90%;
+
+                    li {
+                        flex: auto;
+                        width: 100%;
+                    }
+                }
+            }
+
+            #mainContent {
+                width: calc(100% - #{$desktopNavWidth});
+            }
+        }
+    }
+}
+

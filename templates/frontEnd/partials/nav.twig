@@ -1,0 +1,8 @@
+<div id='shopNavMobileButton'>
+    <div id='shopNavMobileBar1' class='shopNavMobileBars'></div>
+    <div id='siteNavMobileBar2' class='shopNavMobileBars'></div>
+    <div id='shopNavMobileBar3' class='shopNavMobileBars'></div>
+</div>
+{% include 'partials/search.twig' with {'searchType': navType } %}
+{% include 'partials/menu.twig' with {'items': menu.get_items, 'menuType': navType, 'navItemAnimation': ''} %}
+

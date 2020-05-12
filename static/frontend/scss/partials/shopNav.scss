@@ -1,10 +1,10 @@
 /*
 =====================================================
-    HEADER NAVBAR MOBILE BUTTON
+    SHOP NAV MOBILE BUTTON
 =====================================================
 */
 
-.hdrNavbarMobileBars {
+.shopNavMobileBars {
     height: 12%;
     border-radius: 5px;
     background: silver;
@@ -24,15 +24,15 @@
         cursor: auto;
     }
 
-    #hdrNavbarMobileBar1 {
+    #shopNavMobileBar1 {
         transform: rotate(-45deg) translate(-50%, 50%);
     }
 
-    #hdrNavbarMobileBar2 {
+    #shopNavMobileBar2 {
         opacity: 0;
     }
 
-    #hdrNavbarMobileBar3 {
+    #shopNavMobileBar3 {
         transform: rotate(45deg) translate(-50%, -50%);
     }
 }

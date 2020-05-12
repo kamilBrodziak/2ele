@@ -24,19 +24,19 @@ if ( ! class_exists( 'Timber' ) ) {
 Timber::$dirname = ['templates/frontEnd', 'templates/backend'];
 Timber::$autoescape = false;
 
-function activateTheme() {
-    Inc\Base\Activate::activate();
-}
-register_activation_hook( __FILE__, 'activateTheme');
-
-function deactivateTheme() {
-    Inc\Base\Deactivate::deactivate();
-}
-register_deactivation_hook( __FILE__, 'deactivateTheme');
+//function activateTheme() {
+//    Inc\Base\Activate::activate();
+//}
+//register_activation_hook( __FILE__, 'activateTheme');
+//
+//function deactivateTheme() {
+//    Inc\Base\Deactivate::deactivate();
+//}
+//register_deactivation_hook( __FILE__, 'deactivateTheme');
 
 class StarterSite extends Timber\Site {
     /** Add timber support. */
-    public function register() {
+    public function __construct() {
         add_action( 'after_setup_theme', array( $this, 'themeSupports' ) );
         add_filter( 'timber/context', array( $this, 'addToContext' ) );
         add_filter( 'timber/twig', array( $this, 'addToTwig' ) );
@@ -94,7 +94,7 @@ class StarterSite extends Timber\Site {
 
     public function addToTwig( $twig ) {
         $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
-        //        $twig->addFilter( new Twig\TwigFilter( 'myfoo', array( $this, 'myfoo' ) ) );
+//                $twig->addFilter( new Twig\TwigFilter( 'myfoo', array( $this, 'myfoo' ) ) );
         return $twig;
     }
 }

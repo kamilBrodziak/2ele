@@ -12,5 +12,5 @@ if ( is_singular( 'product' ) ) {
     //  if site category
 	$context['products'] = Timber::get_posts();
 
-	Timber::render( 'page-sklep.twig', $context );
+	Timber::render( 'page-shop.twig', $context );
 }

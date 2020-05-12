@@ -24,8 +24,8 @@ div, a, section, article {
     height: 100%;
 }
 
-html, body, #siteContainer {
-    min-height: 100%;
+html, body {
+    min-height: 100vh;
 }
 
 a {

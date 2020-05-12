@@ -1,7 +1,7 @@
 {% if menu %}
-	<ul id='{% if menuLocation %}{{ menuLocation }}NavList'{% endif %} class='navList'>
+	<ul {% if menuType %}id='{{ menuType }}NavList'{% endif %} class='navList flexCenterCenter'>
 		{% for item in items %}
-			<li class='{% if menuLocation %}{{ menuLocation }}NavListItem {% else %}navListItem {% endif %}{{ navItemAnimation }}'>
+			<li class='{% if menuType %}{{ menuType }}NavListItem {% else %}navListItem {% endif %}{{ navItemAnimation }}'>
 				<a class='textAlignCenter colorSilver flexCenterCenter fontBold'
                    href='{{ item.link }}'>{{ item.title }}</a>
 			</li>
