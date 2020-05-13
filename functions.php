@@ -60,7 +60,7 @@ class StarterSite extends Timber\Site {
     public function registerTaxonomies() {}
 
     public function addToContext( $context ) {
-        $context['menu']  = new Timber\Menu();
+        $context['menu']  = new Timber\Menu('main');
         $context['site']  = $this;
         return $context;
     }

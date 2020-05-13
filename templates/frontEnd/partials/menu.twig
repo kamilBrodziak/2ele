@@ -1,9 +1,24 @@
 {% if menu %}
-	<ul {% if menuType %}id='{{ menuType }}NavList'{% endif %} class='navList flexCenterCenter'>
+    {% set type = (menuType ~ 'NavList')|default('navList') %}
+	<ul {% if menuType %}id='{{ menuType }}NavList'{% endif %} class='navList listStyleNone'>
 		{% for item in items %}
-			<li class='{% if menuType %}{{ menuType }}NavListItem {% else %}navListItem {% endif %}{{ navItemAnimation }}'>
-				<a class='textAlignCenter colorSilver flexCenterCenter fontBold'
-                   href='{{ item.link }}'>{{ item.title }}</a>
+			<li class='{{ type }}Item {{ navItemAnimation }}'>
+				<a class='textAlignCenter colorSilver fontBold'href='{{ item.link }}'>{{ item.title }}</a>
+{#                {% include "partials/menu.twig" with {'items': item.children, 'navItemAnimation': ''} %}#}
+                {% if item.children %}
+                    <div class="{{ type }}ItemSubListExpandButton">
+                        <div id='{{ type }}ItemSubListExpandBar1' class='{{ type }}ItemSubListExpandBars'></div>
+                        <div id='{{ type }}ItemSubListExpandBar2' class='{{ type }}ItemSubListExpandBars'></div>
+                    </div>
+                    <ul class='{{ type }}ItemSubList navList listStyleNone'>
+                        {% for children in item.children %}
+                            <li class='{{ navItemAnimation }}'>
+                                <a class='textAlignCenter colorSilver flexCenterCenter fontBold'
+                                   href='{{ children.link }}'>{{ children.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 			</li>
 		{% endfor %}
 	</ul>

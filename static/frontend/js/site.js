@@ -5,98 +5,93 @@ $( function() {
     // mobileNav.addHeaderFade();
     // let emailFormHandler = new EmailFormHandler($('#ftrContactForm'), "sendUserEmail","ftrContactFormSuccessInfo" );
     // emailFormHandler.submitEvent();
+    let mobileNav = new MobileNav($('#shopNav'), 'shopNavMobileShow', $('#shopNavMobileCloseButton'));
+    mobileNav.addCloseButtonAnimation('changeMobileNavCloseButtonState');
+    mobileNav.addCloseOnResizeEvent();
+    mobileNav.addNavSubListExpandButton($('.shopNavListItemSubListExpandButton'),
+        'shopNavListItemSubList', 'showShopNavListItemSubList',
+        'shopNavListItemSubListExpandButtonAnimation');
+
 });
 
-class EmailFormHandler {
-    constructor(form, phpHandlerFuncName, successInfoId) {
-        this.form = form;
-        this.phpHandlerFuncName = phpHandlerFuncName;
-        this.successInfoId = successInfoId;
-    }
-
-    submitEvent() {
-        let self = this;
-        self.form.on('submit', function (e) {
-            e.preventDefault();
-            let form = self.form,
-                name = form.find('#ftrContactFormName').val(),
-                email = form.find('#ftrContactFormEmail').val(),
-                message = form.find('#ftrContactFormMessage').val(),
-                ajaxUrl = form.data('url');
-            self.sendEmail(name, email, message, ajaxUrl);
-        });
-    }
-
-    sendEmail(name, email, message, ajaxUrl) {
-        let self = this;
-        self.form.find("#ftrContactFormSubmit").prop("disabled", true);
-        $.ajax({
-            url: ajaxUrl,
-            type: 'post',
-            data: {
-                name: name,
-                email: email,
-                message: message,
-                action: self.phpHandlerFuncName
-            },
-            error: function (response) {
-                console.log(response);
-                self.form.find("#ftrContactFormSubmit").prop("disabled", false)
-            },
-            success: function (response) {
-                console.log(response);
-                console.log(message);
-                self.displaySuccessMessage();
-                self.form.find("#ftrContactFormSubmit").prop("disabled", false)
-            }
-        });
-    }
-
-    displaySuccessMessage() {
-        let successInfoElement = this.form.find("#" + this.successInfoId);
-        successInfoElement.css("display", "flex");
-        setTimeout(function() {
-            successInfoElement.css("display", "none");
-        }, 2000);
-    }
-}
-
-class ParallaxBgPicture {
-    constructor(parallaxBgDOM) {
-        this.parallaxBgDOM = parallaxBgDOM;
-        this.parallaxBgInitialPosY = 0;
-        this.adjustParallaxWhenBrowserResize();
-    }
-
-    setParallaxBgPosY() {
-        this.parallaxBgInitialPosY = parseFloat($("header").css('height'));
-    }
-
-    adjustParallaxWhenBrowserResize() {
-        let self = this;
-        $(window).resize(function() {
-            self.setParallaxBgPosY();
-            self.scrollParallax(parseFloat($(window).scrollTop()));
-        });
-    }
-
-    toggleParallax() {
-        let self = this;
-        this.setParallaxBgPosY();
-        this.scrollParallax($(window).scrollTop());
-        $(window).scroll(function() {
-            self.scrollParallax(this.scrollY);
-        });
-    }
-
-    scrollParallax(scrollY) {
-        let newBgPosY = this.parallaxBgInitialPosY - scrollY > 0 ? this.parallaxBgInitialPosY - scrollY : 0;
-        this.parallaxBgDOM.css("background-position-y", newBgPosY);
-    }
-}
-
-
 class MobileNav {
+    constructor(nav, showClass, closeButton) {
+        this.nav = nav;
+        this.showClass = showClass;
+        this.closeButton = closeButton;
+        this.closeButtonAnimationClass = null;
+        this.addCloseButton();
+    }
+
+    addCloseButton() {
+        let _this = this;
+        this.closeButton.on('click', function () {
+            if(_this.nav.hasClass(_this.showClass)) {
+                _this.shrinkNav();
+            } else {
+                _this.expandNav();
+            }
+        })
+    }
+
+    addNavSubListExpandButton(button, subListClass, showClass, buttonAnimationClass) {
+        let _this = this;
+        button.each( function() {
+            let b = $(this);
+            $(this).on('click', function () {
+                let subList = b.parent().children('.' + subListClass);
+                if(subList.hasClass(showClass)) {
+                    b.removeClass(buttonAnimationClass);
+                    subList.removeClass(showClass);
+                } else {
+                    console.log(b);
+                    b.addClass(buttonAnimationClass);
+                    subList.addClass(showClass);
+                }
+            })
+        });
+        // button.on('click', function() {
+        //     console.log("pp");
+        //     let subList = button.parent();
+        //     console.log($('.shopNavListItemSubListExpandButton').className);
+        //     if(subList.hasClass(showClass)) {
+        //         button.removeClass(buttonAnimationClass);
+        //         subList.removeClass(showClass);
+        //     } else {
+        //         button.addClass(buttonAnimationClass);
+        //         subList.addClass(showClass);
+        //     }
+        //
+        // })
+    }
+
+    addCloseOnResizeEvent() {
+        let _this = this;
+        $(window).on('resize', function() {
+            _this.shrinkNav();
+        });
+    }
+
+    addCloseButtonAnimation(cssClass) {
+        this.closeButtonAnimationClass = cssClass;
+    }
+
+    expandNav() {
+        this.nav.addClass(this.showClass);
+        if(this.closeButtonAnimationClass && !this.closeButton.hasClass(this.closeButtonAnimationClass)) {
+            this.closeButton.addClass(this.closeButtonAnimationClass);
+        }
+    }
+
+    shrinkNav() {
+        this.nav.removeClass(this.showClass);
+        if(this.closeButtonAnimationClass) {
+            this.closeButton.removeClass(this.closeButtonAnimationClass);
+        }
+    }
+}
+
+class MobileNavs {
     constructor(mobileNavButton, navbar, header) {
         this.mobileNavButton = mobileNavButton;
         this.navbar = navbar;
@@ -188,5 +183,93 @@ class MobileNav {
     openNav() {
         this.mobileNavButton.addClass("changeMobileNavButtonState");
         this.navbar.css("width", "70%");
+    }
+}
+
+class EmailFormHandler {
+    constructor(form, phpHandlerFuncName, successInfoId) {
+        this.form = form;
+        this.phpHandlerFuncName = phpHandlerFuncName;
+        this.successInfoId = successInfoId;
+    }
+
+    submitEvent() {
+        let self = this;
+        self.form.on('submit', function (e) {
+            e.preventDefault();
+            let form = self.form,
+                name = form.find('#ftrContactFormName').val(),
+                email = form.find('#ftrContactFormEmail').val(),
+                message = form.find('#ftrContactFormMessage').val(),
+                ajaxUrl = form.data('url');
+            self.sendEmail(name, email, message, ajaxUrl);
+        });
+    }
+
+    sendEmail(name, email, message, ajaxUrl) {
+        let self = this;
+        self.form.find("#ftrContactFormSubmit").prop("disabled", true);
+        $.ajax({
+            url: ajaxUrl,
+            type: 'post',
+            data: {
+                name: name,
+                email: email,
+                message: message,
+                action: self.phpHandlerFuncName
+            },
+            error: function (response) {
+                console.log(response);
+                self.form.find("#ftrContactFormSubmit").prop("disabled", false)
+            },
+            success: function (response) {
+                console.log(response);
+                console.log(message);
+                self.displaySuccessMessage();
+                self.form.find("#ftrContactFormSubmit").prop("disabled", false)
+            }
+        });
+    }
+
+    displaySuccessMessage() {
+        let successInfoElement = this.form.find("#" + this.successInfoId);
+        successInfoElement.css("display", "flex");
+        setTimeout(function() {
+            successInfoElement.css("display", "none");
+        }, 2000);
+    }
+}
+
+class ParallaxBgPicture {
+    constructor(parallaxBgDOM) {
+        this.parallaxBgDOM = parallaxBgDOM;
+        this.parallaxBgInitialPosY = 0;
+        this.adjustParallaxWhenBrowserResize();
+    }
+
+    setParallaxBgPosY() {
+        this.parallaxBgInitialPosY = parseFloat($("header").css('height'));
+    }
+
+    adjustParallaxWhenBrowserResize() {
+        let self = this;
+        $(window).resize(function() {
+            self.setParallaxBgPosY();
+            self.scrollParallax(parseFloat($(window).scrollTop()));
+        });
+    }
+
+    toggleParallax() {
+        let self = this;
+        this.setParallaxBgPosY();
+        this.scrollParallax($(window).scrollTop());
+        $(window).scroll(function() {
+            self.scrollParallax(this.scrollY);
+        });
+    }
+
+    scrollParallax(scrollY) {
+        let newBgPosY = this.parallaxBgInitialPosY - scrollY > 0 ? this.parallaxBgInitialPosY - scrollY : 0;
+        this.parallaxBgDOM.css("background-position-y", newBgPosY);
     }
 }
