@@ -1,11 +1,10 @@
-<div id="shopNavMobileButtonsContainer">
-    <div id="shopNavMobileBackButton" class="shopNavMobileButtons flexCenterCenter"></div>
-    <div id='shopNavMobileCloseButton' class="shopNavMobileButtons flexCenterCenter">
+<div id="shopNavTopContainer" class="flexCenterCenter">
+    {% include 'partials/search.twig' with {'searchType': navType } %}
+    <div id='shopNavMobileCloseButton' class="flexCenterCenter">
         <div id='shopNavMobileCloseButtonBar1' class='shopNavMobileBars'></div>
         <div id='shopNavMobileCloseButtonBar2' class='shopNavMobileBars'></div>
         <div id='shopNavMobileCloseButtonBar3' class='shopNavMobileBars'></div>
     </div>
 </div>
-{% include 'partials/search.twig' with {'searchType': navType } %}
 {% include 'partials/menu.twig' with {'items': menu.get_items, 'menuType': navType, 'navItemAnimation': ''} %}
 

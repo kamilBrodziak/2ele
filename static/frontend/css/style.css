@@ -157,14 +157,9 @@ input:disabled {
   z-index: 100;
   background: black;
 }
-#shopNav #shopSearch {
-  height: calc(10% - 30px);
-  display: none;
-  background: red;
-}
 #shopNav #shopNavList {
   width: 100%;
-  height: calc(90% - 30px);
+  height: calc(100% - 60px);
   flex-direction: column;
   display: none;
   overflow-y: auto;
@@ -243,9 +238,6 @@ input:disabled {
   top: 0 !important;
   left: 0 !important;
 }
-.shopNavMobileShow #shopSearch {
-  display: block !important;
-}
 .shopNavMobileShow #shopNavList {
   display: flex !important;
 }
@@ -254,10 +246,6 @@ input:disabled {
   #shopNav {
     height: 100vh;
     width: 200px;
-  }
-  #shopNav #shopSearch {
-    height: 10%;
-    display: block;
   }
   #shopNav #shopNavList {
     display: flex;
@@ -298,55 +286,52 @@ input:disabled {
 }
 /*
 =====================================================
-    SHOP NAV MOBILE BUTTONS
+    SHOP NAV TOP CONTAINER
 =====================================================
 */
-#shopNavMobileButtonsContainer {
-  display: flex;
+#shopNavTopContainer {
   flex-direction: row;
   height: 60px;
 }
-#shopNavMobileButtonsContainer .shopNavMobileButtons:first-child {
-  margin: 0 auto 0 0;
+#shopNavTopContainer #shopSearch {
+  height: 100%;
+  background: yellow;
+  width: calc(100% - 60px);
 }
-#shopNavMobileButtonsContainer .shopNavMobileButtons:last-child {
-  margin: 0 0 0 auto;
-}
-#shopNavMobileButtonsContainer .shopNavMobileButtons {
-  width: 60px;
-}
-#shopNavMobileButtonsContainer #shopNavMobileBackButton {
-  background: blue;
-  display: none;
-}
-#shopNavMobileButtonsContainer #shopNavMobileCloseButton {
+#shopNavTopContainer #shopNavMobileCloseButton {
   display: flex;
   background: red;
   flex-direction: column;
   padding: 7.5px 7.5px;
   height: 60px;
+  width: 60px;
   justify-content: space-between;
 }
-#shopNavMobileButtonsContainer .shopNavMobileBars {
+#shopNavTopContainer .shopNavMobileBars {
   height: 10px;
   width: 45px;
   border-radius: 5px;
   background: silver;
   transition: all 0.3s ease;
 }
-#shopNavMobileButtonsContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar1 {
+#shopNavTopContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar1 {
   transform: translateY(17.5px) rotate(45deg);
 }
-#shopNavMobileButtonsContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar2 {
+#shopNavTopContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar2 {
   opacity: 0;
 }
-#shopNavMobileButtonsContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar3 {
+#shopNavTopContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar3 {
   transform: translateY(-17.5px) rotate(-45deg);
 }
 
 @media screen and (min-height: 600px) and (min-width: 996px) {
-  #shopNavMobileButtonsContainer {
+  #shopNavTopContainer #shopNavMobileCloseButton {
     display: none;
+  }
+  #shopNavTopContainer #shopSearch {
+    height: 100%;
+    background: yellow;
+    width: 100%;
   }
 }
 
