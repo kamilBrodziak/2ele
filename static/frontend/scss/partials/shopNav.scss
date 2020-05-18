@@ -35,44 +35,6 @@ $menuItemAnchorFontSize: 3rem;
             flex-flow: row wrap;
             //overflow-x: hidden;
 
-            .shopNavListItemSubListExpandButton {
-                //height: 100%;
-                width: 2 * $menuItemAnchorPadding + $menuItemAnchorFontSize;
-                height: 2 * $menuItemAnchorPadding + $menuItemAnchorFontSize;
-                background: green;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-
-                .shopNavListItemSubListExpandBars {
-                    width: 50%;
-                    height: $menuItemAnchorFontSize / 4;
-                    background: silver;
-                    border-radius: 5px;
-                    transition: all 0.3s ease;
-
-                    &:first-child {
-                        transform: rotate(45deg) translateX(30%);
-                    }
-
-                    &:last-child {
-                        transform: rotate(-45deg) translateX(-30%);
-                    }
-                }
-
-                &.shopNavListItemSubListExpandButtonAnimation {
-                    .shopNavListItemSubListExpandBars {
-                        &:first-child {
-                            transform: rotate(-45deg) translateX(30%);
-                        }
-
-                        &:last-child {
-                            transform: rotate(45deg) translateX(-30%);
-                        }
-                    }
-                }
-            }
-
             a {
                 width: calc(100% - #{2 * $menuItemAnchorPadding + $menuItemAnchorFontSize});
                 display: flex;
@@ -111,20 +73,25 @@ $menuItemAnchorFontSize: 3rem;
 
         }
     }
-}
 
-.shopNavMobileShow {
-    width: 100vw !important;
-    height: 100vh !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
+    &.shopNavDisplay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: calc(var(--vh, 1vh) * 100);
 
-    #shopNavList {
-        display: flex !important;
+        #shopNavList {
+            display: flex;
+            overflow-y: auto;
+        }
     }
 }
 
+.shopNavDisplay {
+    overflow: hidden;
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+}
 
 @media screen and (min-height: 600px) and (min-width: 996px) {
     #shopNav {
@@ -139,8 +106,8 @@ $menuItemAnchorFontSize: 3rem;
             li {
                 position: relative;
 
-                .shopNavListItemSubListExpandButton {
-                    display: none;
+                a {
+                    width: 100%;
                 }
 
                 ul {
@@ -153,7 +120,7 @@ $menuItemAnchorFontSize: 3rem;
                     height: auto;
                     background: blue;
                     opacity: 0;
-                    display: flex;
+                    display: none;
                     transform: none;
 
                     li {
@@ -238,6 +205,55 @@ $mobileNavCloseButtonBarHeight: $mobileNavHeight / 6;
             background: yellow;
             width: 100%;
         }
+    }
+}
+
+/*
+=====================================================
+    SHOP NAV EXPAND BUTTON
+=====================================================
+*/
+.shopNavListItemSubListExpandButton {
+    //height: 100%;
+    width: 2 * $menuItemAnchorPadding + $menuItemAnchorFontSize;
+    height: 2 * $menuItemAnchorPadding + $menuItemAnchorFontSize;
+    background: green;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .shopNavListItemSubListExpandBars {
+        width: 50%;
+        height: $menuItemAnchorFontSize / 4;
+        background: silver;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+
+        &:first-child {
+            transform: rotate(45deg) translateX(30%);
+        }
+
+        &:last-child {
+            transform: rotate(-45deg) translateX(-30%);
+        }
+    }
+
+    &.shopNavListItemSubListExpandButtonAnimation {
+        .shopNavListItemSubListExpandBars {
+            &:first-child {
+                transform: rotate(-45deg) translateX(30%);
+            }
+
+            &:last-child {
+                transform: rotate(45deg) translateX(-30%);
+            }
+        }
+    }
+}
+
+@media screen and (min-height: 600px) and (min-width: 996px) {
+    .shopNavListItemSubListExpandButton {
+        display: none;
     }
 }
 

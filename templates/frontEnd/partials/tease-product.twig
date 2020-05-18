@@ -11,7 +11,7 @@
     <div class='teaseProductPrice textAlignCenter'>
         {% do action( 'woocommerce_after_shop_loop_item_title' ) %}
     </div>
-    <footer class='teaseProductMoreAnchorContainer buttonGradient'>
-        <a class='teaseProductMoreAnchor textAlignCenter flexCenterCenter colorSilver'>Learn more!</a>
+    <footer class='teaseProductMoreAnchorContainer flexCenterCenter'>
+        {% do action( 'woocommerce_after_shop_loop_item' ) %}
     </footer>
 </article>

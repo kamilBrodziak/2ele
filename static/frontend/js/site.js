@@ -5,7 +5,10 @@ $( function() {
     // mobileNav.addHeaderFade();
     // let emailFormHandler = new EmailFormHandler($('#ftrContactForm'), "sendUserEmail","ftrContactFormSuccessInfo" );
     // emailFormHandler.submitEvent();
-    let mobileNav = new MobileNav($('#shopNav'), 'shopNavMobileShow', $('#shopNavMobileCloseButton'));
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    let mobileNav = new MobileNav($('#shopNav'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
     mobileNav.addCloseButtonAnimation('changeMobileNavCloseButtonState');
     mobileNav.addCloseOnResizeEvent();
     mobileNav.addNavSubListExpandButton($('.shopNavListItemSubListExpandButton'),
@@ -78,6 +81,7 @@ class MobileNav {
 
     expandNav() {
         this.nav.addClass(this.showClass);
+        $('body').addClass(this.showClass);
         if(this.closeButtonAnimationClass && !this.closeButton.hasClass(this.closeButtonAnimationClass)) {
             this.closeButton.addClass(this.closeButtonAnimationClass);
         }
@@ -85,6 +89,7 @@ class MobileNav {
 
     shrinkNav() {
         this.nav.removeClass(this.showClass);
+        $('body').removeClass(this.showClass);
         if(this.closeButtonAnimationClass) {
             this.closeButton.removeClass(this.closeButtonAnimationClass);
         }

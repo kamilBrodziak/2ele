@@ -58,8 +58,8 @@ class Enqueue extends BaseController {
         wp_register_script('jquery-defer', includes_url('/js/jquery/jquery.min.js'),false, NULL, true);
         wp_dequeue_style( 'wc-block-style' );
         if(!is_product() && !is_checkout()) {
-            wp_deregister_script('woocommerce');
-            wp_deregister_script('wc-cart-fragments');
+//            wp_deregister_script('woocommerce');
+//            wp_deregister_script('wc-cart-fragments');
             wp_enqueue_script('jquery-defer');
         } else {
             wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, NULL, false);

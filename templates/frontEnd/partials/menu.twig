@@ -3,8 +3,7 @@
 	<ul {% if menuType %}id='{{ menuType }}NavList'{% endif %} class='navList listStyleNone'>
 		{% for item in items %}
 			<li class='{{ type }}Item {{ navItemAnimation }}'>
-				<a class='textAlignCenter colorSilver fontBold'href='{{ item.link }}'>{{ item.title }}</a>
-{#                {% include "partials/menu.twig" with {'items': item.children, 'navItemAnimation': ''} %}#}
+				<a class='textAlignCenter colorSilver fontBold' href='{{ item.link }}'>{{ item.title }}</a>
                 {% if item.children %}
                     <div class="{{ type }}ItemSubListExpandButton">
                         <div id='{{ type }}ItemSubListExpandBar1' class='{{ type }}ItemSubListExpandBars'></div>
