@@ -1,19 +1,13 @@
 {% extends 'base.twig' %}
 
 {% block content %}
-    <article id='page'>
-        <header id='pageHeader'>
-            <h1 id='pageTitle'>Sklep</h1>
-        </header>
-        <section id='pageContent'>
-            {{post.content}}
-            {% block products %}
-                <div id='productList'>
-                    {% for post in products %}
-                        {% include ['partials/tease-product.twig'] %}
-                    {% endfor %}
-                </div>
-            {% endblock %}
-        </section>
-    </article>
+    {{post.content}}
+    {% block products %}
+        <div id='productList'>
+            {% for post in products %}
+                {% include ['partials/tease-product.twig'] %}
+            {% endfor %}
+        </div>
+    {% endblock %}
+    {% do action('woocommerce_after_shop_loop') %}
 {% endblock %}

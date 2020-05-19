@@ -1,17 +1,20 @@
 <article {{ fn('post_class', ['$classes', 'entry', 'teaseProduct'] ) }}>
     {{ fn('timber_set_product', post) }}
-    <a class='teaseProductAnchor' href='{{ post.link }}'>
-        <figure class='teaseProductPictureContainer'>
-            <img class='teaseProductPicture' src='{{ post.thumbnail.src }}' alt='{{ post.thumbnail.alt }}'/>
-        </figure>
+    <a class='teaseProductAnchor textAlignCenter' href='{{ post.link }}' data-product_id="{{ post.id }}">
         <header class='teaseProductHeader'>
-            <h3 class='teaseProductTitle textAlignCenter'>{{ post.title }}</h3>
+            <figure class='teaseProductPictureContainer flexCenterCenter'>
+                <img class='teaseProductPicture' src='{{ post.thumbnail.src }}' alt='{{ post.thumbnail.alt }}'/>
+            </figure>
+            <h3 class='teaseProductTitle'>{{ post.title }}</h3>
         </header>
+        <div class='teaseProductPrice'>
+            <span class="teaseProductRegularPrice">{{ fn('getProductRegularPrice', post.id)|number_format(2, ',') }} zł</span>
+            {% if fn('getProductSalePrice', post.id) %}
+                <span class="teaseProductSalePrice">{{ fn('getProductSalePrice', post.id)|number_format(2, ',') }} zł</span>
+            {% endif %}
+        </div>
+        <footer class='teaseProductMoreButton flexCenterCenter'>
+            Więcej
+        </footer>
     </a>
-    <div class='teaseProductPrice textAlignCenter'>
-        {% do action( 'woocommerce_after_shop_loop_item_title' ) %}
-    </div>
-    <footer class='teaseProductMoreAnchorContainer flexCenterCenter'>
-        {% do action( 'woocommerce_after_shop_loop_item' ) %}
-    </footer>
 </article>

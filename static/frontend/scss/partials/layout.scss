@@ -33,7 +33,7 @@ $mobileNavHeight: 100px;
         flex-direction: column;
         position: relative;
 
-        #mainContent {
+        #siteMainContent {
             height: auto;
             width: 100%;
         }
@@ -51,7 +51,7 @@ $mobileNavHeight: 100px;
             flex-direction: row;
 
 
-            #mainContent {
+            #siteMainContent {
                 width: calc(100% - #{$desktopNavWidth});
             }
         }

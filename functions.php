@@ -124,7 +124,15 @@ function timber_set_product( $post ) {
 	}
 }
 
-add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
+function getProductRegularPrice($productID) {
+    return wc_get_product($productID)->get_regular_price();
+}
+
+function getProductSalePrice($productID) {
+    return wc_get_product($productID)->get_sale_price();
+}
+
+//add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
 function addToCartRedirectToCheckout() {
 	global $woocommerce;
 	return $woocommerce->cart->get_checkout_url();

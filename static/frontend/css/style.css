@@ -131,7 +131,7 @@ input:disabled {
   flex-direction: column;
   position: relative;
 }
-#siteContainer #siteMain #mainContent {
+#siteContainer #siteMain #siteMainContent {
   height: auto;
   width: 100%;
 }
@@ -143,7 +143,7 @@ input:disabled {
   #siteContainer #siteMain {
     flex-direction: row;
   }
-  #siteContainer #siteMain #mainContent {
+  #siteContainer #siteMain #siteMainContent {
     width: calc(100% - 200px);
   }
 }
@@ -157,6 +157,8 @@ input:disabled {
   height: 60px;
   position: sticky;
   display: flex;
+  top: 0;
+  left: 0;
   flex-direction: column;
   transition: all 0.3s ease;
   z-index: 100;
@@ -363,18 +365,57 @@ input:disabled {
 #productList {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  padding: 2rem;
 }
 #productList .teaseProduct {
-  width: 30%;
+  width: 200px;
   height: auto;
+  margin: 0 auto;
 }
-#productList .teaseProduct .teaseProductAnchor .teaseProductPictureContainer .teaseProductPicture {
+
+.teaseProductAnchor {
   width: 100%;
   height: auto;
 }
-#productList .teaseProduct .teaseProductPrice {
+
+.teaseProductPictureContainer {
+  height: 200px;
+  width: 200px;
+}
+
+.teaseProductPicture {
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.teaseProductTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.teaseProductTitle:hover {
+  overflow: visible;
+}
+
+.teaseProductPrice {
   height: auto;
+}
+.teaseProductPrice span {
+  width: auto;
+}
+.teaseProductPrice span:not(:only-child):first-child {
+  text-decoration: line-through;
+  padding-right: 3px;
+}
+.teaseProductPrice span:not(:only-child):last-child {
+  padding-left: 3px;
+}
+
+.teaseProductMoreButton {
+  width: 100%;
+  height: 50px;
+  background: black;
+  border-radius: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */
