@@ -9,5 +9,7 @@
             {% endfor %}
         </div>
     {% endblock %}
-    {% do action('woocommerce_after_shop_loop') %}
+    <div id="shopPagePagination">
+        {% do action('woocommerce_after_shop_loop') %}
+    </div>
 {% endblock %}
