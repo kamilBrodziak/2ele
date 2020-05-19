@@ -111,6 +111,9 @@ if(class_exists('Inc\\Init')) {
 
 
 
+function getImgDir() {
+    return get_template_directory_uri() . "/static/frontend/img";
+}
 
 /**
  * WOOCOMMERCE
@@ -132,20 +135,24 @@ function getProductSalePrice($productID) {
     return wc_get_product($productID)->get_sale_price();
 }
 
+function getCartProductsQuantity() {
+    return WC()->cart->cart_contents_count;
+}
+
 //add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
 function addToCartRedirectToCheckout() {
 	global $woocommerce;
 	return $woocommerce->cart->get_checkout_url();
 }
 
-add_filter( 'woocommerce_add_to_cart_validation', 'remove_cart_item_before_add_to_cart', 20, 3 );
+//add_filter( 'woocommerce_add_to_cart_validation', 'remove_cart_item_before_add_to_cart', 20, 3 );
 function remove_cart_item_before_add_to_cart( $passed, $product_id, $quantity ) {
 	if( ! WC()->cart->is_empty() )
 		WC()->cart->empty_cart();
 	return $passed;
 }
 
-add_filter( 'woocommerce_dropdown_variation_attribute_options_args', 'wc_remove_options_text');
+//add_filter( 'woocommerce_dropdown_variation_attribute_options_args', 'wc_remove_options_text');
 function wc_remove_options_text( $args ){
 	$args['show_option_none'] = '';
 	return $args;
@@ -157,7 +164,7 @@ function isSimpleProduct($id) {
 }
 
 
-add_filter( 'woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text' );
+//add_filter( 'woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text' );
 function woocommerce_custom_single_add_to_cart_text() {
 	return __( 'Kup teraz', 'woocommerce' );
 }
