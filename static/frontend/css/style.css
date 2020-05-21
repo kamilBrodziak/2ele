@@ -359,16 +359,62 @@ input:disabled {
 }
 /*
 =====================================================
-    SHOP PRODUCT-CATEGORY
+    PAGINATION
 =====================================================
 */
-#productList {
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10%;
+}
+
+.paginationList {
+  width: auto;
+  display: flex;
+  flex-flow: row wrap;
+  list-style: none;
+}
+.paginationList li {
+  height: 45px;
+  background: yellow;
+  margin: 5px;
+  width: 45px;
+}
+.paginationList li a, .paginationList li span, .paginationList li input {
+  height: 100%;
+  width: 100%;
+}
+.paginationList li.paginationPageInput {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+}
+.paginationList li.paginationPageInput input, .paginationList li.paginationPageInput span {
+  width: 45px;
+}
+
+/*
+=====================================================
+    PRODUCT LIST WIDGET
+=====================================================
+*/
+.productListPagination {
+  height: auto;
+}
+
+.productListWidget {
+  height: auto;
+  width: 100%;
+}
+
+.productList {
   display: flex;
   flex-flow: row wrap;
   padding: 2rem;
   height: auto;
 }
-#productList .teaseProduct {
+.productList .teaseProduct {
   width: 200px;
   height: auto;
   margin: 0 auto;
@@ -421,38 +467,23 @@ input:disabled {
 
 /*
 =====================================================
+    SHOP PRODUCT-CATEGORY
+=====================================================
+*/
+#shopPageProductListWidget {
+  height: auto;
+  width: 100%;
+  padding: 2rem;
+}
+
+/*
+=====================================================
     SHOP PRODUCT-CATEGORY PAGINATION
 =====================================================
 */
 #shopPagePagination {
   width: 100%;
   height: auto;
-  padding: 20px 10%;
-}
-
-.woocommerce-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.woocommerce-pagination ul {
-  width: auto;
-  display: flex;
-  flex-flow: row wrap;
-  list-style: none;
-}
-.woocommerce-pagination ul li {
-  width: 45px;
-  height: 45px;
-  background: yellow;
-  margin: 5px;
-}
-.woocommerce-pagination ul li a, .woocommerce-pagination ul li span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 }
 
 /*

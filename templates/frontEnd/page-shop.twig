@@ -3,15 +3,11 @@
 {% block content %}
     {{post.content}}
     {% block products %}
-        <div id='productList'>
-            {% for post in products %}
-                {% include ['partials/tease-product.twig'] %}
-            {% endfor %}
+        <div id="shopPageProductListWidget" data-category="{{ title }}">
+            {% include ['partials/productListWidget.twig'] %}
         </div>
     {% endblock %}
-    <div id="shopPagePagination">
-        {% do action('woocommerce_after_shop_loop') %}
-    </div>
+
     <div id="basketButton" class="flexCenterCenter">
         <img src="{{ fn('getImgDir') }}/basket.png" alt="Basket icon">
         <div id="basketButtonSummary" class="flexCenterCenter">{{ fn('getCartProductsQuantity') }}</div>

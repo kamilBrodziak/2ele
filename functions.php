@@ -104,6 +104,8 @@ if(class_exists('Inc\\Init')) {
     Inc\Init::registerServices();
 }
 
+require get_template_directory() . '/inc/Functions/Ajax.php';
+
 
 
 

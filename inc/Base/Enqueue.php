@@ -64,7 +64,16 @@ class Enqueue extends BaseController {
         } else {
             wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, NULL, false);
         }
-        wp_enqueue_script( 'siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.js', array('jquery-defer'), null, true );
+        wp_register_script('siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.js', array('jquery-defer'), null, true );
+        global $wp_query;
+        wp_localize_script( 'siteJS-defer', 'ajaxPaginationParams', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'posts' => json_encode( $wp_query->query_vars ),
+            'currentPage' => $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] : 1,
+            'maxPage' => $wp_query->max_num_pages,
+            'firstPage' => strtok(get_pagenum_link(1), '?')
+        ) );
+        wp_enqueue_script('siteJS-defer');
         wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.css', null, null, null);
         wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );

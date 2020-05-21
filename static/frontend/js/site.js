@@ -15,6 +15,10 @@ $( function() {
         'shopNavListItemSubList', 'showShopNavListItemSubList',
         'shopNavListItemSubListExpandButtonAnimation');
 
+    let ajaxPagination = new AjaxPagination($('.paginationLinks'), $('#shopPageProductListWidget'));
+    ajaxPagination.addAjaxPagination();
+
+
 });
 
 class MobileNav {
@@ -53,19 +57,6 @@ class MobileNav {
                 }
             })
         });
-        // button.on('click', function() {
-        //     console.log("pp");
-        //     let subList = button.parent();
-        //     console.log($('.shopNavListItemSubListExpandButton').className);
-        //     if(subList.hasClass(showClass)) {
-        //         button.removeClass(buttonAnimationClass);
-        //         subList.removeClass(showClass);
-        //     } else {
-        //         button.addClass(buttonAnimationClass);
-        //         subList.addClass(showClass);
-        //     }
-        //
-        // })
     }
 
     addCloseOnResizeEvent() {
@@ -96,98 +87,74 @@ class MobileNav {
     }
 }
 
-class MobileNavs {
-    constructor(mobileNavButton, navbar, header) {
-        this.mobileNavButton = mobileNavButton;
-        this.navbar = navbar;
-        this.header = header;
-        this.lastScrollTop = header.offset().top;
-        this.enableMobileNavbarButton();
-        this.closeNavByClickEvent();
-        this.closeNavWhenResizeEvent();
-        this.closeNavWhenScrollEvent();
-        this.changeNavMode();
+class AjaxPagination {
+    constructor(buttons, container) {
+        this.buttons = buttons;
+        this.container = container;
     }
 
-    closeNavByClickEvent() {
-        let self = this;
-        $(document).mouseup(function(e) {
-            if (self.mobileNavButton.hasClass("changeMobileNavButtonState") && !self.mobileNavButton.is(e.target) &&
-                !self.navbar.is(e.target) && self.navbar.has(e.target).length === 0) {
-                    self.closeNav();
+    addAjaxPagination() {
+        let _this = this;
+        let firstPageChange = true;
+        $('body').on('click', '.paginationLinks', function (e) {
+            e.preventDefault();
+            let page = $(this).data('page');
+            let pageUrl = ajaxPaginationParams.firstPage;
+            if(page !== 1) {
+                pageUrl = _this.updateQueryStringParameter(pageUrl, 'page', page);
             }
-        });
-    }
-
-    closeNavWhenResizeEvent() {
-        let self = this;
-        $(window).resize(function() {
-            self.changeNavMode();
-        });
-    }
-
-    closeNavWhenScrollEvent() {
-        let self = this;
-        $(window).scroll(function() {
-            if(self.mobileNavButton.css("display") !== "none") {
-                self.closeNav();
+            if(firstPageChange) {
+                window.history.pushState({"html":_this.container.html(),"pageTitle":document.title},"");
+                firstPageChange = false;
             }
+
+            $.ajax({
+                url: ajaxPaginationParams.ajaxUrl,
+                type: 'POST',
+                data: {
+                    page: page,
+                    firstPage: ajaxPaginationParams.firstPage,
+                    query: ajaxPaginationParams.posts,
+                    pageCount: ajaxPaginationParams.maxPage,
+                    category: _this.container.data('category'),
+                    action: 'changePage'
+                },
+                beforeSend: function(response) {
+
+                },
+                error: function(response) {
+                    console.log(response);
+                },
+                success: function (response) {
+                    console.log('success');
+
+                    _this.container.empty().append(response);
+                    window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
+                    let pageTitle = window.document.title;
+                    console.log(window.document.title);
+                    window.history.pushState({"html":_this.container.html(),"pageTitle":pageTitle},"", pageUrl);
+                    window.onpopstate = function(e){
+                        if(e.state){
+                            _this.container.empty().append(e.state.html);
+                            document.title = e.state.pageTitle;
+                        }
+                    };
+
+                }
+            });
+            console.log($(this).attr('href'));
         });
     }
 
-    changeNavMode() {
-        let self = this, doneCallback, promise;
-        this.mobileNavButton.removeClass("changeMobileNavButtonState");
-        if(this.mobileNavButton.css("display") === "none") {
-            promise = () => {self.navbar.removeClass("hdrNavbarMobileTransition")};
-            doneCallback = () => {self.navbar.css("width","100%")};
-        } else {
-            promise = () => {self.navbar.css("width", 0)};
-            doneCallback = () => {self.navbar.addClass("hdrNavbarMobileTransition")};
+    updateQueryStringParameter(uri, key, value) {
+        let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        let separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
         }
-        $.when(promise()).then(doneCallback);
-    }
-
-    enableMobileNavbarButton() {
-        let self = this;
-        this.mobileNavButton.on("click", function() {
-            if(parseFloat(self.navbar.css("width")) > 0) {
-                self.closeNav();
-            } else {
-                self.openNav();
-            }
-        });
-    }
-
-    headerFade() {
-        let scrollTop = $(window).scrollTop();
-        if (scrollTop <= parseFloat(this.header.css("height"))) {
-            this.header.removeClass(['stickyFade', 'stickyTransition']);
-        } else if (this.lastScrollTop >= scrollTop || scrollTop <= parseFloat(this.header.css("height"))) {
-            this.header.removeClass('stickyFade');
-            this.header.addClass('stickyTransition');
-        } else if(scrollTop > parseFloat(this.header.css("height")) ){
-            this.header.addClass(['stickyFade', 'stickyTransition']);
+        else {
+            return uri + separator + key + "=" + value;
         }
-        this.lastScrollTop = scrollTop;
-    };
-
-    addHeaderFade() {
-        this.headerFade();
-        let self = this;
-        $(window).scroll(function() {
-            self.headerFade();
-        });
-    }
-
-    closeNav() {
-        this.navbar.css("width", 0);
-        this.mobileNavButton.removeClass("changeMobileNavButtonState");
-    }
-
-    openNav() {
-        this.mobileNavButton.addClass("changeMobileNavButtonState");
-        this.navbar.css("width", "70%");
     }
 }
 

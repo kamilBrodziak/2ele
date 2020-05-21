@@ -3,68 +3,13 @@
     SHOP PRODUCT-CATEGORY
 =====================================================
 */
-$teaseProductWidth: 200px;
 
-#productList {
-    display: flex;
-    flex-flow: row wrap;
+#shopPageProductListWidget {
+    height: auto;
+    width: 100%;
     padding: 2rem;
-    height: auto;
-    .teaseProduct {
-        width: $teaseProductWidth;
-        height: auto;
-        margin: 0 auto;
-    }
 }
 
-.teaseProductAnchor {
-    width: 100%;
-    height: auto;
-}
-
-.teaseProductPictureContainer {
-    height: $teaseProductWidth;
-    width: $teaseProductWidth;
-}
-
-.teaseProductPicture {
-    max-height: $teaseProductWidth;
-    max-width: $teaseProductWidth;
-}
-
-.teaseProductTitle {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    &:hover {
-        overflow: visible;
-    }
-}
-
-.teaseProductPrice {
-    height: auto;
-    span {
-        width: auto;
-        &:not(:only-child) {
-            &:first-child {
-                text-decoration: line-through;
-                padding-right: 3px;
-            }
-
-            &:last-child {
-                padding-left: 3px;
-            }
-        }
-    }
-}
-
-.teaseProductMoreButton {
-    width: 100%;
-    height: 50px;
-    background: black;
-    border-radius: 5px;
-}
 
 
 /*
@@ -76,35 +21,9 @@ $teaseProductWidth: 200px;
 #shopPagePagination {
     width: 100%;
     height: auto;
-    padding: 20px 10%;
 }
 
-.woocommerce-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    ul {
-        width: auto;
-        display: flex;
-        flex-flow: row wrap;
-        list-style: none;
 
-        li {
-            width: 45px;
-            height: 45px;
-            background: yellow;
-            margin: 5px;
-
-            a, span {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-            }
-        }
-    }
-}
 
 /*
 =====================================================
