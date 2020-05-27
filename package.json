@@ -25,5 +25,8 @@
     "csso": "^4.0.3",
     "csso-cli": "^3.0.0",
     "google-closure-compiler": "^20200504.0.0"
+  },
+  "dependencies": {
+    "node-sass": "^4.14.1"
   }
 }

@@ -13,13 +13,16 @@ if ( is_singular( 'product' ) ) {
 	$url = "$_SERVER[REQUEST_URI]";
     $url_components = parse_url($url);
     parse_str($url_components['query'], $params);
-    echo '<script>console.log("' . $params['page'] .'")</script>';
     $context['paged'] = 1;
     if($params['page']) {
         $context['paged'] = $params['page'];
     }
 
-    if ( is_product_category() ) {
+    global $wp_query;
+    $context['maxNumPages'] = $wp_query->max_num_pages;
+
+
+    if ( is_product_category() || is_shop()) {
         $queried_object = get_queried_object();
         $term_id = $queried_object->term_id;
         $context['category'] = get_term( $term_id, 'product_cat' );
@@ -27,6 +30,7 @@ if ( is_singular( 'product' ) ) {
         global $wp_query;
         $context['maxNumPages'] = $wp_query->max_num_pages;
 //        $context['paged'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        $context['paged'] = (isset($_GET['page'])) ? $_GET['page'] : 1;
         $context['firstPage'] = strtok(esc_url_raw(get_pagenum_link(1)), '?');
         $context['products'] = Timber::get_posts([
              'post_type' => 'product',
@@ -39,6 +43,7 @@ if ( is_singular( 'product' ) ) {
          ]);
     } else {
         $context['products'] = Timber::get_posts();
+
     }
 
 

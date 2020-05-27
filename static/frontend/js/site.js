@@ -17,6 +17,7 @@ $( function() {
 
     let ajaxPagination = new AjaxPagination($('.paginationLinks'), $('#shopPageProductListWidget'));
     ajaxPagination.addAjaxPagination();
+    ajaxPagination.addAjaxInputPagination();
 
 
 });
@@ -51,7 +52,6 @@ class MobileNav {
                     b.removeClass(buttonAnimationClass);
                     subList.removeClass(showClass);
                 } else {
-                    console.log(b);
                     b.addClass(buttonAnimationClass);
                     subList.addClass(showClass);
                 }
@@ -91,68 +91,87 @@ class AjaxPagination {
     constructor(buttons, container) {
         this.buttons = buttons;
         this.container = container;
+        this.firstPageChange = true;
     }
 
     addAjaxPagination() {
         let _this = this;
-        let firstPageChange = true;
         $('body').on('click', '.paginationLinks', function (e) {
             e.preventDefault();
             let page = $(this).data('page');
-            let pageUrl = ajaxPaginationParams.firstPage;
-            if(page !== 1) {
-                pageUrl = _this.updateQueryStringParameter(pageUrl, 'page', page);
+            _this.changePage(page);
+        });
+    }
+
+    addAjaxInputPagination() {
+        let _this = this;
+        $('body').on('input', '.paginationInput', function (e) {
+            e.preventDefault();
+            if ($(this).val() > $(this).attr('max') && e.keyCode !== 46 && e.keyCode !== 8) {
+                $(this).val($(this).attr('max'));
             }
-            if(firstPageChange) {
-                window.history.pushState({"html":_this.container.html(),"pageTitle":document.title},"");
-                firstPageChange = false;
+            if ($(this).val() < $(this).attr('min') && e.keyCode !== 46 && e.keyCode !== 8) {
+                $(this).val($(this).attr('min'));
             }
+            let page = $(this).val();
+            _this.changePage(page);
+        });
+    }
 
-            $.ajax({
-                url: ajaxPaginationParams.ajaxUrl,
-                type: 'POST',
-                data: {
-                    page: page,
-                    firstPage: ajaxPaginationParams.firstPage,
-                    query: ajaxPaginationParams.posts,
-                    pageCount: ajaxPaginationParams.maxPage,
-                    category: _this.container.data('category'),
-                    action: 'changePage'
-                },
-                beforeSend: function(response) {
+    changePage(page) {
+        let _this = this;
+        let pageUrl = ajaxPaginationParams.firstPage;
+        if(page !== 1) {
+            pageUrl = this.updateQueryStringParameter(pageUrl, 'page', page);
+        }
+        if(this.firstPageChange) {
+            window.history.pushState({"html":this.container.html(),"pageTitle":document.title},"");
+            this.firstPageChange = false;
+        }
 
-                },
-                error: function(response) {
-                    console.log(response);
-                },
-                success: function (response) {
-                    console.log('success');
+        $.ajax({
+            url: ajaxPaginationParams.ajaxUrl,
+            type: 'POST',
+            data: {
+                page: page,
+                firstPage: ajaxPaginationParams.firstPage,
+                query: ajaxPaginationParams.posts,
+                pageCount: ajaxPaginationParams.maxPage,
+                category: _this.container.data('category'),
+                action: 'changePage'
+            },
+            beforeSend: function(response) {
+                _this.container.addClass('paginationLoading');
+            },
+            error: function(response) {
+                _this.container.removeClass('paginationLoading');
+                console.log(response);
+            },
+            success: function (response) {
+                _this.container.removeClass('paginationLoading');
+                _this.container.empty().append(response);
+                window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
+                window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);
+                window.onpopstate = function(e){
+                    if(e.state){
+                        _this.container.empty().append(e.state.html);
+                        document.title = e.state.pageTitle;
+                    }
+                };
 
-                    _this.container.empty().append(response);
-                    window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
-                    let pageTitle = window.document.title;
-                    console.log(window.document.title);
-                    window.history.pushState({"html":_this.container.html(),"pageTitle":pageTitle},"", pageUrl);
-                    window.onpopstate = function(e){
-                        if(e.state){
-                            _this.container.empty().append(e.state.html);
-                            document.title = e.state.pageTitle;
-                        }
-                    };
-
-                }
-            });
-            console.log($(this).attr('href'));
+            }
         });
     }
 
     updateQueryStringParameter(uri, key, value) {
+        if(parseInt(value) === 1) {
+            return uri;
+        }
         let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
         let separator = uri.indexOf('?') !== -1 ? "&" : "?";
         if (uri.match(re)) {
             return uri.replace(re, '$1' + key + "=" + value + '$2');
-        }
-        else {
+        } else {
             return uri + separator + key + "=" + value;
         }
     }
