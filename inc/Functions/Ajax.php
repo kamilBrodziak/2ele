@@ -41,10 +41,10 @@ add_action('wp_ajax_nopriv_addProductWidget', 'addProductWidget');
 add_action('wp_ajax_addProductWidget', 'addProductWidget');
 
 function addProductToCart() {
-    echo "<script>console.log('tts')</script>";
     $productID = $_POST['productID'];
     $quantity = $_POST['quantity'];
     $variationID = $_POST['variationID'];
+    echo "<script>console.log('" . $variationID . "')</script>";
     if($variationID) {
             echo "<script>console.log('tt')</script>";
         WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);

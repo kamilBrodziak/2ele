@@ -43,13 +43,15 @@ class CustomSelect {
         });
 
         $('body').on('click', '.customSelectItem', function() {
-            $(this).parent().parent().find('.customSelectSelected').html($(this).html());
+            let customSelectSelected = $(this).parent().parent().find('.customSelectSelected');
+            customSelectSelected.html($(this).html());
+            customSelectSelected.data('variation_id', $(this).data('variation_id'));
             let teaseProduct = $(this).closest('.teaseProduct');
             teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
             $(this).siblings('.sameAsSelected').removeClass('sameAsSelected');
             $(this).addClass('sameAsSelected');
-            $('.customSelect select option[selected="selected"]').removeAttr('selected');
-            $('.customSelect select option[value="' + $(this).data('variation_id') + '"]').attr('selected', 'selected');
+            // $('.customSelect select option[selected="selected"]').removeAttr('selected');
+            // $('.customSelect select option[value="' + $(this).data('variation_id') + '"]').attr('selected', 'selected');
         })
     }
 
@@ -107,7 +109,8 @@ class TeaseProducts {
             let form = $(this);
             let productID = form.data('product_id'),
                 quantity = form.find('.addToCartQuantity').val(),
-                variationID = form.find('option[selected="selected"]').val();
+                variationID = form.find('.customSelectSelected').data('variation_id');
+            console.log(variationID);
             $.ajax({
                 url: ajaxPaginationParams.ajaxUrl,
                 type: 'POST',

@@ -30,8 +30,8 @@
                                 {% endfor %}
                             </select>
                         </label>
-                        <div class="customSelectSelected">Wybierz opcję</div>
-                        <div class="customSelectItemsContainer customSelectHide" data-variation_id="{{ id }}">
+                        <div class="customSelectSelected" data-variation_id="">Wybierz opcję</div>
+                        <div class="customSelectItemsContainer customSelectHide">
                             {% for variation in variations %}
                                 <div class="customSelectItem" data-variation_id="{{ variation.id }}"
                                     data-image_src="{{ variation.imageSrc }}"
