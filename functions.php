@@ -141,6 +141,42 @@ function getCartProductsQuantity() {
     return WC()->cart->cart_contents_count;
 }
 
+function isVariableProduct($productID) {
+    $product = wc_get_product($productID);
+    return $product->is_type('variable');
+}
+
+function hasAvailableVariations($productID) {
+    $product = wc_get_product($productID);
+
+    if($product->get_available_variations()) {
+        return true;
+    }
+    return false;
+}
+
+function getProductVariations($productID) {
+    $product = wc_get_product($productID);
+    $variations = [];
+
+    $variationIDNameArray = [];
+    foreach ($product->get_available_variations() as $variation) {
+//        $variationID = $variation['variation_id'];
+//        $variationProduct = wc_get_product($variationID);
+//        $variationIDNameArray[$variationID] = $variationProduct->get_variation_attributes()['attribute_smak'];
+//        $variationIDNameArray[$variationID] = $variationProduct->get_name();
+
+        $variationID = $variation['variation_id'];
+        $variationProduct = wc_get_product($variationID);
+        $variations[] = ['id' => $variationID,
+                        'name' => $variationProduct->get_variation_attributes()['attribute_smak'],
+                        'imageSrc' => $variation['image']['url'],
+                        'price' => $variationProduct->get_price()];
+    }
+//    return $variationIDNameArray;
+    return $variations;
+}
+
 //add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
 function addToCartRedirectToCheckout() {
 	global $woocommerce;

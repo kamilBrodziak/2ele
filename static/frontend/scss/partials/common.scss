@@ -54,6 +54,77 @@
 
 /*
 =====================================================
+    CUSTOM SELECT
+=====================================================
+*/
+.customSelect {
+    position: relative;
+    height: 50px;
+}
+
+.customSelect select {
+    display: none;
+}
+
+.customSelectSelected {
+    background-color: DodgerBlue;
+}
+
+/*style the arrow inside the select element:*/
+.customSelectSelected:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.customSelectSelected.selectArrowActive:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.customSelectItem,.customSelectSelected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+}
+
+/*style items (options):*/
+.customSelectItemsContainer {
+    position: absolute;
+    background-color: DodgerBlue;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.customSelectItem {
+    height: auto;
+    padding: 15px 5px;
+}
+
+/*hide the items when the select box is closed:*/
+.customSelectHide {
+    display: none;
+}
+
+.customSelectItem:hover, .sameAsSelected {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+/*
+=====================================================
     ANIMATIONS
 =====================================================
 */

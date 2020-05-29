@@ -20,7 +20,117 @@ $( function() {
     ajaxPagination.addAjaxInputPagination();
 
 
+    let teaseProduct = new TeaseProducts($('.teaseProduct'), 'teaseProductAnchor');
+    teaseProduct.addTeaseProductDisplay();
+    teaseProduct.addForm('addToCartForm', 'basketButtonSummary');
+    // teaseProduct.addClosing();
+
+    let customSelect = new CustomSelect();
+    customSelect.showSelect();
+    customSelect.hideSelect();
 });
+
+class CustomSelect {
+    constructor() {
+
+    }
+
+    showSelect() {
+        $('body').on('click', '.customSelect', function(e) {
+            $('.customSelectItemsContainer').addClass('customSelectHide')
+            $(this).find('.customSelectItemsContainer').removeClass('customSelectHide');
+
+        });
+
+        $('body').on('click', '.customSelectItem', function() {
+            $(this).parent().parent().find('.customSelectSelected').html($(this).html());
+            let teaseProduct = $(this).closest('.teaseProduct');
+            teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
+            $(this).siblings('.sameAsSelected').removeClass('sameAsSelected');
+            $(this).addClass('sameAsSelected');
+            $('.customSelect select option[selected="selected"]').removeAttr('selected');
+            $('.customSelect select option[value="' + $(this).data('variation_id') + '"]').attr('selected', 'selected');
+        })
+    }
+
+    hideSelect() {
+        $('body').on('click', function (e) {
+            if(!e.target.className.includes('customSelectSelected')) {
+                $('.customSelectItemsContainer').addClass('customSelectHide');
+            }
+        });
+    }
+}
+
+class TeaseProducts {
+    constructor(products, anchorClass) {
+        this.product = products;
+        this.anchorClass = anchorClass;
+    }
+
+    addTeaseProductDisplay() {
+        let _this = this;
+        $('body').on('click', "." + this.anchorClass, function (e) {
+            e.preventDefault();
+            let productID = $(this).data('product_id');
+
+            // $.ajax({
+            //     url: ajaxPaginationParams.ajaxUrl,
+            //     type: 'POST',
+            //     data: {
+            //         productID: productID,
+            //         action: 'addProductWidget'
+            //     },
+            //     beforeSend: function(response) {
+            //
+            //     },
+            //     error: function(response) {
+            //     },
+            //     success: function (response) {
+            //         $('#siteContainer').append(response);
+            //     }
+            // });
+        });
+    }
+
+    addClosing() {
+        $('body').on('click', function(e) {
+            if($(e.target).attr('id') !== 'productWidgetContainer') {
+                $('#productWidget').remove();
+            }
+        });
+    }
+
+    addForm(formClass, basketID) {
+        $('body').on('submit', '.' + formClass, function (e) {
+            e.preventDefault();
+            let form = $(this);
+            let productID = form.data('product_id'),
+                quantity = form.find('.addToCartQuantity').val(),
+                variationID = form.find('option[selected="selected"]').val();
+            $.ajax({
+                url: ajaxPaginationParams.ajaxUrl,
+                type: 'POST',
+                data: {
+                    productID: productID,
+                    quantity: quantity,
+                    variationID: variationID,
+                    action: 'addProductToCart'
+                },
+                beforeSend: function(response) {
+                },
+                error: function(response) {
+                    console.log(response);
+                },
+                success: function (response) {
+                    console.log(response);
+                    let basket = $('#' + basketID);
+                    basket.html(parseInt(basket.html()) + parseInt(quantity));
+                }
+            });
+        });
+    }
+}
 
 class MobileNav {
     constructor(nav, showClass, closeButton) {
@@ -105,16 +215,18 @@ class AjaxPagination {
 
     addAjaxInputPagination() {
         let _this = this;
-        $('body').on('input', '.paginationInput', function (e) {
+        $('body').on('keyup', '.paginationInput', function (e) {
             e.preventDefault();
-            if ($(this).val() > $(this).attr('max') && e.keyCode !== 46 && e.keyCode !== 8) {
-                $(this).val($(this).attr('max'));
+            if($(this).val() !== "" && e.keyCode === 13) {
+                if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
+                    $(this).val($(this).attr('max'));
+                }
+                if (parseInt($(this).val()) < parseInt($(this).attr('min'))) {
+                    $(this).val($(this).attr('min'));
+                }
+                    let page = $(this).val();
+                    _this.changePage(page);
             }
-            if ($(this).val() < $(this).attr('min') && e.keyCode !== 46 && e.keyCode !== 8) {
-                $(this).val($(this).attr('min'));
-            }
-            let page = $(this).val();
-            _this.changePage(page);
         });
     }
 

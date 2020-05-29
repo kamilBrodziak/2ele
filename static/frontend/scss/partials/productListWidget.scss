@@ -4,7 +4,7 @@
 =====================================================
 */
 
-$teaseProductWidth: 200px;
+$teaseProductWidth: 250px;
 
 .productListPagination {
     height: auto;
@@ -67,11 +67,4 @@ $teaseProductWidth: 200px;
             }
         }
     }
-}
-
-.teaseProductMoreButton {
-    width: 100%;
-    height: 50px;
-    background: black;
-    border-radius: 5px;
 }
