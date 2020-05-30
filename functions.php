@@ -133,6 +133,32 @@ function getProductRegularPrice($productID) {
     return wc_get_product($productID)->get_regular_price();
 }
 
+function getVariableProductRegularPrice($productID) {
+    $product = wc_get_product($productID);
+    $minPrice = $product->get_variation_regular_price( 'min' );
+    $maxPrice = $product->get_variation_regular_price( 'max' );
+    if($minPrice == $maxPrice) {
+        return "".number_format($minPrice, 2)." zł";
+    } else {
+        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
+    }
+}
+
+function getVariableProductSalePrice($productID) {
+    $product = wc_get_product($productID);
+    $minPrice = $product->get_variation_sale_price( 'min' );
+    $maxPrice = $product->get_variation_sale_price( 'max' );
+    if($minPrice == $maxPrice) {
+        return "".number_format($minPrice, 2)." zł";
+    } else {
+        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
+    }
+}
+
+function getVariableProductRegularMaxPrice($productID) {
+    return wc_get_product($productID)->get_variation_regular_price( 'max' );
+}
+
 function getProductSalePrice($productID) {
     return wc_get_product($productID)->get_sale_price();
 }
@@ -159,22 +185,24 @@ function getProductVariations($productID) {
     $product = wc_get_product($productID);
     $variations = [];
 
-    $variationIDNameArray = [];
     foreach ($product->get_available_variations() as $variation) {
-//        $variationID = $variation['variation_id'];
-//        $variationProduct = wc_get_product($variationID);
-//        $variationIDNameArray[$variationID] = $variationProduct->get_variation_attributes()['attribute_smak'];
-//        $variationIDNameArray[$variationID] = $variationProduct->get_name();
-
         $variationID = $variation['variation_id'];
         $variationProduct = wc_get_product($variationID);
+        $variationAttribute = $variationProduct->get_variation_attributes();
+        $variationAttributeLabel = key($variationAttribute);
         $variations[] = ['id' => $variationID,
-                        'name' => $variationProduct->get_variation_attributes()['attribute_smak'],
+                        'name' => $variationAttribute[$variationAttributeLabel],
                         'imageSrc' => $variation['image']['url'],
                         'price' => $variationProduct->get_price()];
     }
-//    return $variationIDNameArray;
     return $variations;
+}
+
+function getProductVariationLabel($productID) {
+    $variationID = wc_get_product($productID)->get_available_variations()[0]['variation_id'];
+    $variationAttributeLabel = key(wc_get_product($variationID)->get_variation_attributes());
+    return str_replace("attribute_", "", $variationAttributeLabel);
+
 }
 
 //add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');

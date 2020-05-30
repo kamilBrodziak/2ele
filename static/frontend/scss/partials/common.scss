@@ -58,8 +58,8 @@
 =====================================================
 */
 .customSelect {
+    height: auto;
     position: relative;
-    height: 50px;
 }
 
 .customSelect select {
@@ -68,24 +68,26 @@
 
 .customSelectSelected {
     background-color: DodgerBlue;
+    height: auto;
+    position: relative;
 }
 
 /*style the arrow inside the select element:*/
 .customSelectSelected:after {
     position: absolute;
     content: "";
-    top: 14px;
+    top: calc(50% - 4px);
     right: 10px;
     width: 0;
     height: 0;
-    border: 6px solid transparent;
+    border: 8px solid transparent;
     border-color: #fff transparent transparent transparent;
 }
 
 /*point the arrow upwards when the select box is open (active):*/
 .customSelectSelected.selectArrowActive:after {
     border-color: transparent transparent #fff transparent;
-    top: 7px;
+    top: calc(50% - 12px);
 }
 
 /*style the items (options), including the selected item:*/
@@ -106,7 +108,8 @@
     left: 0;
     right: 0;
     z-index: 99;
-    height: 300px;
+    height: auto;
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -139,5 +142,24 @@
     }
     30%, 100% {
         box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+}
+
+
+/*
+=====================================================
+    BUTTONS
+=====================================================
+*/
+
+.buttonGradient {
+    height: 50px;
+    background: silver;
+    border: 5px silver groove;
+    
+    a {
+        color: black;
+        height: 100%;
+        width: 100%;
     }
 }

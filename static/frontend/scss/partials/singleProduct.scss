@@ -1,0 +1,101 @@
+$teaseProductPictureWidth: 400px;
+#singleProduct {
+    padding: 20px;
+    font-size: 2rem;
+    
+    .teaseProduct {
+        width: 100%;
+        padding: 0;
+        flex-flow: column;
+    }
+    
+    #teaseProductContentWrapper {
+        flex-flow: column;
+        * {
+            text-align: center;
+        }
+        > * {
+            width: 80%;
+        }
+    }
+    
+    .teaseProductHeader {
+        width: auto;
+    }
+    
+    .teaseProductFormQuantity {
+        width: 100%;
+        height: 50px;
+    }
+    
+    .customSelectSelected {
+        height: 50px;
+    }
+    
+    .teaseProductFormSubmitLabel, .teaseProductFormQuantityLabel {
+        height: auto;
+        display: block;
+    }
+    
+    .teaseProductFormSubmitLabel {
+        padding-top: 5px;
+    }
+    
+    .teaseProductForm {
+        width: 100%;
+    }
+    
+    .teaseProductFormSubmit {
+        width: 100%;
+        height: 80px;
+    }
+    
+    //.teaseProductPictureContainer {
+    //    width: 30%;
+    //    height: auto;
+    //
+    //    .teaseProductPicture {
+    //        width: 100%;
+    //        height: auto;
+    //        max-height: 100%;
+    //        max-width: 100%;
+    //    }
+    //}
+}
+
+@media screen and (min-width: 996px) {
+    #singleProduct {
+        .teaseProduct {
+            flex-flow: row wrap;
+        }
+        
+        #teaseProductContentWrapper {
+            width: calc(100% - #{$teaseProductPictureWidth});
+            align-items: flex-start;
+            padding-left: 20px;
+    
+            * {
+                text-align: left;
+            }
+            
+            input[type=submit] {
+                text-align: center;
+            }
+        }
+        
+        .teaseProductPictureContainer {
+            width: $teaseProductPictureWidth;
+            height: $teaseProductPictureWidth;
+            
+            
+            .teaseProductPicture {
+                max-height: $teaseProductPictureWidth;
+                max-width: $teaseProductPictureWidth;
+            }
+        }
+        
+        .teaseProductPrice {
+            width: auto;
+        }
+    }
+}

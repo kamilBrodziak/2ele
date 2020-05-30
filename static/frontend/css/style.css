@@ -25,7 +25,7 @@ html {
 
 div, a, section, article {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 html, body {
@@ -96,8 +96,8 @@ input:disabled {
 =====================================================
 */
 .customSelect {
+  height: auto;
   position: relative;
-  height: 50px;
 }
 
 .customSelect select {
@@ -106,24 +106,26 @@ input:disabled {
 
 .customSelectSelected {
   background-color: DodgerBlue;
+  height: auto;
+  position: relative;
 }
 
 /*style the arrow inside the select element:*/
 .customSelectSelected:after {
   position: absolute;
   content: "";
-  top: 14px;
+  top: calc(50% - 4px);
   right: 10px;
   width: 0;
   height: 0;
-  border: 6px solid transparent;
+  border: 8px solid transparent;
   border-color: #fff transparent transparent transparent;
 }
 
 /*point the arrow upwards when the select box is open (active):*/
 .customSelectSelected.selectArrowActive:after {
   border-color: transparent transparent #fff transparent;
-  top: 7px;
+  top: calc(50% - 12px);
 }
 
 /*style the items (options), including the selected item:*/
@@ -144,7 +146,8 @@ input:disabled {
   left: 0;
   right: 0;
   z-index: 99;
-  height: 300px;
+  height: auto;
+  max-height: 300px;
   overflow-y: auto;
 }
 
@@ -180,6 +183,22 @@ input:disabled {
     box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
   }
 }
+/*
+=====================================================
+    BUTTONS
+=====================================================
+*/
+.buttonGradient {
+  height: 50px;
+  background: silver;
+  border: 5px silver groove;
+}
+.buttonGradient a {
+  color: black;
+  height: 100%;
+  width: 100%;
+}
+
 /*
 =====================================================
     SITE LAYOUT
@@ -438,7 +457,7 @@ input:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 10%;
+  padding: 20px 0;
 }
 
 .paginationList {
@@ -462,26 +481,40 @@ input:disabled {
   display: flex;
   flex-direction: row;
 }
-.paginationList li.paginationPageInput input, .paginationList li.paginationPageInput span {
+.paginationList li.paginationPageInput input {
   width: 45px;
 }
+.paginationList li.paginationPageInput span {
+  width: auto;
+  padding: 0 4px;
+}
 
-.paginationLoading {
+.paginationNumbers, .paginationDots {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  .paginationNumbers, .paginationDots {
+    display: block;
+  }
+}
+.loadingScreen {
   position: relative;
 }
 
-.paginationLoading:before {
+.loadingScreen:before {
   display: block;
   content: "";
   background: rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1000;
   height: 100%;
   width: 100%;
 }
 
-.paginationLoading:after {
+.loadingScreen:after {
   width: 64px;
   height: 64px;
   display: block;
@@ -490,6 +523,7 @@ input:disabled {
   border-color: silver transparent silver transparent;
   border-radius: 50%;
   position: absolute;
+  z-index: 1001;
   top: calc(50% - 32px);
   left: calc(50% - 32px);
   animation: loading 1.2s linear infinite;
@@ -515,56 +549,91 @@ input:disabled {
 .productListWidget {
   height: auto;
   width: 100%;
+  font-size: 2rem;
 }
 
 .productList {
   display: flex;
   flex-flow: row wrap;
-  padding: 2rem;
+  padding: 2rem 0;
   height: auto;
 }
 .productList .teaseProduct {
-  width: 250px;
+  width: 270px;
   height: auto;
   margin: 0 auto;
 }
 
-.teaseProductAnchor {
+/*
+=====================================================
+    PRODUCT LIST WIDGET - TEASE PRODUCT
+=====================================================
+*/
+.productListWidget .teaseProduct {
+  text-align: center;
+  padding: 0 9px;
+}
+.productListWidget .teaseProductAnchor {
   width: 100%;
   height: auto;
 }
-
-.teaseProductPictureContainer {
-  height: 250px;
-  width: 250px;
+.productListWidget .teaseProductPictureContainer {
+  height: 270px;
+  width: 270px;
 }
-
-.teaseProductPicture {
-  max-height: 250px;
-  max-width: 250px;
+.productListWidget .teaseProductPicture {
+  max-height: 270px;
+  max-width: 270px;
 }
-
-.teaseProductTitle {
+.productListWidget .teaseProductTitle {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  position: relative;
+  font-size: 2rem;
 }
-.teaseProductTitle:hover {
-  overflow: visible;
-}
-
-.teaseProductPrice {
+.productListWidget .teaseProductPrice {
   height: auto;
 }
-.teaseProductPrice span {
+.productListWidget .teaseProductPrice span {
   width: auto;
 }
-.teaseProductPrice span:not(:only-child):first-child {
+.productListWidget .teaseProductPrice span:not(:only-child):first-child {
   text-decoration: line-through;
   padding-right: 3px;
 }
-.teaseProductPrice span:not(:only-child):last-child {
+.productListWidget .teaseProductPrice span:not(:only-child):last-child {
   padding-left: 3px;
+}
+.productListWidget .teaseProductForm {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+}
+.productListWidget .teaseProductForm input {
+  width: 100%;
+  height: 46px;
+  text-align: center;
+}
+.productListWidget .teaseProductForm span {
+  display: block;
+}
+.productListWidget .teaseProductForm .teaseProductFormQuantityLabel {
+  width: 24%;
+  height: auto;
+}
+.productListWidget .teaseProductForm .customSelect {
+  width: 74%;
+  height: auto;
+}
+.productListWidget .teaseProductForm .customSelect .customSelectSelected {
+  height: 46px;
+}
+.productListWidget .teaseProductForm .teaseProductFormSubmitLabel {
+  width: 100%;
+  padding: 10px 0;
+  height: auto;
 }
 
 /*
@@ -578,6 +647,11 @@ input:disabled {
   padding: 2rem;
 }
 
+@media only screen and (min-width: 600px) {
+  #shopPageProductListWidget {
+    padding: 0 6rem 0 2rem;
+  }
+}
 /*
 =====================================================
     SHOP PRODUCT-CATEGORY PAGINATION
@@ -621,6 +695,11 @@ input:disabled {
   z-index: 102;
 }
 
+/*
+=====================================================
+    PRODUCT WIDGET
+=====================================================
+*/
 #productWidget {
   position: fixed;
   top: 0;
@@ -641,6 +720,77 @@ input:disabled {
 
 .addToCartForm label {
   height: auto;
+}
+
+#singleProduct {
+  padding: 20px;
+  font-size: 2rem;
+}
+#singleProduct .teaseProduct {
+  width: 100%;
+  padding: 0;
+  flex-flow: column;
+}
+#singleProduct #teaseProductContentWrapper {
+  flex-flow: column;
+}
+#singleProduct #teaseProductContentWrapper * {
+  text-align: center;
+}
+#singleProduct #teaseProductContentWrapper > * {
+  width: 80%;
+}
+#singleProduct .teaseProductHeader {
+  width: auto;
+}
+#singleProduct .teaseProductFormQuantity {
+  width: 100%;
+  height: 50px;
+}
+#singleProduct .customSelectSelected {
+  height: 50px;
+}
+#singleProduct .teaseProductFormSubmitLabel, #singleProduct .teaseProductFormQuantityLabel {
+  height: auto;
+  display: block;
+}
+#singleProduct .teaseProductFormSubmitLabel {
+  padding-top: 5px;
+}
+#singleProduct .teaseProductForm {
+  width: 100%;
+}
+#singleProduct .teaseProductFormSubmit {
+  width: 100%;
+  height: 80px;
+}
+
+@media screen and (min-width: 996px) {
+  #singleProduct .teaseProduct {
+    flex-flow: row wrap;
+  }
+  #singleProduct #teaseProductContentWrapper {
+    width: calc(100% - 400px);
+    align-items: flex-start;
+    padding-left: 20px;
+  }
+  #singleProduct #teaseProductContentWrapper * {
+    text-align: left;
+  }
+  #singleProduct #teaseProductContentWrapper input[type=submit] {
+    text-align: center;
+  }
+  #singleProduct .teaseProductPictureContainer {
+    width: 400px;
+    height: 400px;
+  }
+  #singleProduct .teaseProductPictureContainer .teaseProductPicture {
+    max-height: 400px;
+    max-width: 400px;
+  }
+  #singleProduct .teaseProductPrice {
+    width: auto;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

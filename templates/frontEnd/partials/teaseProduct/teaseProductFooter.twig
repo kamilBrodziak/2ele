@@ -1,0 +1,33 @@
+<footer class='flexCenterCenter'>
+    <form class="teaseProductForm" action="{{ post.link }}" method="post" data-product_id="{{ post.id }}">
+        <label class="teaseProductFormQuantityLabel">
+            <span>Ilość:</span>
+            <input type="number" name="quantity" min="1" max="10" value="1" class="teaseProductFormQuantity">
+        </label>
+        {% if (isVariableProduct and fn('hasAvailableVariations', post.id)) %}
+            {% set variations = fn('getProductVariations', post.id) %}
+            <div class="customSelect">
+                {#                    <label class="customSelectLabel">#}
+                {#                        <select>#}
+                {#                            {% for id, name in variations %}#}
+                {#                                <option value="{{ id }}">{{ name }}</option>#}
+                {#                            {% endfor %}#}
+                {#                        </select>#}
+                {#                    </label>#}
+                <span>{{ fn('getProductVariationLabel', post.id)|capitalize }}:</span>
+                <div class="customSelectSelected" data-variation_id="">Wybierz opcję</div>
+                <div class="customSelectItemsContainer customSelectHide">
+                    {% for variation in variations %}
+                        <div class="customSelectItem" data-variation_id="{{ variation.id }}"
+                             data-image_src="{{ variation.imageSrc }}"
+                             data-price="{{ variation.price }}">{{ variation.name }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <label class="teaseProductFormSubmitLabel">
+            <input type="submit" class="teaseProductFormSubmit" value="Dodaj do koszyka"
+                {% if isVariableProduct %}disabled{% endif %}>
+        </label>
+    </form>
+</footer>

@@ -4,7 +4,7 @@
 =====================================================
 */
 
-$teaseProductWidth: 250px;
+$teaseProductWidth: 270px;
 
 .productListPagination {
     height: auto;
@@ -13,12 +13,13 @@ $teaseProductWidth: 250px;
 .productListWidget {
     height: auto;
     width: 100%;
+    font-size: 2rem;
 }
 
 .productList {
     display: flex;
     flex-flow: row wrap;
-    padding: 2rem;
+    padding: 2rem 0;
     height: auto;
     .teaseProduct {
         width: $teaseProductWidth;
@@ -27,44 +28,91 @@ $teaseProductWidth: 250px;
     }
 }
 
-.teaseProductAnchor {
-    width: 100%;
-    height: auto;
-}
+/*
+=====================================================
+    PRODUCT LIST WIDGET - TEASE PRODUCT
+=====================================================
+*/
 
-.teaseProductPictureContainer {
-    height: $teaseProductWidth;
-    width: $teaseProductWidth;
-}
-
-.teaseProductPicture {
-    max-height: $teaseProductWidth;
-    max-width: $teaseProductWidth;
-}
-
-.teaseProductTitle {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    &:hover {
-        overflow: visible;
+.productListWidget {
+    .teaseProduct {
+        text-align: center;
+        padding: 0 9px;
     }
-}
-
-.teaseProductPrice {
-    height: auto;
-    span {
-        width: auto;
-        &:not(:only-child) {
-            &:first-child {
-                text-decoration: line-through;
-                padding-right: 3px;
-            }
-
-            &:last-child {
-                padding-left: 3px;
+    
+    .teaseProductAnchor {
+        width: 100%;
+        height: auto;
+    }
+    
+    .teaseProductPictureContainer {
+        height: $teaseProductWidth;
+        width: $teaseProductWidth;
+    }
+    
+    .teaseProductPicture {
+        max-height: $teaseProductWidth;
+        max-width: $teaseProductWidth;
+    }
+    
+    .teaseProductTitle {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        position: relative;
+        font-size: 2rem;
+    }
+    
+    .teaseProductPrice {
+        height: auto;
+        span {
+            width: auto;
+            &:not(:only-child) {
+                &:first-child {
+                    text-decoration: line-through;
+                    padding-right: 3px;
+                }
+                
+                &:last-child {
+                    padding-left: 3px;
+                }
             }
         }
+    }
+    
+    .teaseProductForm {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        width: 100%;
+
+        input {
+            width: 100%;
+            height: 46px;
+            text-align: center;
+        }
+        span {
+            display: block;
+        }
+
+        .teaseProductFormQuantityLabel {
+            width: 24%;
+            height: auto;
+        }
+
+        .customSelect {
+            width: 74%;
+            height: auto;
+            .customSelectSelected {
+                height: 46px;
+            }
+        }
+
+        .teaseProductFormSubmitLabel {
+            width: 100%;
+            padding: 10px 0;
+            height: auto;
+        }
+
     }
 }

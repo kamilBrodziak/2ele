@@ -1,51 +1,12 @@
 <article {{ fn('post_class', ['$classes', 'entry', 'teaseProduct'] ) }}>
     {{ fn('timber_set_product', post) }}
+    {% set isVariableProduct = fn('isVariableProduct', post.id) %}
     <a class='teaseProductAnchor textAlignCenter' href='{{ post.link }}' data-product_id="{{ post.id }}">
-        <header class='teaseProductHeader'>
-            <figure class='teaseProductPictureContainer flexCenterCenter'>
-                <img class='teaseProductPicture' src='{{ post.thumbnail.src }}' alt='{{ post.thumbnail.alt }}'/>
-            </figure>
-            <h3 class='teaseProductTitle'>{{ post.title }}</h3>
-        </header>
+        {% include ['partials/teaseProduct/teaseProductHeader.twig'] %}
     </a>
-    <div class='teaseProductPrice'>
-            <span class="teaseProductRegularPrice">{{ fn('getProductRegularPrice', post.id)|number_format(2, ',') }} zł</span>
-            {% if fn('getProductSalePrice', post.id) %}
-                <span class="teaseProductSalePrice">{{ fn('getProductSalePrice', post.id)|number_format(2, ',') }} zł</span>
-            {% endif %}
-        </div>
-        <footer class='flexCenterCenter'>
-            <form class="addToCartForm" action="{{ post.link }}" method="post" data-product_id="{{ post.id }}">
-                <label>
-                    Ilość:
-                    <input type="number" name="quantity" min="1" max="10" value="1" class="addToCartQuantity">
-                </label>
-                {% if (fn('isVariableProduct', post.id) and fn('hasAvailableVariations', post.id)) %}
-                    {% set variations = fn('getProductVariations', post.id) %}
-                    <div class="customSelect">
-                        <label>
-                            <select>
-                                {% for id, name in variations %}
-                                    <option value="{{ id }}">{{ name }}</option>
-                                {% endfor %}
-                            </select>
-                        </label>
-                        <div class="customSelectSelected" data-variation_id="">Wybierz opcję</div>
-                        <div class="customSelectItemsContainer customSelectHide">
-                            {% for variation in variations %}
-                                <div class="customSelectItem" data-variation_id="{{ variation.id }}"
-                                    data-image_src="{{ variation.imageSrc }}"
-                                     data-price="{{ variation.price }}">{{ variation.name }}</div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
-                <label>
-                    <input type="submit" class="addToCartSubmit" value="Dodaj do koszyka">
-                </label>
-            </form>
-        </footer>
-{#        <div>#}
+    {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}
+    {% include ['partials/teaseProduct/teaseProductFooter.twig'] %}
+    {#        <div>#}
 {#            {% do action('woocommerce_single_product_summary') %}#}
 {#        </div>#}
 </article>

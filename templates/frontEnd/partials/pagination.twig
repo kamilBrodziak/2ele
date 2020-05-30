@@ -10,7 +10,7 @@
                        class="paginationLinks flexCenterCenter"><</a>
                 </li>
                 {% if paged - 2 > 1 and paged - 1 > 1 %}
-                    <li class="paginationFirst">
+                    <li class="paginationFirst paginationNumbers">
                         <a href="{{ firstPage }}page/{{ 1 }}"
                            data-page="{{ 1 }}" data-pageCount="{{ maxNumPages }}"
                            class="paginationLinks flexCenterCenter">1</a>
@@ -25,7 +25,7 @@
                     </li>
                 {% endfor %}
             {% endif %}
-            <li class="paginationCurrentPage">
+            <li class="paginationCurrentPage paginationNumbers">
                 <span class="flexCenterCenter">{{ paged }}</span>
             </li>
             {% if paged < maxNumPages %}
@@ -38,7 +38,7 @@
                 {% endfor %}
                 {% if paged + 2 < maxNumPages and paged + 1 < maxNumPages %}
                     <li class="paginationDots"><span class="flexCenterCenter">...</span></li>
-                    <li class="paginationLast">
+                    <li class="paginationLast paginationNumbers">
                         <a href="{{ firstPage }}page/{{ maxNumPages }}"
                            data-page="{{ maxNumPages }}" data-pageCount="{{ maxNumPages }}"
                            class="paginationLinks flexCenterCenter">{{ maxNumPages }}</a>

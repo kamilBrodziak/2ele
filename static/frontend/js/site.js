@@ -22,12 +22,12 @@ $( function() {
 
     let teaseProduct = new TeaseProducts($('.teaseProduct'), 'teaseProductAnchor');
     teaseProduct.addTeaseProductDisplay();
-    teaseProduct.addForm('addToCartForm', 'basketButtonSummary');
+    teaseProduct.addForm('teaseProductForm', 'basketButtonSummary');
     // teaseProduct.addClosing();
 
     let customSelect = new CustomSelect();
     customSelect.showSelect();
-    customSelect.hideSelect();
+    customSelect.hideSelectWhenClickedOutsideSelect();
 });
 
 class CustomSelect {
@@ -36,9 +36,14 @@ class CustomSelect {
     }
 
     showSelect() {
+        let _this = this;
         $('body').on('click', '.customSelect', function(e) {
-            $('.customSelectItemsContainer').addClass('customSelectHide')
-            $(this).find('.customSelectItemsContainer').removeClass('customSelectHide');
+            let isClosed = $(this).find('.customSelectItemsContainer').hasClass('customSelectHide')
+            _this.hideSelect();
+            if(isClosed) {
+                $(this).find('.customSelectItemsContainer').removeClass('customSelectHide');
+                $(this).find('.customSelectSelected').addClass('selectArrowActive');
+            }
 
         });
 
@@ -47,6 +52,7 @@ class CustomSelect {
             customSelectSelected.html($(this).html());
             customSelectSelected.data('variation_id', $(this).data('variation_id'));
             let teaseProduct = $(this).closest('.teaseProduct');
+            teaseProduct.find('.teaseProductFormSubmit').removeAttr('disabled');
             teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
             $(this).siblings('.sameAsSelected').removeClass('sameAsSelected');
             $(this).addClass('sameAsSelected');
@@ -55,12 +61,18 @@ class CustomSelect {
         })
     }
 
-    hideSelect() {
+    hideSelectWhenClickedOutsideSelect() {
+        let _this = this;
         $('body').on('click', function (e) {
             if(!e.target.className.includes('customSelectSelected')) {
-                $('.customSelectItemsContainer').addClass('customSelectHide');
+                _this.hideSelect();
             }
         });
+    }
+
+    hideSelect() {
+        $('.customSelectItemsContainer').addClass('customSelectHide');
+        $('.selectArrowActive').removeClass('selectArrowActive');
     }
 }
 
@@ -108,9 +120,9 @@ class TeaseProducts {
             e.preventDefault();
             let form = $(this);
             let productID = form.data('product_id'),
-                quantity = form.find('.addToCartQuantity').val(),
-                variationID = form.find('.customSelectSelected').data('variation_id');
-            console.log(variationID);
+                quantity = form.find('.teaseProductFormQuantity').val(),
+                variationID = form.find('.customSelectSelected').data('variation_id'),
+                teaseProduct = form.closest('.teaseProduct');
             $.ajax({
                 url: ajaxPaginationParams.ajaxUrl,
                 type: 'POST',
@@ -121,12 +133,15 @@ class TeaseProducts {
                     action: 'addProductToCart'
                 },
                 beforeSend: function(response) {
+                    teaseProduct.addClass('loadingScreen')
                 },
                 error: function(response) {
                     console.log(response);
+                    teaseProduct.removeClass('loadingScreen')
                 },
                 success: function (response) {
                     console.log(response);
+                    teaseProduct.removeClass('loadingScreen')
                     let basket = $('#' + basketID);
                     basket.html(parseInt(basket.html()) + parseInt(quantity));
                 }
@@ -256,14 +271,14 @@ class AjaxPagination {
                 action: 'changePage'
             },
             beforeSend: function(response) {
-                _this.container.addClass('paginationLoading');
+                _this.container.addClass('loadingScreen');
             },
             error: function(response) {
-                _this.container.removeClass('paginationLoading');
+                _this.container.removeClass('loadingScreen');
                 console.log(response);
             },
             success: function (response) {
-                _this.container.removeClass('paginationLoading');
+                _this.container.removeClass('loadingScreen');
                 _this.container.empty().append(response);
                 window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
                 window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);
