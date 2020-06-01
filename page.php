@@ -39,4 +39,15 @@ if($timber_post->post_name == "spis-tresci" ) {
 		$i++;
 	}
 }
-Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
+
+if(is_cart()) {
+    $context['products'] = getCart();
+    $context['checkoutUrl'] = getCheckoutUrl();
+    $context['cartTotal'] = getCartTotal();
+    Timber::render(array('page-cart.twig'), $context);
+//    Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
+
+} else {
+    Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
+
+}

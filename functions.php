@@ -205,6 +205,44 @@ function getProductVariationLabel($productID) {
 
 }
 
+function getCart() {
+    $cartItems = WC()->cart->get_cart();
+    $products = [];
+    foreach($cartItems as $item => $values) {
+        $product = wc_get_product($values['product_id']);
+        $productDetails = [
+            'productID' => $values['product_id'],
+            'quantity' => $values['quantity'],
+            'url' => get_permalink($values['product_id'])
+        ];
+        if($product->is_type('variable')) {
+            $variationID = $values['variation_id'];
+            $product = wc_get_product($variationID);
+            $productDetails['variationID'] = $variationID;
+        }
+        $productDetails['price'] = $product->get_price();
+        $productDetails['title'] = $product->get_name();
+        if($product->is_on_sale()) {
+            $productDetails['regularPrice'] = $product->get_regular_price();
+        }
+        $productImgID = $product->get_image_id();
+        $productDetails['imgSrc'] = wp_get_attachment_image_url($productImgID , 'full' );
+        $productDetails['imgAlt'] = get_post_meta($productImgID, '_wp_attachment_image_alt', TRUE);
+        $products[] = $productDetails;
+    }
+//    echo "<script>console.log('" . json_encode($products) . "')</script>";
+    return $products;
+//    return WC()->cart->get_cart_contents();
+}
+
+function getCheckoutUrl() {
+    return WC()->cart->get_checkout_url();
+}
+
+function getCartTotal() {
+    return WC()->cart->get_subtotal();
+}
+
 //add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
 function addToCartRedirectToCheckout() {
 	global $woocommerce;

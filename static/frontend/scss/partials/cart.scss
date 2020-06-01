@@ -1,0 +1,96 @@
+/*
+=====================================================
+    CART
+=====================================================
+*/
+$cartImgWidth: 150px;
+
+#cartWidget {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+#cartItems {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.cartItemImgTD {
+    width: $cartImgWidth;
+}
+
+
+.cartItemImgContainer {
+    height: $cartImgWidth;
+    width: $cartImgWidth;
+}
+
+.cartItemImg {
+    max-height: $cartImgWidth;
+    max-width: $cartImgWidth;
+}
+
+.cartItemQuantity {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+
+.cartItemRemove {
+    width: 50px;
+    height: 50px;
+    display: block;
+    background: linear-gradient(45deg, transparent calc(50% - 5px), #474646 calc(50% - 5px),#474646 50%,
+            #383838 50%, #383838 calc(50% + 5px), transparent calc(50% + 5px), transparent) no-repeat center / 100% 100%,
+    linear-gradient(-45deg, transparent calc(50% - 5px), #474646 calc(50% - 5px),#474646 50%, #383838 50%,
+                    #383838 calc(50% + 5px), transparent calc(50% + 5px), transparent) no-repeat center / 100% 100%;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 760px) {
+    #cartWidget {
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+    
+        thead tr {
+            display: none;
+        }
+        
+        td {
+            position: relative;
+            &:before {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                top: 0;
+                left: 0;
+                width: 30%;
+                height: 100%;
+            }
+            
+            &:first-of-type {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                
+                a {
+                    width: auto;
+                }
+            }
+            
+            &:not(:first-of-type) {
+                padding-left: 30%;
+                &:before {
+                    content: attr(data-title) ": ";
+                }
+            }
+        }
+    }
+
+}
