@@ -11,9 +11,9 @@
         </thead>
         <tbody>
         {% for product in products %}
-            <tr class="cartItem" data-product_id="{{ product.productID }}"
+            <tr class="cartItem" data-product_id="{{ product.id }}"
                 {% if product.variationID %}data-variation_id="{{ product.variationID }}"{% endif %}
-                data-product_key="{{ product.productKey }}">
+                data-product_key="{{ product.key }}">
                 <td class="cartItemImgTD">
                     <a href="{{ product.url }}">
                         <figure class="cartItemImgContainer flexCenterCenter">
@@ -46,7 +46,7 @@
                     </div>
                 </td>
                 <td data-title="Usunąć z koszyka?">
-                    <a class="cartItemRemove"></a>
+                    <a href="{{ product.removeUrl }}" class="cartItemRemove"></a>
                 </td>
             </tr>
         {% endfor %}

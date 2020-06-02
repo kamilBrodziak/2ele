@@ -202,7 +202,6 @@ function getProductVariationLabel($productID) {
     $variationID = wc_get_product($productID)->get_available_variations()[0]['variation_id'];
     $variationAttributeLabel = key(wc_get_product($variationID)->get_variation_attributes());
     return str_replace("attribute_", "", $variationAttributeLabel);
-
 }
 
 function getCart() {
@@ -211,10 +210,11 @@ function getCart() {
     foreach($cartItems as $item => $values) {
         $product = wc_get_product($values['product_id']);
         $productDetails = [
-            'productID' => $values['product_id'],
+            'id' => $values['product_id'],
             'quantity' => $values['quantity'],
             'url' => get_permalink($values['product_id']),
-            'productKey' => $values['key']
+            'key' => $values['key'],
+            'removeUrl' => wc_get_cart_remove_url($values['key'])
         ];
         if($product->is_type('variable')) {
             $variationID = $values['variation_id'];
