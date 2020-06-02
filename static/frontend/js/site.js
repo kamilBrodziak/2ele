@@ -1,8 +1,6 @@
 $( function() {
     // let parallax = new ParallaxBgPicture($('.parallaxBg'));
     // parallax.toggleParallax();
-    // let mobileNav = new MobileNav($("#hdrNavbarMobileButton"), $("#hdrNavbar"), $("#siteHeader"));
-    // mobileNav.addHeaderFade();
     // let emailFormHandler = new EmailFormHandler($('#ftrContactForm'), "sendUserEmail","ftrContactFormSuccessInfo" );
     // emailFormHandler.submitEvent();
     let vh = window.innerHeight * 0.01;
@@ -28,284 +26,39 @@ $( function() {
     let customSelect = new CustomSelect();
     customSelect.showSelect();
     customSelect.hideSelectWhenClickedOutsideSelect();
+
+    let cart = new Cart('cartPageCartWidgetContainer');
+    cart.addRemoveItemButton('cartItemRemove', 'cartItem');
+    cart.addQuantityChangeInput('cartItemQuantity', 'cartItem');
 });
 
-class CustomSelect {
-    constructor() {
-
-    }
-
-    showSelect() {
-        let _this = this;
-        $('body').on('click', '.customSelect', function(e) {
-            let isClosed = $(this).find('.customSelectItemsContainer').hasClass('customSelectHide')
-            _this.hideSelect();
-            if(isClosed) {
-                $(this).find('.customSelectItemsContainer').removeClass('customSelectHide');
-                $(this).find('.customSelectSelected').addClass('selectArrowActive');
-            }
-
-        });
-
-        $('body').on('click', '.customSelectItem', function() {
-            let customSelectSelected = $(this).parent().parent().find('.customSelectSelected');
-            customSelectSelected.html($(this).html());
-            customSelectSelected.data('variation_id', $(this).data('variation_id'));
-            let teaseProduct = $(this).closest('.teaseProduct');
-            teaseProduct.find('.teaseProductFormSubmit').removeAttr('disabled');
-            teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
-            $(this).siblings('.sameAsSelected').removeClass('sameAsSelected');
-            $(this).addClass('sameAsSelected');
-            // $('.customSelect select option[selected="selected"]').removeAttr('selected');
-            // $('.customSelect select option[value="' + $(this).data('variation_id') + '"]').attr('selected', 'selected');
-        })
-    }
-
-    hideSelectWhenClickedOutsideSelect() {
-        let _this = this;
-        $('body').on('click', function (e) {
-            if(!e.target.className.includes('customSelectSelected')) {
-                _this.hideSelect();
-            }
-        });
-    }
-
-    hideSelect() {
-        $('.customSelectItemsContainer').addClass('customSelectHide');
-        $('.selectArrowActive').removeClass('selectArrowActive');
+function addInputMinMaxTesting(input) {
+    let min = input.attr('min'), max = input.attr('max'), val = input.val();
+    if (max && parseInt(val) > parseInt(max)) {
+        input.val(max);
+    } else if (min && parseInt(val) < parseInt(min)) {
+        input.val(min);
     }
 }
 
-class TeaseProducts {
-    constructor(products, anchorClass) {
-        this.product = products;
-        this.anchorClass = anchorClass;
-    }
-
-    addTeaseProductDisplay() {
-        let _this = this;
-        $('body').on('click', "." + this.anchorClass, function (e) {
-            e.preventDefault();
-            let productID = $(this).data('product_id');
-
-            // $.ajax({
-            //     url: ajaxPaginationParams.ajaxUrl,
-            //     type: 'POST',
-            //     data: {
-            //         productID: productID,
-            //         action: 'addProductWidget'
-            //     },
-            //     beforeSend: function(response) {
-            //
-            //     },
-            //     error: function(response) {
-            //     },
-            //     success: function (response) {
-            //         $('#siteContainer').append(response);
-            //     }
-            // });
-        });
-    }
-
-    addClosing() {
-        $('body').on('click', function(e) {
-            if($(e.target).attr('id') !== 'productWidgetContainer') {
-                $('#productWidget').remove();
-            }
-        });
-    }
-
-    addForm(formClass, basketID) {
-        $('body').on('submit', '.' + formClass, function (e) {
-            e.preventDefault();
-            let form = $(this);
-            let productID = form.data('product_id'),
-                quantity = form.find('.teaseProductFormQuantity').val(),
-                variationID = form.find('.customSelectSelected').data('variation_id'),
-                teaseProduct = form.closest('.teaseProduct');
-            $.ajax({
-                url: ajaxPaginationParams.ajaxUrl,
-                type: 'POST',
-                data: {
-                    productID: productID,
-                    quantity: quantity,
-                    variationID: variationID,
-                    action: 'addProductToCart'
-                },
-                beforeSend: function(response) {
-                    teaseProduct.addClass('loadingScreen')
-                },
-                error: function(response) {
-                    console.log(response);
-                    teaseProduct.removeClass('loadingScreen')
-                },
-                success: function (response) {
-                    console.log(response);
-                    teaseProduct.removeClass('loadingScreen')
-                    let basket = $('#' + basketID);
-                    basket.html(parseInt(basket.html()) + parseInt(quantity));
-                }
-            });
-        });
-    }
+function ajaxCall(data, beforeSendFunc, errorFunc, successFunc) {
+    $.ajax({
+        url: ajaxPaginationParams.ajaxUrl,
+        type: 'POST',
+        data: data,
+        beforeSend: beforeSendFunc,
+        error: errorFunc,
+        success: successFunc
+    });
 }
 
-class MobileNav {
-    constructor(nav, showClass, closeButton) {
-        this.nav = nav;
-        this.showClass = showClass;
-        this.closeButton = closeButton;
-        this.closeButtonAnimationClass = null;
-        this.addCloseButton();
-    }
 
-    addCloseButton() {
-        let _this = this;
-        this.closeButton.on('click', function () {
-            if(_this.nav.hasClass(_this.showClass)) {
-                _this.shrinkNav();
-            } else {
-                _this.expandNav();
-            }
-        })
-    }
 
-    addNavSubListExpandButton(button, subListClass, showClass, buttonAnimationClass) {
-        let _this = this;
-        button.each( function() {
-            let b = $(this);
-            $(this).on('click', function () {
-                let subList = b.parent().children('.' + subListClass);
-                if(subList.hasClass(showClass)) {
-                    b.removeClass(buttonAnimationClass);
-                    subList.removeClass(showClass);
-                } else {
-                    b.addClass(buttonAnimationClass);
-                    subList.addClass(showClass);
-                }
-            })
-        });
-    }
 
-    addCloseOnResizeEvent() {
-        let _this = this;
-        $(window).on('resize', function() {
-            _this.shrinkNav();
-        });
-    }
 
-    addCloseButtonAnimation(cssClass) {
-        this.closeButtonAnimationClass = cssClass;
-    }
 
-    expandNav() {
-        this.nav.addClass(this.showClass);
-        $('body').addClass(this.showClass);
-        if(this.closeButtonAnimationClass && !this.closeButton.hasClass(this.closeButtonAnimationClass)) {
-            this.closeButton.addClass(this.closeButtonAnimationClass);
-        }
-    }
 
-    shrinkNav() {
-        this.nav.removeClass(this.showClass);
-        $('body').removeClass(this.showClass);
-        if(this.closeButtonAnimationClass) {
-            this.closeButton.removeClass(this.closeButtonAnimationClass);
-        }
-    }
-}
 
-class AjaxPagination {
-    constructor(buttons, container) {
-        this.buttons = buttons;
-        this.container = container;
-        this.firstPageChange = true;
-    }
-
-    addAjaxPagination() {
-        let _this = this;
-        $('body').on('click', '.paginationLinks', function (e) {
-            e.preventDefault();
-            let page = $(this).data('page');
-            _this.changePage(page);
-        });
-    }
-
-    addAjaxInputPagination() {
-        let _this = this;
-        $('body').on('keyup', '.paginationInput', function (e) {
-            e.preventDefault();
-            if($(this).val() !== "" && e.keyCode === 13) {
-                if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
-                    $(this).val($(this).attr('max'));
-                }
-                if (parseInt($(this).val()) < parseInt($(this).attr('min'))) {
-                    $(this).val($(this).attr('min'));
-                }
-                    let page = $(this).val();
-                    _this.changePage(page);
-            }
-        });
-    }
-
-    changePage(page) {
-        let _this = this;
-        let pageUrl = ajaxPaginationParams.firstPage;
-        if(page !== 1) {
-            pageUrl = this.updateQueryStringParameter(pageUrl, 'page', page);
-        }
-        if(this.firstPageChange) {
-            window.history.pushState({"html":this.container.html(),"pageTitle":document.title},"");
-            this.firstPageChange = false;
-        }
-
-        $.ajax({
-            url: ajaxPaginationParams.ajaxUrl,
-            type: 'POST',
-            data: {
-                page: page,
-                firstPage: ajaxPaginationParams.firstPage,
-                query: ajaxPaginationParams.posts,
-                pageCount: ajaxPaginationParams.maxPage,
-                category: _this.container.data('category'),
-                action: 'changePage'
-            },
-            beforeSend: function(response) {
-                _this.container.addClass('loadingScreen');
-            },
-            error: function(response) {
-                _this.container.removeClass('loadingScreen');
-                console.log(response);
-            },
-            success: function (response) {
-                _this.container.removeClass('loadingScreen');
-                _this.container.empty().append(response);
-                window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
-                window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);
-                window.onpopstate = function(e){
-                    if(e.state){
-                        _this.container.empty().append(e.state.html);
-                        document.title = e.state.pageTitle;
-                    }
-                };
-
-            }
-        });
-    }
-
-    updateQueryStringParameter(uri, key, value) {
-        if(parseInt(value) === 1) {
-            return uri;
-        }
-        let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        let separator = uri.indexOf('?') !== -1 ? "&" : "?";
-        if (uri.match(re)) {
-            return uri.replace(re, '$1' + key + "=" + value + '$2');
-        } else {
-            return uri + separator + key + "=" + value;
-        }
-    }
-}
 
 class EmailFormHandler {
     constructor(form, phpHandlerFuncName, successInfoId) {

@@ -44,12 +44,9 @@ function addProductToCart() {
     $productID = $_POST['productID'];
     $quantity = $_POST['quantity'];
     $variationID = $_POST['variationID'];
-    echo "<script>console.log('" . $variationID . "')</script>";
     if($variationID) {
-            echo "<script>console.log('tt')</script>";
         WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
     } else {
-            echo "<script>console.log('yy')</script>";
         WC()->cart->add_to_cart((int)$productID, (int)$quantity);
     }
 
@@ -57,3 +54,34 @@ function addProductToCart() {
 }
 add_action('wp_ajax_nopriv_addProductToCart', 'addProductToCart');
 add_action('wp_ajax_addProductToCart', 'addProductToCart');
+
+function removeProductFromCart() {
+    $productKey = $_POST['productKey'];
+    WC()->cart->remove_cart_item($productKey);
+
+    $context = Timber::context();
+    $context['products'] = getCart();
+    $context['checkoutUrl'] = getCheckoutUrl();
+    $context['cartTotal'] = getCartTotal();
+    wp_reset_postdata();
+    Timber::render('partials/cartWidget.twig', $context);
+    die();
+}
+
+add_action('wp_ajax_nopriv_removeProductFromCart', 'removeProductFromCart');
+add_action('wp_ajax_removeProductFromCart', 'removeProductFromCart');
+
+function changeProductQuantityInCart() {
+    $productKey = $_POST['productKey'];
+    WC()->cart->set_quantity($productKey, $_POST['quantity']);
+
+    $context = Timber::context();
+    $context['products'] = getCart();
+    $context['checkoutUrl'] = getCheckoutUrl();
+    $context['cartTotal'] = getCartTotal();
+    wp_reset_postdata();
+    Timber::render('partials/cartWidget.twig', $context);
+    die();
+}
+add_action('wp_ajax_nopriv_changeProductQuantityInCart', 'changeProductQuantityInCart');
+add_action('wp_ajax_changeProductQuantityInCart', 'changeProductQuantityInCart');

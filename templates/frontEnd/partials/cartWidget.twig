@@ -1,0 +1,60 @@
+<section id="cartWidget">
+    <table id="cartItems">
+        <thead>
+        <tr>
+            <th colspan="2">Produkt</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Kwota</th>
+            <th>Usunąć z koszyka?</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr class="cartItem" data-product_id="{{ product.productID }}"
+                {% if product.variationID %}data-variation_id="{{ product.variationID }}"{% endif %}
+                data-product_key="{{ product.productKey }}">
+                <td class="cartItemImgTD">
+                    <a href="{{ product.url }}">
+                        <figure class="cartItemImgContainer flexCenterCenter">
+                            <img class="cartItemImg" src="{{ product.imgSrc }}" alt="{{ product.imgAlt }}">
+                        </figure>
+                    </a>
+                </td>
+                <td data-title="Produkt">
+                    <a href="{{ product.url }}">
+                        <h3 class="cartItemTitle">{{ product.title }}</h3>
+                    </a>
+                </td>
+                <td data-title="Cena">
+                    <div class="cartItemPrice">
+                        {% if product.regularPrice %}
+                            <span>{{ product.regularPrice }} zł</span>
+                        {% endif %}
+                        <span>{{ product.price }} zł</span>
+                    </div>
+                </td>
+                <td data-title="Ilość">
+                    <label class="cartItemQuantityLabel">
+                        <input class="cartItemQuantity"
+                               type=number min=1 max=1000 value="{{ product.quantity }}" >
+                    </label>
+                </td>
+                <td data-title="Kwota">
+                    <div class="cartItemTotal">
+                        <span>{{ product.price * product.quantity }} zł</span>
+                    </div>
+                </td>
+                <td data-title="Usunąć z koszyka?">
+                    <a class="cartItemRemove"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <footer id="cartSummary">
+        <h3>Podsumowanie koszyka</h3>
+        <span id="cartTotal">Kwota:{{ cartTotal }} zł</span>
+        <a href="{{ checkoutUrl }}">Przejdź do zamówienia</a>
+    </footer>
+</section>

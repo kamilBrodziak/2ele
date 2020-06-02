@@ -213,7 +213,8 @@ function getCart() {
         $productDetails = [
             'productID' => $values['product_id'],
             'quantity' => $values['quantity'],
-            'url' => get_permalink($values['product_id'])
+            'url' => get_permalink($values['product_id']),
+            'productKey' => $values['key']
         ];
         if($product->is_type('variable')) {
             $variationID = $values['variation_id'];
@@ -230,7 +231,7 @@ function getCart() {
         $productDetails['imgAlt'] = get_post_meta($productImgID, '_wp_attachment_image_alt', TRUE);
         $products[] = $productDetails;
     }
-//    echo "<script>console.log('" . json_encode($products) . "')</script>";
+//    echo "<script>console.log('" . json_encode($cartItems) . "')</script>";
     return $products;
 //    return WC()->cart->get_cart_contents();
 }
