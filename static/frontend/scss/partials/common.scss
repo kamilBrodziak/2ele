@@ -3,6 +3,8 @@
     COMMON
 =====================================================
 */
+$buttonGradient: linear-gradient(black, #242424, black);
+
 :root {
 }
 
@@ -34,7 +36,7 @@
 
 .gradientButton {
     border-radius: 5px;
-    background: linear-gradient(black, #242424, black);
+    background: $buttonGradient;
     border-bottom: 5px solid #d35400;
     transition: all 0.3s ease;
     * {
@@ -134,7 +136,7 @@
     height: auto;
     position: relative;
     border-radius: 5px;
-    background: linear-gradient(black, #242424, black);
+    background: $buttonGradient;
     &:after {
         position: absolute;
         content: "";
@@ -164,7 +166,7 @@
 .customSelectItemsContainer {
     position: absolute;
     border-radius: 5px;
-    background: linear-gradient(black, #242424, black);
+    background: $buttonGradient;
     border-bottom: 5px solid #d35400;
     top: 100%;
     left: 0;

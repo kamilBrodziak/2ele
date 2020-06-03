@@ -10,7 +10,7 @@
 //                rgba(25, 25, 25, 0.5) 75%, transparent 75%),
 //        rgb(89, 14, 189);
 
-$bgGradient: linear-gradient(to top,#15152d,#29104b,#15152d);
+
 $desktopNavWidth: 200px;
 $mobileNavHeight: 100px;
 
@@ -20,11 +20,11 @@ $mobileNavHeight: 100px;
     display: grid;
     grid-template-areas: "header" "main" "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: 300px auto auto;
+    grid-template-rows: auto auto auto;
 
     #siteHeader {
         grid-area: header;
-        background: $bgGradient;
+        background: linear-gradient(45deg, #232323, #343434, #232323);
     }
 
     #siteMain {

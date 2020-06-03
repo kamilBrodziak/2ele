@@ -168,3 +168,11 @@ function getWCProducts() {
         ]
     ] );
 }
+
+function isUserLogged() {
+    return is_user_logged_in();
+}
+
+function getAccountUrl() {
+    return get_permalink( get_option('woocommerce_myaccount_page_id') );
+}
