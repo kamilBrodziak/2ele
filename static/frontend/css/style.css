@@ -78,11 +78,19 @@ input:disabled {
   list-style: none;
 }
 
+.gradientInput {
+  background: linear-gradient(black, #242424, black);
+  border: 2px solid silver;
+  border-radius: 5px;
+  color: silver;
+  text-align: center;
+}
+
 .gradientButton {
   border-radius: 5px;
   background: linear-gradient(black, #242424, black);
-  border-bottom: 5px solid #d35400;
-  transition: all 0.3s ease;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 .gradientButton * {
   color: silver;
@@ -91,11 +99,13 @@ input:disabled {
   height: 100%;
 }
 .gradientButton a, .gradientButton input[type=submit] {
-  cursor: pointer;
+  border-radius: 5px;
+  border: 0 solid #d35400;
+  border-bottom-width: 5px;
+  transition: border-bottom-width 0.3s ease;
 }
 .gradientButton a:active, .gradientButton input[type=submit]:active {
-  border-bottom: 0;
-  padding-top: 5px;
+  border-bottom-width: 0;
 }
 
 .loadingScreen {
@@ -286,6 +296,7 @@ input:disabled {
 }
 #siteContainer #siteFooter {
   grid-area: footer;
+  background: linear-gradient(45deg, #232323, #343434, #232323);
 }
 
 @media screen and (min-height: 600px) and (min-width: 996px) {
@@ -300,7 +311,7 @@ input:disabled {
   width: 100%;
   display: flex;
   flex-flow: column;
-  background: linear-gradient(170deg, black, #171717 29%, black 58%, #d35400 58%, #d35400 59%, transparent 59%);
+  background: linear-gradient(170deg, black, #171717 29%, black 57%, #d35400 58%, #d35400 calc(58% + 5px), transparent calc(59% + 5px));
 }
 
 #hdrLogo {
@@ -352,7 +363,7 @@ input:disabled {
 @media screen and (min-width: 996px) {
   #hdrContainer {
     flex-flow: row;
-    background: linear-gradient(135deg, black, #171717 32.5%, black 65%, #d35400 65%, #d35400 66%, transparent 66%);
+    background: linear-gradient(135deg, black, #171717 32.5%, black 65%, #d35400 65%, #d35400 calc(65% + 15px), transparent calc(65% + 15px));
   }
 
   #hdrLogo {
@@ -384,7 +395,7 @@ input:disabled {
   flex-direction: column;
   transition: all 0.3s ease;
   z-index: 100;
-  background: black;
+  background: linear-gradient(45deg, #232323, #343434, #232323);
 }
 #shopNav #shopNavList {
   width: 100%;
@@ -725,12 +736,6 @@ input:disabled {
   width: 24%;
   height: auto;
 }
-.productListWidget .teaseProductForm .teaseProductFormQuantity {
-  background: linear-gradient(black, #242424, black);
-  border: 2px solid silver;
-  border-radius: 5px;
-  color: silver;
-}
 .productListWidget .teaseProductForm .customSelect {
   width: 74%;
   height: auto;
@@ -745,6 +750,7 @@ input:disabled {
 }
 .productListWidget .teaseProductForm .teaseProductFormSubmit {
   font-size: 2rem;
+  height: 60px;
 }
 
 /*
@@ -851,6 +857,14 @@ input:disabled {
 #singleProduct #teaseProductContentWrapper > * {
   width: 80%;
 }
+#singleProduct .teaseProductPictureContainer {
+  width: 270px;
+  height: 270px;
+}
+#singleProduct .teaseProductPictureContainer .teaseProductPicture {
+  max-height: 270px;
+  max-width: 270px;
+}
 #singleProduct .teaseProductHeader {
   width: auto;
 }
@@ -876,6 +890,10 @@ input:disabled {
   height: 80px;
 }
 
+#singleProductBuyRedirect {
+  height: 80px;
+}
+
 @media screen and (min-width: 996px) {
   #singleProduct .teaseProduct {
     flex-flow: row wrap;
@@ -885,7 +903,7 @@ input:disabled {
     align-items: flex-start;
     padding-left: 20px;
   }
-  #singleProduct #teaseProductContentWrapper * {
+  #singleProduct #teaseProductContentWrapper *:not(input) {
     text-align: left;
   }
   #singleProduct #teaseProductContentWrapper input[type=submit] {

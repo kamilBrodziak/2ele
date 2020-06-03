@@ -18,7 +18,7 @@ $menuItemAnchorFontSize: 3rem;
     flex-direction: column;
     transition: all 0.3s ease;
     z-index: 100;
-    background: black;
+    background: linear-gradient(45deg, #232323, #343434, #232323);
     //justify-content: space-between;
 
     #shopNavList {

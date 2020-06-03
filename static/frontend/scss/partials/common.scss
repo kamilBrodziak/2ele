@@ -34,11 +34,19 @@ $buttonGradient: linear-gradient(black, #242424, black);
     list-style: none;
 }
 
+.gradientInput {
+    background: linear-gradient(black, #242424, black);
+    border: 2px solid silver;
+    border-radius: 5px;
+    color: silver;
+    text-align: center;
+}
+
 .gradientButton {
     border-radius: 5px;
     background: $buttonGradient;
-    border-bottom: 5px solid #d35400;
-    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
     * {
         color: silver;
         background: none;
@@ -46,16 +54,18 @@ $buttonGradient: linear-gradient(black, #242424, black);
         height: 100%;
     }
     
-    &:hover:after {
-    
-    }
     a, input[type=submit] {
-        cursor: pointer;
+        border-radius: 5px;
+        border: 0 solid #d35400;
+        border-bottom-width: 5px;
+        transition: border-bottom-width 0.3s ease;
+    
         &:active {
-            border-bottom: 0;
-            padding-top: 5px;
+            border-bottom-width: 0;
         }
     }
+    
+
 }
 
 .loadingScreen {

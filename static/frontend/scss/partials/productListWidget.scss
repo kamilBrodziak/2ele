@@ -103,13 +103,6 @@ $teaseProductPictureWidth: $teaseProductWidth - 2 * $teaseProductHorizontalPaddi
             width: 24%;
             height: auto;
         }
-        
-        .teaseProductFormQuantity {
-            background: linear-gradient(black, #242424, black);
-            border: 2px solid silver;
-            border-radius: 5px;
-            color: silver;
-        }
 
         .customSelect {
             width: 74%;
@@ -127,6 +120,7 @@ $teaseProductPictureWidth: $teaseProductWidth - 2 * $teaseProductHorizontalPaddi
     
         .teaseProductFormSubmit {
             font-size: 2rem;
+            height: 60px;
         }
 
     }

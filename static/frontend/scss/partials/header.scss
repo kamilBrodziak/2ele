@@ -1,5 +1,7 @@
-$bgMobileGradient: linear-gradient(170deg, black, #171717 29%, black 58%, #d35400 58%, #d35400 59%, transparent 59%);
-$bgDesktopGradient: linear-gradient(135deg, black, #171717 32.5%, black 65%, #d35400 65%, #d35400 66%, transparent 66%);
+$bgMobileGradient: linear-gradient(170deg, black, #171717 29%, black 57%,
+        #d35400 58%, #d35400 calc(58% + 5px), transparent calc(59% + 5px));
+$bgDesktopGradient: linear-gradient(135deg, black, #171717 32.5%, black 65%,
+        #d35400 65%, #d35400 calc(65% + 15px), transparent calc(65% + 15px));
 
 #hdrContainer {
     width: 100%;

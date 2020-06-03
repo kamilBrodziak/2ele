@@ -2,7 +2,7 @@
     <form class="teaseProductForm" action="{{ post.link }}" method="post" data-product_id="{{ post.id }}">
         <label class="teaseProductFormQuantityLabel">
             <span>Ilość:</span>
-            <input type="number" name="quantity" min="1" max="10" value="1" class="teaseProductFormQuantity">
+            <input type="number" name="quantity" min="1" max="10" value="1" class="teaseProductFormQuantity gradientInput">
         </label>
         {% if (isVariableProduct and fn('hasAvailableVariations', post.id)) %}
             {% set variations = fn('getProductVariations', post.id) %}
