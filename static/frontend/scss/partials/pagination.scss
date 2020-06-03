@@ -3,6 +3,8 @@
     PAGINATION
 =====================================================
 */
+$paginationFontSize: 2rem;
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -18,14 +20,9 @@
 
     li {
         height: 45px;
-        background: yellow;
         margin: 5px;
         width: 45px;
-
-        a, span, input {
-            height: 100%;
-            width: 100%;
-        }
+        font-size: $paginationFontSize;
 
         &.paginationPageInput {
             width: auto;
@@ -34,6 +31,10 @@
 
             input {
                 width: 45px;
+                height: 100%;
+                border: 0;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
             }
 
             span {
@@ -54,42 +55,10 @@
     }
 }
 
-.loadingScreen {
-    position: relative;
-}
-
-.loadingScreen:before {
-    display: block;
-    content: '';
-    background: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    height: 100%;
-    width: 100%;
-}
-
-.loadingScreen:after {
-    width: 64px;
-    height: 64px;
-    display: block;
-    content: '';
-    border: 6px solid silver;
-    border-color: silver transparent silver transparent;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 1001;
-    top: calc(50% - 32px);
-    left: calc(50% - 32px);
-    animation: loading 1.2s linear infinite;
-}
-
-@keyframes loading {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
+.paginationCurrentPage {
+    font-weight: bolder;
+    cursor: default;
+    span {
+        font-size: $paginationFontSize + 0.5rem;
     }
 }

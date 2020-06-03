@@ -4,38 +4,34 @@
             {% set pageLink = fn('esc_url_raw', fn('get_pagenum_link', 1 )) %}
             {% set dataUrl = fn('admin_url', 'admin-ajax.php') %}
             {% if paged > 1 %}
-                <li class="paginationPrev">
+                <li class="paginationPrev gradientButton">
                     <a href="{{ firstPage }}page/{{ max(1, paged - 1) }}"
                        data-page="{{ max(1, paged - 1) }}" data-pageCount="{{ maxNumPages }}"
                        class="paginationLinks flexCenterCenter"><</a>
                 </li>
                 {% if paged - 2 > 1 and paged - 1 > 1 %}
-                    <li class="paginationFirst paginationNumbers">
+                    <li class="paginationFirst paginationNumbers gradientButton">
                         <a href="{{ firstPage }}page/{{ 1 }}"
                            data-page="{{ 1 }}" data-pageCount="{{ maxNumPages }}"
                            class="paginationLinks flexCenterCenter">1</a>
                     </li>
                     <li class="paginationDots"><span class="flexCenterCenter">...</span></li>
                 {% endif %}
-                {% for i in range(max(paged-2, 1), max(paged - 1, 1)) %}
-                    <li class="paginationNumbers">
-                        <a href="{{ firstPage }}page/{{ i }}"
-                           data-page="{{ i }}" data-pageCount="{{ maxNumPages }}"
-                           class="paginationLinks flexCenterCenter">{{ i }}</a>
-                    </li>
-                {% endfor %}
             {% endif %}
-            <li class="paginationCurrentPage paginationNumbers">
-                <span class="flexCenterCenter">{{ paged }}</span>
-            </li>
-            {% if paged < maxNumPages %}
-                {% for i in range(min(paged+1, maxNumPages), min(paged+2, maxNumPages)) %}
-                    <li class="paginationNumbers">
+            {% for i in range(max(paged-2, 1), min(paged+2, maxNumPages)) %}
+                {% if paged == i %}
+                    <li class="paginationCurrentPage paginationNumbers gradientButton">
+                        <span class="flexCenterCenter">{{ paged }}</span>
+                    </li>
+                {% else %}
+                    <li class="paginationNumbers gradientButton">
                         <a href="{{ firstPage }}page/{{ i }}"
                            data-page="{{ i }}" data-pageCount="{{ maxNumPages }}"
                            class="paginationLinks flexCenterCenter">{{ i }}</a>
                     </li>
-                {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% if paged < maxNumPages %}
                 {% if paged + 2 < maxNumPages and paged + 1 < maxNumPages %}
                     <li class="paginationDots"><span class="flexCenterCenter">...</span></li>
                     <li class="paginationLast paginationNumbers">
@@ -45,14 +41,14 @@
                     </li>
                 {% endif %}
             {% endif %}
-                <li class="paginationPageInput">
+                <li class="paginationPageInput gradientButton">
                     <span class="flexCenterCenter">Strona </span>
                     <input type="number" value="{{ paged }}" min="1" max="{{ maxNumPages }}" class="paginationInput textAlignCenter">
                     <span class="flexCenterCenter">z </span>
                     <span class="flexCenterCenter">{{ maxNumPages }}</span>
                 </li>
             {% if paged < maxNumPages %}
-                <li class="paginationNext">
+                <li class="paginationNext gradientButton">
                     <a href="{{ firstPage }}page/{{ min(maxNumPages, paged + 1) }}"
                        data-page="{{ min(maxNumPages, paged + 1) }}" data-pageCount="{{ maxNumPages }}"
                        class="paginationLinks flexCenterCenter">></a>

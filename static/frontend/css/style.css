@@ -78,6 +78,65 @@ input:disabled {
   list-style: none;
 }
 
+.gradientButton {
+  border-radius: 5px;
+  background: linear-gradient(black, #242424, black);
+  border-bottom: 5px solid #d35400;
+  transition: all 0.3s ease;
+}
+.gradientButton * {
+  color: silver;
+  background: none;
+  width: 100%;
+  height: 100%;
+}
+.gradientButton a, .gradientButton input[type=submit] {
+  cursor: pointer;
+}
+.gradientButton a:active, .gradientButton input[type=submit]:active {
+  border-bottom: 0;
+  padding-top: 5px;
+}
+
+.loadingScreen {
+  position: relative;
+}
+
+.loadingScreen:before {
+  display: block;
+  content: "";
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+}
+
+.loadingScreen:after {
+  width: 64px;
+  height: 64px;
+  display: block;
+  content: "";
+  border: 6px solid silver;
+  border-color: silver transparent silver transparent;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1001;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  animation: loading 1.2s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /*
 =====================================================
     NEWSLETTER
@@ -105,12 +164,11 @@ input:disabled {
 }
 
 .customSelectSelected {
-  background-color: DodgerBlue;
   height: auto;
   position: relative;
+  border-radius: 5px;
+  background: linear-gradient(black, #242424, black);
 }
-
-/*style the arrow inside the select element:*/
 .customSelectSelected:after {
   position: absolute;
   content: "";
@@ -121,8 +179,6 @@ input:disabled {
   border: 8px solid transparent;
   border-color: #fff transparent transparent transparent;
 }
-
-/*point the arrow upwards when the select box is open (active):*/
 .customSelectSelected.selectArrowActive:after {
   border-color: transparent transparent #fff transparent;
   top: calc(50% - 12px);
@@ -130,7 +186,7 @@ input:disabled {
 
 /*style the items (options), including the selected item:*/
 .customSelectItem, .customSelectSelected {
-  color: #ffffff;
+  color: silver;
   padding: 8px 16px;
   border: 1px solid transparent;
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
@@ -138,10 +194,11 @@ input:disabled {
   user-select: none;
 }
 
-/*style items (options):*/
 .customSelectItemsContainer {
   position: absolute;
-  background-color: DodgerBlue;
+  border-radius: 5px;
+  background: linear-gradient(black, #242424, black);
+  border-bottom: 5px solid #d35400;
   top: 100%;
   left: 0;
   right: 0;
@@ -154,15 +211,16 @@ input:disabled {
 .customSelectItem {
   height: auto;
   padding: 15px 5px;
+  border: 0 solid silver;
+  border-width: 1px 0;
 }
 
-/*hide the items when the select box is closed:*/
 .customSelectHide {
   display: none;
 }
 
 .customSelectItem:hover, .sameAsSelected {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /*
@@ -468,13 +526,9 @@ input:disabled {
 }
 .paginationList li {
   height: 45px;
-  background: yellow;
   margin: 5px;
   width: 45px;
-}
-.paginationList li a, .paginationList li span, .paginationList li input {
-  height: 100%;
-  width: 100%;
+  font-size: 2rem;
 }
 .paginationList li.paginationPageInput {
   width: auto;
@@ -483,6 +537,10 @@ input:disabled {
 }
 .paginationList li.paginationPageInput input {
   width: 45px;
+  height: 100%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 }
 .paginationList li.paginationPageInput span {
   width: auto;
@@ -498,45 +556,14 @@ input:disabled {
     display: block;
   }
 }
-.loadingScreen {
-  position: relative;
+.paginationCurrentPage {
+  font-weight: bolder;
+  cursor: default;
+}
+.paginationCurrentPage span {
+  font-size: 2.5rem;
 }
 
-.loadingScreen:before {
-  display: block;
-  content: "";
-  background: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  height: 100%;
-  width: 100%;
-}
-
-.loadingScreen:after {
-  width: 64px;
-  height: 64px;
-  display: block;
-  content: "";
-  border: 6px solid silver;
-  border-color: silver transparent silver transparent;
-  border-radius: 50%;
-  position: absolute;
-  z-index: 1001;
-  top: calc(50% - 32px);
-  left: calc(50% - 32px);
-  animation: loading 1.2s linear infinite;
-}
-
-@keyframes loading {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 /*
 =====================================================
     PRODUCT LIST WIDGET
@@ -578,12 +605,12 @@ input:disabled {
   height: auto;
 }
 .productListWidget .teaseProductPictureContainer {
-  height: 270px;
-  width: 270px;
+  height: 252px;
+  width: 252px;
 }
 .productListWidget .teaseProductPicture {
-  max-height: 270px;
-  max-width: 270px;
+  max-height: 252px;
+  max-width: 252px;
 }
 .productListWidget .teaseProductTitle {
   overflow: hidden;
@@ -591,9 +618,11 @@ input:disabled {
   white-space: nowrap;
   position: relative;
   font-size: 2rem;
+  color: black;
 }
 .productListWidget .teaseProductPrice {
   height: auto;
+  font-size: 1.8rem;
 }
 .productListWidget .teaseProductPrice span {
   width: auto;
@@ -623,6 +652,12 @@ input:disabled {
   width: 24%;
   height: auto;
 }
+.productListWidget .teaseProductForm .teaseProductFormQuantity {
+  background: linear-gradient(black, #242424, black);
+  border: 2px solid silver;
+  border-radius: 5px;
+  color: silver;
+}
 .productListWidget .teaseProductForm .customSelect {
   width: 74%;
   height: auto;
@@ -632,8 +667,11 @@ input:disabled {
 }
 .productListWidget .teaseProductForm .teaseProductFormSubmitLabel {
   width: 100%;
-  padding: 10px 0;
+  margin: 10px 0;
   height: auto;
+}
+.productListWidget .teaseProductForm .teaseProductFormSubmit {
+  font-size: 2rem;
 }
 
 /*
@@ -801,6 +839,7 @@ input:disabled {
   width: 100%;
   height: auto;
   padding: 20px;
+  font-size: 2rem;
 }
 
 #cartItems {
@@ -838,12 +877,28 @@ input:disabled {
   margin: auto;
 }
 
-@media only screen and (max-width: 760px) {
+#cartSummary h3 {
+  height: 3em;
+  background: #383838;
+  color: silver;
+}
+#cartSummary span {
+  height: 2em;
+}
+#cartSummary a {
+  height: 5em;
+  font-size: 2.5rem;
+}
+
+@media only screen and (max-width: 700px) {
   #cartWidget table, #cartWidget thead, #cartWidget tbody, #cartWidget th, #cartWidget td, #cartWidget tr {
     display: block;
   }
   #cartWidget thead tr {
     display: none;
+  }
+  #cartWidget tbody tr {
+    padding-bottom: 20px;
   }
   #cartWidget td {
     position: relative;

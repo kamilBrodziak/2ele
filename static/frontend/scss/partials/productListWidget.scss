@@ -5,6 +5,8 @@
 */
 
 $teaseProductWidth: 270px;
+$teaseProductHorizontalPadding: 9px;
+$teaseProductPictureWidth: $teaseProductWidth - 2 * $teaseProductHorizontalPadding;
 
 .productListPagination {
     height: auto;
@@ -37,7 +39,7 @@ $teaseProductWidth: 270px;
 .productListWidget {
     .teaseProduct {
         text-align: center;
-        padding: 0 9px;
+        padding: 0 $teaseProductHorizontalPadding;
     }
     
     .teaseProductAnchor {
@@ -46,13 +48,13 @@ $teaseProductWidth: 270px;
     }
     
     .teaseProductPictureContainer {
-        height: $teaseProductWidth;
-        width: $teaseProductWidth;
+        height: $teaseProductPictureWidth;
+        width: $teaseProductPictureWidth;
     }
     
     .teaseProductPicture {
-        max-height: $teaseProductWidth;
-        max-width: $teaseProductWidth;
+        max-height: $teaseProductPictureWidth;
+        max-width: $teaseProductPictureWidth;
     }
     
     .teaseProductTitle {
@@ -61,10 +63,12 @@ $teaseProductWidth: 270px;
         white-space: nowrap;
         position: relative;
         font-size: 2rem;
+        color: black;
     }
     
     .teaseProductPrice {
         height: auto;
+        font-size: 1.8rem;
         span {
             width: auto;
             &:not(:only-child) {
@@ -99,6 +103,13 @@ $teaseProductWidth: 270px;
             width: 24%;
             height: auto;
         }
+        
+        .teaseProductFormQuantity {
+            background: linear-gradient(black, #242424, black);
+            border: 2px solid silver;
+            border-radius: 5px;
+            color: silver;
+        }
 
         .customSelect {
             width: 74%;
@@ -110,8 +121,12 @@ $teaseProductWidth: 270px;
 
         .teaseProductFormSubmitLabel {
             width: 100%;
-            padding: 10px 0;
+            margin: 10px 0;
             height: auto;
+        }
+    
+        .teaseProductFormSubmit {
+            font-size: 2rem;
         }
 
     }
