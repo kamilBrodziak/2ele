@@ -21,7 +21,7 @@ $( function() {
     let teaseProduct = new TeaseProducts($('.teaseProduct'), 'teaseProductAnchor');
     teaseProduct.addTeaseProductDisplay();
     teaseProduct.addForm('teaseProductForm', 'basketButtonSummary');
-    // teaseProduct.addClosing();
+    teaseProduct.addClosing();
 
     let customSelect = new CustomSelect();
     customSelect.showSelect();

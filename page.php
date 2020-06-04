@@ -47,6 +47,9 @@ if(is_cart()) {
     Timber::render(array('page-cart.twig'), $context);
 //    Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 
+} else if(is_account_page() || is_checkout()) {
+    Timber::render(array('page-login.twig'), $context);
+
 } else {
     Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 

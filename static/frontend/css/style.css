@@ -1021,5 +1021,95 @@ input:disabled {
     content: attr(data-title) ": ";
   }
 }
+#customWoocommerce {
+  font-size: 2rem;
+  padding: 20px;
+  text-align: center;
+}
+#customWoocommerce h2 {
+  font-size: 3rem;
+}
+#customWoocommerce input {
+  height: 50px;
+}
+#customWoocommerce input[type=checkbox], #customWoocommerce input[type=radio] {
+  width: 50px;
+}
+#customWoocommerce input:not([type=checkbox]):not([type=radio]) {
+  width: 50%;
+  min-width: 200px;
+}
+#customWoocommerce .woocommerce-form-row, #customWoocommerce .form-row {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+#customWoocommerce .woocommerce-privacy-policy-text, #customWoocommerce #billing_country_field, #customWoocommerce #shipping_country_field {
+  display: flex;
+  justify-content: center;
+}
+#customWoocommerce .woocommerce-privacy-policy-text > *, #customWoocommerce #billing_country_field > *, #customWoocommerce #shipping_country_field > * {
+  width: 50%;
+  min-width: 200px;
+}
+#customWoocommerce .woocommerce-input-wrapper {
+  width: 100%;
+}
+#customWoocommerce .woocommerce-input-wrapper textarea {
+  width: 50%;
+  min-width: 200px;
+  height: 100px;
+  resize: vertical;
+}
+#customWoocommerce .woocommerce-button, #customWoocommerce .select2-container {
+  height: 50px;
+  width: 50%;
+  min-width: 200px;
+}
+#customWoocommerce table {
+  margin: 0 auto;
+}
+#customWoocommerce #shipping_method {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  list-style: none;
+}
+#customWoocommerce #shipping_method li {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+#customWoocommerce #shipping_method li label {
+  padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#customWoocommerce .wc_payment_methods {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  list-style: none;
+}
+#customWoocommerce .wc_payment_methods li {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  width: 50%;
+  min-width: 200px;
+}
+#customWoocommerce .wc_payment_methods li label {
+  padding-left: 15px;
+}
+#customWoocommerce button {
+  width: 50%;
+  min-width: 200px;
+  height: 50px;
+}
+#customWoocommerce .about_paypal {
+  display: none;
+}
 
 /*# sourceMappingURL=style.css.map */
