@@ -4,19 +4,27 @@
  */
 
 function changePage() {
-    $paged = $_POST['page'];
     $context = Timber::context();
-    $context['maxNumPages'] = $_POST['pageCount'];
-    $context['paged'] = $paged;
-    $context['firstPage'] = $_POST['firstPage'];
-    $context['products'] = Timber::get_posts([
+    $context['currentPage'] = $_POST['page'];
+    $data = [
         'post_type' => 'product',
-        'product_cat' => $_POST['category'],
-        'orderby' => [
-            'title' => 'ASC'
-        ],
-        'posts_per_page' => 20,
-        'paged' => $paged
+        'posts_per_page' => getProductsPerPageAmount(),
+        'paged' => $context['currentPage']
+    ];
+    if($_POST['category']) {
+        $context['category'] = $_POST['category'];
+        $data['product_cat'] = $_POST['category'];
+    }
+    if($_POST['search']) {
+        $data['s'] = $_POST['search'];
+    }
+    $context['posts'] = new Timber\PostQuery($data);
+    $context['products'] = $context['posts'];
+    $context['pagination'] = Timber::get_pagination([
+        'end_size'     => 1,
+        'mid_size'     => 2,
+        'total'        => $_POST['maxPage'],
+        'current' => $context['currentPage']
     ]);
 
     Timber::render('partials/productListWidget.twig', $context);

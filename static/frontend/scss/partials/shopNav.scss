@@ -51,7 +51,7 @@ $menuItemAnchorFontSize: 3rem;
 
             ul {
                 transition: all 0.3s ease;
-                background: black;
+                background: linear-gradient(45deg, #232323, #343434, #232323);
                 width: 100%;
                 display: flex;
                 max-height: 0;
@@ -120,7 +120,6 @@ $menuItemAnchorFontSize: 3rem;
                     width: 300px;
                     max-height: none;
                     height: auto;
-                    background: blue;
                     opacity: 0;
                     display: none;
                     transform: none;
@@ -130,7 +129,7 @@ $menuItemAnchorFontSize: 3rem;
                         width: auto;
 
                         a {
-                            background: yellow;
+                            border-bottom: 5px solid silver;
                             padding: 5% 0;
                         }
                     }

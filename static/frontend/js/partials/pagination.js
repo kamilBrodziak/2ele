@@ -1,22 +1,23 @@
 class AjaxPagination {
-    constructor(buttons, container) {
+    constructor(buttons, containerID) {
         this.buttons = buttons;
-        this.container = container;
+        this.containerID = containerID;
+        this.container = $('#' + containerID);
         this.firstPageChange = true;
     }
 
     addAjaxPagination() {
         let _this = this;
-        $('body').on('click', '.paginationLinks', function (e) {
+        $('body').on('click', '#' + _this.containerID + ' .paginationLinks', function (e) {
             e.preventDefault();
-            let page = $(this).data('page');
+            let page = parseInt($(this).data('page'));
             _this.changePage(page);
         });
     }
 
     addAjaxInputPagination() {
         let _this = this;
-        $('body').on('keyup focusout', '.paginationInput', function (e) {
+        $('body').on('keyup focusout','#' + _this.containerID +  ' .paginationInput', function (e) {
             e.preventDefault();
             let input = $(this);
             if((e.type === "keyup" && input.val() !== "" && e.keyCode === 13) || e.type==="focusout") {
@@ -25,32 +26,6 @@ class AjaxPagination {
                 })
             }
         });
-    }
-
-    reloadPageAjax(data, page) {
-        let _this = this;
-        let pageUrl = ajaxPaginationParams.firstPage;
-        if(page !== 1) {
-            pageUrl = this.updateQueryStringParameter(pageUrl, 'page', page);
-        }
-        let beforeSendFunc = (response) => {
-            _this.container.addClass('loadingScreen');
-        }, errorFunc = (response) => {
-            _this.container.removeClass('loadingScreen');
-            console.log(response);
-        }, successFunc = (response) => {
-            _this.container.removeClass('loadingScreen');
-            _this.container.empty().append(response);
-            window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
-            window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);
-            window.onpopstate = function(e){
-                if(e.state){
-                    _this.container.empty().append(e.state.html);
-                    document.title = e.state.pageTitle;
-                }
-            };
-        }
-        ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
     }
 
     changePage(page) {
@@ -63,25 +38,58 @@ class AjaxPagination {
 
         let data = {
             page: page,
-            firstPage: ajaxPaginationParams.firstPage,
-            query: ajaxPaginationParams.posts,
-            pageCount: ajaxPaginationParams.maxPage,
-            category: _this.container.data('category'),
+            maxPage: ajaxPaginationParams.maxPage,
             action: 'changePage'
+        }
+        let category = _this.container.data('category');
+        let search = _this.container.data('search');
+        if (category) {
+            data.category = category;
+        }
+        if(search) {
+            data.search = _this.container.data('search');
         }
         this.reloadPageAjax(data, page);
     }
 
-    updateQueryStringParameter(uri, key, value) {
-        if(parseInt(value) === 1) {
-            return uri;
+    reloadPageAjax(data, page) {
+        let _this = this;
+        let pageUrl = window.location.href.split('?')[0];
+        let queryParams = window.location.href.split('?')[1];
+        if(!queryParams) {
+            queryParams = "";
+        }else {
+            queryParams = "?" + queryParams;
         }
-        let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        let separator = uri.indexOf('?') !== -1 ? "&" : "?";
-        if (uri.match(re)) {
-            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        if(page === 1) {
+            pageUrl = pageUrl.replace(/page\/[0-9]+(\/)?/, "");
         } else {
-            return uri + separator + key + "=" + value;
+            if(pageUrl.match(/page\/[0-9]+/)) {
+                pageUrl = pageUrl.replace(/page\/[0-9]+/, "page/" + page);
+            } else {
+                pageUrl += "page/" + page + "/";
+            }
         }
+        pageUrl += queryParams;
+
+        let beforeSendFunc = (response) => {
+            _this.container.addClass('loadingScreen');
+        }, errorFunc = (response) => {
+            _this.container.removeClass('loadingScreen');
+            console.log(response);
+        }, successFunc = (response) => {
+            _this.container.removeClass('loadingScreen');
+            console.log(response);
+            _this.container.empty().append(response);
+            window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
+            window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);
+            window.onpopstate = function(e){
+                if(e.state){
+                    _this.container.empty().append(e.state.html);
+                    document.title = e.state.pageTitle;
+                }
+            };
+        }
+        ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
     }
 }

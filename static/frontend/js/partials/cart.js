@@ -3,6 +3,13 @@ class Cart {
         this.cartWidgetContainer = $('#' + cartWidgetContainerID);
     }
 
+    cartWidget(cartButtonID) {
+        $('body').on('click', "#" + cartButtonID, function (e) {
+            e.preventDefault();
+            
+        });
+    }
+
     cartReloadingAjax(data) {
         let _this = this;
         let beforeSendFunc = (response) => {

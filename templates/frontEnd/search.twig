@@ -1,0 +1,7 @@
+{% extends "page-shop.twig" %}
+
+{% block products %}
+    <div id="shopPageProductListWidget" data-search="{{ searchQuery }}">
+        {% include ['partials/productListWidget.twig'] %}
+    </div>
+{% endblock %}

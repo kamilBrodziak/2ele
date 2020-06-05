@@ -1,56 +1,74 @@
-{% if maxNumPages > 1 %}
+{% if posts.pagination.pages is not empty %}
     <nav class="pagination">
         <ul class="paginationList">
             {% set pageLink = fn('esc_url_raw', fn('get_pagenum_link', 1 )) %}
             {% set dataUrl = fn('admin_url', 'admin-ajax.php') %}
-            {% if paged > 1 %}
+            {% if currentPage > 1 %}
                 <li class="paginationPrev gradientButton">
-                    <a href="{{ firstPage }}page/{{ max(1, paged - 1) }}"
-                       data-page="{{ max(1, paged - 1) }}" data-pageCount="{{ maxNumPages }}"
+                    <a href="{{ pagination.prev.link }}" data-page="{{ currentPage - 1 }}"
                        class="paginationLinks flexCenterCenter"><</a>
                 </li>
-                {% if paged - 2 > 1 and paged - 1 > 1 %}
-                    <li class="paginationFirst paginationNumbers gradientButton">
-                        <a href="{{ firstPage }}page/{{ 1 }}"
-                           data-page="{{ 1 }}" data-pageCount="{{ maxNumPages }}"
-                           class="paginationLinks flexCenterCenter">1</a>
-                    </li>
-                    <li class="paginationDots"><span class="flexCenterCenter">...</span></li>
-                {% endif %}
+{#                {% if currentPage - 2 > 1 %}#}
+{#                    <li class="paginationFirst paginationNumbers gradientButton">#}
+{#                        <a href="{{ posts.pagination.pages|first.link }}" data-page="{{ 1 }}"#}
+{#                           class="paginationLinks flexCenterCenter">1</a>#}
+{#                    </li>#}
+{#                    {% if currentPage - 3 > 1 %}#}
+{#                        <li class="paginationDots"><span class="flexCenterCenter">...</span></li>#}
+{#                    {% endif %}#}
+{#                {% endif %}#}
             {% endif %}
-            {% for i in range(max(paged-2, 1), min(paged+2, maxNumPages)) %}
-                {% if paged == i %}
+{#            {% for page in posts.pagination.pages %}#}
+{#                {% if page.link %}#}
+{#                    <li class="paginationNumbers gradientButton">#}
+{#                        <a href="{{ page.link }}" data-page="{{ page.title }}"#}
+{#                           class="paginationLinks flexCenterCenter">{{ page.title }}</a>#}
+{#                    </li>#}
+{#                {% elseif page.title|number_format == currentPage %}#}
+{#                    <li class="paginationCurrentPage paginationNumbers gradientButton">#}
+{#                        <span class="flexCenterCenter">{{ page.title }}</span>#}
+{#                    </li>#}
+{#                {% else %}#}
+{#                    <li class="paginationDots gradientButton">#}
+{#                        <span class="flexCenterCenter">{{ page.title }}</span>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+            {% for page in pagination.pages %}
+                {% if page.link %}
+                    <li class="paginationNumbers gradientButton">
+                        <a href="{{ page.link }}" data-page="{{ page.title }}"
+                           class="paginationLinks flexCenterCenter">{{ page.title }}</a>
+                    </li>
+                {% elseif page.title|number_format == currentPage %}
                     <li class="paginationCurrentPage paginationNumbers gradientButton">
-                        <span class="flexCenterCenter">{{ paged }}</span>
+                        <span class="flexCenterCenter">{{ page.title }}</span>
                     </li>
                 {% else %}
-                    <li class="paginationNumbers gradientButton">
-                        <a href="{{ firstPage }}page/{{ i }}"
-                           data-page="{{ i }}" data-pageCount="{{ maxNumPages }}"
-                           class="paginationLinks flexCenterCenter">{{ i }}</a>
+                    <li class="paginationDots gradientButton">
+                        <span class="flexCenterCenter">{{ page.title }}</span>
                     </li>
                 {% endif %}
             {% endfor %}
-            {% if paged < maxNumPages %}
-                {% if paged + 2 < maxNumPages and paged + 1 < maxNumPages %}
-                    <li class="paginationDots"><span class="flexCenterCenter">...</span></li>
-                    <li class="paginationLast paginationNumbers">
-                        <a href="{{ firstPage }}page/{{ maxNumPages }}"
-                           data-page="{{ maxNumPages }}" data-pageCount="{{ maxNumPages }}"
-                           class="paginationLinks flexCenterCenter">{{ maxNumPages }}</a>
-                    </li>
-                {% endif %}
-            {% endif %}
-                <li class="paginationPageInput gradientButton">
-                    <span class="flexCenterCenter">Strona </span>
-                    <input type="number" value="{{ paged }}" min="1" max="{{ maxNumPages }}" class="paginationInput textAlignCenter">
-                    <span class="flexCenterCenter">z </span>
-                    <span class="flexCenterCenter">{{ maxNumPages }}</span>
-                </li>
-            {% if paged < maxNumPages %}
+{#            {% if currentPage + 2 < posts.pagination.pages|last.title|number_format %}#}
+{#                {% if currentPage + 3 < posts.pagination.pages|last.title|number_format %}#}
+{#                    <li class="paginationDots"><span class="flexCenterCenter">...</span></li>#}
+{#                {% endif %}#}
+{#                <li class="paginationLast paginationNumbers gradientButton">#}
+{#                    <a href="{{ posts.pagination.pages|last.link }}" data-page="{{ posts.pagination.pages|last.title }}"#}
+{#                       class="paginationLinks flexCenterCenter">{{ posts.pagination.pages|last.title }}</a>#}
+{#                </li>#}
+{#            {% endif %}#}
+            <li class="paginationPageInput gradientButton">
+                <span class="flexCenterCenter">Strona </span>
+                <input type="number" value="{{ currentPage }}" min="1" max="{{ pagination.pages|last.title }}"
+                       class="paginationInput textAlignCenter">
+                <span class="flexCenterCenter">z </span>
+                <span class="flexCenterCenter">{{ pagination.pages|last.title }}</span>
+            </li>
+            {% if currentPage < pagination.pages|last.title|number_format %}
                 <li class="paginationNext gradientButton">
-                    <a href="{{ firstPage }}page/{{ min(maxNumPages, paged + 1) }}"
-                       data-page="{{ min(maxNumPages, paged + 1) }}" data-pageCount="{{ maxNumPages }}"
+                    <a href="{{ pagination.next.link }}" data-page="{{ currentPage + 1 }}"
                        class="paginationLinks flexCenterCenter">></a>
                 </li>
             {% endif %}

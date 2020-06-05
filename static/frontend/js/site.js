@@ -13,7 +13,7 @@ $( function() {
         'shopNavListItemSubList', 'showShopNavListItemSubList',
         'shopNavListItemSubListExpandButtonAnimation');
 
-    let ajaxPagination = new AjaxPagination($('.paginationLinks'), $('#shopPageProductListWidget'));
+    let ajaxPagination = new AjaxPagination($('.paginationLinks'), 'shopPageProductListWidget');
     ajaxPagination.addAjaxPagination();
     ajaxPagination.addAjaxInputPagination();
 

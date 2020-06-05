@@ -14,6 +14,13 @@ class WooCommerceSettings {
 //        add_filter( 'woocommerce_is_sold_individually','__return_true', 10, 2 );
         add_filter('woocommerce_reset_variations_link', '__return_empty_string');
         add_filter( 'wc_add_to_cart_message', '__return');
+        add_filter( 'loop_shop_per_page', [$this, 'productsPerPage'], 20 );
+
+    }
+
+
+    function productsPerPage( $cols ) {
+        return getProductsPerPageAmount();
     }
 
     public function actions() {

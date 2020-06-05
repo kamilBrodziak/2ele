@@ -1,7 +1,9 @@
 {% extends 'base.twig' %}
 
 {% block content %}
-    {{post.content}}
+    {% block shopContent %}
+        {{post.content}}
+    {% endblock %}
     {% block products %}
         <div id="shopPageProductListWidget" data-category="{{ title }}">
             {% include ['partials/productListWidget.twig'] %}
@@ -10,6 +12,6 @@
 
     <div id="basketButton" class="flexCenterCenter">
         <img src="{{ fn('getImgDir') }}/basket.png" alt="Basket icon">
-        <div id="basketButtonSummary" class="flexCenterCenter">{{ fn('getCartProductsQuantity') }}</div>
+        <a href="{{ fn('wc_get_cart_url') }}" id="basketButtonSummary" class="flexCenterCenter">{{ fn('getCartProductsQuantity') }}</a>
     </div>
 {% endblock %}

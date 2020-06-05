@@ -425,7 +425,7 @@ input:disabled {
 }
 #shopNav #shopNavList li ul {
   transition: all 0.3s ease;
-  background: black;
+  background: linear-gradient(45deg, #232323, #343434, #232323);
   width: 100%;
   display: flex;
   max-height: 0;
@@ -484,7 +484,6 @@ input:disabled {
     width: 300px;
     max-height: none;
     height: auto;
-    background: blue;
     opacity: 0;
     display: none;
     transform: none;
@@ -494,7 +493,7 @@ input:disabled {
     width: auto;
   }
   #shopNav #shopNavList li ul li a {
-    background: yellow;
+    border-bottom: 5px solid silver;
     padding: 5% 0;
   }
   #shopNav #shopNavList li:hover ul {
@@ -791,24 +790,26 @@ input:disabled {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: blue;
+  background: #d35400;
+  border: 5px solid #171717;
   cursor: pointer;
   z-index: 100;
 }
 #basketButton img {
-  width: 100%;
+  width: 80%;
   height: auto;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 10%;
+  left: 10%;
   z-index: 101;
 }
 
 #basketButtonSummary {
   font-size: 2rem;
+  font-weight: bold;
+  color: black;
   width: auto;
   height: auto;
-  background: yellow;
   z-index: 102;
 }
 
