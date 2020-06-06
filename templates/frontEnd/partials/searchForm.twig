@@ -1,7 +1,9 @@
-<form {% if searchType %}id='{{ searchType }}Search'{% endif %} class="Search" class="search" method="get" action="{{fn("home_url", '/')}}">
+<form {% if searchType %}id='{{ searchType }}Search'{% endif %} class="search" method="get" action="{{fn("home_url", '/')}}">
     <label class="searchFieldLabel">
-        <input type="text" class="searchField" name="s" placeholder="Search" value="{{ fn('the_search_query') }}">
+        <input type="text" class="searchField gradientInput" name="s" placeholder="Search" value="{{ fn('the_search_query') }}">
     </label>
     <input type="hidden" name="post_type[]" value="product" />
-    <input type="submit" value="Szukaj">
+    <div {% if searchType %}id='{{ searchType }}SearchSubmitContainer'{% endif %} class="gradientButton">
+        <input {% if searchType %}id='{{ searchType }}SearchSubmit'{% endif %} type="submit" value="Szukaj">
+    </div>
 </form>

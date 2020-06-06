@@ -307,6 +307,10 @@ input:disabled {
     width: calc(100% - 200px);
   }
 }
+#pageTitle {
+  font-size: 3rem;
+}
+
 #hdrContainer {
   width: 100%;
   display: flex;
@@ -378,6 +382,41 @@ input:disabled {
 
   #hdrMenuList {
     padding: 0 20px 0 35%;
+  }
+}
+#ftrNav {
+  color: silver;
+  font-size: 2rem;
+  padding: 30px 0;
+}
+#ftrNav a {
+  color: silver;
+}
+#ftrNav a:hover {
+  color: #727272;
+}
+#ftrNav ul {
+  width: 80%;
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+#ftrNav ul li {
+  width: 100%;
+  padding: 10px 0;
+}
+
+#ftrCopyright {
+  background: linear-gradient(to bottom, #727272, silver, #727272);
+  color: black;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 600px) {
+  #ftrNav ul li {
+    width: 50%;
   }
 }
 /*
@@ -512,17 +551,34 @@ input:disabled {
 }
 #shopNavTopContainer #shopSearch {
   height: 100%;
-  background: yellow;
+  padding: 5px;
+  background: linear-gradient(to bottom, #232323, #2b2b2b, #232323);
   width: calc(100% - 60px);
+  display: flex;
+  flex-flow: row;
+}
+#shopNavTopContainer #shopSearch .searchFieldLabel {
+  display: block;
+  width: calc(100% - 50px);
+  height: 100%;
+  padding-right: 10px;
+}
+#shopNavTopContainer #shopSearch .searchFieldLabel input {
+  width: 100%;
+  height: 100%;
+}
+#shopNavTopContainer #shopSearch #shopSearchSubmitContainer {
+  height: 50px;
+  width: 50px;
 }
 #shopNavTopContainer #shopNavMobileCloseButton {
   display: flex;
-  background: red;
   flex-direction: column;
   padding: 7.5px 7.5px;
   height: 60px;
   width: 60px;
   justify-content: space-between;
+  background: #232323;
 }
 #shopNavTopContainer .shopNavMobileBars {
   height: 10px;
@@ -542,12 +598,30 @@ input:disabled {
 }
 
 @media screen and (min-height: 600px) and (min-width: 996px) {
+  #shopNavTopContainer {
+    height: 120px;
+  }
   #shopNavTopContainer #shopNavMobileCloseButton {
     display: none;
   }
   #shopNavTopContainer #shopSearch {
     height: 100%;
-    background: yellow;
+    width: 100%;
+    flex-flow: column;
+  }
+  #shopNavTopContainer #shopSearch .searchFieldLabel {
+    display: block;
+    width: 100%;
+    height: calc(100% - 50px);
+    padding-right: 0;
+    padding-bottom: 5px;
+  }
+  #shopNavTopContainer #shopSearch .searchFieldLabel input {
+    width: 100%;
+    height: 100%;
+  }
+  #shopNavTopContainer #shopSearch #shopSearchSubmitContainer {
+    height: 50px;
     width: 100%;
   }
 }
@@ -559,7 +633,8 @@ input:disabled {
 .shopNavListItemSubListExpandButton {
   width: 7rem;
   height: 7rem;
-  background: green;
+  background: #232323;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1111,6 +1186,60 @@ input:disabled {
 }
 #customWoocommerce .about_paypal {
   display: none;
+}
+
+#pageContact {
+  font-size: 2rem;
+}
+
+#pageContactForm {
+  padding: 10%;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+#pageContactForm .contactFormSuccessInfo, #pageContactForm .contactFormFailInfo {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 5px;
+  border: 5px solid black;
+}
+#pageContactForm .contactFormSuccessInfo span, #pageContactForm .contactFormFailInfo span {
+  width: 100%;
+  height: 100%;
+}
+#pageContactForm label {
+  width: 100%;
+  padding-bottom: 20px;
+}
+#pageContactForm label span {
+  display: block;
+  width: 100%;
+}
+#pageContactForm label input {
+  height: 50px;
+  width: 100%;
+  font-size: 2rem;
+}
+#pageContactForm label textarea {
+  width: 100%;
+  height: 150px;
+  font-size: 2rem;
+  resize: vertical;
+  padding-top: 5px;
+}
+#pageContactForm .contactFormSubmitContainer {
+  width: 100%;
+  height: 80px;
+}
+#pageContactForm .contactFormSubmitContainer input {
+  font-size: 2.5rem;
 }
 
 /*# sourceMappingURL=style.css.map */

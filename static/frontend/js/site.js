@@ -1,8 +1,8 @@
 $( function() {
     // let parallax = new ParallaxBgPicture($('.parallaxBg'));
     // parallax.toggleParallax();
-    // let emailFormHandler = new EmailFormHandler($('#ftrContactForm'), "sendUserEmail","ftrContactFormSuccessInfo" );
-    // emailFormHandler.submitEvent();
+    let emailFormHandler = new EmailFormHandler($('#pageContactForm'), "sendUserEmail","pageContactFormSuccessInfo" );
+    emailFormHandler.submitEvent();
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
@@ -72,9 +72,9 @@ class EmailFormHandler {
         self.form.on('submit', function (e) {
             e.preventDefault();
             let form = self.form,
-                name = form.find('#ftrContactFormName').val(),
-                email = form.find('#ftrContactFormEmail').val(),
-                message = form.find('#ftrContactFormMessage').val(),
+                name = form.find('.contactFormName').val(),
+                email = form.find('.contactFormEmail').val(),
+                message = form.find('.contactFormMessage').val(),
                 ajaxUrl = form.data('url');
             self.sendEmail(name, email, message, ajaxUrl);
         });
@@ -82,7 +82,6 @@ class EmailFormHandler {
 
     sendEmail(name, email, message, ajaxUrl) {
         let self = this;
-        self.form.find("#ftrContactFormSubmit").prop("disabled", true);
         $.ajax({
             url: ajaxUrl,
             type: 'post',
@@ -92,21 +91,28 @@ class EmailFormHandler {
                 message: message,
                 action: self.phpHandlerFuncName
             },
+            beforeSend: function(response) {
+                self.form.addClass('loadingScreen');
+                self.form.find("#ftrContactFormSubmit").prop("disabled", true);
+            },
             error: function (response) {
                 console.log(response);
+                self.form.removeClass('loadingScreen');
+                self.displayMessage("contactFormFailInfo");
                 self.form.find("#ftrContactFormSubmit").prop("disabled", false)
             },
             success: function (response) {
                 console.log(response);
                 console.log(message);
-                self.displaySuccessMessage();
+                self.form.removeClass('loadingScreen');
+                self.displayMessage("contactFormSuccessInfo");
                 self.form.find("#ftrContactFormSubmit").prop("disabled", false)
             }
         });
     }
 
-    displaySuccessMessage() {
-        let successInfoElement = this.form.find("#" + this.successInfoId);
+    displayMessage(messageClass) {
+        let successInfoElement = this.form.find("." + messageClass);
         successInfoElement.css("display", "flex");
         setTimeout(function() {
             successInfoElement.css("display", "none");

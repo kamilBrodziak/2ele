@@ -1,0 +1,41 @@
+#ftrNav {
+    color: silver;
+    font-size: 2rem;
+    padding: 30px 0;
+    
+    a {
+        color: silver;
+        &:hover {
+            color: #727272;
+        }
+    }
+    
+    ul {
+        width: 80%;
+        list-style: none;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        li {
+            width: 100%;
+            padding: 10px 0;
+        }
+    }
+}
+
+#ftrCopyright {
+    background: linear-gradient(to bottom, #727272, silver, #727272);
+    color: black;
+    font-size: 1.5rem;
+}
+
+@media screen and (min-width: 600px) {
+    #ftrNav {
+        ul {
+            li {
+                width: 50%;
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+    <article id='pageArticle'>
+        <header id='pageHeader'>
+            <h1 id='pageTitle' class='textAlignCenter flexCenterCenter'>{{post.title}}</h1>
+        </header>
+        <section id='pageContent'>
+            {{ post.content }}
+            <section id='pageContact' class='textAlignCenter'>
+                <ul id='pageContactList' class='fontBold'>
+                    <li>Email: <a href=''></a></li>
+                    <li>Phone: <a href=''></a></li>
+                </ul>
+                {% include 'partials/emailForm.twig' with {'location': 'page'}%}
+            </section>
+        </section>
+    </article>
+{% endblock %}

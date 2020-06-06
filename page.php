@@ -25,20 +25,6 @@ $context = Timber::context();
 
 $timber_post = new Timber\Post();
 $context['post'] = $timber_post;
-if($timber_post->post_name == "spis-tresci" ) {
-	$args = [
-		'post_type' => 'post',
-		'order' => 'DESC',
-	];
-
-	$context['posts'] = Timber::get_posts($args);
-//	$postCount = [];
-	$i = 1;
-	foreach($context['posts'] as $post) {
-		$post->{'postOrder'} = $i;
-		$i++;
-	}
-}
 
 if(is_cart()) {
     $context['products'] = getCart();
