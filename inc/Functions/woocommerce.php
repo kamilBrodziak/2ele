@@ -93,6 +93,9 @@ function getProductVariationLabel($productID) {
 function getProductMaxQuantity($productID) {
     $product = wc_get_product($productID);
     if($product->managing_stock()) {
+        if($product->backorders_allowed()) {
+            return 99;
+        }
         return $product->get_stock_quantity();
     }
     return 99;
@@ -116,7 +119,11 @@ function getCart() {
             $productDetails['variationID'] = $variationID;
         }
         if($product->managing_stock()) {
-            $productDetails['maxQuantity'] = $product->get_stock_quantity();
+            if($product->backorders_allowed()) {
+                $productDetails['maxQuantity'] = 99;
+            } else {
+                $productDetails['maxQuantity'] = $product->get_stock_quantity();
+            }
         }
         $productDetails['price'] = $product->get_price();
         $productDetails['title'] = $product->get_name();
