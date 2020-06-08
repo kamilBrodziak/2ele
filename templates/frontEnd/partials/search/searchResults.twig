@@ -1,0 +1,12 @@
+<ul class="searchResultsList">
+    {% if posts is empty %}
+        <span class="searchResultsInfo colorSilver flexCenterCenter">Brak produktów o wyszukiwanej frazie</span>
+    {% endif %}
+    {% for post in posts %}
+        <li class="searchResultsListItem">
+            <a href="{{ post.link }}" class="searchResultAnchor flexCenterCenter">
+                {{ post.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

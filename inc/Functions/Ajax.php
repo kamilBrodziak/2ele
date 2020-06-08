@@ -126,3 +126,17 @@ add_action('wp_ajax_sendUserEmail', 'sendUserEmail');
 //}
 //
 //add_action('phpmailer_init', 'mailtrap');
+
+function searchAjax() {
+    $context = Timber::context();
+    $args = [
+        'post_type' => 'product',
+        's' => $_POST['searchPhrase'],
+        'posts_per_page' => 30
+    ];
+    $context['posts'] = new Timber\PostQuery($args);
+    Timber::render('partials/search/searchResults.twig', $context);
+    die();
+}
+add_action('wp_ajax_nopriv_searchAjax', 'searchAjax');
+add_action('wp_ajax_searchAjax', 'searchAjax');

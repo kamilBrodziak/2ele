@@ -30,6 +30,9 @@ $( function() {
     let cart = new Cart('cartPageCartWidgetContainer');
     cart.addRemoveItemButton('cartItemRemove', 'cartItem');
     cart.addQuantityChangeInput('cartItemQuantity', 'cartItem');
+    let search = new Search('shopSearch');
+    search.addAjaxSearch();
+    search.closingSearchResultEvent();
 });
 
 function addInputMinMaxTesting(input) {

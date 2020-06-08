@@ -1,9 +1,8 @@
 @charset "UTF-8";
 /*
-Theme Name: 2eleTheme
-Version: 1.0.2
-Description: Private theme for domain 2ele.pl build on starter theme made by Kamil Brodziak
-Author: Kamil Brodziak
+ * Theme Name: 2eleTheme
+ * Description: Private theme for domain 2ele.pl build on starter theme made by Kamil Brodziak
+ * Author: Kamil Brodziak
 */
 /*
 =====================================================
@@ -118,6 +117,11 @@ input:disabled {
   border-bottom-width: 0;
 }
 
+/*
+=====================================================
+    LOADINGS
+=====================================================
+*/
 .loadingScreen, .successScreen {
   position: relative;
 }
@@ -168,6 +172,33 @@ input:disabled {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+.loadingRight {
+  position: relative;
+}
+.loadingRight:after {
+  width: 20px;
+  height: 20px;
+  display: block;
+  content: "";
+  border: 6px solid silver;
+  border-color: silver transparent silver transparent;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1001;
+  top: 50%;
+  right: 5px;
+  transform: translate(0, -50%);
+  animation: loadingRight 1.2s linear infinite;
+}
+
+@keyframes loadingRight {
+  0% {
+    transform: translate(0, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, -50%) rotate(360deg);
   }
 }
 /*
@@ -313,6 +344,7 @@ input:disabled {
   flex-direction: column;
   position: relative;
   background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
+  min-height: 100vh;
 }
 #siteContainer #siteMain #siteMainContent {
   height: auto;
@@ -614,29 +646,8 @@ input:disabled {
   flex-direction: row;
   height: 60px;
 }
-#shopNavTopContainer #shopSearch {
-  height: 100%;
-  padding: 5px;
-  background: linear-gradient(to bottom, #232323, #2b2b2b, #232323);
-  width: calc(100% - 60px);
-  display: flex;
-  flex-flow: row;
-}
-#shopNavTopContainer #shopSearch .searchFieldLabel {
-  display: block;
-  width: calc(100% - 50px);
-  height: 100%;
-  padding-right: 10px;
-}
-#shopNavTopContainer #shopSearch .searchFieldLabel input {
-  width: 100%;
-  height: 100%;
-}
-#shopNavTopContainer #shopSearch #shopSearchSubmitContainer {
-  height: 50px;
-  width: 50px;
-}
-#shopNavTopContainer #shopNavMobileCloseButton {
+
+#shopNavMobileCloseButton {
   display: flex;
   flex-direction: column;
   padding: 7.5px 7.5px;
@@ -645,20 +656,22 @@ input:disabled {
   justify-content: space-between;
   background: #232323;
 }
-#shopNavTopContainer .shopNavMobileBars {
+
+.shopNavMobileBars {
   height: 10px;
   width: 45px;
   border-radius: 5px;
   background: silver;
   transition: all 0.3s ease;
 }
-#shopNavTopContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar1 {
+
+.changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar1 {
   transform: translateY(17.5px) rotate(45deg);
 }
-#shopNavTopContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar2 {
+.changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar2 {
   opacity: 0;
 }
-#shopNavTopContainer .changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar3 {
+.changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar3 {
   transform: translateY(-17.5px) rotate(-45deg);
 }
 
@@ -669,25 +682,99 @@ input:disabled {
   #shopNavTopContainer #shopNavMobileCloseButton {
     display: none;
   }
-  #shopNavTopContainer #shopSearch {
+}
+/*
+=====================================================
+    SHOP SEARCH
+=====================================================
+*/
+#shopSearch {
+  height: 100%;
+  padding: 5px;
+  background: linear-gradient(to bottom, #232323, #2b2b2b, #232323);
+  width: calc(100% - 60px);
+  display: flex;
+  flex-flow: row;
+  position: relative;
+}
+#shopSearch .searchResultsInfo {
+  display: block;
+  font-size: 2rem;
+  padding: 20px 10px;
+}
+#shopSearch .searchResults {
+  position: absolute;
+  text-align: center;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  display: none;
+  background: #383838;
+  z-index: 101;
+}
+#shopSearch .searchResults.active {
+  display: block;
+}
+#shopSearch .searchResultsList {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  height: auto;
+}
+#shopSearch .searchResultsListItem {
+  padding: 10px;
+}
+#shopSearch .searchResultsListItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+#shopSearch .searchResultAnchor {
+  width: 100%;
+  height: auto;
+  color: silver;
+  font-size: 2rem;
+  padding: 15px 0;
+}
+#shopSearch .searchFieldLabel {
+  display: block;
+  width: calc(100% - 50px);
+  height: 100%;
+}
+#shopSearch .searchFieldLabel input {
+  width: 100%;
+  height: 100%;
+}
+#shopSearch #shopSearchSubmitContainer {
+  height: 50px;
+  width: 50px;
+  margin: 0 0 0 10px;
+}
+
+@media screen and (min-height: 600px) and (min-width: 996px) {
+  #shopSearch {
     height: 100%;
     width: 100%;
     flex-flow: column;
   }
-  #shopNavTopContainer #shopSearch .searchFieldLabel {
+  #shopSearch .searchResults {
+    top: 0;
+    left: 100%;
+    width: 200%;
+  }
+  #shopSearch .searchFieldLabel {
     display: block;
     width: 100%;
     height: calc(100% - 50px);
-    padding-right: 0;
-    padding-bottom: 5px;
+    padding: 0 0 5px 0;
   }
-  #shopNavTopContainer #shopSearch .searchFieldLabel input {
+  #shopSearch .searchFieldLabel input {
     width: 100%;
     height: 100%;
   }
-  #shopNavTopContainer #shopSearch #shopSearchSubmitContainer {
+  #shopSearch #shopSearchSubmitContainer {
     height: 50px;
     width: 100%;
+    margin: 0;
   }
 }
 /*

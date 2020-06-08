@@ -74,9 +74,14 @@ $buttonGradient: linear-gradient(black, #242424, black);
             border-bottom-width: 0;
         }
     }
-    
-
 }
+
+
+/*
+=====================================================
+    LOADINGS
+=====================================================
+*/
 
 .loadingScreen, .successScreen {
     position: relative;
@@ -128,6 +133,35 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+.loadingRight {
+    position: relative;
+
+    &:after {
+        width: 20px;
+        height: 20px;
+        display: block;
+        content: '';
+        border: 6px solid silver;
+        border-color: silver transparent silver transparent;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 1001;
+        top: 50%;
+        right: 5px;
+        transform: translate(0, -50%);
+        animation: loadingRight 1.2s linear infinite;
+    }
+}
+
+@keyframes loadingRight {
+    0% {
+        transform: translate(0, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(0, -50%) rotate(360deg);
     }
 }
 
