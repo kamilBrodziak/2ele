@@ -42,7 +42,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     text-align: center;
 }
 
-.gradientButton {
+.gradientButton, .woocommerce-MyAccount-navigation-link {
     border-radius: 5px;
     background: $buttonGradient;
     box-sizing: border-box;
@@ -54,12 +54,22 @@ $buttonGradient: linear-gradient(black, #242424, black);
         height: 100%;
     }
     
-    a, input[type=submit] {
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    a, input[type=submit], button {
         border-radius: 5px;
         border: 0 solid #d35400;
         border-bottom-width: 5px;
         transition: border-bottom-width 0.3s ease;
     
+        &:not([disabled]):hover {
+            color: #727272;
+        }
+        
         &:active {
             border-bottom-width: 0;
         }
@@ -68,11 +78,11 @@ $buttonGradient: linear-gradient(black, #242424, black);
 
 }
 
-.loadingScreen {
+.loadingScreen, .successScreen {
     position: relative;
 }
 
-.loadingScreen:before {
+.loadingScreen:before, .successScreen:before {
     display: block;
     content: '';
     background: rgba(0, 0, 0, 0.4);
@@ -82,6 +92,19 @@ $buttonGradient: linear-gradient(black, #242424, black);
     z-index: 1000;
     height: 100%;
     width: 100%;
+}
+
+.successScreen:after {
+    width: 100px;
+    height: 100px;
+    display: block;
+    content: '\2713';
+    z-index: 1001;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    color: lightgreen;
+    font-size: 100px;
 }
 
 .loadingScreen:after {

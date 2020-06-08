@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Theme Name: 2eleTheme
  * Description: Private theme for domain 2ele.pl build on starter theme made by Kamil Brodziak
@@ -86,33 +87,41 @@ input:disabled {
   text-align: center;
 }
 
-.gradientButton {
+.gradientButton, .woocommerce-MyAccount-navigation-link {
   border-radius: 5px;
   background: linear-gradient(black, #242424, black);
   box-sizing: border-box;
   cursor: pointer;
 }
-.gradientButton * {
+.gradientButton *, .woocommerce-MyAccount-navigation-link * {
   color: silver;
   background: none;
   width: 100%;
   height: 100%;
 }
-.gradientButton a, .gradientButton input[type=submit] {
+.gradientButton a, .woocommerce-MyAccount-navigation-link a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gradientButton a, .gradientButton input[type=submit], .gradientButton button, .woocommerce-MyAccount-navigation-link a, .woocommerce-MyAccount-navigation-link input[type=submit], .woocommerce-MyAccount-navigation-link button {
   border-radius: 5px;
   border: 0 solid #d35400;
   border-bottom-width: 5px;
   transition: border-bottom-width 0.3s ease;
 }
-.gradientButton a:active, .gradientButton input[type=submit]:active {
+.gradientButton a:not([disabled]):hover, .gradientButton input[type=submit]:not([disabled]):hover, .gradientButton button:not([disabled]):hover, .woocommerce-MyAccount-navigation-link a:not([disabled]):hover, .woocommerce-MyAccount-navigation-link input[type=submit]:not([disabled]):hover, .woocommerce-MyAccount-navigation-link button:not([disabled]):hover {
+  color: #727272;
+}
+.gradientButton a:active, .gradientButton input[type=submit]:active, .gradientButton button:active, .woocommerce-MyAccount-navigation-link a:active, .woocommerce-MyAccount-navigation-link input[type=submit]:active, .woocommerce-MyAccount-navigation-link button:active {
   border-bottom-width: 0;
 }
 
-.loadingScreen {
+.loadingScreen, .successScreen {
   position: relative;
 }
 
-.loadingScreen:before {
+.loadingScreen:before, .successScreen:before {
   display: block;
   content: "";
   background: rgba(0, 0, 0, 0.4);
@@ -122,6 +131,19 @@ input:disabled {
   z-index: 1000;
   height: 100%;
   width: 100%;
+}
+
+.successScreen:after {
+  width: 100px;
+  height: 100px;
+  display: block;
+  content: "✓";
+  z-index: 1001;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  color: lightgreen;
+  font-size: 100px;
 }
 
 .loadingScreen:after {
@@ -289,6 +311,7 @@ input:disabled {
   display: flex;
   flex-direction: column;
   position: relative;
+  background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
 }
 #siteContainer #siteMain #siteMainContent {
   height: auto;
@@ -315,7 +338,7 @@ input:disabled {
   width: 100%;
   display: flex;
   flex-flow: column;
-  background: linear-gradient(170deg, black, #171717 29%, black 57%, #d35400 58%, #d35400 calc(58% + 5px), transparent calc(59% + 5px));
+  background: linear-gradient(170deg, black, #171717 29%, black 55%, #d35400 56%, #d35400 calc(56% + 5px), transparent calc(57% + 5px));
 }
 
 #hdrLogo {
@@ -349,19 +372,40 @@ input:disabled {
 
 #hdrMenuList {
   width: 100%;
-  padding: 30px 10px 0 20%;
+  padding: 30px 10px 0 10px;
 }
 
+@media screen and (min-width: 500px) {
+  #hdrMenuList {
+    padding: 30px 10px 0 20%;
+  }
+
+  .hdrMenuListItem {
+    max-width: 300px;
+  }
+}
 .hdrMenuListItem {
-  height: 50px;
   width: 100%;
-  max-width: 300px;
   margin: 10px 0 10px auto;
 }
-.hdrMenuListItem a {
+.hdrMenuListItem:not(.hdrMenuListItemInfo) {
+  height: 50px;
+}
+.hdrMenuListItem:not(.hdrMenuListItemInfo) a {
   font-size: 2.5rem;
   height: 100%;
   width: 100%;
+}
+.hdrMenuListItem.hdrMenuListItemInfo {
+  text-align: end;
+}
+.hdrMenuListItem.hdrMenuListItemInfo a {
+  font-size: 2rem;
+  width: 100%;
+  color: silver;
+}
+.hdrMenuListItem.hdrMenuListItemInfo a:hover {
+  color: #727272;
 }
 
 @media screen and (min-width: 996px) {
@@ -384,26 +428,39 @@ input:disabled {
     padding: 0 20px 0 35%;
   }
 }
+#siteFooter {
+  display: grid;
+  grid-template-areas: "ftrNav" "ftrInfo" "ftrCopyright";
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto;
+}
+
+#ftrInfo {
+  grid-area: ftrInfo;
+}
+
 #ftrNav {
+  grid-area: ftrNav;
+}
+
+#ftrNav, #ftrInfo {
   color: silver;
   font-size: 2rem;
   padding: 30px 0;
 }
-#ftrNav a {
+#ftrNav a, #ftrInfo a {
   color: silver;
 }
-#ftrNav a:hover {
+#ftrNav a:hover, #ftrInfo a:hover {
   color: #727272;
 }
-#ftrNav ul {
+
+#ftrInfoList, #ftrNavList {
   width: 80%;
   list-style: none;
-  display: flex;
   flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
 }
-#ftrNav ul li {
+#ftrInfoList li, #ftrNavList li {
   width: 100%;
   padding: 10px 0;
 }
@@ -412,10 +469,17 @@ input:disabled {
   background: linear-gradient(to bottom, #727272, silver, #727272);
   color: black;
   font-size: 1.5rem;
+  grid-area: ftrCopyright;
 }
 
 @media screen and (min-width: 600px) {
-  #ftrNav ul li {
+  #siteFooter {
+    grid-template-areas: "ftrNav ftrInfo" "ftrCopyright ftrCopyright";
+    grid-template-columns: 60% 40%;
+    grid-template-rows: auto auto;
+  }
+
+  #ftrNavList li {
     width: 50%;
   }
 }
@@ -948,6 +1012,9 @@ input:disabled {
   width: 100%;
   height: 50px;
 }
+#singleProduct .customSelect {
+  margin: 10px 0;
+}
 #singleProduct .customSelectSelected {
   height: 50px;
 }
@@ -1110,6 +1177,7 @@ input:disabled {
 }
 #customWoocommerce input[type=checkbox], #customWoocommerce input[type=radio] {
   width: 50px;
+  height: 50px;
 }
 #customWoocommerce input:not([type=checkbox]):not([type=radio]) {
   width: 50%;
@@ -1187,13 +1255,63 @@ input:disabled {
 #customWoocommerce .about_paypal {
   display: none;
 }
+#customWoocommerce .woocommerce-MyAccount-navigation ul {
+  list-style: none;
+  padding: 0 10%;
+}
+#customWoocommerce .woocommerce-MyAccount-navigation ul li {
+  height: 60px;
+  margin-bottom: 10px;
+}
+#customWoocommerce .woocommerce-EditAccountForm > p:last-child {
+  width: 50%;
+  min-width: 200px;
+  margin: 10px auto;
+}
+#customWoocommerce .woocommerce-EditAccountForm > p:last-child button {
+  width: 100%;
+  cursor: pointer;
+  height: 60px;
+  font-size: 2rem;
+}
+#customWoocommerce button {
+  border-radius: 5px;
+  background: linear-gradient(black, #242424, black);
+  box-sizing: border-box;
+  cursor: pointer;
+  color: silver;
+  border: 0 solid #d35400;
+  border-bottom-width: 5px;
+  transition: border-bottom-width 0.3s ease;
+  height: 80px;
+}
+#customWoocommerce button:active {
+  border-bottom-width: 0;
+}
+#customWoocommerce input, #customWoocommerce textarea {
+  background: linear-gradient(black, #242424, black);
+  border: 2px solid silver;
+  border-radius: 5px;
+  color: silver;
+  text-align: center;
+}
+#customWoocommerce textarea {
+  padding: 10px;
+}
 
 #pageContact {
   font-size: 2rem;
 }
 
+#pageContactList a {
+  color: black;
+}
+#pageContactList a:hover {
+  color: #383838;
+}
+
 #pageContactForm {
-  padding: 10%;
+  padding: 5% 10%;
   display: flex;
   flex-flow: column;
   position: relative;
@@ -1240,6 +1358,25 @@ input:disabled {
 }
 #pageContactForm .contactFormSubmitContainer input {
   font-size: 2.5rem;
+}
+
+#wordpressDefault {
+  font-size: 2rem;
+  padding: 10px 10%;
+}
+#wordpressDefault h2 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+#wordpressDefault p + h3 {
+  padding: 20px 0 10px 0;
+}
+#wordpressDefault p + h2 {
+  padding: 40px 0 20px 0;
+}
+#wordpressDefault h3 {
+  font-size: 2.2rem;
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -2,7 +2,8 @@
     <form class="teaseProductForm" action="{{ post.link }}" method="post" data-product_id="{{ post.id }}">
         <label class="teaseProductFormQuantityLabel">
             <span>Ilość:</span>
-            <input type="number" name="quantity" min="1" max="10" value="1" class="teaseProductFormQuantity gradientInput">
+            <input type="number" name="quantity" min="1" max="{{ min(fn('getProductMaxQuantity', post.id), 99) }}"
+                   value="1" class="teaseProductFormQuantity gradientInput">
         </label>
         {% if (isVariableProduct and fn('hasAvailableVariations', post.id)) %}
             {% set variations = fn('getProductVariations', post.id) %}
@@ -19,7 +20,7 @@
                 <div class="customSelectItemsContainer customSelectHide">
                     {% for variation in variations %}
                         <div class="customSelectItem" data-variation_id="{{ variation.id }}"
-                             data-image_src="{{ variation.imageSrc }}"
+                             data-image_src="{{ variation.imageSrc }}" data-max_quantity="{{ variation.maxQuantity }}"
                              data-price="{{ variation.price }}">{{ variation.name }}</div>
                     {% endfor %}
                 </div>

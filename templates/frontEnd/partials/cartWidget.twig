@@ -1,4 +1,9 @@
 <section id="cartWidget">
+    <div id="cartNotices">
+        {% if cartNotices %}
+            {{ cartNotices }}
+        {% endif %}
+    </div>
     <table id="cartItems">
         <thead>
         <tr>
@@ -37,7 +42,7 @@
                 <td data-title="Ilość">
                     <label class="cartItemQuantityLabel">
                         <input class="cartItemQuantity"
-                               type=number min=1 max=1000 value="{{ product.quantity }}" >
+                               type=number min=1 max="{{ product.maxQuantity }}" value="{{ product.quantity }}" >
                     </label>
                 </td>
                 <td data-title="Kwota">

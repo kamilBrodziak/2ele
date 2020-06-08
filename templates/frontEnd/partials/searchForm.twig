@@ -1,6 +1,6 @@
 <form {% if searchType %}id='{{ searchType }}Search'{% endif %} class="search" method="get" action="{{fn("home_url", '/')}}">
     <label class="searchFieldLabel">
-        <input type="text" class="searchField gradientInput" name="s" placeholder="Search" value="{{ fn('the_search_query') }}">
+        <input type="text" class="searchField gradientInput" name="s" placeholder="Szukaj..." value="{{ fn('the_search_query') }}">
     </label>
     <input type="hidden" name="post_type[]" value="product" />
     <div {% if searchType %}id='{{ searchType }}SearchSubmitContainer'{% endif %} class="gradientButton">

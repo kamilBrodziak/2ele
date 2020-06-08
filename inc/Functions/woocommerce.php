@@ -68,10 +68,18 @@ function getProductVariations($productID) {
         $variationProduct = wc_get_product($variationID);
         $variationAttribute = $variationProduct->get_variation_attributes();
         $variationAttributeLabel = key($variationAttribute);
-        $variations[] = ['id' => $variationID,
-            'name' => $variationAttribute[$variationAttributeLabel],
-            'imageSrc' => $variation['image']['url'],
-            'price' => $variationProduct->get_price()];
+        if($variationProduct->is_in_stock()) {
+            $variation = ['id' => $variationID,
+                'name' => $variationAttribute[$variationAttributeLabel],
+                'imageSrc' => $variation['image']['url'],
+                'price' => $variationProduct->get_price()];
+
+            if($variationProduct->managing_stock()) {
+                $variation['maxQuantity'] = $variationProduct->get_stock_quantity();
+            }
+            $variations[] = $variation;
+        }
+
     }
     return $variations;
 }
@@ -80,6 +88,14 @@ function getProductVariationLabel($productID) {
     $variationID = wc_get_product($productID)->get_available_variations()[0]['variation_id'];
     $variationAttributeLabel = key(wc_get_product($variationID)->get_variation_attributes());
     return str_replace("attribute_", "", $variationAttributeLabel);
+}
+
+function getProductMaxQuantity($productID) {
+    $product = wc_get_product($productID);
+    if($product->managing_stock()) {
+        return $product->get_stock_quantity();
+    }
+    return 99;
 }
 
 function getCart() {
@@ -92,12 +108,15 @@ function getCart() {
             'quantity' => $values['quantity'],
             'url' => get_permalink($values['product_id']),
             'key' => $values['key'],
-            'removeUrl' => wc_get_cart_remove_url($values['key'])
+            'removeUrl' => wc_get_cart_remove_url($values['key']),
         ];
         if($product->is_type('variable')) {
             $variationID = $values['variation_id'];
             $product = wc_get_product($variationID);
             $productDetails['variationID'] = $variationID;
+        }
+        if($product->managing_stock()) {
+            $productDetails['maxQuantity'] = $product->get_stock_quantity();
         }
         $productDetails['price'] = $product->get_price();
         $productDetails['title'] = $product->get_name();
@@ -153,9 +172,11 @@ function woocommerce_custom_single_add_to_cart_text() {
 }
 
 
-add_filter('woocommerce_billing_fields','wpb_custom_billing_fields');
-function wpb_custom_billing_fields( $fields = array() ) {
-    unset($fields['billing_company']);
+//add_filter('woocommerce_billing_fields','wpb_custom_billing_fields');
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+function custom_override_checkout_fields( $fields = array() ) {
+    unset($fields['billing']['billing_country']);
+    unset($fields['shipping']['shipping_country']);
     return $fields;
 }
 

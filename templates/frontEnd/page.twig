@@ -7,7 +7,9 @@
 		</header>
 		<section id='pageContent'>
 			{% block pageContent %}
-				{{post.content}}
+                <div id="wordpressDefault">
+                    {{post.content}}
+                </div>
 			{% endblock %}
 		</section>
 	</article>

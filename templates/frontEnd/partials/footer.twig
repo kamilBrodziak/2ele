@@ -1,20 +1,30 @@
 <nav id="ftrNav" class="flexCenterCenter">
-    <ul id="ftrNavList">
+    <ul id="ftrNavList" class="flexCenterCenter">
         <li class="ftrNavListItem textAlignCenter">
-            <a href="">Regulamin Sprzedaży</a>
+            <a href="{{ fn('get_privacy_policy_url') }}">Regulamin Sprzedaży</a>
         </li>
         <li class="ftrNavListItem textAlignCenter">
-            <a href="">Regulamin Sprzedaży</a>
+            <a href="{{ site.url }}/faq">Najczęściej zadawane pytania</a>
         </li>
         <li class="ftrNavListItem textAlignCenter">
-            <a href="">Regulamin Sprzedaży</a>
+            <a href="{{ site.url }}/o-nas">O nas</a>
         </li>
         <li class="ftrNavListItem textAlignCenter">
-            <a href="">Regulamin Sprzedaży</a>
+            <a href="{{ site.url }}/kontakt">Kontakt</a>
         </li>
     </ul>
 </nav>
+<div id="ftrInfo" class="flexCenterCenter">
+    <ul id="ftrInfoList" class="flexCenterCenter">
+        <li class="ftrInfoListItem">
+            <span>Email: </span><a href="mailto:{{ site.admin_email }}" class="fontBold">{{ site.admin_email }}</a>
+        </li>
+        <li class="ftrInfoListItem">
+            <span>Numer tel.: </span><a href="tel:+48785807958" class="fontBold">(+48) 785 807 958</a>
+        </li>
+    </ul>
+</div>
 <section id='ftrCopyright'>
-    <p class='textAlignCenter'>Copyright &#169; {{'now'|date('Y')}} </p>
-    <p class='textAlignCenter'>Powered by theme created by <a class='fontBold'>Kamil Brodziak</a></p>
+    <p class='textAlignCenter'>Copyright &#169; {{'now'|date('Y')}} {{ site.name }}.pl</p>
+    <p class='textAlignCenter'>Motyw stworzony dla {{ site.name}} przez <a class='fontBold'>Kamil Brodziak</a></p>
 </section>

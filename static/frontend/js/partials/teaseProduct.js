@@ -63,9 +63,13 @@ class TeaseProducts {
                 },
                 success: function (response) {
                     console.log(response);
-                    teaseProduct.removeClass('loadingScreen')
+                    teaseProduct.removeClass('loadingScreen');
                     let basket = $('#' + basketID);
                     basket.html(parseInt(basket.html()) + parseInt(quantity));
+                    teaseProduct.addClass('successScreen');
+                    window.setTimeout(function () {
+                        teaseProduct.removeClass('successScreen');
+                    }, 2000)
                 }
             });
         });

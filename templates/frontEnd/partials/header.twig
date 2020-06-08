@@ -8,6 +8,8 @@
     </h1>
     <nav id="hdrMenu">
         <ul id="hdrMenuList" class="listStyleNone">
+            <li class="hdrMenuListItem mobileHide hdrMenuListItemInfo"><a href="tel:+48785807958">(+48) 785 807 958</a></li>
+            <li class="hdrMenuListItem mobileHide hdrMenuListItemInfo"><a href="mailto:{{ site.admin_email }}">{{ site.admin_email }}</a></li>
             <li class="hdrMenuListItem gradientButton"><a href="{{ fn('getAccountUrl') }}" class="flexCenterCenter">
                 {% if fn('isUserLogged')%}
                     Moje konto

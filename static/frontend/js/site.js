@@ -19,9 +19,9 @@ $( function() {
 
 
     let teaseProduct = new TeaseProducts($('.teaseProduct'), 'teaseProductAnchor');
-    teaseProduct.addTeaseProductDisplay();
+    // teaseProduct.addTeaseProductDisplay();
     teaseProduct.addForm('teaseProductForm', 'basketButtonSummary');
-    teaseProduct.addClosing();
+    // teaseProduct.addClosing();
 
     let customSelect = new CustomSelect();
     customSelect.showSelect();
@@ -38,6 +38,12 @@ function addInputMinMaxTesting(input) {
         input.val(max);
     } else if (min && parseInt(val) < parseInt(min)) {
         input.val(min);
+    } else if(val === '') {
+        if(min) {
+            input.val(min);
+        } else {
+            input.val(1);
+        }
     }
 }
 

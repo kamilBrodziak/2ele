@@ -9,7 +9,8 @@ function changePage() {
     $data = [
         'post_type' => 'product',
         'posts_per_page' => getProductsPerPageAmount(),
-        'paged' => $context['currentPage']
+        'paged' => $context['currentPage'],
+        'post_status' => 'publish'
     ];
     if($_POST['category']) {
         $context['category'] = $_POST['category'];
@@ -26,6 +27,7 @@ function changePage() {
         'total'        => $_POST['maxPage'],
         'current' => $context['currentPage']
     ]);
+
 
     Timber::render('partials/productListWidget.twig', $context);
     die();
@@ -87,6 +89,7 @@ function changeProductQuantityInCart() {
     $context['products'] = getCart();
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
+    $context['cartNotices'] = $_POST['notices'];
     wp_reset_postdata();
     Timber::render('partials/cartWidget.twig', $context);
     die();

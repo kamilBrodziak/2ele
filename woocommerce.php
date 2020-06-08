@@ -16,16 +16,16 @@ if ( is_singular( 'product' ) ) {
         $context['category'] = get_term( $term_id, 'product_cat' );
         $context['title'] = single_term_title( '', false );
         $context['currentPage'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-        $context['products'] = Timber::get_posts([
+        $args = [
             'post_type' => 'product',
-            'product_cat' => $context['title'],
-            'orderby' => [
-                'title' => 'ASC'
-            ],
             'posts_per_page' => getProductsPerPageAmount(),
-            'paged' => $context['currentPage']
-         ]);
+            'paged' => $context['currentPage'],
+            'post_status' => 'publish'
+        ];
+        if(is_product_category()) {
+            $args['product_cat'] = $context['title'];
+        }
+        $context['products'] = Timber::get_posts($args);
     }
     $context['pagination'] = Timber::get_pagination([
         'end_size'     => 1,

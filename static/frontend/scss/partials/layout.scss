@@ -32,6 +32,7 @@ $mobileNavHeight: 100px;
         display: flex;
         flex-direction: column;
         position: relative;
+        background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
 
         #siteMainContent {
             height: auto;

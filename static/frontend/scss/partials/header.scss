@@ -1,5 +1,5 @@
-$bgMobileGradient: linear-gradient(170deg, black, #171717 29%, black 57%,
-        #d35400 58%, #d35400 calc(58% + 5px), transparent calc(59% + 5px));
+$bgMobileGradient: linear-gradient(170deg, black, #171717 29%, black 55%,
+        #d35400 56%, #d35400 calc(56% + 5px), transparent calc(57% + 5px));
 $bgDesktopGradient: linear-gradient(135deg, black, #171717 32.5%, black 65%,
         #d35400 65%, #d35400 calc(65% + 15px), transparent calc(65% + 15px));
 
@@ -42,20 +42,45 @@ $bgDesktopGradient: linear-gradient(135deg, black, #171717 32.5%, black 65%,
 #hdrMenuList {
     width: 100%;
     
-    padding: 30px 10px 0 20%;
+    padding: 30px 10px 0 10px;
+}
+
+@media screen and (min-width: 500px) {
+    #hdrMenuList {
+        padding: 30px 10px 0 20%;
+    }
+    
+    .hdrMenuListItem {
+        max-width: 300px;
+    }
 }
 
 .hdrMenuListItem {
-    height: 50px;
     width: 100%;
-    max-width: 300px;
     margin: 10px 0 10px auto;
-
-    a {
-        font-size: 2.5rem;
-        height: 100%;
-        width: 100%;
+    &:not(.hdrMenuListItemInfo) {
+        height: 50px;
+        
+        a {
+            font-size: 2.5rem;
+            height: 100%;
+            width: 100%;
+        }
     }
+    
+    &.hdrMenuListItemInfo {
+        text-align: end;
+        a {
+            font-size: 2rem;
+            width: 100%;
+            color: silver;
+    
+            &:hover {
+                color: #727272;
+            }
+        }
+    }
+
 }
 
 @media screen and (min-width: 996px) {

@@ -42,13 +42,21 @@ class Cart {
         $('body').on('keyup focusout', '.' + cartItemQuantityClass, function(e) {
             e.preventDefault();
             let input = $(this);
-            if((e.type === "keyup" && input.val() !== "" && e.keyCode === 13) || e.type==="focusout") {
+            if(e.type === "keyup" && e.keyCode === 13){
+                input.blur();
+            }
+            if(e.type==="focusout") {
+                let notices = "";
+                if(input.val() !== "" && parseInt(input.val()) > parseInt(input.attr('max'))) {
+                    notices = "Obecnie na magazynie nie ma większej ilości niż " + input.attr('max') + " tego produktu.";
+                }
                 $.when(addInputMinMaxTesting(input)).done(function () {
                     let cartItem = input.closest('.' + cartItemClass);
                     let data = {
                         productKey: cartItem.data('product_key'),
                         quantity: input.val(),
-                        action: 'changeProductQuantityInCart'
+                        action: 'changeProductQuantityInCart',
+                        notices: notices
                     }
                     _this.cartReloadingAjax(data);
                 })

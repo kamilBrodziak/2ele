@@ -16,12 +16,20 @@ class CustomSelect {
         });
 
         $('body').on('click', '.customSelectItem', function() {
-            let customSelectSelected = $(this).parent().parent().find('.customSelectSelected');
+            let teaseProduct = $(this).closest('.teaseProduct');
+            let customSelectSelected = teaseProduct.find('.customSelectSelected');
             customSelectSelected.html($(this).html());
             customSelectSelected.data('variation_id', $(this).data('variation_id'));
-            let teaseProduct = $(this).closest('.teaseProduct');
             teaseProduct.find('.teaseProductFormSubmit').removeAttr('disabled');
             teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
+            let teaseProductQuantity = teaseProduct.find('.teaseProductFormQuantity');
+            let quantity = parseInt($(this).data('max_quantity'));
+            if(quantity <= 99) {
+                teaseProductQuantity.attr('max', quantity);
+            }
+            if(parseInt(teaseProductQuantity.val()) > quantity) {
+                teaseProductQuantity.val(quantity);
+            }
             $(this).siblings('.sameAsSelected').removeClass('sameAsSelected');
             $(this).addClass('sameAsSelected');
             // $('.customSelect select option[selected="selected"]').removeAttr('selected');

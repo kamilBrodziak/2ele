@@ -121,5 +121,5 @@ function customQueryPostsPerPage( $query ) {
 add_action( 'pre_get_posts', 'customQueryPostsPerPage' );
 
 function getProductsPerPageAmount() {
-    return 2;
+    return 20;
 }
