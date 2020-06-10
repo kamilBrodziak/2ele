@@ -79,6 +79,70 @@ input:disabled {
   list-style: none;
 }
 
+.hide {
+  display: none;
+}
+
+.blackLink {
+  color: black;
+  transition: all 0.1s ease;
+  text-decoration: none;
+  font-style: italic;
+}
+.blackLink:hover, .blackLink:active {
+  color: #5a5a5a;
+}
+
+.silverLink {
+  color: silver;
+  transition: all 0.1s ease;
+  text-decoration: none;
+}
+.silverLink:hover, .silverLink:active {
+  color: #5c5c5c;
+}
+
+.verticalLabels {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+.verticalLabels * {
+  text-align: center;
+}
+.verticalLabels span {
+  display: block;
+  width: 100%;
+}
+.verticalLabels input {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+.horizontalCheckboxLabels {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  height: auto;
+  font-size: 2rem;
+  text-align: left;
+  margin: 0 auto 20px auto;
+}
+.horizontalCheckboxLabels span {
+  display: block;
+  width: calc(100% - 70px);
+  padding: 10px 0 0 0;
+}
+.horizontalCheckboxLabels input {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+
 .gradientInput {
   background: linear-gradient(black, #242424, black);
   border: 2px solid silver;
@@ -86,18 +150,45 @@ input:disabled {
   color: silver;
   text-align: center;
 }
+.gradientInput:focus {
+  border: 4px solid #d35400;
+}
+.gradientInput.wrongInput {
+  border: 4px solid red;
+}
+.gradientInput.approvedInput {
+  border: 4px solid green;
+}
+
+.gradientCheckbox {
+  background: linear-gradient(black, #242424, black);
+  border: 2px solid silver;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+}
+.gradientCheckbox:checked {
+  font-size: 2rem;
+  background: radial-gradient(silver, #b4b4b4) no-repeat center/70% 70%, linear-gradient(black, #242424, black);
+}
 
 .gradientButton, .woocommerce-MyAccount-navigation-link {
   border-radius: 5px;
   background: linear-gradient(black, #242424, black);
   box-sizing: border-box;
-  cursor: pointer;
 }
 .gradientButton *, .woocommerce-MyAccount-navigation-link * {
   color: silver;
   background: none;
   width: 100%;
   height: 100%;
+  cursor: pointer;
+  font-size: 2rem;
 }
 .gradientButton a, .woocommerce-MyAccount-navigation-link a {
   display: flex;
@@ -109,6 +200,7 @@ input:disabled {
   border: 0 solid #d35400;
   border-bottom-width: 5px;
   transition: border-bottom-width 0.3s ease;
+  height: 50px;
 }
 .gradientButton a:not([disabled]):hover, .gradientButton input[type=submit]:not([disabled]):hover, .gradientButton button:not([disabled]):hover, .woocommerce-MyAccount-navigation-link a:not([disabled]):hover, .woocommerce-MyAccount-navigation-link input[type=submit]:not([disabled]):hover, .woocommerce-MyAccount-navigation-link button:not([disabled]):hover {
   color: #727272;
@@ -119,88 +211,192 @@ input:disabled {
 
 /*
 =====================================================
+    WIDGETS
+=====================================================
+*/
+.widgetDisplayMode {
+  overflow: hidden;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.widget {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+@media screen and (min-width: 996px) {
+  .widget {
+    width: 90vw;
+    height: 90vh;
+    top: 5vh;
+    left: 5vw;
+  }
+  .widget:after {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    content: "";
+  }
+}
+/*
+=====================================================
     LOADINGS
 =====================================================
 */
-.loadingScreen, .successScreen {
+.successScreen {
   position: relative;
 }
-
-.loadingScreen:before, .successScreen:before {
+.successScreen:before, .successScreen:after {
   display: block;
-  content: "";
-  background: rgba(0, 0, 0, 0.4);
   position: absolute;
+}
+.successScreen:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 200;
   height: 100%;
   width: 100%;
 }
-
 .successScreen:after {
   width: 100px;
   height: 100px;
-  display: block;
   content: "✓";
-  z-index: 1001;
-  position: absolute;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px);
+  z-index: 201;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: lightgreen;
-  font-size: 100px;
+  font-size: 5rem;
 }
 
-.loadingScreen:after {
-  width: 64px;
-  height: 64px;
+.loadingCenter {
+  position: relative;
+}
+.loadingCenter:after {
+  background: none;
   display: block;
-  content: "";
-  border: 6px solid silver;
-  border-color: silver transparent silver transparent;
-  border-radius: 50%;
   position: absolute;
-  z-index: 1001;
-  top: calc(50% - 32px);
-  left: calc(50% - 32px);
-  animation: loading 1.2s linear infinite;
+  top: 50%;
+  left: 50%;
+  z-index: 201;
+  content: "";
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  border: 6px solid black;
+  border-color: black transparent black transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: loadingCenter 1.2s linear infinite;
 }
-
-@keyframes loading {
+@keyframes loadingCenter {
   0% {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
 .loadingRight {
   position: relative;
 }
 .loadingRight:after {
-  width: 20px;
-  height: 20px;
+  background: none;
   display: block;
+  position: absolute;
+  top: 50%;
+  left: calc(100% - 5px);
+  z-index: 201;
   content: "";
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
   border: 6px solid silver;
   border-color: silver transparent silver transparent;
   border-radius: 50%;
-  position: absolute;
-  z-index: 1001;
-  top: 50%;
-  right: 5px;
-  transform: translate(0, -50%);
+  transform: translate(-100%, -50%);
   animation: loadingRight 1.2s linear infinite;
 }
-
 @keyframes loadingRight {
   0% {
-    transform: translate(0, -50%) rotate(0deg);
+    transform: translate(-100%, -50%) rotate(0deg);
   }
   100% {
-    transform: translate(0, -50%) rotate(360deg);
+    transform: translate(-100%, -50%) rotate(360deg);
   }
 }
+
+.loadingScreen {
+  position: relative;
+}
+.loadingScreen:after {
+  background: none;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 201;
+  content: "";
+  width: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  border: 6px solid silver;
+  border-color: silver transparent silver transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: loadingCenter 1.2s linear infinite;
+}
+@keyframes loadingCenter {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+.loadingScreen:before {
+  display: block;
+  content: "";
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  height: 100%;
+  width: 100%;
+}
+
+.successRight {
+  position: relative;
+}
+.successRight:after {
+  font-size: 3rem;
+  color: green;
+  background: none;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: calc(100% - 5px);
+  z-index: 201;
+  content: "✓";
+  width: auto;
+  height: auto;
+  box-sizing: border-box;
+  transform: translate(-100%, -50%);
+}
+
 /*
 =====================================================
     NEWSLETTER
@@ -1035,8 +1231,9 @@ input:disabled {
   font-size: 2rem;
   font-weight: bold;
   color: black;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   z-index: 102;
 }
 
@@ -1065,6 +1262,128 @@ input:disabled {
 
 .addToCartForm label {
   height: auto;
+}
+
+/*
+=====================================================
+    LOGIN WIDGET
+=====================================================
+*/
+.loginWidget {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/*
+=====================================================
+    LOGIN WIDGET - NOTICES
+=====================================================
+*/
+/*
+=====================================================
+    LOGIN WIDGET - NAV
+=====================================================
+*/
+.loginWidgetNav {
+  border: 5px solid black;
+  border-width: 0 0 2px 0;
+  padding: 0 0 2px 0;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.loginWidgetNavList {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.loginWidgetNavListItem {
+  width: 140px;
+  background: linear-gradient(#242424 70%, black);
+  border-radius: 20px 20px 5px 5px;
+  font-size: 2rem;
+}
+.loginWidgetNavListItem.active {
+  background: linear-gradient(#393939 70%, #242424);
+}
+.loginWidgetNavListItem.active a {
+  cursor: default;
+}
+.loginWidgetNavListItem.active a:hover {
+  color: silver;
+}
+.loginWidgetNavListItem.active a:active {
+  border-bottom-width: 5px;
+}
+
+/*
+=====================================================
+    LOGIN WIDGET - SECTIONS COMMON
+=====================================================
+*/
+.registerFormSubmit, .loginFormSubmit {
+  height: 80px !important;
+}
+
+.loginWidgetSectionTitle {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+}
+
+/*
+=====================================================
+    LOGIN WIDGET - LOGIN
+=====================================================
+*/
+.loginWidgetLogin {
+  padding: 20px 10%;
+  text-align: center;
+}
+
+@media screen and (min-width: 996px) {
+  .loginWidgetLogin {
+    padding: 20px 20%;
+  }
+}
+.lostPasswordLink {
+  font-size: 2rem;
+}
+
+/*
+=====================================================
+    LOGIN WIDGET - REGISTER
+=====================================================
+*/
+.loginWidgetRegister {
+  padding: 20px 10%;
+}
+
+@media screen and (min-width: 996px) {
+  .loginWidgetRegister {
+    padding: 20px 20%;
+  }
+}
+#orderWidgetContentWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
+  border: 10px groove #d35400;
+  padding: 10px;
+}
+
+#orderWidgetCloseButton {
+  height: 80px;
 }
 
 #singleProduct {

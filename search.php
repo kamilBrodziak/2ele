@@ -9,7 +9,8 @@ $args = [
     'post_type' => 'product',
     'posts_per_page' => getProductsPerPageAmount(),
     's' => $context['searchQuery'],
-    'paged' => $context['currentPage']
+    'paged' => $context['currentPage'],
+    'post_status' => 'publish'
 ];
 $context['posts'] = new Timber\PostQuery($args);
 $context['products'] = $context['posts'];

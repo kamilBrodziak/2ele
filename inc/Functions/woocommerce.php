@@ -135,7 +135,6 @@ function getCart() {
         $productDetails['imgAlt'] = get_post_meta($productImgID, '_wp_attachment_image_alt', TRUE);
         $products[] = $productDetails;
     }
-//    echo "<script>console.log('" . json_encode($cartItems) . "')</script>";
     return $products;
 //    return WC()->cart->get_cart_contents();
 }
@@ -148,54 +147,23 @@ function getCartTotal() {
     return WC()->cart->get_subtotal();
 }
 
-//add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
-function addToCartRedirectToCheckout() {
-    global $woocommerce;
-    return $woocommerce->cart->get_checkout_url();
-}
-
-//add_filter( 'woocommerce_add_to_cart_validation', 'remove_cart_item_before_add_to_cart', 20, 3 );
-function remove_cart_item_before_add_to_cart( $passed, $product_id, $quantity ) {
-    if( ! WC()->cart->is_empty() )
-        WC()->cart->empty_cart();
-    return $passed;
-}
-
-//add_filter( 'woocommerce_dropdown_variation_attribute_options_args', 'wc_remove_options_text');
-function wc_remove_options_text( $args ){
-    $args['show_option_none'] = '';
-    return $args;
-}
-
-
 function isSimpleProduct($id) {
     return wc_get_product($id)->is_type('simple');
 }
 
-
-//add_filter( 'woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text' );
-function woocommerce_custom_single_add_to_cart_text() {
-    return __( 'Kup teraz', 'woocommerce' );
+function getShippingMethods() {
+    return WC()->shipping->get_shipping_methods();
 }
 
 
-//add_filter('woocommerce_billing_fields','wpb_custom_billing_fields');
-add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+
+
 function custom_override_checkout_fields( $fields = array() ) {
     unset($fields['billing']['billing_country']);
     unset($fields['shipping']['shipping_country']);
     return $fields;
 }
-
-
-function getWCProducts() {
-    return Timber::get_posts( [
-        'post_type'      => 'product',
-        'orderby' => [
-            'date' => 'ASC'
-        ]
-    ] );
-}
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
 
 function isUserLogged() {
     return is_user_logged_in();
@@ -204,3 +172,36 @@ function isUserLogged() {
 function getAccountUrl() {
     return get_permalink( get_option('woocommerce_myaccount_page_id') );
 }
+
+
+
+
+
+
+
+
+
+
+//add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');
+function addToCartRedirectToCheckout() {
+    global $woocommerce;
+    return $woocommerce->cart->get_checkout_url();
+}
+
+function remove_cart_item_before_add_to_cart( $passed, $product_id, $quantity ) {
+    if( ! WC()->cart->is_empty() )
+        WC()->cart->empty_cart();
+    return $passed;
+}
+//add_filter( 'woocommerce_add_to_cart_validation', 'remove_cart_item_before_add_to_cart', 20, 3 );
+
+function wc_remove_options_text( $args ){
+    $args['show_option_none'] = '';
+    return $args;
+}
+//add_filter( 'woocommerce_dropdown_variation_attribute_options_args', 'wc_remove_options_text');
+
+function woocommerce_custom_single_add_to_cart_text() {
+    return __( 'Kup teraz', 'woocommerce' );
+}
+//add_filter( 'woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text' );

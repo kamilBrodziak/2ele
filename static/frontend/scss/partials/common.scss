@@ -34,24 +34,133 @@ $buttonGradient: linear-gradient(black, #242424, black);
     list-style: none;
 }
 
+.hide {
+    display: none;
+}
+
+.gradientSectionNav {
+
+}
+
+.blackLink {
+    color: black;
+    transition: all 0.1s ease;
+    text-decoration: none;
+    font-style: italic;
+    
+    &:hover, &:active {
+        color: #5a5a5a;
+    }
+}
+
+.silverLink {
+    color: silver;
+    transition: all 0.1s ease;
+    text-decoration: none;
+    
+    &:hover, &:active {
+        color: #5c5c5c;
+    }
+}
+
+.verticalLabels {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0 0 20px 0;
+    
+    * {
+        text-align: center;
+    }
+    
+    span {
+        display: block;
+        width: 100%;
+    }
+    
+    input {
+        display: block;
+        width: 100%;
+        height: 50px;
+    }
+}
+
+.horizontalCheckboxLabels {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: auto;
+    font-size: 2rem;
+    text-align: left;
+    margin: 0 auto 20px auto;
+    
+    span {
+        display: block;
+        width: calc(100% - 70px);
+        padding: 10px 0 0 0;
+    }
+    
+    input {
+        display: block;
+        width: 50px;
+        height: 50px;
+    }
+}
+
 .gradientInput {
     background: linear-gradient(black, #242424, black);
     border: 2px solid silver;
     border-radius: 5px;
     color: silver;
     text-align: center;
+    
+    &:focus {
+        border: 4px solid #d35400;
+    }
+    
+    &.wrongInput {
+        border: 4px solid red;
+    }
+    
+    &.approvedInput {
+        border: 4px solid green;
+    }
+}
+
+.gradientCheckbox {
+    background: linear-gradient(black, #242424, black);
+    border: 2px solid silver;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    
+    &:checked {
+        font-size: 2rem;
+        background: radial-gradient(silver, #b4b4b4) no-repeat center / 70% 70%,
+            linear-gradient(black, #242424, black);
+    }
+    
 }
 
 .gradientButton, .woocommerce-MyAccount-navigation-link {
     border-radius: 5px;
     background: $buttonGradient;
     box-sizing: border-box;
-    cursor: pointer;
+    
     * {
         color: silver;
         background: none;
         width: 100%;
         height: 100%;
+        cursor: pointer;
+        font-size: 2rem;
     }
     
     a {
@@ -65,6 +174,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
         border: 0 solid #d35400;
         border-bottom-width: 5px;
         transition: border-bottom-width 0.3s ease;
+        height: 50px;
     
         &:not([disabled]):hover {
             color: #727272;
@@ -79,91 +189,157 @@ $buttonGradient: linear-gradient(black, #242424, black);
 
 /*
 =====================================================
+    WIDGETS
+=====================================================
+*/
+
+.widgetDisplayMode {
+    overflow: hidden;
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+
+.widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
+    width: 100%;
+    background: rgba(0,0,0,0.9);
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+@media screen and (min-width: 996px) {
+    .widget {
+        width: 90vw;
+        height: 90vh;
+        top: 5vh;
+        left: 5vw;
+        
+        &:after {
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            content: '';
+        }
+    }
+}
+
+/*
+=====================================================
     LOADINGS
 =====================================================
 */
 
-.loadingScreen, .successScreen {
+.successScreen {
     position: relative;
-}
-
-.loadingScreen:before, .successScreen:before {
-    display: block;
-    content: '';
-    background: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    height: 100%;
-    width: 100%;
-}
-
-.successScreen:after {
-    width: 100px;
-    height: 100px;
-    display: block;
-    content: '\2713';
-    z-index: 1001;
-    position: absolute;
-    top: calc(50% - 50px);
-    left: calc(50% - 50px);
-    color: lightgreen;
-    font-size: 100px;
-}
-
-.loadingScreen:after {
-    width: 64px;
-    height: 64px;
-    display: block;
-    content: '';
-    border: 6px solid silver;
-    border-color: silver transparent silver transparent;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 1001;
-    top: calc(50% - 32px);
-    left: calc(50% - 32px);
-    animation: loading 1.2s linear infinite;
-}
-
-@keyframes loading {
-    0% {
-        transform: rotate(0deg);
+    &:before, &:after {
+        display: block;
+        position: absolute;
     }
-    100% {
-        transform: rotate(360deg);
+    
+    &:before {
+        content: '';
+        background: rgba(0, 0, 0, 0.6);
+        top: 0;
+        left: 0;
+        z-index: 200;
+        height: 100%;
+        width: 100%;
     }
+    
+    &:after {
+        width: 100px;
+        height: 100px;
+        content: '\2713';
+        z-index: 201;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: lightgreen;
+        font-size: 5rem;
+    }
+}
+
+@mixin loadingMixin($width, $height, $top, $left, $color, $translate, $animation: none, $content: ''){
+    position: relative;
+    
+    &:after {
+        background: none;
+        display: block;
+        position: absolute;
+        top: $top;
+        left: $left;
+        z-index: 201;
+        content: $content;
+        width: $width;
+        height: $height;
+        box-sizing: border-box;
+        border: 6px solid $color;
+        border-color: $color transparent $color transparent;
+        border-radius: 50%;
+        transform: $translate;
+        animation: $animation 1.2s linear infinite;
+    }
+    @if $animation != none {
+        @keyframes #{$animation} {
+            0% {
+                transform: $translate rotate(0deg);
+            }
+            100% {
+                transform: $translate rotate(360deg);
+            }
+        }
+    }
+}
+
+.loadingCenter {
+    @include loadingMixin(30px, 30px, 50%, 50%, black, translate(-50%, -50%), loadingCenter);
 }
 
 .loadingRight {
-    position: relative;
+    @include loadingMixin(30px, 30px, 50%, calc(100% - 5px), silver, translate(-100%, -50%), loadingRight);
+}
 
-    &:after {
-        width: 20px;
-        height: 20px;
+.loadingScreen {
+    @include loadingMixin(64px, 64px, 50%, 50%, silver, translate(-50%, -50%), loadingCenter);
+    &:before {
         display: block;
         content: '';
-        border: 6px solid silver;
-        border-color: silver transparent silver transparent;
-        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
         position: absolute;
-        z-index: 1001;
-        top: 50%;
-        right: 5px;
-        transform: translate(0, -50%);
-        animation: loadingRight 1.2s linear infinite;
+        top: 0;
+        left: 0;
+        z-index: 200;
+        height: 100%;
+        width: 100%;
     }
 }
 
-@keyframes loadingRight {
-    0% {
-        transform: translate(0, -50%) rotate(0deg);
-    }
-    100% {
-        transform: translate(0, -50%) rotate(360deg);
+.successRight {
+    position: relative;
+    
+    &:after {
+        font-size: 3rem;
+        color: green;
+        background: none;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: calc(100% - 5px);
+        z-index: 201;
+        content: '\2713';
+        width: auto;
+        height: auto;
+        box-sizing: border-box;
+        transform: translate(-100%, -50%);
     }
 }
+
 
 /*
 =====================================================

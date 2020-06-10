@@ -33,6 +33,16 @@ $( function() {
     let search = new Search('shopSearch');
     search.addAjaxSearch();
     search.closingSearchResultEvent();
+    let loginWidgetDOM = $('#accountPageLoginWidgetContainer .loginWidget');
+    let loginWidget = new LoginWidget(loginWidgetDOM, loginWidgetDOM.find('.registerForm'));
+    loginWidget.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
+    loginWidget.addRegisterValidation();
+
+    let orderWidget = new OrderWidget("orderWidget", 'widgetDisplayMode');
+    orderWidget.orderShow('basketButton');
+    orderWidget.addCloseWhenClickOutside();
+    orderWidget.addCloseButton('orderWidgetCloseButton');
+
 });
 
 function addInputMinMaxTesting(input) {

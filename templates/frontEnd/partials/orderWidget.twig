@@ -1,0 +1,32 @@
+<section id="orderWidget" class="widget">
+    <div id="orderWidgetContentWrapper">
+        <div id="orderWidgetCloseButtonContainer" class="gradientButton">
+            <button id="orderWidgetCloseButton">Zamknij</button>
+        </div>
+        <div id="orderWidgetStagesContainer">
+            <ul id="orderWidgetStages">
+                <li class="orderWidgetStage">Koszyk</li>
+                <li class="orderWidgetStage">Dostawa</li>
+                <li class="orderWidgetStage">Konto</li>
+                <li class="orderWidgetStage">Dane</li>
+                <li class="orderWidgetStage">Podsumowanie</li>
+                <li class="orderWidgetStage">Zamówienie</li>
+            </ul>
+        </div>
+        <section id="orderWidgetStageContent">
+            {% include ['partials/cartWidget.twig'] %}
+        </section>
+        <nav id="orderWidgetNav">
+            {% if isPreviousStage %}
+                <div id="orderWidgetPreviousButtonContainer">
+                    <button id="orderWidgetPreviousButton" class="orderWidgetPaginationLink"></button>
+                </div>
+            {% endif %}
+            {% if isNextStage %}
+                <div id="orderWidgetNextButtonContainer">
+                    <button id="orderWidgetNextButton" class="orderWidgetPaginationLink"></button>
+                </div>
+            {% endif %}
+        </nav>
+    </div>
+</section>

@@ -45,7 +45,6 @@ function addProductWidget() {
     wp_reset_postdata();
     Timber::render('partials/productWidget.twig', $context);
     die();
-
 }
 add_action('wp_ajax_nopriv_addProductWidget', 'addProductWidget');
 add_action('wp_ajax_addProductWidget', 'addProductWidget');
@@ -132,7 +131,8 @@ function searchAjax() {
     $args = [
         'post_type' => 'product',
         's' => $_POST['searchPhrase'],
-        'posts_per_page' => 30
+        'posts_per_page' => 30,
+        'post_status' => 'publish'
     ];
     $context['posts'] = new Timber\PostQuery($args);
     Timber::render('partials/search/searchResults.twig', $context);
@@ -140,3 +140,70 @@ function searchAjax() {
 }
 add_action('wp_ajax_nopriv_searchAjax', 'searchAjax');
 add_action('wp_ajax_searchAjax', 'searchAjax');
+
+
+function addOrderWidget() {
+    $context = Timber::context();
+    $context['products'] = getCart();
+    $context['checkoutUrl'] = getCheckoutUrl();
+    $context['cartTotal'] = getCartTotal();
+//    $context['nextUrl'] = $_POST['nextUrl'];
+    Timber::render('partials/orderWidget.twig', $context);
+    die();
+}
+add_action('wp_ajax_nopriv_addOrderWidget', 'addOrderWidget');
+add_action('wp_ajax_addOrderWidget', 'addOrderWidget');
+
+function loadCartWidget() {
+    $context = Timber::context();
+    $context['products'] = getCart();
+    $context['checkoutUrl'] = getCheckoutUrl();
+    $context['cartTotal'] = getCartTotal();
+    Timber::render('partials/cartWidget.twig', $context);
+}
+add_action('wp_ajax_nopriv_loadCartWidget', 'loadCartWidget');
+add_action('wp_ajax_loadCartWidget', 'loadCartWidget');
+
+function isUserUnique() {
+    if($_POST['type'] == 'email') {
+        if(email_exists($_POST['value'])) {
+            echo "true";
+        } else {
+            echo "false";
+        }
+    } else {
+        if(username_exists($_POST['value'])) {
+            echo "true";
+        } else {
+            echo "false";
+        }
+    }
+    die();
+}
+add_action('wp_ajax_nopriv_isUserUnique', 'isUserUnique');
+add_action('wp_ajax_isUserUnique', 'isUserUnique');
+
+function userRegisterAjax() {
+    $usernameExist = username_exists($_POST['username']);
+    $emailExist = email_exists($_POST['email']);
+    if($usernameExist || $emailExist) {
+        if($usernameExist) {
+            echo 'Konto o takiej nazwie użytkownika już istnieje!';
+        }
+        if($emailExist) {
+            echo 'Konto o takim adresie email już istnieje!';
+        }
+        die();
+    } else {
+        $userID = wp_create_user($_POST['username'], $_POST['password'], $_POST['email']);
+        if(is_wp_error($userID)) {
+            echo implode(" ", $userID->get_error_messages());
+        } else {
+            echo 'success';
+        }
+    }
+    die();
+}
+
+add_action('wp_ajax_nopriv_userRegisterAjax', 'userRegisterAjax');
+add_action('wp_ajax_userRegisterAjax', 'userRegisterAjax');

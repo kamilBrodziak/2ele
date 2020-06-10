@@ -1,0 +1,107 @@
+<section class="loginWidget">
+    <nav class="loginWidgetNav">
+        <ul class="loginWidgetNavList">
+            <li class="loginWidgetNavListItem gradientButton{% if whichPageShow == 'login' %} active{% endif %}"
+                data-section="loginWidgetLogin">
+                <a href="{{ accountUrl }}" class="loginWidgetNavLoginButton"
+                   {% if whichPageShow == 'login' %}disabled {% endif %}>Logowanie</a>
+            </li>
+            <li class="loginWidgetNavListItem gradientButton{% if whichPageShow == 'register' %} active{% endif %}"
+                data-section="loginWidgetRegister">
+                <a href="{{ accountUrl }}?page=register" class="loginWidgetNavRegisterButton"
+                   {% if whichPageShow == 'register' %}disabled {% endif %}>Rejestracja</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="loginWidgetNotices">
+        <span class="loginNotices">{{ loginNotices }}</span>
+        {% if registerNotices %}
+            <ul class="loginWidgetRegisterNotices">
+                {% for notice in registerNotices %}
+                    <li class="loginWidgetRegisterNotice">{{ notice }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+    <section class="loginWidgetLogin loginWidgetSection{% if whichPageShow == 'register' %} hide{% endif %}">
+        <h2 class="loginWidgetSectionTitle">Logowanie</h2>
+        <form method="post" class="loginForm">
+            <div class="loginFormNotices flexCenterCenter"></div>
+            <label class="loginFormUsernameInputLabel verticalLabels">
+                <span>Nazwa użytkownika bądź adres email *</span>
+                <input type='text' name="username" required autocomplete="username"
+                       class="loginFormUsernameInput gradientInput">
+            </label>
+            <label class="loginFormPasswordInputLabel verticalLabels">
+                <span>Hasło *</span>
+                <input type="password" name="password" required autocomplete="current-password"
+                       class="loginFormPasswordInput gradientInput">
+            </label>
+            <label class="loginFormRememberCheckboxLabel horizontalCheckboxLabels">
+                <input type="checkbox" name="rememberme" value="forever"
+                       class="loginFormRememberCheckbox gradientCheckbox">
+                <span>Zapamiętaj</span>
+            </label>
+            <div class="loginFormSubmitContainer gradientButton">
+                <input type="submit" class="loginFormSubmit" name="login" value="Zaloguj się">
+            </div>
+        </form>
+        <a href="{{ lostPasswordPage }}" class="lostPasswordLink blackLink">Zapomniałem hasła</a>
+    </section>
+    <section class="loginWidgetRegister loginWidgetSection{% if whichPageShow == 'login' %} hide{% endif %}">
+        <h2 class="loginWidgetSectionTitle">Rejestracja</h2>
+        <form method="post" class="registerForm">
+            <div class="registerFormNotices flexCenterCenter"></div>
+            <label class="registerFormUsernameInputLabel verticalLabels">
+                <span>Nazwa użytkownika*</span>
+                <div>
+                    <input type='text' name="username" required autocomplete="username"
+                           class="registerFormUsernameInput gradientInput"
+                           value="{% if registerUsername %}registerUsername{% endif %}">
+                </div>
+                <span class="inputNotice"></span>
+            </label>
+            <label class="registerFormEmailInputLabel verticalLabels">
+                <span>Adres email *</span>
+                <div>
+                    <input type="email" name="email" required autocomplete="email"
+                           class="registerFormEmailInput gradientInput"
+                           value="{% if registerEmail %}registerEmail{% endif %}">
+                </div>
+                <span class="inputNotice"></span>
+            </label>
+            <label class="registerFormConfirmEmailInputLabel verticalLabels">
+                <span>Potwierdź adres email *</span>
+                <div>
+                    <input type="email" name="confirmEmail" required autocomplete="off"
+                           class="registerFormConfirmEmailInput gradientInput">
+                </div>
+                <span class="inputNotice"></span>
+            </label>
+            <label class="registerFormPasswordInputLabel verticalLabels">
+                <span>Hasło *</span>
+                <div>
+                    <input type="password" name="password" required autocomplete="new-password"
+                           class="registerFormPasswordInput gradientInput">
+                </div>
+                <span class="inputNotice"></span>
+            </label>
+            <label class="registerFormConfirmPasswordInputLabel verticalLabels">
+                <span>Potwierdź hasło *</span>
+                <div>
+                    <input type="password" name="confirmPassword" required autocomplete="off"
+                            class="registerFormConfirmPasswordInput gradientInput">
+                </div>
+                <span class="inputNotice"></span>
+            </label>
+            <label class="registerFormPrivacyCheckboxLabel horizontalCheckboxLabels">
+                <input type="checkbox" name="privacy" required
+                       class="registerFormPrivacyCheckbox gradientCheckbox">
+                <span>Przeczytałem i akceptuję <a href="{{ privacyPolicyUrl }}" class="blackLink">regulamin sklepu 2ele.pl</a></span>
+            </label>
+            <div class="registerFormSubmitContainer gradientButton">
+                <input type="submit" class="registerFormSubmit" name="register" value="Zarejestruj się">
+            </div>
+        </form>
+    </section>
+</section>

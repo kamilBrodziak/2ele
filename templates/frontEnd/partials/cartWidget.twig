@@ -6,13 +6,13 @@
     </div>
     <table id="cartItems">
         <thead>
-        <tr>
-            <th colspan="2">Produkt</th>
-            <th>Cena</th>
-            <th>Ilość</th>
-            <th>Kwota</th>
-            <th>Usunąć z koszyka?</th>
-        </tr>
+            <tr>
+                <th colspan="2">Produkt</th>
+                <th>Cena</th>
+                <th>Ilość</th>
+                <th>Kwota</th>
+                <th>Usunąć z koszyka?</th>
+            </tr>
         </thead>
         <tbody>
         {% for product in products %}
@@ -60,8 +60,8 @@
     <footer id="cartSummary">
         <h3 class="flexCenterCenter">Podsumowanie koszyka</h3>
         <span id="cartTotal" class="flexCenterCenter">Kwota: {{ cartTotal }} zł</span>
-        <div class="gradientButton">
-            <a href="{{ checkoutUrl }}" class="flexCenterCenter">Przejdź do zamówienia</a>
-        </div>
+{#        <div class="gradientButton">#}
+{#            <a href="{{ checkoutUrl }}" class="flexCenterCenter">Przejdź do zamówienia</a>#}
+{#        </div>#}
     </footer>
 </section>
