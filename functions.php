@@ -113,6 +113,10 @@ function getImgDir() {
     return get_template_directory_uri() . "/static/frontend/img";
 }
 
+function getVerificationUrl() {
+    return get_site_url() . '/user-verification/';
+}
+
 function customQueryPostsPerPage( $query ) {
     if ( $query->is_main_query() && !is_admin() ) {
         $query->set( 'posts_per_page', getProductsPerPageAmount());

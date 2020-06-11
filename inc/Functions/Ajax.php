@@ -167,15 +167,15 @@ add_action('wp_ajax_loadCartWidget', 'loadCartWidget');
 function isUserUnique() {
     if($_POST['type'] == 'email') {
         if(email_exists($_POST['value'])) {
-            echo "true";
-        } else {
             echo "false";
+        } else {
+            echo "true";
         }
     } else {
         if(username_exists($_POST['value'])) {
-            echo "true";
-        } else {
             echo "false";
+        } else {
+            echo "true";
         }
     }
     die();
@@ -195,7 +195,8 @@ function userRegisterAjax() {
         }
         die();
     } else {
-        $userID = wp_create_user($_POST['username'], $_POST['password'], $_POST['email']);
+//        $userID = wp_create_user($_POST['username'], $_POST['password'], $_POST['email']);
+        $userID = wc_create_new_customer( $_POST['email'], $_POST['username'], $_POST['password'] );
         if(is_wp_error($userID)) {
             echo implode(" ", $userID->get_error_messages());
         } else {
@@ -207,3 +208,69 @@ function userRegisterAjax() {
 
 add_action('wp_ajax_nopriv_userRegisterAjax', 'userRegisterAjax');
 add_action('wp_ajax_userRegisterAjax', 'userRegisterAjax');
+
+function userLoginAjax() {
+    $usernameExist = username_exists($_POST['username']);
+    $emailExist = email_exists($_POST['username']);
+    if($usernameExist || $emailExist) {
+       $authenticate = wp_authenticate($_POST['username'], $_POST['password']);
+       if($authenticate) {
+           $credentials = [
+               'user_login' => $_POST['username'],
+               'user_password' => $_POST['password'],
+               'remember' => $_POST['remember']
+           ];
+//           $userID = $usernameExist ? $usernameExist : $emailExist;
+//           $approved_status = get_user_meta($userID, 'user_activation_status', true);
+//           $verificationUrl = getVerificationUrl($userID);
+//           if($approved_status == 0) {
+//               echo $userID;
+//               echo 'Aby się zalogować prosimy najpierw zweryfikować konto poprzez link wysłany na Twój email.' .
+//                   ' <a target="_blank" href="' . $verificationUrl . '" class="blackLink">Wyślij ponownie link weryfikacyjny</a>';
+//           } else {
+               $user = wp_signon($credentials, false);
+               if(is_wp_error($user)) {
+                   echo $user->get_error_message();
+               } else {
+                   wp_set_current_user($user);
+                   echo 'success';
+               }
+//           }
+
+       } else {
+           echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
+       }
+    } else {
+        echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
+    }
+    die();
+}
+
+add_action('wp_ajax_nopriv_userLoginAjax', 'userLoginAjax');
+add_action('wp_ajax_userLoginAjax', 'userLoginAjax');
+
+function userLogoutAjax() {
+    wp_logout();
+}
+
+add_action('wp_ajax_nopriv_userLogoutAjax', 'userLogoutAjax');
+add_action('wp_ajax_userLogoutAjax', 'userLogoutAjax');
+
+function loadLoginWidgetAjax() {
+    $context = Timber::context();
+    if(isUserLogged()) {
+        $user = wp_get_current_user();
+        $context['username'] = $user->user_login;
+        Timber::render('partials/logoutWidget.twig');
+    } else {
+        $context['privacyPolicyUrl'] = get_privacy_policy_url();
+        $context['accountUrl'] = get_permalink(get_option('woocommerce_myaccount_page_id'));
+        $context['whichPageShow'] = 'login';
+        $context['lostPasswordPage'] = wp_lostpassword_url();
+        $context['showPrivileges'] = 'true';
+        Timber::render('partials/loginWidget.twig');
+    }
+    die();
+}
+add_action('wp_ajax_nopriv_loadLoginWidgetAjax', 'loadLoginWidgetAjax');
+add_action('wp_ajax_loadLoginWidgetAjax', 'loadLoginWidgetAjax');

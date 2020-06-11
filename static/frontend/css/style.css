@@ -1280,6 +1280,21 @@ input:disabled {
     LOGIN WIDGET - NOTICES
 =====================================================
 */
+.loginWidgetNotices {
+  padding: 10px 5%;
+}
+
+.loginWidgetPrivilegesHeader {
+  font-size: 2.5rem;
+}
+
+.loginWidgetPrivileges {
+  display: flex;
+  flex-direction: column;
+  list-style: disc;
+  font-size: 2rem;
+}
+
 /*
 =====================================================
     LOGIN WIDGET - NAV
@@ -1331,6 +1346,13 @@ input:disabled {
   height: 80px !important;
 }
 
+.registerFormNotices, .loginFormNotices {
+  font-size: 2rem;
+  padding: 0 0 10px 0;
+}
+.registerFormNotices strong, .loginFormNotices strong {
+  display: none;
+}
 .loginWidgetSectionTitle {
   display: block;
   width: 100%;

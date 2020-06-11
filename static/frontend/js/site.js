@@ -33,10 +33,13 @@ $( function() {
     let search = new Search('shopSearch');
     search.addAjaxSearch();
     search.closingSearchResultEvent();
-    let loginWidgetDOM = $('#accountPageLoginWidgetContainer .loginWidget');
-    let loginWidget = new LoginWidget(loginWidgetDOM, loginWidgetDOM.find('.registerForm'));
-    loginWidget.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
-    loginWidget.addRegisterValidation();
+    let loginPageLoginWidgetContainer = $('#accountPageLoginWidgetContainer');
+    let loginPageLoginWidget = new LoginWidget(loginPageLoginWidgetContainer);
+    loginPageLoginWidget.withWidget();
+    loginPageLoginWidget.addLoginAjax(true);
+    // loginPageLoginWidget.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
+    // loginPageLoginWidget.addRegisterValidation();
+    // loginPageLoginWidget.addRegisterAjax();
 
     let orderWidget = new OrderWidget("orderWidget", 'widgetDisplayMode');
     orderWidget.orderShow('basketButton');

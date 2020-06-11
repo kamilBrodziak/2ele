@@ -13,20 +13,19 @@
             </li>
         </ul>
     </nav>
-    <section class="loginWidgetNotices">
-        <span class="loginNotices">{{ loginNotices }}</span>
-        {% if registerNotices %}
-            <ul class="loginWidgetRegisterNotices">
-                {% for notice in registerNotices %}
-                    <li class="loginWidgetRegisterNotice">{{ notice }}</li>
-                {% endfor %}
+    <section class="loginWidgetNotices textAlignCenter">
+        {% if showPrivileges %}
+            <h3 class="loginWidgetPrivilegesHeader">Korzyści z posiadania konta:</h3>
+            <ul class="loginWidgetPrivileges">
+                <li class="loginWidgetPrivilege">Automatyczne wypełnianie formularza zamówienia na podstawie adresów przypisanych do konta.</li>
+                <li class="loginWidgetPrivilege">Możliwość przeglądania złożonych zamówień</li>
             </ul>
         {% endif %}
     </section>
     <section class="loginWidgetLogin loginWidgetSection{% if whichPageShow == 'register' %} hide{% endif %}">
         <h2 class="loginWidgetSectionTitle">Logowanie</h2>
         <form method="post" class="loginForm">
-            <div class="loginFormNotices flexCenterCenter"></div>
+            <div class="loginFormNotices flexCenterCenter">{{ loginNotices }}</div>
             <label class="loginFormUsernameInputLabel verticalLabels">
                 <span>Nazwa użytkownika bądź adres email *</span>
                 <input type='text' name="username" required autocomplete="username"
@@ -51,7 +50,15 @@
     <section class="loginWidgetRegister loginWidgetSection{% if whichPageShow == 'login' %} hide{% endif %}">
         <h2 class="loginWidgetSectionTitle">Rejestracja</h2>
         <form method="post" class="registerForm">
-            <div class="registerFormNotices flexCenterCenter"></div>
+            <div class="registerFormNotices flexCenterCenter textAlignCenter">
+                {% if registerNotices %}
+                    <ul class="loginWidgetRegisterNotices">
+                        {% for notice in registerNotices %}
+                            <li class="loginWidgetRegisterNotice">{{ notice }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
             <label class="registerFormUsernameInputLabel verticalLabels">
                 <span>Nazwa użytkownika*</span>
                 <div>

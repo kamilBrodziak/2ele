@@ -1,19 +1,69 @@
 class LoginWidget {
-    constructor(widget, registerForm) {
-        this.widget = widget;
-        this.registerForm = registerForm;
-        this.registerFormInputs = {
-            'username': registerForm.find('.registerFormUsernameInput'),
-            'email': registerForm.find('.registerFormEmailInput'),
-            'confirmEmail': registerForm.find('.registerFormConfirmEmailInput'),
-            'password': registerForm.find('.registerFormPasswordInput'),
-            'confirmPassword': registerForm.find('.registerFormConfirmPasswordInput'),
-            'submit': registerForm.find('.registerFormSubmit')
-        }
+    constructor(widgetContainer) {
+        this.widgetContainer = widgetContainer;
+        this.widget = null;
         this.emailUnique = false;
         this.usernameUnique = false;
         this.emailMatch = false;
         this.passwordMatch = false;
+    }
+
+    withWidget() {
+        if(this.widget) {
+            this.unbindEvents();
+        }
+        this.widget = this.widgetContainer.find('.loginWidget');
+        this.registerForm = this.widget.find('.registerForm');
+        this.registerFormInputs = {
+            'username': this.registerForm.find('.registerFormUsernameInput'),
+            'email': this.registerForm.find('.registerFormEmailInput'),
+            'confirmEmail': this.registerForm.find('.registerFormConfirmEmailInput'),
+            'password': this.registerForm.find('.registerFormPasswordInput'),
+            'confirmPassword': this.registerForm.find('.registerFormConfirmPasswordInput'),
+            'submit': this.registerForm.find('.registerFormSubmit')
+        }
+
+        this.loginForm = this.widget.find('.loginForm');
+        this.loginFormInputs = {
+            'username': this.loginForm.find('.loginFormUsernameInput'),
+            'password': this.loginForm.find('.loginFormPasswordInput'),
+            'remember': this.loginForm.find('.loginFormRememberCheckbox')
+        }
+        this.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
+        this.addRegisterValidation();
+        this.addRegisterAjax();
+    }
+
+    loadWidgetAjax() {
+        let data = {
+            'action': 'loadLoginWidgetAjax'
+        };
+        const _this = this;
+        const beforeSend = (response) => {
+            _this.widgetContainer.addClass('loadingScreen');
+        }, error = (response) => {
+            _this.widgetContainer.removeClass('loadingScreen');
+            console.log(response);
+        }, success = (response) => {
+            _this.widgetContainer.removeClass('loadingScreen');
+            _this.widgetContainer.empty().append(response);
+            const widget = this.widgetContainer.find('.loginWidget');
+            if(widget) {
+                _this.withWidget();
+            }
+        }
+        ajaxCall(data, beforeSend, error, success);
+    }
+
+    unbindEvents() {
+        this.registerForm.off('submit');
+        this.registerFormInputs.confirmPassword.off('keyup');
+        this.registerFormInputs.confirmEmail.off('keyup');
+        this.registerFormInputs.email.off('keyup');
+        this.registerFormInputs.password.off('keyup');
+        this.registerFormInputs.username.off('keyup');
+        this.registerFormInputs.submit.off('keyup');
+        this.loginForm.off('submit');
     }
 
     addNav(navListItemClass, navListClass) {
@@ -75,18 +125,81 @@ class LoginWidget {
                 _this.registerFormInputs.confirmPassword.val('');
                 _this.registerForm.find('.registerFormNotices').html('Rejestracja przebiegła pomyślnie!' +
                 ' Przed zalogowaniem proszę sprawdzić swój adres email, na który została wysłana wiadomość' +
-                    ' z linkiem aktywacyjnym dla konta.')
+                    ' z linkiem aktywacyjnym dla konta.');
             } else {
                 _this.registerForm.find('.registerFormNotices').html(response);
             }
+            $("html, body").animate({ scrollTop: 0 }, 600);
         };
-
+        console.log('pp');
         this.registerForm.on('submit', function (e) {
             e.preventDefault();
+            console.log('pp2');
             data.username = username.val();
             data.email = email.val();
             data.password = password.val();
+            ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
+        })
+    }
 
+    addLoginAjax(submit = false) {
+        const username = this.loginFormInputs.username,
+            password = this.loginFormInputs.password,
+            remember = this.loginFormInputs.remember,
+            _this = this;
+        let data = {
+            'action': 'userLoginAjax',
+            'signOn': !submit
+        }
+
+        const beforeSendFunc = (response) => {
+            _this.loginForm.addClass('loadingScreen');
+        }, errorFunc = (response) => {
+            _this.loginForm.removeClass('loadingScreen');
+        }, successFunc = (response) => {
+            _this.loginForm.removeClass('loadingScreen');
+            if(response === 'success') {
+                if(submit) {
+                    username.val('');
+                    password.val('');
+                    location.reload();
+                } else {
+                    _this.loadLogoutWidget();
+                }
+                _this.unbindEvents();
+            } else {
+                _this.loginForm.find('.loginFormNotices').html(response);
+            }
+            this.widgetContainer.animate({ scrollTop: 0 }, 600);
+        };
+        this.loginForm.on('submit', function (e) {
+            e.preventDefault();
+            data.username = username.val();
+            data.password = password.val();
+            data.remember = remember.is(':checked');
+            ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
+        })
+    }
+
+    loadLogoutWidget() {
+        const _this = this;
+        let data = {
+            'action': 'userLogoutAjax',
+        }
+
+        const beforeSendFunc = (response) => {
+            _this.widget.addClass('loadingScreen');
+        }, errorFunc = (response) => {
+            _this.widget.removeClass('loadingScreen');
+        }, successFunc = (response) => {
+            _this.widget.removeClass('loadingScreen');
+            _this.loadWidgetAjax();
+            this.widgetContainer.animate({ scrollTop: 0 }, 600);
+        };
+        this.widget.empty();
+        const logoutButton = $('<button value="Wyloguj się">');
+        logoutButton.on('click', function (e) {
+            ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
         })
     }
 
@@ -118,35 +231,22 @@ class LoginWidget {
             inputContainer.removeClass('loadingRight');
         }, successFunc = (response) => {
             inputContainer.removeClass('loadingRight');
-            if(response === "false") {
-                _this.inputFrontendResult(input, '', 'approvedInput');
-                if(type === 'email') {
-                    _this.emailUnique = true;
-                } else {
-                    _this.usernameUnique = true;
-                }
-            } else {
-                _this.inputFrontendResult(input, message, 'wrongInput');
-                if(type === 'email') {
-                    _this.emailUnique = false;
-                } else {
-                    _this.usernameUnique = false;
-                }
-            }
+            let isApproved = response === "true";
+            let userMessage = isApproved ? '' : message,
+                inputClass = isApproved ? 'approvedInput' : 'wrongInput';
+            _this.setValidatingField(type + 'Unique', isApproved);
+            _this.inputFrontendResult(input, userMessage, inputClass);
             _this.validateRegisterForm();
         }
 
         input.on('keyup', function () {
             data.value = input.val();
-            if((regex !== null && regex.test(data.value)) || regex === null) {
+            if(((regex !== null && regex.test(data.value)) || regex === null) && data.value !== "") {
                 ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
             } else {
-                if(type === 'email') {
-                    _this.inputFrontendResult(input, 'Podany adres email jest nieprawidłowy.' +
-                        ' Proszę wprowadź poprawny email w formacie przyklad@przyklad.pl', 'wrongInput');
-                } else {
-                    _this.inputFrontendResult(input, '', 'wrongInput');
-                }
+                let userMessage = (type === 'email') ? 'Podany adres email jest nieprawidłowy. Proszę wprowadź poprawny email w formacie przykład@przykład.pl'
+                    : '';
+                _this.inputFrontendResult(input, userMessage, 'wrongInput');
             }
         })
     }
@@ -158,24 +258,31 @@ class LoginWidget {
             $(this).on('keyup', function (e) {
                 let firstInputVal = firstInput.val();
                 let secondInputVal = secondInput.val();
-                if(firstInputVal === secondInputVal && firstInputVal !== '') {
-                    _this.inputFrontendResult(secondInput, '', 'approvedInput');
-                    if(type === 'email') {
-                        _this.emailMatch = true;
-                    } else {
-                        _this.passwordMatch = true;
-                    }
-                } else if(firstInputVal !== '') {
-                    _this.inputFrontendResult(secondInput, message, 'wrongInput');
-                    if(type === 'email') {
-                        _this.emailMatch = false;
-                    } else {
-                        _this.passwordMatch = false;
-                    }
+                if(firstInputVal === '') {
+                    _this.inputFrontendResult(firstInput, '', 'wrongInput');
+                } else {
+                    let isMatch = firstInputVal === secondInputVal;
+                    let userMessage = isMatch ? '' : message,
+                        inputClass = isMatch ? 'approvedInput' : 'wrongInput';
+                    _this.setValidatingField(type + 'Match', isMatch);
+                    _this.inputFrontendResult(secondInput, userMessage, inputClass);
                 }
+
                 _this.validateRegisterForm();
             })
         })
+    }
+
+    setValidatingField(fieldName, value) {
+        if(fieldName === 'emailMatch') {
+            this.emailMatch = value;
+        } else if(fieldName === 'passwordMatch') {
+            this.passwordMatch = value;
+        } else if(fieldName === 'emailUnique') {
+            this.emailUnique = value;
+        } else if(fieldName === 'usernameUnique') {
+            this.usernameUnique = value;
+        }
     }
 
     validateRegisterForm() {
