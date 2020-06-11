@@ -195,8 +195,8 @@ $buttonGradient: linear-gradient(black, #242424, black);
 
 .widgetDisplayMode {
     overflow: hidden;
-    width: 100vw;
-    height: calc(var(--vh, 1vh) * 100);
+    //width: 100vw;
+    //height: calc(var(--vh, 1vh) * 100);
 }
 
 

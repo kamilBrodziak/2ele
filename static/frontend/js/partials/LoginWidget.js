@@ -2,10 +2,11 @@ class LoginWidget {
     constructor(widgetContainer) {
         this.widgetContainer = widgetContainer;
         this.widget = null;
-        this.emailUnique = false;
-        this.usernameUnique = false;
-        this.emailMatch = false;
-        this.passwordMatch = false;
+        this.emailValidation = false;
+        this.usernameValidation = false;
+        this.passwordValidation = false;
+        this.confirmEmailValidation = false;
+        this.confirmPasswordValidation = false;
     }
 
     withWidget() {
@@ -86,20 +87,6 @@ class LoginWidget {
             newActive.attr('disabled', true);
             sections[newActive.data('section')].removeClass('hide');
         })
-    }
-
-    addRegisterValidation() {
-        const username = this.registerFormInputs.username,
-            email = this.registerFormInputs.email,
-            confirmEmail = this.registerFormInputs.confirmEmail,
-            password = this.registerFormInputs.password,
-            confirmPassword = this.registerFormInputs.confirmPassword,
-            submit = this.registerFormInputs.submit;
-        submit.attr('disabled', true);
-        this.validateRegisterForm();
-        this.validateUsername(username);
-        this.validateEmail(email, confirmEmail);
-        this.validatePassword(password, confirmPassword, 'Wprowadzone hasła się różnią!');
     }
 
     addRegisterAjax() {
@@ -203,90 +190,206 @@ class LoginWidget {
         })
     }
 
+
+    //
+    // ==============================
+    //  VALIDATION
+    // ==============================
+    //
+
+    addRegisterValidation() {
+        const username = this.registerFormInputs.username,
+            email = this.registerFormInputs.email,
+            confirmEmail = this.registerFormInputs.confirmEmail,
+            password = this.registerFormInputs.password,
+            confirmPassword = this.registerFormInputs.confirmPassword,
+            submit = this.registerFormInputs.submit;
+        submit.attr('disabled', true);
+        this.validateRegisterForm();
+        this.validateUsername(username);
+        this.validateEmail(email, confirmEmail);
+        this.validatePassword(password, confirmPassword);
+    }
+
     validateUsername(username) {
-        this.ajaxUniquenessValidation(username, 'username', 'Na tą nazwę użytkownika jest już założone konto!');
+        const re = /([^\s])/;
+        const emailProperties = {
+            'inputName': 'username',
+            'testMatch' : false,
+            'testRegex': {
+                'regex': re,
+                'message': 'Nazwa użytkownika nie może być pusta'
+            },
+            'testUnique': {
+                'message': 'Konto o podanej nazwie użytkownika już istnieje'
+            }
+        }
+
+        this.inputValidation(username, emailProperties);
     }
 
     validateEmail(email, confirmEmail) {
         // const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        this.ajaxUniquenessValidation(email, 'email', 'Na ten email jest już założone konto!', re);
-        this.validateMatch(email, confirmEmail, 'Wprowadzone adresy mailowe się różnią!', 'email');
+        const emailProperties = {
+            'inputName': 'email',
+            'testMatch' : {
+                'isParent' : true,
+                'matchingInput': confirmEmail,
+                'matchingInputName': 'confirmEmail',
+                'message': 'Wprowadzone adresy mailowe różnią się!'
+            },
+            'testRegex': {
+                'regex': re,
+                'message': 'Podaj poprawny adres mailowy. Musi spełniać format: przyklad@przyklad.przyklad'
+            },
+            'testUnique': {
+                'message': 'Konto o podanym adresie mailowym już istnieje'
+            }
+        }
+
+        const confirmEmailProperties = {
+            'inputName': 'confirmEmail',
+            'testMatch' : {
+                'isParent' : false,
+                'matchingInput': email,
+                'message': 'Wprowadzone adresy mailowe różnią się!'
+            },
+            'testRegex': {
+                'regex': /([^\s])/,
+                'message': 'Wprowadzone adresy mailowe różnią się!'
+            },
+            'testUnique': false
+        }
+
+        this.inputValidation(email, emailProperties);
+        this.inputValidation(confirmEmail, confirmEmailProperties);
     }
 
-    validatePassword(password, confirmPassword, message) {
-        this.validateMatch(password, confirmPassword, message, 'password');
+    validatePassword(password, confirmPassword) {
+        const re = /([^\s])/;
+        const passwordProperties = {
+            'inputName': 'password',
+            'testMatch' : {
+                'isParent' : true,
+                'matchingInput': confirmPassword,
+                'matchingInputName': 'confirmPassword',
+                'message': 'Wprowadzone hasła różnią się!'
+            },
+            'testRegex': {
+                'regex': re,
+                'message': 'Hasło nie może być puste'
+            },
+            'testUnique': false
+        }
+
+        const confirmPasswordProperties = {
+            'inputName': 'confirmPassword',
+            'testMatch' : {
+                'isParent' : false,
+                'matchingInput': password,
+                'message': 'Wprowadzone hasła różnią się!'
+            },
+            'testRegex': {
+                'regex': /([^\s])/,
+                'message': 'Wprowadzone hasła różnią się!'
+            },
+            'testUnique': false
+        }
+
+        this.inputValidation(password, passwordProperties);
+        this.inputValidation(confirmPassword, confirmPasswordProperties);
     }
 
-    ajaxUniquenessValidation(input, type, message, regex= null) {
+    inputValidation(input, properties) {
+        const _this = this;
         let data = {
             'action': 'isUserUnique',
-            'type': type
+            'type': properties.inputName
         }
-        let _this = this;
+
+        let ajaxUniqueResult = false;
         let inputContainer = input.parent();
-        let beforeSendFunc = (response) => {
+        const beforeSendFunc = (response) => {
             inputContainer.addClass('loadingRight');
         }, errorFunc = (response) => {
             inputContainer.removeClass('loadingRight');
         }, successFunc = (response) => {
             inputContainer.removeClass('loadingRight');
-            let isApproved = response === "true";
-            let userMessage = isApproved ? '' : message,
-                inputClass = isApproved ? 'approvedInput' : 'wrongInput';
-            _this.setValidatingField(type + 'Unique', isApproved);
-            _this.inputFrontendResult(input, userMessage, inputClass);
-            _this.validateRegisterForm();
+            ajaxUniqueResult = response === "true";
         }
 
-        input.on('keyup', function () {
-            data.value = input.val();
-            if(((regex !== null && regex.test(data.value)) || regex === null) && data.value !== "") {
-                ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
-            } else {
-                let userMessage = (type === 'email') ? 'Podany adres email jest nieprawidłowy. Proszę wprowadź poprawny email w formacie przykład@przykład.pl'
-                    : '';
-                _this.inputFrontendResult(input, userMessage, 'wrongInput');
-            }
-        })
-    }
-
-    validateMatch(firstInput, secondInput, message, type) {
-        let inputs = [firstInput, secondInput];
-        let _this = this;
-        $.each(inputs, function () {
-            $(this).on('keyup', function (e) {
-                let firstInputVal = firstInput.val();
-                let secondInputVal = secondInput.val();
-                if(firstInputVal === '') {
-                    _this.inputFrontendResult(firstInput, '', 'wrongInput');
+        input.on('keyup', function (e) {
+            const val = input.val();
+            data.value = val;
+            const testRegex = properties.testRegex;
+            const isRegex = testRegex ? testRegex.regex.test(val) : true;
+            if(isRegex) {
+                const testMatch = properties.testMatch;
+                const isMatch = testMatch ? (testMatch.matchingInput.val() === val) : true;
+                if(isMatch || testMatch.isParent) {
+                    if(!isMatch && testMatch.isParent) {
+                        _this.validate(testMatch.matchingInput, testMatch.matchingInputName, false, testMatch.message);
+                    }
+                    const testUnique = properties.testUnique;
+                    if(testUnique) {
+                        $.when(
+                            $.ajax({
+                                url: ajaxPaginationParams.ajaxUrl,
+                                type: 'POST',
+                                data: data,
+                                beforeSend: beforeSendFunc,
+                                error: errorFunc,
+                                success: successFunc
+                            })
+                        ).done(function () {
+                            if(ajaxUniqueResult) {
+                                _this.validate(input, properties.inputName, true, '');
+                            } else {
+                                _this.validate(input, properties.inputName, false, testUnique.message);
+                            }
+                        });
+                    } else {
+                        _this.validate(input, properties.inputName, true, '');
+                    }
                 } else {
-                    let isMatch = firstInputVal === secondInputVal;
-                    let userMessage = isMatch ? '' : message,
-                        inputClass = isMatch ? 'approvedInput' : 'wrongInput';
-                    _this.setValidatingField(type + 'Match', isMatch);
-                    _this.inputFrontendResult(secondInput, userMessage, inputClass);
+                    _this.validate(input, properties.inputName, false, testMatch.message);
+                    if(testMatch.isParent) {
+                        _this.validate(testMatch.matchingInput, testMatch.matchingInputName, false, testMatch.message);
+                    } else {
+                        _this.validate(input, properties.inputName, false, testMatch.message);
+                    }
                 }
+            } else {
+                _this.validate(input, properties.inputName, false, testRegex.message);
+            }
 
-                _this.validateRegisterForm();
-            })
         })
     }
 
-    setValidatingField(fieldName, value) {
-        if(fieldName === 'emailMatch') {
-            this.emailMatch = value;
-        } else if(fieldName === 'passwordMatch') {
-            this.passwordMatch = value;
-        } else if(fieldName === 'emailUnique') {
-            this.emailUnique = value;
-        } else if(fieldName === 'usernameUnique') {
-            this.usernameUnique = value;
+    validate(input, inputName, isValid, message) {
+        const inputClass = isValid ? 'approvedInput' : 'wrongInput';
+        this.setInputValidatingField(inputName, isValid);
+        this.inputFrontendResult(input, message, inputClass);
+    }
+
+    setInputValidatingField(fieldName, value) {
+        if(fieldName === 'email') {
+            this.emailValidation = value;
+        } else if(fieldName === 'password') {
+            this.passwordValidation = value;
+        } else if(fieldName === 'username') {
+            this.usernameValidation = value;
+        } else if(fieldName === 'confirmEmail') {
+            this.confirmEmailValidation = value;
+        } else if(fieldName === 'confirmPassword') {
+            this.confirmPasswordValidation = value;
         }
     }
 
     validateRegisterForm() {
-        if(this.registerForm && this.emailUnique && this.usernameUnique && this.emailMatch && this.passwordMatch) {
+        if(this.registerForm && this.usernameValidation && this.emailValidation && this.confirmEmailValidation &&
+            this.passwordValidation && this.confirmPasswordValidation) {
             this.registerFormInputs.submit.attr('disabled', false);
         } else {
             this.registerFormInputs.submit.attr('disabled', true);

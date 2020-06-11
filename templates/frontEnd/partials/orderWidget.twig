@@ -17,16 +17,12 @@
             {% include ['partials/cartWidget.twig'] %}
         </section>
         <nav id="orderWidgetNav">
-            {% if isPreviousStage %}
-                <div id="orderWidgetPreviousButtonContainer">
-                    <button id="orderWidgetPreviousButton" class="orderWidgetPaginationLink"></button>
-                </div>
-            {% endif %}
-            {% if isNextStage %}
-                <div id="orderWidgetNextButtonContainer">
-                    <button id="orderWidgetNextButton" class="orderWidgetPaginationLink"></button>
-                </div>
-            {% endif %}
+            <div id="orderWidgetPreviousButtonContainer" class="gradientButton">
+                <button id="orderWidgetPreviousButton" class="orderWidgetPaginationLink"><< Koszyk</button>
+            </div>
+            <div id="orderWidgetNextButtonContainer" class="gradientButton">
+                <button id="orderWidgetNextButton" class="orderWidgetPaginationLink">Logowanie >></button>
+            </div>
         </nav>
     </div>
 </section>
