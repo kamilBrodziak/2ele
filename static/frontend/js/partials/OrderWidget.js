@@ -1,107 +1,191 @@
 class OrderWidget {
-    constructor(orderWidgetID, widgetDisplayModeClass) {
-        this.orderWidgetID = orderWidgetID;
-        this.widgetDisplayModeClass = widgetDisplayModeClass;
-        this.sectionWidgetID = 'orderWidgetStageContent';
-        this.orderWidget = null;
-        this.stage = 0;
+    constructor(widgetContainer = null) {
+        // ORDER WIDGET
+        this.widgetContainer = (widgetContainer) ? widgetContainer : $('body');
+        this.widgetActiveClass = 'orderWidgetActive';
+        this.contentWrapper = null;
+        this.widget = null;
+        this.isPopup = false;
+        this.closeButton = null;
+        this.cartButton = null
+        // SECTION FOR OTHER WIDGETS IN ORDER WIDGET
+        this.widgetSection = null;
         this.currentSectionWidget = null;
+        this.previousButton = null;
+        this.nextButton = null;
+        this.stage = 0;
         this.active = false;
         this.loading = false;
-        this.body = $('body');
+        this.nav = null;
     }
 
-    orderShow(cartButtonID) {
-        let _this = this;
-        let data = {
-            action: 'addOrderWidget'
+    withWidget() {
+        if(this.widget) {
+            this.unbindEvents();
         }
-        let beforeSendFunc = (response) => {
-                console.log('saas');
-                $('#' + cartButtonID).addClass('loadingCenter');
-            },
-            errorFunc = (response) => {
-                console.log(response);
-            },
-            successFunc = (response) => {
-                _this.body.append(response);
-                _this.body.addClass(_this.widgetDisplayModeClass);
-                _this.orderWidget = $('#' + _this.orderWidgetID);
-                _this.loading = false;
-                _this.active = true;
-                let cartWidget = new CartWidget($('#' + _this.sectionWidgetID));
-                cartWidget.withWidget();
-                $('#' + cartButtonID).removeClass('loadingCenter');
-            };
-        _this.body.on('click', "#" + cartButtonID, function (e) {
+
+        this.widget = this.widgetContainer.find('.orderWidget');
+        // this.widgetContainer.addClass('.' + this.widgetActiveClass);
+        this.widgetSection = this.widget.find('.orderWidgetStageContent');
+        this.loading = false;
+        this.active = true;
+        this.contentWrapper = this.widgetContainer.find('.orderWidgetContentWrapper');
+        if(this.isPopup) {
+            const body = $('body');
+            body.addClass(this.widgetActiveClass);
+            body.append(this.widgetContainer);
+            this.closeButton = this.widget.find('.orderWidgetCloseButton');
+            this.addCloseButton();
+            this.addCloseWhenClickOutside();
+        }
+
+        if(this.previousButton) {
+            this.previousButton.off('click');
+            this.previousButton = null
+        }
+
+        if(this.nextButton) {
+            this.nextButton.off('click');
+            this.nextButton = null;
+        }
+
+        const previousButton = this.widget.find('.orderWidgetPreviousButton');
+        if(previousButton) {
+            this.previousButton = previousButton
+        }
+
+        const nextButton = this.widget.find('.orderWidgetNextButton');
+        if(nextButton) {
+            this.nextButton = nextButton;
+        }
+
+        if(this.currentSectionWidget) {
+            this.currentSectionWidget.unbindEvents();
+        }
+        switch (this.stage) {
+            case 0:
+                this.currentSectionWidget = new CartWidget(this.widgetSection);
+                break;
+            case 1:
+                this.currentSectionWidget = new LoginWidget(this.widgetSection);
+                break;
+            default:
+                this.currentSectionWidget = new CartWidget(this.widgetSection);
+        }
+        this.currentSectionWidget.withWidget();
+        this.addPagination();
+    }
+
+    loadWidgetAjax(isReload = false) {
+        const _this = this;
+        const data = {
+            action: 'loadOrderWidgetAjax',
+            isPopup: _this.isPopup,
+            stage: _this.stage
+        }, beforeSendFunc = (response) => {
+            if(isReload) {
+                _this.contentWrapper.addClass('loadingScreen');
+            } else if(_this.cartButton) {
+                _this.cartButton.addClass('loadingCenter');
+            }
+
+        }, errorFunc = (response) => {
+            console.log(response);
+            if(isReload) {
+                _this.contentWrapper.removeClass('loadingScreen')
+            } else if(_this.cartButton) {
+                _this.cartButton.removeClass('loadingCenter');
+            }
+        }, successFunc = (response) => {
+            // if(!_this.isPopup) {
+            //     _this.widgetContainer.empty();
+            // }
+            if(isReload) {
+                _this.contentWrapper.removeClass('loadingScreen')
+            } else if(_this.cartButton) {
+                _this.cartButton.removeClass('loadingCenter');
+            }
+            _this.widgetContainer.empty().append(response);
+            _this.widgetContainer.addClass(_this.widgetActiveClass);
+            _this.withWidget();
+            if(!_this.isPopup) {
+                $('html, body').animate({ scrollTop: 0 }, 300);
+            }
+
+        };
+        ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
+    }
+
+    unbindEvents() {
+        if(this.isPopup) {
+            this.closeButton.off('click');
+            this.widgetContainer.off('click');
+        }
+    }
+
+    loadWidgetAjaxViaButton(cartButton) {
+        const _this = this;
+        this.isPopup = true;
+        this.cartButton = cartButton;
+        this.cartButton.on('click', function (e) {
             // _this.stage = 0;
+            e.preventDefault();
             if(!_this.active && !_this.loading) {
                 _this.loading = true;
-                e.preventDefault();
+                _this.stage = 0;
                 // data.stage = _this.stage;
-                ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
+                _this.loadWidgetAjax();
             }
         });
     }
 
     addCloseWhenClickOutside() {
-        let _this = this;
+        const _this = this;
         $('body').on('click', function(e) {
-            if(_this.active && _this.orderWidget.has(e.target).length === 0) {
+            if(_this.active && _this.widget.has(e.target).length === 0) {
                 _this.close();
             }
         });
     }
 
-    addCloseButton(closeButtonID) {
-        let _this = this;
-        $('body').on('click', '#' + closeButtonID, function(e) {
+    addCloseButton() {
+        const _this = this;
+        this.closeButton.on('click', function(e) {
             e.preventDefault();
             _this.close();
         })
     }
 
     close() {
-        this.orderWidget.remove();
-        this.body.removeClass(this.widgetDisplayModeClass);
+        this.widgetContainer.remove();
+        $('body').removeClass(this.widgetActiveClass);
         this.active = false;
     }
 
-    pagination(buttonsClass, stageContainerID) {
-        $('body').on('click', '.' + buttonsClass, function (e) {
-            e.preventDefault();
-
-        });
+    addPagination() {
+        const _this = this;
+        if(this.previousButton) {
+            this.previousButton.on('click', function(e) {
+                e.preventDefault();
+                _this.stage = _this.stage - 1;
+                _this.changeStage();
+            })
+        }
+        if(this.nextButton) {
+            this.nextButton.on('click', function(e) {
+                e.preventDefault();
+                _this.stage = _this.stage + 1;
+                _this.changeStage();
+            })
+        }
     }
 
-    loadStage(stage, stageContainerID) {
-        let data = {},
-            beforeSend = () => {},
-            error = () => {},
-            success = (response) => {
-                $("#" + stageContainerID).empty().append(response);
-            };
 
-        switch (stage) {
-            case 0:
-                data.action = 'loadCartWidget'
-                break
-            case 1:
-                data.action = 'loadAccountWidget'
-                break
-            case 3:
-                data.action = 'loadDeliveryWidget'
-                break
-            case 4:
-                data.action = 'loadCheckoutWidget'
-                break
-            case 5:
-                data.action = 'loadOrderSummaryWidget'
-                break
-            case 6:
-                data.action = 'loadOrderSuccessWidget'
-                break
+    changeStage() {
+        if(this.currentSectionWidget) {
+            this.currentSectionWidget.unbindEvents();
         }
 
+        this.loadWidgetAjax(true);
     }
 }

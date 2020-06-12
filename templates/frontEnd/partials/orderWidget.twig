@@ -1,28 +1,73 @@
-<section id="orderWidget" class="widget">
-    <div id="orderWidgetContentWrapper">
-        <div id="orderWidgetCloseButtonContainer" class="gradientButton">
-            <button id="orderWidgetCloseButton">Zamknij</button>
+<section class="orderWidget">
+    <div class="orderWidgetContentWrapper">
+    {% set stagesNames = ['Koszyk', 'Logowanie'] %}
+        {% if isPopup and isPopup == "true" %}
+            <div class="orderWidgetCloseButtonContainer gradientButton">
+                <button class="orderWidgetCloseButton">Zamknij</button>
+            </div>
+        {% endif %}
+        <div class="orderWidgetStagesContainer">
+{#            <ul id="orderWidgetStages" class="listStyleNone">#}
+{#                <li class="orderWidgetStage active flexCenterCenter">Koszyk</li>#}
+{#                <li class="orderWidgetStage flexCenterCenter">Konto</li>#}
+{#                <li class="orderWidgetStage flexCenterCenter">Dostawa</li>#}
+{#                <li class="orderWidgetStage flexCenterCenter">Dane</li>#}
+{#                <li class="orderWidgetStage flexCenterCenter">Podsumowanie</li>#}
+{#                <li class="orderWidgetStage flexCenterCenter">Zamówienie</li>#}
+{#            </ul>#}
+            <div class="orderWidgetTopStages">
+                <span class="orderWidgetTopStage">Koszyk</span>
+                <span class="orderWidgetTopStage">Dostawa</span>
+                <span class="orderWidgetTopStage">Podsumowanie</span>
+            </div>
+            <div class="orderWidgetBottomStages">
+                <span class="orderWidgetBottomStage">Konto</span>
+                <span class="orderWidgetBottomStage">Dane</span>
+                <span class="orderWidgetBottomStage">Zamówienie</span>
+            </div>
         </div>
-        <div id="orderWidgetStagesContainer">
-            <ul id="orderWidgetStages" class="listStyleNone">
-                <li class="orderWidgetStage active flexCenterCenter">Koszyk</li>
-                <li class="orderWidgetStage flexCenterCenter">Konto</li>
-                <li class="orderWidgetStage flexCenterCenter">Dostawa</li>
-                <li class="orderWidgetStage flexCenterCenter">Dane</li>
-                <li class="orderWidgetStage flexCenterCenter">Podsumowanie</li>
-                <li class="orderWidgetStage flexCenterCenter">Zamówienie</li>
-            </ul>
-        </div>
-        <section id="orderWidgetStageContent">
-            {% include ['partials/cartWidget.twig'] %}
+        <section class="orderWidgetStageContent">
+            {% if stage == 0 %}
+                {% include ['partials/cartWidget.twig'] %}
+            {% elseif stage == 1 %}
+                {% include ['partials/loginWidget.twig'] %}
+            {% elseif stage == 2 %}
+
+            {% elseif stage == 3 %}
+
+            {% elseif stage == 4 %}
+
+            {% elseif stage == 5 %}
+
+            {% else %}
+
+            {% endif %}
+
         </section>
-        <nav id="orderWidgetNav">
-            <div id="orderWidgetPreviousButtonContainer" class="gradientButton">
-                <button id="orderWidgetPreviousButton" class="orderWidgetPaginationLink"><< Koszyk</button>
-            </div>
-            <div id="orderWidgetNextButtonContainer" class="gradientButton">
-                <button id="orderWidgetNextButton" class="orderWidgetPaginationLink">Konto >></button>
-            </div>
+        <nav class="orderWidgetNav">
+{#            {% if previousStageLink %}#}
+            {{ stage }}
+            {% if stage > 0 %}
+                <div class="orderWidgetPreviousButtonContainer gradientButton">
+                    <button class="orderWidgetPreviousButton orderWidgetPaginationLink"><< {{ stagesNames[stage - 1] }}</button>
+                </div>
+            {% endif %}
+{#            {% endif %}#}
+{#            {% if nextStageLink %}#}
+            {% if stage < 1 %}
+                <div class="orderWidgetNextButtonContainer gradientButton">
+                    <button class="orderWidgetNextButton orderWidgetPaginationLink">{{ stagesNames[stage + 1] }} >></button>
+                </div>
+            {% endif %}
+{#            {% endif %}#}
         </nav>
+
+        <noscript>
+            <div class="orderWidgetCheckoutButtonContainer gradientButton">
+                <a href="{{ fn('getCheckoutUrl') }}"
+                   class="orderWidgetNextButton orderWidgetPaginationLink"
+                   data-stage="{{ nextStage }}" data-direction="next">Konto >></a>
+            </div>
+        </noscript>
     </div>
 </section>

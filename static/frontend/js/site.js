@@ -5,6 +5,10 @@ $( function() {
     emailFormHandler.submitEvent();
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    $(window).on('resize', function (e) {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
 
     let mobileNav = new MobileNav($('#shopNav'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
     mobileNav.addCloseButtonAnimation('changeMobileNavCloseButtonState');
@@ -40,10 +44,14 @@ $( function() {
     // loginPageLoginWidget.addRegisterValidation();
     // loginPageLoginWidget.addRegisterAjax();
 
-    let orderWidget = new OrderWidget("orderWidget", 'widgetDisplayMode');
-    orderWidget.orderShow('basketButton');
-    orderWidget.addCloseWhenClickOutside();
-    orderWidget.addCloseButton('orderWidgetCloseButton');
+    let orderWidget = new OrderWidget($('<div id="#orderWidgetContainer" class="widget">'));
+    orderWidget.loadWidgetAjaxViaButton($('#basketButton'));
+
+    let cartPageOrderWidget = new OrderWidget($('#cartPageCartWidgetContainer'));
+    cartPageOrderWidget.withWidget();
+    // orderWidget.orderShow('basketButton');
+    // orderWidget.addCloseWhenClickOutside();
+    // orderWidget.addCloseButton('orderWidgetCloseButton');
 
 });
 

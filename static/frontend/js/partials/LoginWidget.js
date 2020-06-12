@@ -68,24 +68,26 @@ class LoginWidget {
     }
 
     addNav(navListItemClass, navListClass) {
-        const navList = $('.' + navListClass);
+        const _this = this;
+        const navList = this.widget.find('.' + navListClass);
         let sections = {};
-        $('.' + navListItemClass).each(function () {
+        const navListItems = navList.find('.' + navListItemClass);
+        navListItems.each(function () {
             let listItem = $(this);
             let sectionClass = listItem.data('section');
-            sections[sectionClass] = $('.' + sectionClass);
-        })
-
-        $('body').on('click', '.' + navListItemClass, function (e) {
-            e.preventDefault();
-            let newActive = $(this);
-            let currentActive = navList.find('.active');
-            currentActive.removeClass('active');
-            currentActive.removeAttr('disabled');
-            sections[currentActive.data('section')].addClass('hide');
-            newActive.addClass('active');
-            newActive.attr('disabled', true);
-            sections[newActive.data('section')].removeClass('hide');
+            sections[sectionClass] = _this.widget.find('.' + sectionClass);
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                let newActive = $(this);
+                let currentActive = navList.find('.active');
+                currentActive.removeClass('active');
+                currentActive.removeAttr('disabled');
+                console.log(currentActive);
+                sections[currentActive.data('section')].addClass('hide');
+                newActive.addClass('active');
+                newActive.attr('disabled', true);
+                sections[newActive.data('section')].removeClass('hide');
+            });
         })
     }
 
@@ -408,6 +410,7 @@ class LoginWidget {
         } else if(fieldName === 'confirmPassword') {
             this.confirmPasswordValidation = value;
         }
+        this.validateRegisterForm();
     }
 
     validateRegisterForm() {

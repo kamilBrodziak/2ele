@@ -23,6 +23,24 @@ class CartWidget {
         this.addQuantityChangeInput();
     }
 
+    loadWidgetAjax() {
+        const _this = this;
+        const data = {
+            action: 'loadCartWidgetAjax'
+        }, beforeSendFunc = (response) => {
+            _this.widgetContainer.addClass('loadingScreen')
+        }, errorFunc = (response) => {
+            _this.widgetContainer.removeClass('loadingScreen')
+
+        }, successFunc = (response) => {
+            _this.widgetContainer.removeClass('loadingScreen')
+            _this.widgetContainer.empty().append(response);
+            _this.withWidget();
+        }
+
+        ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
+    }
+
     unbindEvents() {
         this.cartItemsRemoves.each(function () {
             $(this).off('click');
@@ -33,7 +51,9 @@ class CartWidget {
         });
     }
 
-    loadWidgetAjax(data) {
+
+
+    reloadWidgetAjax(data) {
         let _this = this;
         let beforeSendFunc = (response) => {
             _this.widgetContainer.addClass('loadingScreen')
@@ -58,7 +78,7 @@ class CartWidget {
                     productKey: cartItem.data('product_key'),
                     action: 'removeProductFromCart'
                 }
-                _this.loadWidgetAjax(data);
+                _this.reloadWidgetAjax(data);
             });
         });
     }
@@ -85,7 +105,7 @@ class CartWidget {
                             action: 'changeProductQuantityInCart',
                             notices: notices
                         }
-                        _this.loadWidgetAjax(data);
+                        _this.reloadWidgetAjax(data);
                     })
                 }
             })

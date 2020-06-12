@@ -29,6 +29,7 @@ if(is_cart()) {
     $context['products'] = getCart();
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
+    $context['stage'] = 0;
     Timber::render(array('page-cart.twig'), $context);
 //    Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 

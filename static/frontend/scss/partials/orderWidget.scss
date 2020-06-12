@@ -1,8 +1,12 @@
-#orderWidget {
+.orderWidget {
 
 }
 
-#orderWidgetContentWrapper {
+body.orderWidgetActive {
+    overflow: hidden;
+}
+
+.orderWidget {
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -11,26 +15,48 @@
     padding: 10px;
 }
 
-#orderWidgetStages {
+//#orderWidgetStages {
+//    display: flex;
+//    flex-direction: row;
+//    justify-content: space-between;
+//}
+//
+//.orderWidgetStage {
+//    width: calc(1/6 * 100%);
+//    height: 40px;
+//    font-size: 2rem;
+//
+//    &:nth-child(2n) {
+//        background: #ff6600;
+//    }
+//
+//    &:nth-child(2n + 1) {
+//        background: #d35400;
+//    }
+//}
+
+
+.orderWidgetTopStages, .orderWidgetBottomStages {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-}
-
-.orderWidgetStage {
-    width: calc(1/6 * 100%);
-    height: 40px;
     font-size: 2rem;
-    
-    &:nth-child(2n) {
-        background: #ff6600;
-    }
-    
-    &:nth-child(2n + 1) {
-        background: #d35400;
-    }
 }
 
-#orderWidgetCloseButton {
+.orderWidgetTopStage {
+    display: block;
+    flex: 1;
+    //width: calc(100% * 1/3);
+    text-align: center;
+}
+
+.orderWidgetBottomStage {
+    display: block;
+    flex: 1;
+    text-align: center;
+}
+
+
+
+.orderWidgetCloseButton {
     height: 80px;
 }

@@ -64,40 +64,6 @@ function addProductToCart() {
 add_action('wp_ajax_nopriv_addProductToCart', 'addProductToCart');
 add_action('wp_ajax_addProductToCart', 'addProductToCart');
 
-function removeProductFromCart() {
-    $productKey = $_POST['productKey'];
-    WC()->cart->remove_cart_item($productKey);
-
-    $context = Timber::context();
-    $context['products'] = getCart();
-    $context['checkoutUrl'] = getCheckoutUrl();
-    $context['cartTotal'] = getCartTotal();
-    wp_reset_postdata();
-    Timber::render('partials/cartWidget.twig', $context);
-    die();
-}
-
-add_action('wp_ajax_nopriv_removeProductFromCart', 'removeProductFromCart');
-add_action('wp_ajax_removeProductFromCart', 'removeProductFromCart');
-
-function changeProductQuantityInCart() {
-    $productKey = $_POST['productKey'];
-    WC()->cart->set_quantity($productKey, $_POST['quantity']);
-
-    $context = Timber::context();
-    $context['products'] = getCart();
-    $context['checkoutUrl'] = getCheckoutUrl();
-    $context['cartTotal'] = getCartTotal();
-    $context['cartNotices'] = $_POST['notices'];
-    wp_reset_postdata();
-    Timber::render('partials/cartWidget.twig', $context);
-    die();
-}
-add_action('wp_ajax_nopriv_changeProductQuantityInCart', 'changeProductQuantityInCart');
-add_action('wp_ajax_changeProductQuantityInCart', 'changeProductQuantityInCart');
-
-
-
 function sendUserEmail() {
     $name = wp_strip_all_tags($_POST['name']);
     $email = wp_strip_all_tags($_POST['email']);
@@ -142,27 +108,115 @@ add_action('wp_ajax_nopriv_searchAjax', 'searchAjax');
 add_action('wp_ajax_searchAjax', 'searchAjax');
 
 
-function addOrderWidget() {
+//
+// ============================================
+//      ORDER WIDGET
+// ============================================
+//
+
+function loadOrderWidgetAjax() {
     $context = Timber::context();
+    // OPTIONS FOR ORDER WIDGET
+    $context['stage'] = $_POST['stage'];
+
+    // OPTIONS FOR CART WIDGET
     $context['products'] = getCart();
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
+
+    // Options for LOGIN WIDGET
+    $context['whichPageShow'] = 'login';
+    $context['accountUrl'] = get_permalink(get_option('woocommerce_myaccount_page_id'));
+    $context['lostPasswordPage'] = wp_lostpassword_url();
+    $context['privacyPolicyUrl'] = get_privacy_policy_url();
+    if($_POST['isPopup']) {
+        $context['isPopup'] = "true";
+    }
 //    $context['nextUrl'] = $_POST['nextUrl'];
     Timber::render('partials/orderWidget.twig', $context);
     die();
 }
-add_action('wp_ajax_nopriv_addOrderWidget', 'addOrderWidget');
-add_action('wp_ajax_addOrderWidget', 'addOrderWidget');
+add_action('wp_ajax_nopriv_loadOrderWidgetAjax', 'loadOrderWidgetAjax');
+add_action('wp_ajax_loadOrderWidgetAjax', 'loadOrderWidgetAjax');
 
-function loadCartWidget() {
+//
+// ============================================
+//      CART WIDGET
+// ============================================
+//
+
+function loadCartWidgetAjax() {
     $context = Timber::context();
     $context['products'] = getCart();
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
+    if($_POST['notices']) {
+        $context['cartNotices'] = $_POST['notices'];
+    }
+    wp_reset_postdata();
     Timber::render('partials/cartWidget.twig', $context);
 }
-add_action('wp_ajax_nopriv_loadCartWidget', 'loadCartWidget');
-add_action('wp_ajax_loadCartWidget', 'loadCartWidget');
+add_action('wp_ajax_nopriv_loadCartWidgetAjax', 'loadCartWidgetAjax');
+add_action('wp_ajax_loadCartWidgetAjax', 'loadCartWidgetAjax');
+
+function removeProductFromCart() {
+    $productKey = $_POST['productKey'];
+    WC()->cart->remove_cart_item($productKey);
+
+    loadCartWidgetAjax();
+    die();
+}
+
+add_action('wp_ajax_nopriv_removeProductFromCart', 'removeProductFromCart');
+add_action('wp_ajax_removeProductFromCart', 'removeProductFromCart');
+
+function changeProductQuantityInCart() {
+    $productKey = $_POST['productKey'];
+    WC()->cart->set_quantity($productKey, $_POST['quantity']);
+
+    loadCartWidgetAjax();
+    die();
+}
+add_action('wp_ajax_nopriv_changeProductQuantityInCart', 'changeProductQuantityInCart');
+add_action('wp_ajax_changeProductQuantityInCart', 'changeProductQuantityInCart');
+
+//function renderCartAjax() {
+//    $context = Timber::context();
+//    $context['products'] = getCart();
+//    $context['checkoutUrl'] = getCheckoutUrl();
+//    $context['cartTotal'] = getCartTotal();
+//    if($_POST['notices']) {
+//        $context['cartNotices'] = $_POST['notices'];
+//    }
+//    wp_reset_postdata();
+//    Timber::render('partials/cartWidget.twig', $context);
+//}
+
+
+//
+// ============================================
+//      LOGIN WIDGET
+// ============================================
+//
+
+function loadLoginWidgetAjax() {
+    $context = Timber::context();
+    if(isUserLogged()) {
+        $user = wp_get_current_user();
+        $context['username'] = $user->user_login;
+        Timber::render('partials/logoutWidget.twig');
+    } else {
+        $context['privacyPolicyUrl'] = get_privacy_policy_url();
+        $context['accountUrl'] = get_permalink(get_option('woocommerce_myaccount_page_id'));
+        $context['whichPageShow'] = 'login';
+        $context['lostPasswordPage'] = wp_lostpassword_url();
+        $context['showPrivileges'] = 'true';
+        Timber::render('partials/loginWidget.twig');
+    }
+    die();
+}
+add_action('wp_ajax_nopriv_loadLoginWidgetAjax', 'loadLoginWidgetAjax');
+add_action('wp_ajax_loadLoginWidgetAjax', 'loadLoginWidgetAjax');
 
 function isUserUnique() {
     if($_POST['type'] == 'email') {
@@ -213,13 +267,13 @@ function userLoginAjax() {
     $usernameExist = username_exists($_POST['username']);
     $emailExist = email_exists($_POST['username']);
     if($usernameExist || $emailExist) {
-       $authenticate = wp_authenticate($_POST['username'], $_POST['password']);
-       if($authenticate) {
-           $credentials = [
-               'user_login' => $_POST['username'],
-               'user_password' => $_POST['password'],
-               'remember' => $_POST['remember']
-           ];
+        $authenticate = wp_authenticate($_POST['username'], $_POST['password']);
+        if($authenticate) {
+            $credentials = [
+                'user_login' => $_POST['username'],
+                'user_password' => $_POST['password'],
+                'remember' => $_POST['remember']
+            ];
 //           $userID = $usernameExist ? $usernameExist : $emailExist;
 //           $approved_status = get_user_meta($userID, 'user_activation_status', true);
 //           $verificationUrl = getVerificationUrl($userID);
@@ -228,18 +282,18 @@ function userLoginAjax() {
 //               echo 'Aby się zalogować prosimy najpierw zweryfikować konto poprzez link wysłany na Twój email.' .
 //                   ' <a target="_blank" href="' . $verificationUrl . '" class="blackLink">Wyślij ponownie link weryfikacyjny</a>';
 //           } else {
-               $user = wp_signon($credentials, false);
-               if(is_wp_error($user)) {
-                   echo $user->get_error_message();
-               } else {
-                   wp_set_current_user($user);
-                   echo 'success';
-               }
+            $user = wp_signon($credentials, false);
+            if(is_wp_error($user)) {
+                echo $user->get_error_message();
+            } else {
+                wp_set_current_user($user);
+                echo 'success';
+            }
 //           }
 
-       } else {
-           echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
-       }
+        } else {
+            echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
+        }
     } else {
         echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
     }
@@ -255,22 +309,3 @@ function userLogoutAjax() {
 
 add_action('wp_ajax_nopriv_userLogoutAjax', 'userLogoutAjax');
 add_action('wp_ajax_userLogoutAjax', 'userLogoutAjax');
-
-function loadLoginWidgetAjax() {
-    $context = Timber::context();
-    if(isUserLogged()) {
-        $user = wp_get_current_user();
-        $context['username'] = $user->user_login;
-        Timber::render('partials/logoutWidget.twig');
-    } else {
-        $context['privacyPolicyUrl'] = get_privacy_policy_url();
-        $context['accountUrl'] = get_permalink(get_option('woocommerce_myaccount_page_id'));
-        $context['whichPageShow'] = 'login';
-        $context['lostPasswordPage'] = wp_lostpassword_url();
-        $context['showPrivileges'] = 'true';
-        Timber::render('partials/loginWidget.twig');
-    }
-    die();
-}
-add_action('wp_ajax_nopriv_loadLoginWidgetAjax', 'loadLoginWidgetAjax');
-add_action('wp_ajax_loadLoginWidgetAjax', 'loadLoginWidgetAjax');
