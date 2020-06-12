@@ -215,6 +215,8 @@ class LoginWidget {
         const re = /([^\s])/;
         const emailProperties = {
             'inputName': 'username',
+            'allowSpace': false,
+            'allowPaste': false,
             'testMatch' : false,
             'testRegex': {
                 'regex': re,
@@ -233,6 +235,8 @@ class LoginWidget {
         const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         const emailProperties = {
             'inputName': 'email',
+            'allowSpace': false,
+            'allowPaste': true,
             'testMatch' : {
                 'isParent' : true,
                 'matchingInput': confirmEmail,
@@ -250,6 +254,8 @@ class LoginWidget {
 
         const confirmEmailProperties = {
             'inputName': 'confirmEmail',
+            'allowSpace': false,
+            'allowPaste': false,
             'testMatch' : {
                 'isParent' : false,
                 'matchingInput': email,
@@ -270,6 +276,8 @@ class LoginWidget {
         const re = /([^\s])/;
         const passwordProperties = {
             'inputName': 'password',
+            'allowSpace': false,
+            'allowPaste': false,
             'testMatch' : {
                 'isParent' : true,
                 'matchingInput': confirmPassword,
@@ -285,6 +293,8 @@ class LoginWidget {
 
         const confirmPasswordProperties = {
             'inputName': 'confirmPassword',
+            'allowSpace': false,
+            'allowPaste': false,
             'testMatch' : {
                 'isParent' : false,
                 'matchingInput': password,
@@ -319,51 +329,66 @@ class LoginWidget {
             ajaxUniqueResult = response === "true";
         }
 
+        if(!properties.allowSpace) {
+            input.on('keydown', function(e) {
+                if(e.keyCode === 32) {
+                    return false;
+                }
+            })
+        }
+        if(!properties.allowPaste) {
+            input.on('paste', function(e) {
+                e.preventDefault();
+            })
+        }
+
         input.on('keyup', function (e) {
-            const val = input.val();
-            data.value = val;
-            const testRegex = properties.testRegex;
-            const isRegex = testRegex ? testRegex.regex.test(val) : true;
-            if(isRegex) {
-                const testMatch = properties.testMatch;
-                const isMatch = testMatch ? (testMatch.matchingInput.val() === val) : true;
-                if(isMatch || testMatch.isParent) {
-                    if(!isMatch && testMatch.isParent) {
-                        _this.validate(testMatch.matchingInput, testMatch.matchingInputName, false, testMatch.message);
-                    }
-                    const testUnique = properties.testUnique;
-                    if(testUnique) {
-                        $.when(
-                            $.ajax({
-                                url: ajaxPaginationParams.ajaxUrl,
-                                type: 'POST',
-                                data: data,
-                                beforeSend: beforeSendFunc,
-                                error: errorFunc,
-                                success: successFunc
-                            })
-                        ).done(function () {
-                            if(ajaxUniqueResult) {
-                                _this.validate(input, properties.inputName, true, '');
-                            } else {
-                                _this.validate(input, properties.inputName, false, testUnique.message);
-                            }
-                        });
-                    } else {
-                        _this.validate(input, properties.inputName, true, '');
-                    }
-                } else {
-                    _this.validate(input, properties.inputName, false, testMatch.message);
-                    if(testMatch.isParent) {
-                        _this.validate(testMatch.matchingInput, testMatch.matchingInputName, false, testMatch.message);
+            const isSpace = !properties.allowSpace ? e.keyCode === 32 : false;
+            if(!isSpace) {
+                const val = input.val();
+                data.value = val;
+                const testRegex = properties.testRegex;
+                const isRegex = testRegex ? testRegex.regex.test(val) : true;
+                if (isRegex) {
+                    const testMatch = properties.testMatch;
+                    const isMatch = testMatch ? (testMatch.matchingInput.val() === val) : true;
+                    if (isMatch || testMatch.isParent) {
+                        if (!isMatch && testMatch.isParent) {
+                            _this.validate(testMatch.matchingInput, testMatch.matchingInputName, false, testMatch.message);
+                        }
+                        const testUnique = properties.testUnique;
+                        if (testUnique) {
+                            $.when(
+                                $.ajax({
+                                    url: ajaxPaginationParams.ajaxUrl,
+                                    type: 'POST',
+                                    data: data,
+                                    beforeSend: beforeSendFunc,
+                                    error: errorFunc,
+                                    success: successFunc
+                                })
+                            ).done(function () {
+                                if (ajaxUniqueResult) {
+                                    _this.validate(input, properties.inputName, true, '');
+                                } else {
+                                    _this.validate(input, properties.inputName, false, testUnique.message);
+                                }
+                            });
+                        } else {
+                            _this.validate(input, properties.inputName, true, '');
+                        }
                     } else {
                         _this.validate(input, properties.inputName, false, testMatch.message);
+                        if (testMatch.isParent) {
+                            _this.validate(testMatch.matchingInput, testMatch.matchingInputName, false, testMatch.message);
+                        } else {
+                            _this.validate(input, properties.inputName, false, testMatch.message);
+                        }
                     }
+                } else {
+                    _this.validate(input, properties.inputName, false, testRegex.message);
                 }
-            } else {
-                _this.validate(input, properties.inputName, false, testRegex.message);
             }
-
         })
     }
 
