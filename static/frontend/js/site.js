@@ -27,9 +27,8 @@ $( function() {
     customSelect.showSelect();
     customSelect.hideSelectWhenClickedOutsideSelect();
 
-    let cart = new Cart('cartPageCartWidgetContainer');
-    cart.addRemoveItemButton('cartItemRemove', 'cartItem');
-    cart.addQuantityChangeInput('cartItemQuantity', 'cartItem');
+    let cartWidget = new CartWidget($('#cartPageCartWidgetContainer'));
+    cartWidget.withWidget();
     let search = new Search('shopSearch');
     search.addAjaxSearch();
     search.closingSearchResultEvent();

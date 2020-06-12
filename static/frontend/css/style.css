@@ -1402,6 +1402,24 @@ input:disabled {
   padding: 10px;
 }
 
+#orderWidgetStages {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.orderWidgetStage {
+  width: calc(1/6 * 100%);
+  height: 40px;
+  font-size: 2rem;
+}
+.orderWidgetStage:nth-child(2n) {
+  background: #ff6600;
+}
+.orderWidgetStage:nth-child(2n+1) {
+  background: #d35400;
+}
+
 #orderWidgetCloseButton {
   height: 80px;
 }
@@ -1496,14 +1514,14 @@ input:disabled {
     CART
 =====================================================
 */
-#cartWidget {
+.cartWidget {
   width: 100%;
   height: auto;
   padding: 20px;
   font-size: 2rem;
 }
 
-#cartItems {
+.cartItems {
   width: 100%;
   height: auto;
   text-align: center;
@@ -1538,33 +1556,33 @@ input:disabled {
   margin: auto;
 }
 
-#cartSummary h3 {
+.cartSummary h3 {
   height: 3em;
   background: #383838;
   color: silver;
 }
-#cartSummary span {
+.cartSummary span {
   height: 2em;
 }
-#cartSummary a {
+.cartSummary a {
   height: 5em;
   font-size: 2.5rem;
 }
 
 @media only screen and (max-width: 700px) {
-  #cartWidget table, #cartWidget thead, #cartWidget tbody, #cartWidget th, #cartWidget td, #cartWidget tr {
+  .cartWidget table, .cartWidget thead, .cartWidget tbody, .cartWidget th, .cartWidget td, .cartWidget tr {
     display: block;
   }
-  #cartWidget thead tr {
+  .cartWidget thead tr {
     display: none;
   }
-  #cartWidget tbody tr {
+  .cartWidget tbody tr {
     padding-bottom: 20px;
   }
-  #cartWidget td {
+  .cartWidget td {
     position: relative;
   }
-  #cartWidget td:before {
+  .cartWidget td:before {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -1575,19 +1593,19 @@ input:disabled {
     width: 30%;
     height: 100%;
   }
-  #cartWidget td:first-of-type {
+  .cartWidget td:first-of-type {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
   }
-  #cartWidget td:first-of-type a {
+  .cartWidget td:first-of-type a {
     width: auto;
   }
-  #cartWidget td:not(:first-of-type) {
+  .cartWidget td:not(:first-of-type) {
     padding-left: 30%;
   }
-  #cartWidget td:not(:first-of-type):before {
+  .cartWidget td:not(:first-of-type):before {
     content: attr(data-title) ": ";
   }
 }

@@ -2,8 +2,10 @@ class OrderWidget {
     constructor(orderWidgetID, widgetDisplayModeClass) {
         this.orderWidgetID = orderWidgetID;
         this.widgetDisplayModeClass = widgetDisplayModeClass;
+        this.sectionWidgetID = 'orderWidgetStageContent';
         this.orderWidget = null;
         this.stage = 0;
+        this.currentSectionWidget = null;
         this.active = false;
         this.loading = false;
         this.body = $('body');
@@ -27,6 +29,8 @@ class OrderWidget {
                 _this.orderWidget = $('#' + _this.orderWidgetID);
                 _this.loading = false;
                 _this.active = true;
+                let cartWidget = new CartWidget($('#' + _this.sectionWidgetID));
+                cartWidget.withWidget();
                 $('#' + cartButtonID).removeClass('loadingCenter');
             };
         _this.body.on('click', "#" + cartButtonID, function (e) {

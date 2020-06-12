@@ -118,10 +118,8 @@ class LoginWidget {
             }
             $("html, body").animate({ scrollTop: 0 }, 600);
         };
-        console.log('pp');
         this.registerForm.on('submit', function (e) {
             e.preventDefault();
-            console.log('pp2');
             data.username = username.val();
             data.email = email.val();
             data.password = password.val();

@@ -1,4 +1,5 @@
 #orderWidget {
+
 }
 
 #orderWidgetContentWrapper {
@@ -8,6 +9,26 @@
     background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
     border: 10px groove #d35400;
     padding: 10px;
+}
+
+#orderWidgetStages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.orderWidgetStage {
+    width: calc(1/6 * 100%);
+    height: 40px;
+    font-size: 2rem;
+    
+    &:nth-child(2n) {
+        background: #ff6600;
+    }
+    
+    &:nth-child(2n + 1) {
+        background: #d35400;
+    }
 }
 
 #orderWidgetCloseButton {

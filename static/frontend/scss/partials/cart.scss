@@ -5,14 +5,14 @@
 */
 $cartImgWidth: 150px;
 
-#cartWidget {
+.cartWidget {
     width: 100%;
     height: auto;
     padding: 20px;
     font-size: 2rem;
 }
 
-#cartItems {
+.cartItems {
     width: 100%;
     height: auto;
     text-align: center;
@@ -51,7 +51,7 @@ $cartImgWidth: 150px;
     margin: auto;
 }
 
-#cartSummary {
+.cartSummary {
     h3 {
         height: 3em;
         background: #383838;
@@ -70,7 +70,7 @@ $cartImgWidth: 150px;
 
 
 @media only screen and (max-width: 700px) {
-    #cartWidget {
+    .cartWidget {
         table, thead, tbody, th, td, tr {
             display: block;
         }

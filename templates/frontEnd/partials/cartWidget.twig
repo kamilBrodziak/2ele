@@ -1,10 +1,10 @@
-<section id="cartWidget">
-    <div id="cartNotices">
+<section class="cartWidget">
+    <div class="cartNotices">
         {% if cartNotices %}
             {{ cartNotices }}
         {% endif %}
     </div>
-    <table id="cartItems">
+    <table class="cartItems">
         <thead>
             <tr>
                 <th colspan="2">Produkt</th>
@@ -57,9 +57,9 @@
         {% endfor %}
         </tbody>
     </table>
-    <footer id="cartSummary">
+    <footer class="cartSummary">
         <h3 class="flexCenterCenter">Podsumowanie koszyka</h3>
-        <span id="cartTotal" class="flexCenterCenter">Kwota: {{ cartTotal }} zł</span>
+        <span class="cartTotal flexCenterCenter">Kwota: {{ cartTotal }} zł</span>
 {#        <div class="gradientButton">#}
 {#            <a href="{{ checkoutUrl }}" class="flexCenterCenter">Przejdź do zamówienia</a>#}
 {#        </div>#}
