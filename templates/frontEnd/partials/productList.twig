@@ -1,6 +1,6 @@
 {% if products is empty %}
     Nie znaleziono produktów
 {% endif %}
-{% for post in products %}
+{% for product in products %}
     {% include ['partials/tease-product.twig'] %}
 {% endfor %}

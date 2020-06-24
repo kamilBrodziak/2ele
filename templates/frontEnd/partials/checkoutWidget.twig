@@ -1,0 +1,61 @@
+<section class="checkoutWidget">
+    <div class="checkoutWidgetContentWrapper">
+        {% if isUserLoggedIn == false %}
+            {% set stagesNames = ['Koszyk', 'Logowanie', 'Formularz', 'Dostawa', 'Podsumowanie'] %}
+        {% else %}
+            {% set stagesNames = ['Koszyk', 'Formularz', 'Dostawa', 'Podsumowanie'] %}
+        {% endif %}
+        <ul class="orderWidgetStages listStyleNone">
+            <li class="orderWidgetStage"><span>Koszyk</span></li>
+            <li class="orderWidgetStage"><span>Logowanie</span></li>
+            <li class="orderWidgetStage"><span>Formularz</span></li>
+            <li class="orderWidgetStage"><span>Podsumowanie i dostawa</span></li>
+            <li class="orderWidgetStage"><span>Płatność</span></li>
+        </ul>
+        <section class="checkoutWidgetContent">
+            {% if isUserLoggedIn == false %}
+                <section class="checkoutWidgetLoginContainer">
+                    {% include ['partials/loginWidget.twig'] %}
+                </section>
+            {% endif %}
+{#            <section class="checkoutWidgetCheckoutContainer">#}
+{#                {% filter shortcodes %}#}
+{#                    [woocommerce_checkout]#}
+{#                {% endfilter %}#}
+{#            </section>#}
+            <form name="checkout" method="post" class="checkout woocommerce-checkout" action="{{ fn('getCheckoutUrl') }}"
+                  enctype="multipart/form-data">
+                <section class="checkoutWidgetBilling">
+                    {% do action('woocommerce_checkout_before_customer_details') %}
+                    {% do action('woocommerce_checkout_billing') %}
+                    {% do action('woocommerce_checkout_shipping') %}
+                    {% do action('woocommerce_checkout_after_customer_details') %}
+                </section>
+                <section class="checkoutWidgetSummary">
+                    {% do action('woocommerce_checkout_order_review') %}
+                </section>
+                <section class="checkoutWidgetPayment">
+                    {% do action( 'woocommerce_checkout_after_order_review' ) %}
+                </section>
+            </form>
+        </section>
+        <nav class="checkoutWidgetNav">
+            <div class="checkoutWidgetPreviousLinkContainer gradientButton">
+                <a href='{{ fn('getCartUrl') }}' class="checkoutWidgetPreviousLink checkoutWidgetPaginationLink"><< {{ stagesNames[0] }}</a>
+            </div>
+            <div class="checkoutWidgetPreviousButtonContainer gradientButton">
+                <button class="checkoutWidgetPreviousButton checkoutWidgetPaginationLink"><< {{ stagesNames[1] }}</button>
+            </div>
+            <div class="checkoutWidgetNextButtonContainer gradientButton">
+                <button class="checkoutWidgetNextButton checkoutWidgetPaginationLink">{{ stagesNames[2] }} >></button>
+            </div>
+        </nav>
+        <noscript>
+            <div class="orderWidgetCheckoutButtonContainer gradientButton">
+                <a href="{{ fn('getCheckoutUrl') }}"
+                   class="orderWidgetNextButton orderWidgetPaginationLink"
+                   data-stage="{{ nextStage }}" data-direction="next">Zamówienie >></a>
+            </div>
+        </noscript>
+    </div>
+</section>

@@ -60,11 +60,15 @@ class Enqueue extends BaseController {
         if(!is_checkout()) {
 //            wp_deregister_script('woocommerce');
 //            wp_deregister_script('wc-cart-fragments');
-            wp_enqueue_script('jquery-defer');
+//            wp_enqueue_script('jquery-defer');
         } else {
-            wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, '3.5.1', false);
+//            wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, '3.5.1', false);
         }
-        wp_register_script('siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery-defer'), null, true );
+        wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, '3.5.1', false);
+
+//        wp_enqueue_script('woocommerce');
+//        wp_enqueue_script('wc-checkout');
+        wp_register_script('siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), null, true );
         global $wp_query;
         wp_localize_script( 'siteJS-defer', 'ajaxPaginationParams', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),

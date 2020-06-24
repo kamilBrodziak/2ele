@@ -1,18 +1,37 @@
+{#<div class='teaseProductPrice'>#}
+{#        <span class="teaseProductRegularPrice">#}
+{#            {% if isVariableProduct %}#}
+{#                {{ fn('getVariableProductRegularPrice', post.id)}}#}
+{#            {% else %}#}
+{#                {{ fn('getProductRegularPrice', post.id)|number_format(2, ',') }} zł#}
+{#            {% endif %}#}
+{#        </span>#}
+{#    {% if fn('getProductSalePrice', post.id) %}#}
+{#        <span class="teaseProductSalePrice">#}
+{#                {% if isVariableProduct %}#}
+{#                    {{ fn('getVariableProductSalePrice', post.id)}}#}
+{#                {% else %}#}
+{#                    {{ fn('getProductSalePrice', post.id)|number_format(2, ',') }} zł#}
+{#                {% endif %}#}
+{#            </span>#}
+{#    {% endif %}#}
+{#</div>#}
+
 <div class='teaseProductPrice'>
         <span class="teaseProductRegularPrice">
-            {% if isVariableProduct %}
-                {{ fn('getVariableProductRegularPrice', post.id)}}
+            {% if product.isVariable %}
+                {{ product.variable.price }}
             {% else %}
-                {{ fn('getProductRegularPrice', post.id)|number_format(2, ',') }} zł
+                {{ product.price }}
             {% endif %}
         </span>
-    {% if fn('getProductSalePrice', post.id) %}
+    {% if product.isVariable and product.variable.salePrice %}
         <span class="teaseProductSalePrice">
-                {% if isVariableProduct %}
-                    {{ fn('getVariableProductSalePrice', post.id)}}
-                {% else %}
-                    {{ fn('getProductSalePrice', post.id)|number_format(2, ',') }} zł
-                {% endif %}
-            </span>
+            {{ product.variable.salePrice }}
+        </span>
+    {% elseif product.salePrice %}
+        <span class="teaseProductSalePrice">
+            {{ product.salePrice }}
+        </span>
     {% endif %}
 </div>

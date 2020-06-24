@@ -1,0 +1,397 @@
+.orderWidgetStages {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    min-width: 300px;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    li {
+        width: 20%;
+        font-size: 2rem;
+        text-align: center;
+        position: relative;
+        
+        &.current {
+            font-weight: bold;
+        }
+        
+        &:after {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            width: 100%;
+            height: 100%;
+        }
+        
+        &:first-child {
+            background:
+                linear-gradient(to bottom,#242424, #242424)
+                    no-repeat center right / 50% 25px,
+                radial-gradient(#242424, #242424 60%, transparent 64%)
+                    no-repeat center center / 50px 50px;
+            &.current:after {
+                background: radial-gradient(#d35400 30%, transparent 34%)
+                    no-repeat center center / 50px 50px;
+            }
+            &.passed:after {
+                background:
+                    linear-gradient(to bottom,#d35400, #d35400)
+                        no-repeat center right / 50% 10px,
+                    radial-gradient(#d35400 30%, transparent 34%)
+                        no-repeat center center / 50px 50px;
+            }
+        }
+    
+        &:not(:first-child):not(:last-child) {
+            background:
+                linear-gradient(to bottom,#242424, #242424)
+                    no-repeat center left / 70% 25px,
+                linear-gradient(to bottom,#242424, #242424)
+                    no-repeat center right / 70% 25px,
+                radial-gradient(#242424 60%, transparent 64%)
+                    no-repeat center center / 50px 50px;
+    
+            &.current:after {
+                background:
+                    linear-gradient(to bottom, #d35400, #d35400)
+                        no-repeat center left / 50% 10px,
+                    radial-gradient(#d35400 30%, transparent 34%)
+                        no-repeat center center / 50px 50px;
+            }
+            &.passed:after {
+                background:
+                    linear-gradient(to bottom,#d35400, #d35400)
+                        no-repeat center left / 50% 10px,
+                    linear-gradient(to bottom,#d35400, #d35400)
+                        no-repeat center right / 70% 10px,
+                    radial-gradient(#d35400 30%, transparent 34%)
+                        no-repeat center center / 50px 50px;
+            }
+        }
+        
+        &:last-child {
+            background:
+                linear-gradient(to bottom,#242424, #242424)
+                    no-repeat center left / 50% 25px,
+                radial-gradient(#242424, #242424 60%, transparent 64%)
+                    no-repeat center center / 50px 50px;
+            &.current:after {
+                background:
+                    linear-gradient(to bottom, #d35400, #d35400)
+                        no-repeat center left / 50% 10px,
+                    radial-gradient(#d35400 30%, transparent 34%)
+                        no-repeat center center / 50px 50px;
+            }
+    }
+        
+        &:nth-child(2n+1) {
+            padding: 0 0 70px 0;
+        }
+        &:nth-child(2n) {
+            padding: 70px 0 0 0;
+        }
+    }
+}
+
+#checkoutPage {
+    input[type=text], input[type=tel], input[type=email], textarea {
+        background: linear-gradient(black, #242424, black);
+        border: 2px solid silver;
+        border-radius: 5px;
+        color: silver;
+        text-align: center;
+        font-size: 2rem;
+        padding: 15px;
+        
+        &:focus {
+            border: 4px solid #d35400;
+        }
+        
+        &.wrongInput {
+            border: 4px solid red;
+        }
+        
+        &.approvedInput {
+            border: 4px solid green;
+        }
+    }
+    
+    input[type=checkbox], input[type=radio] {
+        background: linear-gradient(black, #242424, black);
+        border: 2px solid silver;
+        border-radius: 5px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        outline: none;
+        position: relative;
+        height: 50px;
+        width: 50px;
+        margin: 0 5px 0 0;
+        
+        &:checked {
+            background: radial-gradient(silver, #b4b4b4) no-repeat center / 70% 70%,
+            linear-gradient(black, #242424, black);
+        }
+    }
+    
+    input[type=radio] {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        &:checked {
+            background: radial-gradient(silver, #b4b4b4 40%, transparent 45%),
+            linear-gradient(black, #242424, black);
+        }
+    }
+    
+    a {
+        color: silver;
+        transition: all 0.1s ease;
+        text-decoration: none;
+        font-style: italic;
+        &:hover, &:active {
+            color: #5c5c5c;
+        }
+    }
+    
+    .woocommerce-form__label-for-checkbox {
+        display: flex;
+        flex-direction: row;
+        height: auto;
+        justify-content: center;
+        span {
+            display: block;
+            width: auto;
+        }
+    }
+}
+
+.checkoutWidgetBilling {
+    text-align: center;
+    font-size: 2rem;
+    h3 {
+        font-size: 3rem;
+    }
+    
+    p {
+        margin: 5px 0 10px 0;
+        label {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        span {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        input {
+            width: 60%;
+            min-width: 300px;
+        }
+        
+    }
+    
+    .woocommerce-form__label-for-checkbox {
+        span {
+            padding: calc((50px - 3rem)/2) 0;
+        }
+    }
+    
+    #order_comments {
+        width: 60%;
+        height: 200px;
+        resize: none;
+        overflow-y: auto;
+        min-width: 300px;
+    }
+}
+
+.checkoutWidgetSummary {
+    .shop_table {
+        width: 90%;
+        min-width: 300px;
+        margin: 0 auto;
+        border-collapse: collapse;
+        border: none;
+        text-align: center;
+        table-layout: fixed;
+        
+        thead {
+            background: #1f1f1f;
+            color: silver;
+            th {
+                font-size: 2.5rem;
+                padding: 20px 0;
+                
+                &:first-child {
+                    width: 50%;
+                }
+                
+                &:last-child {
+                    width: 50%;
+                }
+            }
+        }
+        
+        tbody {
+            tr {
+                color: silver;
+                &:nth-child(2n+1) {
+                    background: #363636;
+                }
+                
+                &:nth-child(2n) {
+                    background: #494949;
+                }
+            }
+            
+            td {
+                padding: 20px 0;
+                font-size: 2rem;
+                
+            }
+        }
+        
+        tfoot {
+            .cart-subtotal, .woocommerce-shipping-totals, .order-total {
+                color: silver;
+                th, td {
+                    padding: 15px;
+                    display: block;
+                    clear:both;
+                    width: 200%;
+                }
+                th {
+                    background: #1f1f1f;
+                    font-size: 2.2rem;
+                }
+                
+                td {
+                    background: #494949;
+                    font-size: 2rem;
+
+                }
+            }
+            #shipping_method {
+                list-style: none;
+                text-align: left;
+                display: inline-block;
+                
+                li {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    padding: 5px 0;
+                    
+                    label {
+                        width: calc(100% - 30px);
+                    }
+                }
+            }
+            .paczkomaty-shipping {
+                color: silver;
+                font-size: 2rem;
+                td {
+                    background: #494949;
+                }
+                
+                #select2-paczkomat_id-container {
+                    line-height: 50px;
+                    height: 50px;
+                }
+                
+                .select2-selection {
+                    height: auto;
+                }
+                
+                .select2-selection__arrow {
+                    height: 50px;
+                    
+                    b {
+                        border-width: 10px 8px 0 8px;
+                        left: 10%;
+                    }
+                }
+    
+                .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+                    border-width: 0 8px 10px 8px;
+                }
+                
+                #open-geowidget {
+                    padding: 15px 0 8px 0;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.checkoutWidgetPayment {
+    background: #1f1f1f;
+    color: silver;
+    text-align: center;
+    font-size: 2rem;
+    width: 90%;
+    min-width: 300px;
+    margin: 0 auto;
+    
+    .wc_payment_methods {
+        list-style: none;
+        padding: 20px;
+    }
+    
+    .wc_payment_method {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+    
+    .payment_box {
+        padding: 5px;
+        margin: 5px;
+        background: #494949;
+    }
+    
+    .place-order {
+        background: #494949;
+        padding: 20px;
+    }
+    
+    .woocommerce-form__label-for-checkbox {
+        span {
+            padding: calc((50px - 2rem)/2) 0;
+        }
+    }
+    
+    button[type=submit] {
+        border-radius: 5px;
+        color: silver;
+        width: 100%;
+        cursor: pointer;
+        font-size: 2rem;
+        border: 0 solid #d35400;
+        border-bottom-width: 5px;
+        transition: border-bottom-width 0.3s ease;
+        height: 100px;
+        outline: none;
+        margin: 20px 0;
+        background: linear-gradient(black, #242424, black);
+    
+        &:not([disabled]):hover {
+            color: #727272;
+        }
+    
+        &:active {
+            border-bottom-width: 0;
+        }
+    }
+}

@@ -1,104 +1,215 @@
 <?php
-function timber_set_product( $post ) {
-    global $product;
 
-    if ( is_woocommerce() ) {
-        $product = wc_get_product( $post->ID );
+//function timber_set_product( $post ) {
+//    global $product;
+//
+//    if ( is_woocommerce() ) {
+//        $product = wc_get_product( $post->ID );
+//    }
+//}
+class ProductsController {
+    private $productsPerPage = 20;
+
+    public function __construct() { }
+
+    public function loadProductFromDB($id) {
+        $product = wc_get_product($id);
+        $productDetails = [
+            'id' => $id,
+            'price' => $product->get_regular_price(),
+            'isVariable' => $product->is_type('variable')
+        ];
+
+        if($productDetails['isVariable']) {
+            $productDetails['variable'] = $this->getVariableProductDetails($product);
+        }
+        if($product->is_on_sale()) {
+            $productDetails['salePrice'] = $product->get_sale_price();
+        }
+
+        return $productDetails;
+
+    }
+
+    public function loadProductsFromDB($argsList = []) {
+        $products = [];
+        $args = [
+            'post_type' => 'product',
+            'posts_per_page' => $this->productsPerPage,
+            'post_status' => 'publish'
+        ];
+        if($argsList['paged']) $args['paged'] = $argsList['paged'];
+        if($argsList['product_cat']) $args['product_cat'] = $argsList['product_cat'];
+        if($argsList['s']) $args['s'] = $argsList['s'];
+        $posts = new Timber\PostQuery($args);
+        foreach ($posts as $post) {
+            $product = wc_get_product($post->id);
+            $productDetails = [
+                'id' => $post->id,
+                'title' => $post->title,
+                'link' => $post->link,
+                'thumbnail' => [
+                    'src' => $post->thumbnail->src,
+                    'alt' => $post->thumbnail->alt
+                ],
+                'price' => $product->get_regular_price(),
+                'isVariable' => $product->is_type('variable')
+            ];
+            if($productDetails['isVariable']) {
+                $productDetails['variable'] = $this->getVariableProductDetails($product);
+            }
+            if($product->is_on_sale()) {
+                $productDetails['salePrice'] = $product->get_sale_price();
+            }
+            $products[] = $productDetails;
+        }
+        return $products;
+    }
+
+    private function getVariableProductDetails($product) {
+        $minPrice = $product->get_variation_regular_price( 'min' );
+        $maxPrice = $product->get_variation_regular_price( 'max' );
+        $price = $minPrice == $maxPrice ? "".number_format($minPrice, 2)." zł" :
+            "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
+
+        $variableDetails = [
+            'price' => $price
+        ];
+
+        if($product->is_on_sale()) {
+            $minSalePrice = $product->get_variation_sale_price( 'min' );
+            $maxSalePrice = $product->get_variation_sale_price( 'max' );
+            $salePrice = $minSalePrice == $maxSalePrice ? "".number_format($minSalePrice, 2)." zł" :
+                "".number_format($minSalePrice, 2)." - ".number_format($maxSalePrice)." zł";
+            $variableDetails['salePrice'] = $salePrice;
+        }
+
+        $variableDetails['variations'] = $this->getProductVariations($product);
+        return $variableDetails;
+    }
+
+    private function getProductVariations($product) {
+        $variations = [];
+        foreach ($product->get_available_variations() as $variation) {
+            if($variation['variation_is_active'] && $variation['variation_is_visible'] && $variation['is_in_stock']) {
+                $attrLabel = key($variation['attributes']);
+                $variationDetails = [
+                    'id' => $variation['variation_id'],
+                    'name' => $variation['attributes'][$attrLabel],
+                    'variationLabel' => str_replace("attribute_", "", $attrLabel),
+                    'imageSrc' => $variation['image']['url'],
+                    'imageAlt' => $variation['image']['alt'],
+                    'price' => $variation['display_price']];
+                $variationDetails['maxQuantity'] = $variation['backorders_allowed'] ? 999 :
+                    ($variation['max_qty'] == "" ? 999 : $variation['max_qty']);
+                if($variationDetails['maxQuantity'] != 0)
+                    $variations[] = $variationDetails;
+            }
+        }
+        return $variations;
     }
 }
+$productsController = new ProductsController();
 
-function getProductRegularPrice($productID) {
-    return wc_get_product($productID)->get_regular_price();
-}
+//function getProductRegularPrice($productID) {
+//    return wc_get_product($productID)->get_regular_price();
+//}
+//
+//function getVariableProductRegularPrice($productID) {
+//    $product = wc_get_product($productID);
+//    $minPrice = $product->get_variation_regular_price( 'min' );
+//    $maxPrice = $product->get_variation_regular_price( 'max' );
+//    if($minPrice == $maxPrice) {
+//        return "".number_format($minPrice, 2)." zł";
+//    } else {
+//        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
+//    }
+//}
+//
+//function getVariableProductSalePrice($productID) {
+//    $product = wc_get_product($productID);
+//    $minPrice = $product->get_variation_sale_price( 'min' );
+//    $maxPrice = $product->get_variation_sale_price( 'max' );
+//    if($minPrice == $maxPrice) {
+//        return "".number_format($minPrice, 2)." zł";
+//    } else {
+//        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
+//    }
+//}
+//
+//function getVariableProductRegularMaxPrice($productID) {
+//    return wc_get_product($productID)->get_variation_regular_price( 'max' );
+//}
+//
+//function getProductSalePrice($productID) {
+//    return wc_get_product($productID)->get_sale_price();
+//}
 
-function getVariableProductRegularPrice($productID) {
-    $product = wc_get_product($productID);
-    $minPrice = $product->get_variation_regular_price( 'min' );
-    $maxPrice = $product->get_variation_regular_price( 'max' );
-    if($minPrice == $maxPrice) {
-        return "".number_format($minPrice, 2)." zł";
-    } else {
-        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
-    }
-}
+//function isVariableProduct($productID) {
+//    $product = wc_get_product($productID);
+//    return $product->is_type('variable');
+//}
 
-function getVariableProductSalePrice($productID) {
-    $product = wc_get_product($productID);
-    $minPrice = $product->get_variation_sale_price( 'min' );
-    $maxPrice = $product->get_variation_sale_price( 'max' );
-    if($minPrice == $maxPrice) {
-        return "".number_format($minPrice, 2)." zł";
-    } else {
-        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
-    }
-}
+//function hasAvailableVariations($productID) {
+//    $product = wc_get_product($productID);
+//
+//    if($product->get_available_variations()) {
+//        return true;
+//    }
+//    return false;
+//}
 
-function getVariableProductRegularMaxPrice($productID) {
-    return wc_get_product($productID)->get_variation_regular_price( 'max' );
-}
+//function getProductVariations($productID) {
+//    $product = wc_get_product($productID);
+//    $variations = [];
+//
+//    foreach ($product->get_available_variations() as $variation) {
+//        $variationID = $variation['variation_id'];
+//        $variationProduct = wc_get_product($variationID);
+//        $variationAttribute = $variationProduct->get_variation_attributes();
+//        $variationAttributeLabel = key($variationAttribute);
+//        if($variationProduct->is_in_stock()) {
+//            $variation = ['id' => $variationID,
+//                'name' => $variationAttribute[$variationAttributeLabel],
+//                'imageSrc' => $variation['image']['url'],
+//                'price' => $variationProduct->get_price()];
+//
+//            if($variationProduct->managing_stock()) {
+//                $variation['maxQuantity'] = $variationProduct->get_stock_quantity();
+//                if($variationProduct->backorders_allowed()) {
+//                    $variation['maxQuantity'] = 999;
+//                }
+//            }
+//            $variations[] = $variation;
+//        }
+//
+//    }
+//    return $variations;
+//}
 
-function getProductSalePrice($productID) {
-    return wc_get_product($productID)->get_sale_price();
-}
+//function getProductVariationLabel($productID) {
+//    $variationID = wc_get_product($productID)->get_available_variations()[0]['variation_id'];
+//    $variationAttributeLabel = key(wc_get_product($variationID)->get_variation_attributes());
+//    return str_replace("attribute_", "", $variationAttributeLabel);
+//}
+
+//function getProductMaxQuantity($productID) {
+//    $product = wc_get_product($productID);
+//    if($product->managing_stock()) {
+//        if($product->backorders_allowed()) {
+//            return 99;
+//        }
+//        return $product->get_stock_quantity();
+//    }
+//    return 99;
+//}
+
+//function isSimpleProduct($id) {
+//    return wc_get_product($id)->is_type('simple');
+//}
 
 function getCartProductsQuantity() {
     return WC()->cart->cart_contents_count;
-}
-
-function isVariableProduct($productID) {
-    $product = wc_get_product($productID);
-    return $product->is_type('variable');
-}
-
-function hasAvailableVariations($productID) {
-    $product = wc_get_product($productID);
-
-    if($product->get_available_variations()) {
-        return true;
-    }
-    return false;
-}
-
-function getProductVariations($productID) {
-    $product = wc_get_product($productID);
-    $variations = [];
-
-    foreach ($product->get_available_variations() as $variation) {
-        $variationID = $variation['variation_id'];
-        $variationProduct = wc_get_product($variationID);
-        $variationAttribute = $variationProduct->get_variation_attributes();
-        $variationAttributeLabel = key($variationAttribute);
-        if($variationProduct->is_in_stock()) {
-            $variation = ['id' => $variationID,
-                'name' => $variationAttribute[$variationAttributeLabel],
-                'imageSrc' => $variation['image']['url'],
-                'price' => $variationProduct->get_price()];
-
-            if($variationProduct->managing_stock()) {
-                $variation['maxQuantity'] = $variationProduct->get_stock_quantity();
-            }
-            $variations[] = $variation;
-        }
-
-    }
-    return $variations;
-}
-
-function getProductVariationLabel($productID) {
-    $variationID = wc_get_product($productID)->get_available_variations()[0]['variation_id'];
-    $variationAttributeLabel = key(wc_get_product($variationID)->get_variation_attributes());
-    return str_replace("attribute_", "", $variationAttributeLabel);
-}
-
-function getProductMaxQuantity($productID) {
-    $product = wc_get_product($productID);
-    if($product->managing_stock()) {
-        if($product->backorders_allowed()) {
-            return 99;
-        }
-        return $product->get_stock_quantity();
-    }
-    return 99;
 }
 
 function getCart() {
@@ -120,7 +231,8 @@ function getCart() {
         }
         if($product->managing_stock()) {
             if($product->backorders_allowed()) {
-                $productDetails['maxQuantity'] = 99;
+                $productDetails['maxQuantity'] = 999;
+                $productDetails['maxQuantityNotBackorder'] = $product->get_stock_quantity();
             } else {
                 $productDetails['maxQuantity'] = $product->get_stock_quantity();
             }
@@ -143,19 +255,82 @@ function getCheckoutUrl() {
     return WC()->cart->get_checkout_url();
 }
 
+function getCartUrl() {
+    return WC()->cart->get_cart_url();
+}
+
 function getCartTotal() {
     return WC()->cart->get_subtotal();
 }
 
-function isSimpleProduct($id) {
-    return wc_get_product($id)->is_type('simple');
-}
+
 
 function getShippingMethods() {
-    return WC()->shipping->get_shipping_methods();
+    $shipping = WC()->shipping->get_shipping_methods();
+//    WC()->shipping->calculate_shipping(WC()->shipping->get_packages(['country' => 'PL']));
+//    $shipping_methods = WC()->shipping->packages;
+    $activeMethods = [];
+//    foreach($shipping_methods[0]['rates'] as $id => $shipping_method) {
+//        $activeMethods[] = [
+//            'id' => $shipping_method->method_id,
+//            'type' => $shipping_method->method_id,
+//            'name' => $shipping_method->label,
+//            'price' => number_format($shipping_method->cost, 2, ',', ' ')
+//        ];
+//    }
+    $shippingMethods = WC()->shipping->load_shipping_methods();
+    foreach ($shippingMethods as $id => $shippingMethod) {
+        if(isset($shippingMethod->enabled) && $shippingMethod->enabled == 'yes') {
+            $activeMethods[$id] = [
+                'title' => $shippingMethod->title,
+                'tax_status' => $shippingMethod->tax_status
+            ];
+        }
+    }
+    $zones = WC_Shipping_Zones::get_zones();
+//    var_dump(WC_Shipping_Zones::get_zones());
+//    var_dump($zones);
+    $shippingZones = [];
+    foreach ($zones as $id => $zoneAttributes) {
+//        var_dump(WC_Shipping_Zones::get_zone($id));
+        $shippingZones[$id] = WC_Shipping_Zones::get_zone($id);
+    }
+//    var_dump(WC()->session->get_session_data());
+    WC()->shipping->calculate_shipping(WC()->cart->get_shipping_packages());
+    $packages = WC()->shipping->get_packages();
+
+//    var_dump($packages);
+    foreach ($packages as $i => $package) {
+        $chosen_method = isset(WC()->session->chosen_shipping_methods[$i]) ? WC()->session->chosen_shipping_methods[$i] : '';
+//        var_dump($package['rates']);
+        foreach ($package['rates'] as $j => $rate) {
+            var_dump($rate->id);
+            var_dump($rate->instance_id);
+            var_dump($rate->label);
+//            var_dump($rate->)
+            var_dump($rate->cost);
+        }
+    }
+//    var_dump(WC()->session->chosen_shipping_methods);
+    foreach ($shippingZones as $id => $zone) {
+//        var_dump($zone);
+        $zoneMethods = $zone->get_shipping_methods(true);
+//        var_dump($zoneMethods);
+        foreach ($zoneMethods as $method) {
+//            var_dump($method->get_instance_id());
+//            var_dump($method->get_title());
+//            var_dump($method->cost);
+//            var_dump($method->calculate_shipping());
+        }
+//        foreach ($zoneMethods as $id => $flexibleMethods) {
+//            var_dump($id);
+//            var_dump($zoneMethods[$id]);
+//        }
+    }
+//    var_dump(WC_Shipping_Zone::get_shipping_methods( true ));
+//    var_dump('================================');
+//    var_dump(WC()->shipping->get_packages());
 }
-
-
 
 
 function custom_override_checkout_fields( $fields = array() ) {
@@ -172,12 +347,6 @@ function isUserLogged() {
 function getAccountUrl() {
     return get_permalink( get_option('woocommerce_myaccount_page_id') );
 }
-
-
-
-
-
-
 
 
 

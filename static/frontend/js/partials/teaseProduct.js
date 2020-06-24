@@ -62,7 +62,6 @@ class TeaseProducts {
                     teaseProduct.removeClass('loadingScreen')
                 },
                 success: function (response) {
-                    console.log(response);
                     teaseProduct.removeClass('loadingScreen');
                     let basket = $('#' + basketID);
                     basket.html(parseInt(basket.html()) + parseInt(quantity));

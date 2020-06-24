@@ -1,9 +1,9 @@
 {% extends 'page.twig' %}
 
 {% block pageContent %}
-    <div id='customWoocommerce'>
-{#        {{post.content}}#}
-{#        {{ fn('getShippingMethods') }}#}
+    <div id='checkoutPage'>
+        {#        {{post.content}}#}
+        {#        {{ fn('getShippingMethods') }}#}
         {% include ['partials/checkoutWidget.twig'] %}
     </div>
 {% endblock %}

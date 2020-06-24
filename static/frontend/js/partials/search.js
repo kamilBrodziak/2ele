@@ -7,10 +7,8 @@ class Search {
     }
 
     addAjaxSearch() {
-        console.log('tt');
         let _this = this;
         let label = this.searchInput.parent();
-        console.log('tt');
         let data = {
             action: 'searchAjax'
         }

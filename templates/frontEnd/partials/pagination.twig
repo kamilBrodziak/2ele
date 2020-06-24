@@ -1,4 +1,4 @@
-{% if posts.pagination.pages is not empty %}
+{% if pagination.pages is not empty %}
     <nav class="pagination">
         <ul class="paginationList">
             {% set pageLink = fn('esc_url_raw', fn('get_pagenum_link', 1 )) %}

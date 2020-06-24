@@ -1,9 +1,20 @@
 <?php
 $context            = Timber::context();
+global $productsController;
+
 if ( is_singular( 'product' ) ) {
-	$context['post']    = Timber::get_post();
-	$product            = wc_get_product( $context['post']->ID );
-	$context['product'] = $product;
+    $post = Timber::get_post();
+	$context['post']    = $post;
+//	$product            = wc_get_product( $context['post']->ID );
+
+	$context['product'] = $productsController->loadProductFromDB($context['post']->ID);
+	$context['product']['title'] = $post->title;
+    $context['product']['link'] = $post->link;
+	$context['product']['thumbnail'] = [
+	    'src' => $post->thumbnail->src,
+        'alt' => $post->thumbnail->alt
+    ];
+//	$context['product'] = $product;
 	wp_reset_postdata();
 
 	Timber::render( 'single-product.twig', $context );
@@ -13,23 +24,34 @@ if ( is_singular( 'product' ) ) {
     if ( is_product_category() || is_shop()) {
         $queried_object = get_queried_object();
         $term_id = $queried_object->term_id;
-        $context['category'] = get_term( $term_id, 'product_cat' );
         $context['title'] = single_term_title( '', false );
         $context['currentPage'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
+//        $args = [
+//            'post_type' => 'product',
+//            'posts_per_page' => getProductsPerPageAmount(),
+//            'paged' => $context['currentPage'],
+//            'post_status' => 'publish'
+//        ];
+//        if(is_product_category()) {
+//            $args['product_cat'] = $context['title'];
+//        }
+//        $context['products'] = Timber::get_posts($args);
+
         $args = [
-            'post_type' => 'product',
-            'posts_per_page' => getProductsPerPageAmount(),
-            'paged' => $context['currentPage'],
-            'post_status' => 'publish'
+            'paged' => $context['currentPage']
         ];
         if(is_product_category()) {
-            $args['product_cat'] = $context['title'];
+
+            $context['category'] = get_term( $term_id, 'product_cat' )->slug;
+            $args['product_cat'] = $context['category'];
         }
-        $context['products'] = Timber::get_posts($args);
+        $context['products'] = $productsController->loadProductsFromDB($args);
     }
     $context['pagination'] = Timber::get_pagination([
         'end_size'     => 1,
         'mid_size'     => 2
     ]);
+
+
 	Timber::render( 'page-shop.twig', $context );
 }

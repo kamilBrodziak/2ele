@@ -1,8 +1,15 @@
 <section class="cartWidget">
     <div class="cartNotices">
         {% if cartNotices %}
-            {{ cartNotices }}
+            <ul>
+            {% for cartNotice in cartNotices %}
+                <li>
+                    {{ cartNotice }}
+                </li>
+            {% endfor %}
+            </ul>
         {% endif %}
+
     </div>
     <table class="cartItems">
         <thead>

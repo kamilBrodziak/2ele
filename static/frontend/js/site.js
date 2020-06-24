@@ -31,15 +31,14 @@ $( function() {
     customSelect.showSelect();
     customSelect.hideSelectWhenClickedOutsideSelect();
 
-    let cartWidget = new CartWidget($('#cartPageCartWidgetContainer'));
-    cartWidget.withWidget();
+    // let cartWidget = new CartWidget($('#cartPageCartWidgetContainer'));
+    // cartWidget.withWidget();
     let search = new Search('shopSearch');
     search.addAjaxSearch();
     search.closingSearchResultEvent();
     let loginPageLoginWidgetContainer = $('#accountPageLoginWidgetContainer');
     let loginPageLoginWidget = new LoginWidget(loginPageLoginWidgetContainer);
-    loginPageLoginWidget.withWidget();
-    loginPageLoginWidget.addLoginAjax(true);
+    loginPageLoginWidget.withWidget(true);
     // loginPageLoginWidget.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
     // loginPageLoginWidget.addRegisterValidation();
     // loginPageLoginWidget.addRegisterAjax();
@@ -49,6 +48,13 @@ $( function() {
 
     let cartPageOrderWidget = new OrderWidget($('#cartPageCartWidgetContainer'));
     cartPageOrderWidget.withWidget();
+
+    const checkoutPage = $('#checkoutPage');
+    if(checkoutPage.length) {
+        let checkoutPageCartWidget = new CheckoutWidget(checkoutPage);
+        checkoutPageCartWidget.withWidget();
+    }
+
     // orderWidget.orderShow('basketButton');
     // orderWidget.addCloseWhenClickOutside();
     // orderWidget.addCloseButton('orderWidgetCloseButton');

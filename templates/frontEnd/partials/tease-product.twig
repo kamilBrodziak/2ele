@@ -1,12 +1,24 @@
+{#<article {{ fn('post_class', ['$classes', 'entry', 'teaseProduct'] ) }}>#}
+{#    {{ fn('timber_set_product', post) }}#}
+{#    {% set isVariableProduct = fn('isVariableProduct', post.id) %}#}
+{#    <a class='teaseProductAnchor textAlignCenter' href='{{ post.link }}' data-product_id="{{ post.id }}">#}
+{#        {% include ['partials/teaseProduct/teaseProductHeader.twig'] %}#}
+{#    </a>#}
+{#    {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}#}
+{#    {% include ['partials/teaseProduct/teaseProductFooter.twig'] %}#}
+{#    #}{#        <div>#}
+{#            {% do action('woocommerce_single_product_summary') %}#}
+{#        </div>#}
+{#</article>#}
 <article {{ fn('post_class', ['$classes', 'entry', 'teaseProduct'] ) }}>
-    {{ fn('timber_set_product', post) }}
-    {% set isVariableProduct = fn('isVariableProduct', post.id) %}
-    <a class='teaseProductAnchor textAlignCenter' href='{{ post.link }}' data-product_id="{{ post.id }}">
+{#    {{ fn('timber_set_product', post) }}#}
+{#    {% set isVariableProduct = fn('isVariableProduct', post.id) %}#}
+    <a class='teaseProductAnchor textAlignCenter' href='{{ product.link }}' data-product_id="{{ product.id }}">
         {% include ['partials/teaseProduct/teaseProductHeader.twig'] %}
     </a>
     {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}
     {% include ['partials/teaseProduct/teaseProductFooter.twig'] %}
     {#        <div>#}
-{#            {% do action('woocommerce_single_product_summary') %}#}
-{#        </div>#}
+    {#            {% do action('woocommerce_single_product_summary') %}#}
+    {#        </div>#}
 </article>

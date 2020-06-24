@@ -79,7 +79,6 @@ class AjaxPagination {
             console.log(response);
         }, successFunc = (response) => {
             _this.container.removeClass('loadingScreen');
-            console.log(response);
             _this.container.empty().append(response);
             window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
             window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);

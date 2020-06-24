@@ -1,32 +1,19 @@
 <?php
-/**
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
- *
- * To generate specific templates for your pages you can use:
- * /mytheme/templates/page-mypage.twig
- * (which will still route through this PHP file)
- * OR
- * /mytheme/page-mypage.php
- * (in which case you'll want to duplicate this file and save to the above path)
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
- */
-
 $context = Timber::context();
 
 $timber_post = new Timber\Post();
 $context['post'] = $timber_post;
 if(is_cart()) {
     $context['products'] = getCart();
+    $context['cartNotices'] = [];
+    foreach ($context['products'] as $productDetails) {
+        if($productDetails['maxQuantityNotBackorder'] &&
+            $productDetails['maxQuantityNotBackorder'] < $productDetails['quantity']) {
+            $context['cartNotices'][] = 'Na magazynie jest obecnie sztuk ' . $productDetails['maxQuantityNotBackorder']
+                . " produktu " . $productDetails['title'] .
+                ". Możesz sfinalizować zamówienie, jednak będzie ono opóźnione.";
+        }
+    }
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
     $context['stage'] = 0;
@@ -95,7 +82,28 @@ if(is_cart()) {
         Timber::render(array('page-login.twig'), $context);
     }
 } else if(is_checkout()) {
-    Timber::render(array('page-woocommerce.twig'), $context);
+    if(!is_order_received_page()) {
+        $context['isUserLoggedIn'] = isUserLogged();
+        do_action( 'woocommerce_check_cart_items' );
+        WC()->cart->calculate_totals();
+        WC()->cart->show_shipping();
+        $checkout = WC()->checkout();
+        $non_js_checkout = ! empty( $_POST['woocommerce_checkout_update_totals'] );
+        if(!$context['isUserLoggedIn']) {
+            $context['privacyPolicyUrl'] = get_privacy_policy_url();
+            $context['accountUrl'] = get_permalink(get_option('woocommerce_myaccount_page_id'));
+            $context['whichPageShow'] = 'login';
+            $context['lostPasswordPage'] = wp_lostpassword_url();
+        }
+        $context['products'] = getCart();
+        $context['checkoutUrl'] = getCheckoutUrl();
+        $context['cartTotal'] = getCartTotal();
+        $context['stage'] = 1;
+        Timber::render(array('page-checkout.twig'), $context);
+    } else {
+        Timber::render(array('page-thankyou.twig'), $context);
+    }
+
 } else {
     Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 

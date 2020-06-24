@@ -9,7 +9,7 @@ class LoginWidget {
         this.confirmPasswordValidation = false;
     }
 
-    withWidget() {
+    withWidget(submitWhenLogin = false) {
         if(this.widget) {
             this.unbindEvents();
         }
@@ -33,9 +33,10 @@ class LoginWidget {
         this.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
         this.addRegisterValidation();
         this.addRegisterAjax();
+        this.addLoginAjax(submitWhenLogin);
     }
 
-    loadWidgetAjax() {
+    loadWidgetAjax(submitWhenLogin = false) {
         let data = {
             'action': 'loadLoginWidgetAjax'
         };
@@ -50,7 +51,7 @@ class LoginWidget {
             _this.widgetContainer.empty().append(response);
             const widget = this.widgetContainer.find('.loginWidget');
             if(widget) {
-                _this.withWidget();
+                _this.withWidget(submitWhenLogin);
             }
         }
         ajaxCall(data, beforeSend, error, success);
@@ -82,7 +83,6 @@ class LoginWidget {
                 let currentActive = navList.find('.active');
                 currentActive.removeClass('active');
                 currentActive.removeAttr('disabled');
-                console.log(currentActive);
                 sections[currentActive.data('section')].addClass('hide');
                 newActive.addClass('active');
                 newActive.attr('disabled', true);
@@ -150,10 +150,11 @@ class LoginWidget {
                     username.val('');
                     password.val('');
                     location.reload();
+                    _this.unbindEvents();
                 } else {
                     _this.loadLogoutWidget();
                 }
-                _this.unbindEvents();
+
             } else {
                 _this.loginForm.find('.loginFormNotices').html(response);
             }

@@ -3,7 +3,7 @@
 {% block content %}
     <article itemscope id="singleProduct" itemtype='http://schema.org/Product'>
         <div class="teaseProduct flexCenterCenter">
-            {% set isVariableProduct = fn('isVariableProduct', post.id) %}
+{#            {% set isVariableProduct = fn('isVariableProduct', post.id) %}#}
             <figure class='teaseProductPictureContainer flexCenterCenter'>
                 <img class='teaseProductPicture' src='{{ post.thumbnail.src }}' alt='{{ post.thumbnail.alt }}'/>
             </figure>

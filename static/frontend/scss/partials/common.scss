@@ -35,7 +35,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .gradientSectionNav {
@@ -57,6 +57,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     color: silver;
     transition: all 0.1s ease;
     text-decoration: none;
+    font-style: italic;
     
     &:hover, &:active {
         color: #5c5c5c;
