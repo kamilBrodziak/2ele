@@ -4,7 +4,74 @@
     width: 90%;
     min-width: 300px;
     max-width: 1200px;
+    height: auto;
     margin: 0 auto;
+    position: relative;
+    --stage0C: radial-gradient(#d35400, #d35400 30%, transparent 34%)
+        no-repeat calc(10% - 20px) 28px / 50px 50px;
+    --stage1C: radial-gradient(#d35400, #d35400 30%, transparent 34%)
+        no-repeat calc(30% - 10px) 28px / 50px 50px;
+    --stage2C: radial-gradient(#d35400, #d35400 30%, transparent 34%)
+        no-repeat 50% 28px / 50px 50px;
+    --stage3C: radial-gradient(#d35400, #d35400 30%, transparent 34%)
+        no-repeat calc(70% + 10px) 28px / 50px 50px;
+    --stage4C: radial-gradient(#d35400, #d35400 30%, transparent 34%)
+        no-repeat calc(90% + 20px) 28px / 50px 50px;
+    
+    
+    background:
+        linear-gradient(to bottom,#242424, #242424)
+            no-repeat center 40px / 80% 25px,
+        radial-gradient(#242424, #242424 60%, transparent 64%)
+            no-repeat calc(10% - 20px) 28px / 50px 50px,
+        radial-gradient(#242424, #242424 60%, transparent 64%)
+            no-repeat calc(30% - 10px) 28px / 50px 50px,
+        radial-gradient(#242424, #242424 60%, transparent 64%)
+            no-repeat 50% 28px / 50px 50px,
+        radial-gradient(#242424, #242424 60%, transparent 64%)
+            no-repeat calc(70% + 10px) 28px / 50px 50px,
+        radial-gradient(#242424, #242424 60%, transparent 64%)
+            no-repeat calc(90% + 20px) 28px / 50px 50px;
+    &:after {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+    }
+    &.stage0:after {
+        background: var(--stage0C);
+    }
+    
+    &.stage1:after {
+        background:
+            linear-gradient(to bottom,#d35400, #d35400)
+                no-repeat 12% 47px / 20% 10px,
+            var(--stage0C), var(--stage1C);
+    }
+    
+    &.stage2:after {
+        background:
+            linear-gradient(to bottom,#d35400, #d35400)
+                no-repeat 18% 47px / 40% 10px,
+            var(--stage0C), var(--stage1C), var(--stage2C);
+    }
+    
+    &.stage3:after {
+        background:
+            linear-gradient(to bottom,#d35400, #d35400)
+                no-repeat 24% 47px / 61% 10px,
+            var(--stage0C), var(--stage1C), var(--stage2C), var(--stage3C);
+    }
+    
+    &.stage4:after {
+        background:
+            linear-gradient(to bottom,#d35400, #d35400)
+                no-repeat 53% 47px / 80% 10px,
+            var(--stage0C), var(--stage1C), var(--stage2C), var(--stage3C), var(--stage4C);
+    }
     
     li {
         width: 20%;
@@ -15,85 +82,17 @@
         &.current {
             font-weight: bold;
         }
-        
-        &:after {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            content: '';
-            width: 100%;
-            height: 100%;
-        }
-        
-        &:first-child {
-            background:
-                linear-gradient(to bottom,#242424, #242424)
-                    no-repeat center right / 50% 25px,
-                radial-gradient(#242424, #242424 60%, transparent 64%)
-                    no-repeat center center / 50px 50px;
-            &.current:after {
-                background: radial-gradient(#d35400 30%, transparent 34%)
-                    no-repeat center center / 50px 50px;
-            }
-            &.passed:after {
-                background:
-                    linear-gradient(to bottom,#d35400, #d35400)
-                        no-repeat center right / 50% 10px,
-                    radial-gradient(#d35400 30%, transparent 34%)
-                        no-repeat center center / 50px 50px;
-            }
-        }
-    
-        &:not(:first-child):not(:last-child) {
-            background:
-                linear-gradient(to bottom,#242424, #242424)
-                    no-repeat center left / 70% 25px,
-                linear-gradient(to bottom,#242424, #242424)
-                    no-repeat center right / 70% 25px,
-                radial-gradient(#242424 60%, transparent 64%)
-                    no-repeat center center / 50px 50px;
-    
-            &.current:after {
-                background:
-                    linear-gradient(to bottom, #d35400, #d35400)
-                        no-repeat center left / 50% 10px,
-                    radial-gradient(#d35400 30%, transparent 34%)
-                        no-repeat center center / 50px 50px;
-            }
-            &.passed:after {
-                background:
-                    linear-gradient(to bottom,#d35400, #d35400)
-                        no-repeat center left / 50% 10px,
-                    linear-gradient(to bottom,#d35400, #d35400)
-                        no-repeat center right / 70% 10px,
-                    radial-gradient(#d35400 30%, transparent 34%)
-                        no-repeat center center / 50px 50px;
-            }
-        }
-        
-        &:last-child {
-            background:
-                linear-gradient(to bottom,#242424, #242424)
-                    no-repeat center left / 50% 25px,
-                radial-gradient(#242424, #242424 60%, transparent 64%)
-                    no-repeat center center / 50px 50px;
-            &.current:after {
-                background:
-                    linear-gradient(to bottom, #d35400, #d35400)
-                        no-repeat center left / 50% 10px,
-                    radial-gradient(#d35400 30%, transparent 34%)
-                        no-repeat center center / 50px 50px;
-            }
-    }
-        
-        &:nth-child(2n+1) {
-            padding: 0 0 70px 0;
-        }
         &:nth-child(2n) {
-            padding: 70px 0 0 0;
+            padding: 80px 0 0 0;
         }
     }
+}
+
+.checkoutWidgetLoginRequired {
+    text-align: center;
+    display: block;
+    font-size: 2.5rem;
+    color: darkred;
 }
 
 #checkoutPage {
@@ -150,14 +149,20 @@
         }
     }
     
-    a {
-        color: silver;
+    a:not(.checkoutWidgetPreviousLink):not(.loginWidgetNavLoginButton):not(.loginWidgetNavRegisterButton) {
+        color: black;
         transition: all 0.1s ease;
         text-decoration: none;
         font-style: italic;
         &:hover, &:active {
-            color: #5c5c5c;
+            color: #5a5a5a;
         }
+    }
+    
+    .woocommerce-error {
+        text-align: center;
+        font-size: 2rem;
+        padding: 20px 10%;
     }
     
     .woocommerce-form__label-for-checkbox {
@@ -226,8 +231,7 @@
         table-layout: fixed;
         
         thead {
-            background: #1f1f1f;
-            color: silver;
+            background: #8e8e8e;
             th {
                 font-size: 2.5rem;
                 padding: 20px 0;
@@ -244,13 +248,12 @@
         
         tbody {
             tr {
-                color: silver;
                 &:nth-child(2n+1) {
-                    background: #363636;
+                    background: #bbbbbb;
                 }
                 
                 &:nth-child(2n) {
-                    background: #494949;
+                    background: #d4d4d4;
                 }
             }
             
@@ -263,7 +266,6 @@
         
         tfoot {
             .cart-subtotal, .woocommerce-shipping-totals, .order-total {
-                color: silver;
                 th, td {
                     padding: 15px;
                     display: block;
@@ -271,12 +273,12 @@
                     width: 200%;
                 }
                 th {
-                    background: #1f1f1f;
+                    background: #8e8e8e;
                     font-size: 2.2rem;
                 }
                 
                 td {
-                    background: #494949;
+                    background: #d4d4d4;
                     font-size: 2rem;
 
                 }
@@ -298,10 +300,9 @@
                 }
             }
             .paczkomaty-shipping {
-                color: silver;
                 font-size: 2rem;
                 td {
-                    background: #494949;
+                    background: #d4d4d4;
                 }
                 
                 #select2-paczkomat_id-container {
@@ -311,6 +312,8 @@
                 
                 .select2-selection {
                     height: auto;
+                    width: 50%;
+                    min-width: 250px;
                 }
                 
                 .select2-selection__arrow {
@@ -336,8 +339,7 @@
 }
 
 .checkoutWidgetPayment {
-    background: #1f1f1f;
-    color: silver;
+    background: #8e8e8e;
     text-align: center;
     font-size: 2rem;
     width: 90%;
@@ -358,11 +360,11 @@
     .payment_box {
         padding: 5px;
         margin: 5px;
-        background: #494949;
+        background: #d4d4d4;
     }
     
     .place-order {
-        background: #494949;
+        background: #d4d4d4;
         padding: 20px;
     }
     
@@ -392,6 +394,22 @@
     
         &:active {
             border-bottom-width: 0;
+        }
+    }
+}
+
+.checkoutWidgetNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    div {
+        width: 45%;
+        button, a {
+            height: 80px;
+        }
+        &:only-child {
+            margin: 0 0 auto 0;
         }
     }
 }

@@ -6,28 +6,18 @@
 function changePage() {
     $context = Timber::context();
     $context['currentPage'] = $_POST['page'];
-//    $data = [
-//        'post_type' => 'product',
-//        'posts_per_page' => getProductsPerPageAmount(),
-//        'paged' => $context['currentPage'],
-//        'post_status' => 'publish'
-//    ];
     $args = [
         'paged' => $context['currentPage']
     ];
     if($_POST['category']) {
         $context['category'] = $_POST['category'];
-//        $data['product_cat'] = $_POST['category'];
         $args['product_cat'] = $_POST['category'];
     }
     if($_POST['search']) {
-//        $data['s'] = $_POST['search'];
         $args['s'] = $_POST['search'];
     }
-//    $context['posts'] = new Timber\PostQuery($data);
     global $productsController;
     $context['products'] = $productsController->loadProductsFromDB($args);
-//    $context['products'] = $context['posts'];
     $context['pagination'] = Timber::get_pagination([
         'end_size'     => 1,
         'mid_size'     => 2,
@@ -60,10 +50,17 @@ function addProductToCart() {
     $productID = $_POST['productID'];
     $quantity = $_POST['quantity'];
     $variationID = $_POST['variationID'];
+    $result = '';
     if($variationID) {
-        WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
+//        WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
+        $result = WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
     } else {
-        WC()->cart->add_to_cart((int)$productID, (int)$quantity);
+        $result = WC()->cart->add_to_cart((int)$productID, (int)$quantity);
+    }
+    if($result) {
+        echo WC()->cart->get_cart_contents_count();
+    } else {
+        echo "false";
     }
 
     die();
@@ -123,25 +120,15 @@ add_action('wp_ajax_searchAjax', 'searchAjax');
 
 function loadOrderWidgetAjax() {
     $context = Timber::context();
+    // OPTIONS FOR CART WIDGET
+    $context = loadCartIntoContext($context);
+
     // OPTIONS FOR ORDER WIDGET
     $context['stage'] = $_POST['stage'];
 
-    // OPTIONS FOR CART WIDGET
-    $context['products'] = getCart();
-    $context['checkoutUrl'] = getCheckoutUrl();
-    $context['cartTotal'] = getCartTotal();
-    $context['checkoutScript'] = file_get_contents(WooCommerce::plugin_url() . '/assets/js/frontend/checkout.min.js');
     // Options for LOGIN WIDGET
     $context['whichPageShow'] = 'login';
-    $context['cartNotices'] = [];
-    foreach ($context['products'] as $productDetails) {
-        if($productDetails['maxQuantityNotBackorder'] &&
-            $productDetails['maxQuantityNotBackorder'] < $productDetails['quantity']) {
-            $context['cartNotices'][] = 'Na magazynie jest obecnie sztuk ' . $productDetails['maxQuantityNotBackorder']
-                . " produktu " . $productDetails['title'] .
-                ". Możesz sfinalizować zamówienie, jednak będzie ono opóźnione.";
-        }
-    }
+    $context['cartNotices'] = getCartQuantityNotices($context['products']);
     $context['accountUrl'] = get_permalink(get_option('woocommerce_myaccount_page_id'));
     $context['lostPasswordPage'] = wp_lostpassword_url();
     $context['privacyPolicyUrl'] = get_privacy_policy_url();
@@ -165,12 +152,9 @@ add_action('wp_ajax_loadOrderWidgetAjax', 'loadOrderWidgetAjax');
 
 function loadCartWidgetAjax() {
     $context = Timber::context();
-    $context['products'] = getCart();
-    $context['checkoutUrl'] = getCheckoutUrl();
-    $context['cartTotal'] = getCartTotal();
-
+    $context = loadCartIntoContext($context);
     if($_POST['notices']) {
-        $context['cartNotices'] = $_POST['notices'];
+        $context['cartNotices'][] = $_POST['notices'];
     }
     wp_reset_postdata();
     Timber::render('partials/cartWidget.twig', $context);
@@ -198,19 +182,6 @@ function changeProductQuantityInCart() {
 }
 add_action('wp_ajax_nopriv_changeProductQuantityInCart', 'changeProductQuantityInCart');
 add_action('wp_ajax_changeProductQuantityInCart', 'changeProductQuantityInCart');
-
-//function renderCartAjax() {
-//    $context = Timber::context();
-//    $context['products'] = getCart();
-//    $context['checkoutUrl'] = getCheckoutUrl();
-//    $context['cartTotal'] = getCartTotal();
-//    if($_POST['notices']) {
-//        $context['cartNotices'] = $_POST['notices'];
-//    }
-//    wp_reset_postdata();
-//    Timber::render('partials/cartWidget.twig', $context);
-//}
-
 
 //
 // ============================================
@@ -303,7 +274,7 @@ function userLoginAjax() {
 //           } else {
             $user = wp_signon($credentials, false);
             if(is_wp_error($user)) {
-                echo $user->get_error_message();
+                echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
             } else {
                 wp_set_current_user($user);
                 echo 'success';

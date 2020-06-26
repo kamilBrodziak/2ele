@@ -10,6 +10,7 @@ class CheckoutWidget {
         this.cartLink = null;
         this.loginWidget = null;
         this.stages = [];
+        this.orderWidgetStages = null;
     }
 
     withWidget() {
@@ -17,6 +18,7 @@ class CheckoutWidget {
         this.widget = this.container.find('.checkoutWidget');
         this.cartLink = this.widget.find('.checkoutWidgetPreviousLink');
         this.stage = 0;
+        this.orderWidgetStages = this.widget.find('.orderWidgetStages');
         this.widget.find('.orderWidgetStage').each(function () {
             _this.stages.push($(this));
         });
@@ -33,8 +35,6 @@ class CheckoutWidget {
             this.loginWidget.withWidget(true);
             this.stagesNodes.unshift(this.widget.find('.loginWidget'));
             this.stagesNames.unshift('Logowanie');
-        } else {
-            this.stages[1].addClass('passed');
         }
 
         this.changeStage();
@@ -62,25 +62,27 @@ class CheckoutWidget {
 
     changeStage() {
         $("html, body").animate({scrollTop:0}, 400);
-
+        const previousContainer = this.previousButton.parent(),
+            nextContainer = this.nextButton.parent(),
+            cartLinkContainer = this.cartLink.parent();
         if(this.stage === 0) {
-            this.previousButton.addClass('hide');
-            if(this.cartLink.hasClass('hide')) {
-                this.cartLink.removeClass('hide');
+            previousContainer.addClass('hide');
+            if(cartLinkContainer.hasClass('hide')) {
+                cartLinkContainer.removeClass('hide');
             }
         } else {
-            if(this.previousButton.hasClass('hide'))
-                this.previousButton.removeClass('hide');
+            if(previousContainer.hasClass('hide'))
+                previousContainer.removeClass('hide');
             this.previousButton.html("<< " + this.stagesNames[this.stage - 1]);
-            if(!this.cartLink.hasClass('hide'))
-                this.cartLink.addClass('hide');
+            if(!cartLinkContainer.hasClass('hide'))
+                cartLinkContainer.addClass('hide');
         }
 
         if(this.stage + 1 === this.stagesNames.length) {
-            this.nextButton.addClass('hide');
+            nextContainer.addClass('hide');
         } else {
-            if(this.nextButton.hasClass('hide'))
-                this.nextButton.removeClass('hide');
+            if(nextContainer.hasClass('hide'))
+                nextContainer.removeClass('hide');
             this.nextButton.html(this.stagesNames[this.stage + 1] + " >>");
         }
 
@@ -92,15 +94,12 @@ class CheckoutWidget {
         }
         const startingStage = this.stagesNames.length === 3 ? 2 : 1;
         for(let i = startingStage; i < this.stages.length; ++i) {
-            if(this.stages[i].hasClass('current')) {
+            if(this.stages[i].hasClass('current'))
                 this.stages[i].removeClass('current');
-            }
-            if(this.stages[i].hasClass('passed')) {
-                this.stages[i].removeClass('passed');
-            }
-            if(this.stage + startingStage > i) {
-                this.stages[i].addClass('passed');
-            } else if(this.stage + startingStage === i){
+            if(this.orderWidgetStages.hasClass('stage' + i))
+                this.orderWidgetStages.removeClass('stage' + i);
+            if(this.stage + startingStage === i) {
+                this.orderWidgetStages.addClass('stage' + i);
                 this.stages[i].addClass('current');
             }
         }

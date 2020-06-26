@@ -4,19 +4,7 @@ $context = Timber::context();
 $timber_post = new Timber\Post();
 $context['post'] = $timber_post;
 if(is_cart()) {
-    $context['products'] = getCart();
-    $context['cartNotices'] = [];
-    foreach ($context['products'] as $productDetails) {
-        if($productDetails['maxQuantityNotBackorder'] &&
-            $productDetails['maxQuantityNotBackorder'] < $productDetails['quantity']) {
-            $context['cartNotices'][] = 'Na magazynie jest obecnie sztuk ' . $productDetails['maxQuantityNotBackorder']
-                . " produktu " . $productDetails['title'] .
-                ". Możesz sfinalizować zamówienie, jednak będzie ono opóźnione.";
-        }
-    }
-    $context['checkoutUrl'] = getCheckoutUrl();
-    $context['cartTotal'] = getCartTotal();
-    $context['stage'] = 0;
+    $context = loadCartIntoContext($context);
     Timber::render(array('page-cart.twig'), $context);
 //    Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
 
@@ -88,6 +76,9 @@ if(is_cart()) {
         WC()->cart->calculate_totals();
         WC()->cart->show_shipping();
         $checkout = WC()->checkout();
+        if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_required() && ! $context['isUserLoggedIn'] ) {
+            $context['loginRequired'] = true;
+        }
         $non_js_checkout = ! empty( $_POST['woocommerce_checkout_update_totals'] );
         if(!$context['isUserLoggedIn']) {
             $context['privacyPolicyUrl'] = get_privacy_policy_url();

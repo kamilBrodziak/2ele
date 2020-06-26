@@ -40,8 +40,8 @@ class TeaseProducts {
     addForm(formClass, basketID) {
         $('body').on('submit', '.' + formClass, function (e) {
             e.preventDefault();
-            let form = $(this);
-            let productID = form.data('product_id'),
+            const form = $(this);
+            const productID = form.data('product_id'),
                 quantity = form.find('.teaseProductFormQuantity').val(),
                 variationID = form.find('.customSelectSelected').data('variation_id'),
                 teaseProduct = form.closest('.teaseProduct');
@@ -63,11 +63,18 @@ class TeaseProducts {
                 },
                 success: function (response) {
                     teaseProduct.removeClass('loadingScreen');
-                    let basket = $('#' + basketID);
-                    basket.html(parseInt(basket.html()) + parseInt(quantity));
-                    teaseProduct.addClass('successScreen');
+                    const basket = $('#' + basketID);
+                    let resultClass = '';
+                    if(response === 'false') {
+                        console.log('Wystąpił problem');
+                        resultClass = 'errorScreen';
+                    } else {
+                        basket.html(response);
+                        resultClass = 'successScreen';
+                    }
+                    teaseProduct.addClass(resultClass);
                     window.setTimeout(function () {
-                        teaseProduct.removeClass('successScreen');
+                        teaseProduct.removeClass(resultClass);
                     }, 2000)
                 }
             });

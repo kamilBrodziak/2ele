@@ -5,7 +5,6 @@ global $productsController;
 if ( is_singular( 'product' ) ) {
     $post = Timber::get_post();
 	$context['post']    = $post;
-//	$product            = wc_get_product( $context['post']->ID );
 
 	$context['product'] = $productsController->loadProductFromDB($context['post']->ID);
 	$context['product']['title'] = $post->title;
@@ -14,7 +13,6 @@ if ( is_singular( 'product' ) ) {
 	    'src' => $post->thumbnail->src,
         'alt' => $post->thumbnail->alt
     ];
-//	$context['product'] = $product;
 	wp_reset_postdata();
 
 	Timber::render( 'single-product.twig', $context );
@@ -26,17 +24,6 @@ if ( is_singular( 'product' ) ) {
         $term_id = $queried_object->term_id;
         $context['title'] = single_term_title( '', false );
         $context['currentPage'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
-//        $args = [
-//            'post_type' => 'product',
-//            'posts_per_page' => getProductsPerPageAmount(),
-//            'paged' => $context['currentPage'],
-//            'post_status' => 'publish'
-//        ];
-//        if(is_product_category()) {
-//            $args['product_cat'] = $context['title'];
-//        }
-//        $context['products'] = Timber::get_posts($args);
-
         $args = [
             'paged' => $context['currentPage']
         ];

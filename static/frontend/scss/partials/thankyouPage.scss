@@ -1,0 +1,36 @@
+#thankyouPage {
+    width: 90%;
+    margin: 20px auto;
+    background: linear-gradient(to bottom, #c2c2c2, #e2e2e2, #c2c2c2);
+    text-align: center;
+    font-size: 2rem;
+    
+    .woocommerce-order-overview {
+        list-style: none;
+    }
+    
+    .woocommerce-table {
+        width: 100%;
+        
+        //tr td:first-child {
+        //    text-align: right;
+        //    padding: 0 20px 0 0;
+        //}
+        //
+        //tr td:last-child {
+        //    text-align: left;
+        //    padding: 0 0 0 20px;
+        //}
+    }
+    
+    a {
+        color: black;
+        transition: all 0.1s ease;
+        text-decoration: none;
+        font-style: italic;
+    
+        &:hover, &:active {
+            color: #5a5a5a;
+        }
+    }
+}

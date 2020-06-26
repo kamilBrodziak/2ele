@@ -1,12 +1,4 @@
 <?php
-
-//function timber_set_product( $post ) {
-//    global $product;
-//
-//    if ( is_woocommerce() ) {
-//        $product = wc_get_product( $post->ID );
-//    }
-//}
 class ProductsController {
     private $productsPerPage = 20;
 
@@ -52,14 +44,14 @@ class ProductsController {
                     'src' => $post->thumbnail->src,
                     'alt' => $post->thumbnail->alt
                 ],
-                'price' => $product->get_regular_price(),
+                'price' => "".number_format((float)$product->get_regular_price(), 2)." zł",
                 'isVariable' => $product->is_type('variable')
             ];
             if($productDetails['isVariable']) {
                 $productDetails['variable'] = $this->getVariableProductDetails($product);
             }
             if($product->is_on_sale()) {
-                $productDetails['salePrice'] = $product->get_sale_price();
+                $productDetails['salePrice'] = "".number_format((float)$product->get_sale_price(), 2)." zł";
             }
             $products[] = $productDetails;
         }
@@ -70,7 +62,7 @@ class ProductsController {
         $minPrice = $product->get_variation_regular_price( 'min' );
         $maxPrice = $product->get_variation_regular_price( 'max' );
         $price = $minPrice == $maxPrice ? "".number_format($minPrice, 2)." zł" :
-            "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
+            "".number_format($minPrice, 2)." - ".number_format($maxPrice, 2)." zł";
 
         $variableDetails = [
             'price' => $price
@@ -80,7 +72,7 @@ class ProductsController {
             $minSalePrice = $product->get_variation_sale_price( 'min' );
             $maxSalePrice = $product->get_variation_sale_price( 'max' );
             $salePrice = $minSalePrice == $maxSalePrice ? "".number_format($minSalePrice, 2)." zł" :
-                "".number_format($minSalePrice, 2)." - ".number_format($maxSalePrice)." zł";
+                "".number_format($minSalePrice, 2)." - ".number_format($maxSalePrice, 2)." zł";
             $variableDetails['salePrice'] = $salePrice;
         }
 
@@ -111,105 +103,25 @@ class ProductsController {
 }
 $productsController = new ProductsController();
 
-//function getProductRegularPrice($productID) {
-//    return wc_get_product($productID)->get_regular_price();
-//}
-//
-//function getVariableProductRegularPrice($productID) {
-//    $product = wc_get_product($productID);
-//    $minPrice = $product->get_variation_regular_price( 'min' );
-//    $maxPrice = $product->get_variation_regular_price( 'max' );
-//    if($minPrice == $maxPrice) {
-//        return "".number_format($minPrice, 2)." zł";
-//    } else {
-//        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
-//    }
-//}
-//
-//function getVariableProductSalePrice($productID) {
-//    $product = wc_get_product($productID);
-//    $minPrice = $product->get_variation_sale_price( 'min' );
-//    $maxPrice = $product->get_variation_sale_price( 'max' );
-//    if($minPrice == $maxPrice) {
-//        return "".number_format($minPrice, 2)." zł";
-//    } else {
-//        return "".number_format($minPrice, 2)." - ".number_format($maxPrice)." zł";
-//    }
-//}
-//
-//function getVariableProductRegularMaxPrice($productID) {
-//    return wc_get_product($productID)->get_variation_regular_price( 'max' );
-//}
-//
-//function getProductSalePrice($productID) {
-//    return wc_get_product($productID)->get_sale_price();
-//}
-
-//function isVariableProduct($productID) {
-//    $product = wc_get_product($productID);
-//    return $product->is_type('variable');
-//}
-
-//function hasAvailableVariations($productID) {
-//    $product = wc_get_product($productID);
-//
-//    if($product->get_available_variations()) {
-//        return true;
-//    }
-//    return false;
-//}
-
-//function getProductVariations($productID) {
-//    $product = wc_get_product($productID);
-//    $variations = [];
-//
-//    foreach ($product->get_available_variations() as $variation) {
-//        $variationID = $variation['variation_id'];
-//        $variationProduct = wc_get_product($variationID);
-//        $variationAttribute = $variationProduct->get_variation_attributes();
-//        $variationAttributeLabel = key($variationAttribute);
-//        if($variationProduct->is_in_stock()) {
-//            $variation = ['id' => $variationID,
-//                'name' => $variationAttribute[$variationAttributeLabel],
-//                'imageSrc' => $variation['image']['url'],
-//                'price' => $variationProduct->get_price()];
-//
-//            if($variationProduct->managing_stock()) {
-//                $variation['maxQuantity'] = $variationProduct->get_stock_quantity();
-//                if($variationProduct->backorders_allowed()) {
-//                    $variation['maxQuantity'] = 999;
-//                }
-//            }
-//            $variations[] = $variation;
-//        }
-//
-//    }
-//    return $variations;
-//}
-
-//function getProductVariationLabel($productID) {
-//    $variationID = wc_get_product($productID)->get_available_variations()[0]['variation_id'];
-//    $variationAttributeLabel = key(wc_get_product($variationID)->get_variation_attributes());
-//    return str_replace("attribute_", "", $variationAttributeLabel);
-//}
-
-//function getProductMaxQuantity($productID) {
-//    $product = wc_get_product($productID);
-//    if($product->managing_stock()) {
-//        if($product->backorders_allowed()) {
-//            return 99;
-//        }
-//        return $product->get_stock_quantity();
-//    }
-//    return 99;
-//}
-
-//function isSimpleProduct($id) {
-//    return wc_get_product($id)->is_type('simple');
-//}
-
 function getCartProductsQuantity() {
     return WC()->cart->cart_contents_count;
+}
+
+function getCartQuantityNotices($products) {
+    $cartNotices = [];
+    foreach ($products as $productDetails) {
+        if($productDetails['maxQuantityNotBackorder'] !== NULL &&
+            $productDetails['maxQuantityNotBackorder'] < $productDetails['quantity']) {
+            $notice = $productDetails['maxQuantityNotBackorder'] !== 0 ?
+                'Na magazynie jest obecnie sztuk ' . $productDetails['maxQuantityNotBackorder']
+                . " produktu " . $productDetails['title'] :
+                'Na magazynie nie ma obecnie produktu ' . $productDetails['title'];
+
+            $cartNotices[] = $notice .
+                ". Możesz sfinalizować zamówienie, jednak będzie ono opóźnione."  ;
+        }
+    }
+    return $cartNotices;
 }
 
 function getCart() {
@@ -229,12 +141,15 @@ function getCart() {
             $product = wc_get_product($variationID);
             $productDetails['variationID'] = $variationID;
         }
+
         if($product->managing_stock()) {
+            $quantity = $product->get_stock_quantity();
+            $quantity = $quantity >= 0 ? $quantity : 0;
             if($product->backorders_allowed()) {
                 $productDetails['maxQuantity'] = 999;
-                $productDetails['maxQuantityNotBackorder'] = $product->get_stock_quantity();
+                $productDetails['maxQuantityNotBackorder'] = $quantity;
             } else {
-                $productDetails['maxQuantity'] = $product->get_stock_quantity();
+                $productDetails['maxQuantity'] = $quantity;
             }
         }
         $productDetails['price'] = $product->get_price();
@@ -251,13 +166,7 @@ function getCart() {
 //    return WC()->cart->get_cart_contents();
 }
 
-function getCheckoutUrl() {
-    return WC()->cart->get_checkout_url();
-}
 
-function getCartUrl() {
-    return WC()->cart->get_cart_url();
-}
 
 function getCartTotal() {
     return WC()->cart->get_subtotal();
@@ -339,16 +248,6 @@ function custom_override_checkout_fields( $fields = array() ) {
     return $fields;
 }
 add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
-
-function isUserLogged() {
-    return is_user_logged_in();
-}
-
-function getAccountUrl() {
-    return get_permalink( get_option('woocommerce_myaccount_page_id') );
-}
-
-
 
 
 //add_filter('add_to_cart_redirect', 'addToCartRedirectToCheckout');

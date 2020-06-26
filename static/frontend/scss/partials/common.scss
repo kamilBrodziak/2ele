@@ -229,7 +229,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
 =====================================================
 */
 
-.successScreen {
+.successScreen, .errorScreen {
     position: relative;
     &:before, &:after {
         display: block;
@@ -256,6 +256,13 @@ $buttonGradient: linear-gradient(black, #242424, black);
         transform: translate(-50%, -50%);
         color: lightgreen;
         font-size: 5rem;
+    }
+}
+
+.errorScreen {
+    &:after {
+        content: 'X';
+        color: darkred;
     }
 }
 

@@ -107,7 +107,14 @@ if(class_exists('Inc\\Init')) {
 require get_template_directory() . '/inc/Functions/Ajax.php';
 require get_template_directory() . '/inc/Functions/woocommerce.php';
 
-
+function loadCartIntoContext($context) {
+    $context['products'] = getCart();
+    $context['cartNotices'] = getCartQuantityNotices($context['products']);
+    $context['checkoutUrl'] = getCheckoutUrl();
+    $context['cartTotal'] = getCartTotal();
+    $context['stage'] = 0;
+    return $context;
+}
 
 function getImgDir() {
     return get_template_directory_uri() . "/static/frontend/img";
@@ -115,6 +122,22 @@ function getImgDir() {
 
 function getVerificationUrl() {
     return get_site_url() . '/user-verification/';
+}
+
+function getCheckoutUrl() {
+    return WC()->cart->get_checkout_url();
+}
+
+function getCartUrl() {
+    return WC()->cart->get_cart_url();
+}
+
+function isUserLogged() {
+    return is_user_logged_in();
+}
+
+function getAccountUrl() {
+    return get_permalink( get_option('woocommerce_myaccount_page_id') );
 }
 
 function customQueryPostsPerPage( $query ) {
