@@ -1,0 +1,28 @@
+<article class="teaseProduct">
+    <div class="teaseProductWrapper">
+        <header class="teaseProductHeader">
+            {% if isSingleProductPage == false %}
+                <a class='teaseProductAnchor textAlignCenter' href='{{ product.link }}' data-product_id="{{ product.id }}">
+                    {% include ['partials/teaseProduct/teaseProductPicture.twig'] %}
+                    <h3 class='teaseProductTitle'>{{ product.title }}</h3>
+                </a>
+            {% else %}
+                {% include ['partials/teaseProduct/teaseProductPicture.twig'] %}
+            {% endif %}
+        </header>
+        <main class="teaseProductMain">
+            {% if isSingleProductPage == true %}
+                <h3 class='teaseProductTitle'>{{ product.title }}</h3>
+            {% endif %}
+            {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}
+        </main>
+        <footer class='teaseProductFooter flexCenterCenter'>
+            {% include ['partials/teaseProduct/teaseProductForm.twig'] %}
+        </footer>
+{#            {% include ['partials/teaseProduct/teaseProductHeader.twig'] %}#}
+{#        <div class="singleProductTeaseContent">#}
+{#            {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}#}
+{#            {% include ['partials/teaseProduct/teaseProductFooter.twig'] %}#}
+{#        </div>#}
+    </div>
+</article>

@@ -4,6 +4,7 @@
  * Author: Kamil Brodziak
 */
 
+@import "partials/vars";
 @import "partials/normalization";
 @import "partials/common";
 @import "partials/layout";
@@ -11,6 +12,7 @@
 @import "partials/footer";
 @import "partials/shopNav";
 @import "partials/pagination";
+@import "partials/teaseProduct";
 @import "partials/productListWidget";
 @import "partials/productCat";
 @import "partials/productWidget";

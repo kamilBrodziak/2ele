@@ -3,7 +3,6 @@
     SHOP NAV
 =====================================================
 */
-$desktopNavWidth: 200px;
 $mobileNavHeight: 60px;
 $menuItemAnchorPadding: 2rem;
 $menuItemAnchorFontSize: 3rem;
@@ -99,12 +98,13 @@ $menuItemAnchorFontSize: 3rem;
     #shopNav {
         height: 100vh;
         width: $desktopNavWidth;
+        left: 90px;
+        background: none;
+        padding: 0 $desktopNavPadding;
 
         #shopNavList {
             display: flex;
-            height: 90%;
             overflow: visible;
-
             li {
                 position: relative;
 
@@ -117,7 +117,9 @@ $menuItemAnchorFontSize: 3rem;
                     position: absolute;
                     top: 0;
                     left: 100%;
-                    width: 300px;
+                    padding: 0 0 0 20px;
+                    background: none;
+                    width: 400px;
                     max-height: none;
                     height: auto;
                     opacity: 0;
@@ -125,11 +127,14 @@ $menuItemAnchorFontSize: 3rem;
                     transform: none;
 
                     li {
-                        flex: 0 0 50%;
-                        width: auto;
+                        flex: 1 0 calc(50% - 10px);
+                        box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
+                        background: black;
+                        border-radius: 10px;
+                        margin: 0 10px 10px 0;
 
                         a {
-                            border-bottom: 5px solid silver;
+                            //border-bottom: 5px solid silver;
                             padding: 5% 0;
                         }
                     }
@@ -141,6 +146,31 @@ $menuItemAnchorFontSize: 3rem;
                 }
             }
         }
+    }
+    
+    .shopNavListItem {
+        background: black;
+        margin: 10px 0 0 0;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        a {
+            justify-content: center;
+        }
+        &:nth-child(odd) {
+            transform: perspective(300px) rotateY(15deg);
+            box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
+        }
+        
+        &:nth-child(even) {
+            transform: perspective(300px) rotateY(-15deg);
+            box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
+        }
+        &:hover {
+            transform: perspective(0) rotateY(0);
+            box-shadow: none;
+        }
+        
     }
 }
 
@@ -197,6 +227,11 @@ $mobileNavSearchSubmitHeight: $mobileNavHeight - 2*$mobileNavSearchPadding;
         #shopNavMobileCloseButton {
             display: none;
         }
+        background: black;
+        margin: 10px 0 0 0;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
     }
 }
 
@@ -209,7 +244,7 @@ $mobileNavSearchSubmitHeight: $mobileNavHeight - 2*$mobileNavSearchPadding;
 #shopSearch {
     height: 100%;
     padding: $mobileNavSearchPadding;
-    background: linear-gradient(to bottom, #232323, #2b2b2b, #232323);
+    //background: linear-gradient(to bottom, #232323, #2b2b2b, #232323);
     width: calc(100% - #{$mobileNavHeight});
     display: flex;
     flex-flow: row;
@@ -284,6 +319,7 @@ $mobileNavSearchSubmitHeight: $mobileNavHeight - 2*$mobileNavSearchPadding;
         height: 100%;
         width: 100%;
         flex-flow: column;
+
     
         .searchResults {
             top: 0;

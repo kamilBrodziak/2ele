@@ -19,9 +19,11 @@
                 </div>
             </div>
         {% endif %}
-        <label class="teaseProductFormSubmitLabel gradientButton">
-            <input type="submit" class="teaseProductFormSubmit" value="Dodaj do koszyka"
-                   {% if product.isVariable %}disabled{% endif %}>
+        <label class="teaseProductFormSubmitLabel">
+            <button type="submit" class="teaseProductFormSubmit"
+                    {% if product.isVariable %}disabled{% endif %}>Dodaj do koszyka</button>
+{#            <input type="submit" class="teaseProductFormSubmit" value="Dodaj do koszyka"#}
+{#                   {% if product.isVariable %}disabled{% endif %}>#}
         </label>
     </form>
 </footer>

@@ -3,11 +3,6 @@
     PRODUCT LIST WIDGET
 =====================================================
 */
-
-$teaseProductWidth: 270px;
-$teaseProductHorizontalPadding: 9px;
-$teaseProductPictureWidth: $teaseProductWidth - 2 * $teaseProductHorizontalPadding;
-
 .productListPagination {
     height: auto;
 }
@@ -16,112 +11,16 @@ $teaseProductPictureWidth: $teaseProductWidth - 2 * $teaseProductHorizontalPaddi
     height: auto;
     width: 100%;
     font-size: 2rem;
+    
+    .productList {
+        //display: flex;
+        //flex-flow: row wrap;
+        padding: 2rem 0;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, $productListTeaseProductWidth);
+        grid-gap: 1rem;
+        justify-content: space-around;
+    }
 }
 
-.productList {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 2rem 0;
-    height: auto;
-    .teaseProduct {
-        width: $teaseProductWidth;
-        height: auto;
-        margin: 0 auto;
-    }
-}
-
-/*
-=====================================================
-    PRODUCT LIST WIDGET - TEASE PRODUCT
-=====================================================
-*/
-
-.productListWidget {
-    .teaseProduct {
-        text-align: center;
-        padding: 0 $teaseProductHorizontalPadding;
-    }
-    
-    .teaseProductAnchor {
-        width: 100%;
-        height: auto;
-    }
-    
-    .teaseProductPictureContainer {
-        height: $teaseProductPictureWidth;
-        width: $teaseProductPictureWidth;
-    }
-    
-    .teaseProductPicture {
-        max-height: $teaseProductPictureWidth;
-        max-width: $teaseProductPictureWidth;
-    }
-    
-    .teaseProductTitle {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        position: relative;
-        font-size: 2rem;
-        color: black;
-    }
-    
-    .teaseProductPrice {
-        height: auto;
-        font-size: 1.8rem;
-        span {
-            width: auto;
-            &:not(:only-child) {
-                &:first-child {
-                    text-decoration: line-through;
-                    padding-right: 3px;
-                }
-                
-                &:last-child {
-                    padding-left: 3px;
-                }
-            }
-        }
-    }
-    
-    .teaseProductForm {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-        width: 100%;
-
-        input {
-            width: 100%;
-            height: 46px;
-            text-align: center;
-        }
-        span {
-            display: block;
-        }
-
-        .teaseProductFormQuantityLabel {
-            width: 24%;
-            height: auto;
-        }
-
-        .customSelect {
-            width: 74%;
-            height: auto;
-            .customSelectSelected {
-                height: 46px;
-            }
-        }
-
-        .teaseProductFormSubmitLabel {
-            width: 100%;
-            margin: 10px 0;
-            height: auto;
-        }
-    
-        .teaseProductFormSubmit {
-            font-size: 2rem;
-            height: 60px;
-        }
-
-    }
-}

@@ -1,6 +1,9 @@
 <header class='teaseProductHeader'>
-    <figure class='teaseProductPictureContainer flexCenterCenter'>
-        <img class='teaseProductPicture' src='{{ product.thumbnail.src }}' alt='{{ product.thumbnail.alt }}'/>
-    </figure>
-    <h3 class='teaseProductTitle'>{{ product.title }}</h3>
+    <a class='teaseProductAnchor textAlignCenter' href='{{ product.link }}' data-product_id="{{ product.id }}">
+        <figure class='teaseProductPictureContainer flexCenterCenter'>
+            <img class='teaseProductPicture' src='{{ product.thumbnail.src }}' alt='{{ product.thumbnail.alt }}'/>
+            <h3 class='teaseProductTitleS'>{{ product.title }}</h3>
+        </figure>
+        <h3 class='teaseProductTitle'>{{ product.title }}</h3>
+    </a>
 </header>

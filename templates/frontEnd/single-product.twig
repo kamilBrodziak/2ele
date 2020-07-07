@@ -2,25 +2,18 @@
 
 {% block content %}
     <article itemscope id="singleProduct" itemtype='http://schema.org/Product'>
-        <div class="teaseProduct flexCenterCenter">
-{#            {% set isVariableProduct = fn('isVariableProduct', post.id) %}#}
-            <figure class='teaseProductPictureContainer flexCenterCenter'>
-                <img class='teaseProductPicture' src='{{ post.thumbnail.src }}' alt='{{ post.thumbnail.alt }}'/>
-            </figure>
-            <div id="teaseProductContentWrapper" class="flexCenterCenter">
-                <header class='teaseProductHeader'>
-                    <h3 class='teaseProductTitle'>{{ post.title }}</h3>
-                </header>
-                {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}
-                {% include ['partials/teaseProduct/teaseProductFooter.twig'] %}
-            </div>
+        <div id="singleProductTeaseContainer" class="teaseProductContainer flexCenterCenter">
+            {% include 'partials/teaseProduct.twig' with { 'isSingleProductPage': true } %}
         </div>
         <section id='singleProductDescription'>
-            <h2 id='singleProductDescriptionHeader' class='flexCenterCenter textAlignCenter'>Opis produktu:</h2>
-            <div id='singleProductDescriptionContent'>{{ post.content }}</div>
-            <div id='singleProductBuyRedirectContainer' class="gradientButton">
-                <a href='#singleProduct' id='singleProductBuyRedirect'
-                   class='textAlignCenter flexCenterCenter'>Kup teraz</a>
+            <div id="singleProductDescriptionWrapper">
+                <h2 id='singleProductDescriptionHeader' class='flexCenterCenter textAlignCenter'>Opis produktu:</h2>
+                <div id='singleProductDescriptionContent'>{{ post.content }}</div>
+                <div id='singleProductBuyRedirectContainer'>
+                    <a href='#singleProduct' id='singleProductBuyRedirect'
+                       class='textAlignCenter flexCenterCenter buttonBlackAnimated borderRadiusTenTopFiftyBottom'>
+                        Kup teraz</a>
+                </div>
             </div>
         </section>
         <meta itemprop='url' content='{{ post.link }}' />

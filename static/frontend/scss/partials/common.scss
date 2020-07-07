@@ -187,6 +187,76 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
+.borderRadiusTenTopFiftyBottom {
+    border-radius: 10px 10px 50px 50px;
+}
+
+.borderRadiusTen {
+    border-radius: 10px;
+}
+
+.buttonBlackAnimated {
+    font-size: 2rem;
+    height: 80px;
+    width: calc(100% - 20px);
+    margin: 10px;
+    background: white;
+    color: silver;
+    border: 8px groove #343434;
+    background: $buttonGradient;
+    transition: all 0.3s ease;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    
+    &:disabled {
+        cursor: not-allowed;
+        color: #787878;
+    }
+    
+    &:active {
+        border: 4px groove #232323;
+    }
+    
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        border-radius: 10px 10px 50px 50px;
+        box-sizing: border-box;
+        transition: 0.3s all ease;
+    }
+    
+    &:not(:disabled):hover {
+        &:before, &:after {
+            opacity: 1;
+        }
+        &:before {
+            background: linear-gradient(rgb(27, 4, 239),rgb(27, 4, 239)) no-repeat center top / 100% 4px;
+            animation: 2s snake infinite;
+        }
+        
+        &:after {
+            background: linear-gradient(rgb(255,120,10),rgb(255,120,10)) no-repeat center bottom / 100% 4px;
+            animation: 2s snake infinite reverse linear;
+        }
+    }
+}
+
+@keyframes snake {
+    0% {
+        transform: translateX(-100%);
+    }
+    
+    100% {
+        transform: translateX(100%);
+    }
+}
 
 /*
 =====================================================
@@ -385,7 +455,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
         position: absolute;
         content: "";
         top: calc(50% - 4px);
-        right: 10px;
+        right: 5px;
         width: 0;
         height: 0;
         border: 8px solid transparent;

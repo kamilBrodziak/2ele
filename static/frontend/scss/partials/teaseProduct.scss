@@ -1,0 +1,132 @@
+/*
+=====================================================
+    TEASE PRODUCT - DEFAULT VALUES FOR PRODUCT LIST WIDGET
+=====================================================
+*/
+.teaseProduct {
+    text-align: center;
+    padding: $productListTeaseProductHorizontalPadding;
+    background: $bgRepeatingGradient;
+    border-radius: 50px;
+    box-shadow:  2px 2px 2px 2px #4b4b4b;
+    width: $productListTeaseProductWidth;
+    height: auto;
+    //margin: 0 auto 20px auto;
+    //mask: linear-gradient(to left, red, white, red);
+    //background: white;
+    //background: linear-gradient(to right, #232323, #151515, #232323);
+}
+
+.teaseProductWrapper {
+    background: white;
+    border-radius: 50px;
+    box-shadow:  inset 2px 2px 2px 2px #4b4b4b;
+}
+
+.teaseProductAnchor {
+    width: 100%;
+    height: auto;
+}
+
+.teaseProductHeader {
+    border-radius: 50px;
+    padding: 10px 0 0 0;
+}
+
+.teaseProductPictureContainer {
+    height: $productListTeaseProductPictureWidth;
+    width: $productListTeaseProductPictureWidth;
+    padding: 10px;
+    border-radius: 50px 50px 0 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.teaseProductTitleS {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: calc(100% - 20px);
+    background: rgba(255, 255, 255, 0.6);
+    margin: 0 10px;
+    color: black;
+    text-shadow: 1px 1px 10px #4c4c4c;
+    display: none;
+}
+
+.teaseProductPicture {
+    max-height: 100%;
+    max-width: 100%;
+    //border-radius: 50px;
+}
+
+.teaseProductTitle {
+    overflow: hidden;
+    //display: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    font-size: 2rem;
+    padding: 0 8px;
+    color: black;
+}
+
+.teaseProductPrice {
+    height: auto;
+    font-size: 1.8rem;
+    span {
+        width: auto;
+        &:not(:only-child) {
+            &:first-child {
+                text-decoration: line-through;
+                padding-right: 3px;
+            }
+            
+            &:last-child {
+                padding-left: 3px;
+            }
+        }
+    }
+}
+
+.teaseProductForm {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    
+    input {
+        width: 100%;
+        height: 55px;
+        text-align: center;
+    }
+    span {
+        display: block;
+        font-size: 2rem;
+    }
+    
+    .teaseProductFormQuantityLabel {
+        width: 55px;
+        height: auto;
+    }
+    
+    .customSelect {
+        width: calc(100% - 55px - 24px);
+        height: auto;
+        margin: 0 0 0 4px;
+        .customSelectSelected {
+            height: 55px;
+            font-size: 1.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    
+    .teaseProductFormSubmitLabel {
+        width: 100%;
+        height: auto;
+    }
+}
+
