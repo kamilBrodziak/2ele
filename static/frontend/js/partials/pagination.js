@@ -8,7 +8,7 @@ class AjaxPagination {
 
     addAjaxPagination() {
         let _this = this;
-        $('body').on('click', '#' + _this.containerID + ' .paginationLinks', function (e) {
+        $('body').on('click', '#' + _this.containerID + ' .paginationLink', function (e) {
             e.preventDefault();
             let page = parseInt($(this).data('page'));
             _this.changePage(page);

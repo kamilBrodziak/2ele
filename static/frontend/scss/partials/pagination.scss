@@ -17,48 +17,68 @@ $paginationFontSize: 2rem;
     display: flex;
     flex-flow: row wrap;
     list-style: none;
+}
 
-    li {
-        height: 45px;
-        margin: 5px;
-        width: 45px;
-        font-size: $paginationFontSize;
-
-        &.paginationPageInput {
-            width: auto;
-            display: flex;
-            flex-direction: row;
-
-            input {
-                width: 45px;
-                height: 100%;
-                border: 0;
-                background: rgba(255, 255, 255, 0.08);
-                border-radius: 10px;
-            }
-
-            span {
-                width: auto;
-                padding: 0 4px;
-            }
+.paginationElement {
+    color: silver;
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    font-size: 2rem;
+    background: $buttonGradient;
+    border-radius: 5px;
+    cursor: default;
+    
+    &.current {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 2px 5px;
+        box-shadow: 0 0 0 2px #3d3d3d, 0 0 8px white;
+        border: 3px groove #3d3d3d;
+        transform: perspective(300px) translateZ(15px);
+    }
+    
+    &.next, &.nextNum, &.nextDots {
+        box-shadow: -1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
+        transform: perspective(300px) translateZ(-15px);
+        &:not(.nextDots):hover {
+            transform: perspective(300px);
         }
     }
-}
 
-.paginationNumbers, .paginationDots {
-    display: none;
-}
-
-@media screen and (min-width: 600px) {
-    .paginationNumbers, .paginationDots {
-        display: block;
+    &.prev, &.prevNum, &.prevDots {
+        box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
+        transform: perspective(300px) translateZ(-15px);
+        &:not(.prevDots):hover {
+            transform: perspective(300px);
+        }
+    }
+    
+    &.next, &.prev {
+        font-weight: bold;
+    }
+    
+    &.prevDots, &.nextDots {
+        background: none;
+        color: black;
+        width: auto;
+        box-shadow: none;
+        align-items: flex-end;
+        font-weight: bolder;
+    }
+    
+    &.paginationLink {
+        transition: 0.3s ease;
+        cursor: pointer;
+        
+    }
+    
+    &.paginationLinkNum, &.dots{
+        display: none;
     }
 }
-
-.paginationCurrentPage {
-    font-weight: bolder;
-    cursor: default;
-    span {
-        font-size: $paginationFontSize + 0.5rem;
+@media screen and (min-width: 600px) {
+    .paginationElement.paginationLinkNum,.paginationElement.dots {
+        display: flex;
     }
 }

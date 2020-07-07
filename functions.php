@@ -140,13 +140,4 @@ function getAccountUrl() {
     return get_permalink( get_option('woocommerce_myaccount_page_id') );
 }
 
-function customQueryPostsPerPage( $query ) {
-    if ( $query->is_main_query() && !is_admin() ) {
-        $query->set( 'posts_per_page', getProductsPerPageAmount());
-    }
-}
-add_action( 'pre_get_posts', 'customQueryPostsPerPage' );
 
-function getProductsPerPageAmount() {
-    return 20;
-}

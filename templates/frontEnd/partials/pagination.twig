@@ -1,75 +1,42 @@
 {% if pagination.pages is not empty %}
     <nav class="pagination">
         <ul class="paginationList">
-            {% set pageLink = fn('esc_url_raw', fn('get_pagenum_link', 1 )) %}
-            {% set dataUrl = fn('admin_url', 'admin-ajax.php') %}
             {% if currentPage > 1 %}
-                <li class="paginationPrev gradientButton">
+                <li>
                     <a href="{{ pagination.prev.link }}" data-page="{{ currentPage - 1 }}"
-                       class="paginationLinks flexCenterCenter"><</a>
+                       class="paginationElement paginationLink prev flexCenterCenter"><</a>
                 </li>
-{#                {% if currentPage - 2 > 1 %}#}
-{#                    <li class="paginationFirst paginationNumbers gradientButton">#}
-{#                        <a href="{{ posts.pagination.pages|first.link }}" data-page="{{ 1 }}"#}
-{#                           class="paginationLinks flexCenterCenter">1</a>#}
-{#                    </li>#}
-{#                    {% if currentPage - 3 > 1 %}#}
-{#                        <li class="paginationDots"><span class="flexCenterCenter">...</span></li>#}
-{#                    {% endif %}#}
-{#                {% endif %}#}
             {% endif %}
-{#            {% for page in posts.pagination.pages %}#}
-{#                {% if page.link %}#}
-{#                    <li class="paginationNumbers gradientButton">#}
-{#                        <a href="{{ page.link }}" data-page="{{ page.title }}"#}
-{#                           class="paginationLinks flexCenterCenter">{{ page.title }}</a>#}
-{#                    </li>#}
-{#                {% elseif page.title|number_format == currentPage %}#}
-{#                    <li class="paginationCurrentPage paginationNumbers gradientButton">#}
-{#                        <span class="flexCenterCenter">{{ page.title }}</span>#}
-{#                    </li>#}
-{#                {% else %}#}
-{#                    <li class="paginationDots gradientButton">#}
-{#                        <span class="flexCenterCenter">{{ page.title }}</span>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#            {% endfor %}#}
+            {% set isNext = false %}
             {% for page in pagination.pages %}
                 {% if page.link %}
-                    <li class="paginationNumbers gradientButton">
+                    <li>
                         <a href="{{ page.link }}" data-page="{{ page.title }}"
-                           class="paginationLinks flexCenterCenter">{{ page.title }}</a>
+                           class="paginationElement paginationLink paginationLinkNum {% if isNext %}nextNum{% else %}prevNum{% endif %} flexCenterCenter">
+                            {{ page.title }}</a>
                     </li>
                 {% elseif page.title|number_format == currentPage %}
-                    <li class="paginationCurrentPage paginationNumbers gradientButton">
-                        <span class="flexCenterCenter">{{ page.title }}</span>
+                    {% set isNext = true %}
+                    <li>
+                        <span class="paginationElement current flexCenterCenter">{{ page.title }}</span>
                     </li>
                 {% else %}
-                    <li class="paginationDots gradientButton">
-                        <span class="flexCenterCenter">{{ page.title }}</span>
+                    <li>
+                        <span class="paginationElement dots {% if isNext %}nextDots{% else %}prevDots{% endif %} flexCenterCenter">{{ page.title }}</span>
                     </li>
                 {% endif %}
             {% endfor %}
-{#            {% if currentPage + 2 < posts.pagination.pages|last.title|number_format %}#}
-{#                {% if currentPage + 3 < posts.pagination.pages|last.title|number_format %}#}
-{#                    <li class="paginationDots"><span class="flexCenterCenter">...</span></li>#}
-{#                {% endif %}#}
-{#                <li class="paginationLast paginationNumbers gradientButton">#}
-{#                    <a href="{{ posts.pagination.pages|last.link }}" data-page="{{ posts.pagination.pages|last.title }}"#}
-{#                       class="paginationLinks flexCenterCenter">{{ posts.pagination.pages|last.title }}</a>#}
-{#                </li>#}
-{#            {% endif %}#}
-            <li class="paginationPageInput gradientButton">
-                <span class="flexCenterCenter">Strona </span>
-                <input type="number" value="{{ currentPage }}" min="1" max="{{ pagination.pages|last.title }}"
-                       class="paginationInput textAlignCenter">
-                <span class="flexCenterCenter">z </span>
-                <span class="flexCenterCenter">{{ pagination.pages|last.title }}</span>
-            </li>
+{#            <li class="paginationPageInput gradientButton">#}
+{#                <span class="flexCenterCenter">Strona </span>#}
+{#                <input type="number" value="{{ currentPage }}" min="1" max="{{ pagination.pages|last.title }}"#}
+{#                       class="paginationInput textAlignCenter">#}
+{#                <span class="flexCenterCenter">z </span>#}
+{#                <span class="flexCenterCenter">{{ pagination.pages|last.title }}</span>#}
+{#            </li>#}
             {% if currentPage < pagination.pages|last.title|number_format %}
-                <li class="paginationNext gradientButton">
+                <li>
                     <a href="{{ pagination.next.link }}" data-page="{{ currentPage + 1 }}"
-                       class="paginationLinks flexCenterCenter">></a>
+                       class="paginationElement paginationLink next flexCenterCenter">></a>
                 </li>
             {% endif %}
         </ul>

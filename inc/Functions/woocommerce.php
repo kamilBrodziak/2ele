@@ -2,7 +2,19 @@
 class ProductsController {
     private $productsPerPage = 20;
 
-    public function __construct() { }
+    public function __construct() {
+        add_filter( 'loop_shop_per_page', [$this, 'productsPerPage'], 20 );
+        add_action( 'pre_get_posts', [$this, 'customQueryPostsPerPage'] );
+    }
+
+    function customQueryPostsPerPage( $query ) {
+        if ( $query->is_main_query() && !is_admin() ) {
+            $query->set( 'posts_per_page', $this->productsPerPage());
+        }
+    }
+    function productsPerPage( $cols = 0 ) {
+        return $this->productsPerPage;
+    }
 
     public function loadProductFromDB($id) {
         $product = wc_get_product($id);
