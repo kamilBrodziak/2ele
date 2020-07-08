@@ -42,6 +42,33 @@ $buttonGradient: linear-gradient(black, #242424, black);
 
 }
 
+.header1Gradient, .header2Gradient, .header3Gradient {
+    background:
+            $buttonGradient no-repeat top left / 100% calc(100% - 6px),
+            $bgRepeatingGradient no-repeat bottom left / 100% 6px;
+    border-radius: 5px;
+    color: silver;
+    box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+    font-weight: bold;
+    margin: 10px 0 20px 0;
+    text-align: center;
+}
+
+.header1Gradient {
+    padding: 20px 0 30px 0;
+    font-size: 3.5rem;
+}
+
+.header2Gradient {
+    padding: 15px 0 25px 0;
+    font-size: 3rem;
+}
+
+.header3Gradient {
+    padding: 12px 0 18px 0;
+    font-size: 2.5rem;
+}
+
 .blackLink {
     color: black;
     transition: all 0.1s ease;
@@ -197,6 +224,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
 
 .buttonBlackAnimated {
     font-size: 2rem;
+    font-weight: bold;
     height: 80px;
     width: calc(100% - 20px);
     margin: 10px;

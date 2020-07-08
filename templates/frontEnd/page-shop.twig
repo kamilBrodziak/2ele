@@ -6,6 +6,9 @@
     {% endblock %}
     {% block products %}
         <div id="shopPageProductListWidget" data-category="{{ title }}">
+            {% if title %}
+                <h1 class="header1Gradient">{{ title }}</h1>
+            {% endif %}
             {% include ['partials/productListWidget.twig'] %}
         </div>
     {% endblock %}

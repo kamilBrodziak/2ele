@@ -213,15 +213,16 @@ class LoginWidget {
     }
 
     validateUsername(username) {
-        const re = /([^\s])/;
+        const re = /(^[^@]+$)/;
         const emailProperties = {
             'inputName': 'username',
             'allowSpace': false,
             'allowPaste': false,
             'testMatch' : false,
+            'allowMailChar': false,
             'testRegex': {
                 'regex': re,
-                'message': 'Nazwa użytkownika nie może być pusta'
+                'message': 'Nazwa użytkownika nie może być pusta oraz nie może zawierać znaku @.'
             },
             'testUnique': {
                 'message': 'Konto o podanej nazwie użytkownika już istnieje'
@@ -238,6 +239,7 @@ class LoginWidget {
             'inputName': 'email',
             'allowSpace': false,
             'allowPaste': true,
+            'allowMailChar': true,
             'testMatch' : {
                 'isParent' : true,
                 'matchingInput': confirmEmail,
@@ -257,6 +259,7 @@ class LoginWidget {
             'inputName': 'confirmEmail',
             'allowSpace': false,
             'allowPaste': false,
+            'allowMailChar': true,
             'testMatch' : {
                 'isParent' : false,
                 'matchingInput': email,
@@ -279,6 +282,7 @@ class LoginWidget {
             'inputName': 'password',
             'allowSpace': false,
             'allowPaste': false,
+            'allowMailChar': true,
             'testMatch' : {
                 'isParent' : true,
                 'matchingInput': confirmPassword,
@@ -296,6 +300,7 @@ class LoginWidget {
             'inputName': 'confirmPassword',
             'allowSpace': false,
             'allowPaste': false,
+            'allowMailChar': true,
             'testMatch' : {
                 'isParent' : false,
                 'matchingInput': password,
@@ -333,6 +338,13 @@ class LoginWidget {
         if(!properties.allowSpace) {
             input.on('keydown', function(e) {
                 if(e.keyCode === 32) {
+                    return false;
+                }
+            })
+        }
+        if(!properties.allowMailChar) {
+            input.on('keydown', function(e) {
+                if(e.keyCode === 50) {
                     return false;
                 }
             })

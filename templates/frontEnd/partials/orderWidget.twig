@@ -1,5 +1,6 @@
 <section class="orderWidget">
     <div class="orderWidgetContentWrapper">
+        <h1 class="header1Gradient">Koszyk</h1>
     {% set stagesNames = ['Koszyk', 'Logowanie', 'Dane zamówienia', 'Podsumowanie i dostawa', 'Płatność'] %}
         {% if isPopup and isPopup == "true" %}
             <div class="orderWidgetCloseButtonContainer gradientButton">
@@ -14,6 +15,7 @@
             <li class="orderWidgetStage">Płatność</li>
         </ul>
         <section class="orderWidgetStageContent">
+
             {% if stage == 0 %}
                 {% include ['partials/cartWidget.twig'] %}
             {% elseif stage == 1 %}
@@ -48,8 +50,10 @@
 {#                    <a href='{{ fn('getCheckoutUrl') }}' class="orderWidgetNextLink orderWidgetPaginationLink">{{ stagesNames[stage + 1] }} >></a>#}
 {#                </div>#}
 {#            {% endif %}#}
-            <div class="orderWidgetNextButtonContainer gradientButton">
-                <a href='{{ fn('getCheckoutUrl') }}' class="orderWidgetNextLink orderWidgetPaginationLink">Zamówienie >></a>
+            <div class="orderWidgetNextButtonContainer">
+                <a href='{{ fn('getCheckoutUrl') }}'
+                   class="orderWidgetNextLink orderWidgetPaginationLink flexCenterCenter buttonBlackAnimated borderRadiusTen">
+                    Zamówienie >></a>
             </div>
         </nav>
 

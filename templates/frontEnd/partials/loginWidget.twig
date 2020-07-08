@@ -23,7 +23,7 @@
         {% endif %}
     </section>
     <section class="loginWidgetLogin loginWidgetSection{% if whichPageShow == 'register' %} hide{% endif %}">
-        <h2 class="loginWidgetSectionTitle">Logowanie</h2>
+        <h2 class="loginWidgetSectionTitle header2Gradient">Logowanie</h2>
         <form method="post" class="loginForm">
             <div class="loginFormNotices flexCenterCenter">{{ loginNotices }}</div>
             <label class="loginFormUsernameInputLabel verticalLabels">
@@ -41,14 +41,14 @@
                        class="loginFormRememberCheckbox gradientCheckbox">
                 <span>Zapamiętaj</span>
             </label>
-            <div class="loginFormSubmitContainer gradientButton">
-                <input type="submit" class="loginFormSubmit" name="login" value="Zaloguj się">
+            <div class="loginFormSubmitContainer">
+                <button type="submit" class="loginFormSubmit buttonBlackAnimated borderRadiusTen" name="login">Zaloguj</button>
             </div>
         </form>
         <a href="{{ lostPasswordPage }}" class="lostPasswordLink blackLink">Zapomniałem hasła</a>
     </section>
     <section class="loginWidgetRegister loginWidgetSection{% if whichPageShow == 'login' %} hide{% endif %}">
-        <h2 class="loginWidgetSectionTitle">Rejestracja</h2>
+        <h2 class="loginWidgetSectionTitle header2Gradient">Rejestracja</h2>
         <form method="post" class="registerForm">
             <div class="registerFormNotices flexCenterCenter textAlignCenter">
                 {% if registerNotices %}
@@ -106,8 +106,8 @@
                        class="registerFormPrivacyCheckbox gradientCheckbox">
                 <span>Przeczytałem i akceptuję <a href="{{ privacyPolicyUrl }}" class="blackLink">regulamin sklepu 2ele.pl</a></span>
             </label>
-            <div class="registerFormSubmitContainer gradientButton">
-                <input type="submit" class="registerFormSubmit" name="register" value="Zarejestruj się">
+            <div class="registerFormSubmitContainer">
+                <button type="submit" class="registerFormSubmit buttonBlackAnimated borderRadiusTen" name="register">Zarejestruj</button>
             </div>
         </form>
     </section>

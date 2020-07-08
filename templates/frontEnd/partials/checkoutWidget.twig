@@ -44,14 +44,14 @@
             {% endif %}
         </section>
         <nav class="checkoutWidgetNav">
-            <div class="checkoutWidgetPreviousLinkContainer gradientButton">
-                <a href='{{ fn('getCartUrl') }}' class="checkoutWidgetPreviousLink checkoutWidgetPaginationLink"><< {{ stagesNames[0] }}</a>
+            <div class="checkoutWidgetPreviousLinkContainer">
+                <a href='{{ fn('getCartUrl') }}' class="flexCenterCenter checkoutWidgetPreviousLink checkoutWidgetPaginationLink buttonBlackAnimated borderRadiusTen"><< {{ stagesNames[0] }}</a>
             </div>
-            <div class="checkoutWidgetPreviousButtonContainer gradientButton">
-                <button class="checkoutWidgetPreviousButton checkoutWidgetPaginationLink"><< {{ stagesNames[1] }}</button>
+            <div class="checkoutWidgetPreviousButtonContainer">
+                <button class="checkoutWidgetPreviousButton checkoutWidgetPaginationLink buttonBlackAnimated borderRadiusTen"><< {{ stagesNames[1] }}</button>
             </div>
-            <div class="checkoutWidgetNextButtonContainer gradientButton">
-                <button class="checkoutWidgetNextButton checkoutWidgetPaginationLink"
+            <div class="checkoutWidgetNextButtonContainer">
+                <button class="checkoutWidgetNextButton checkoutWidgetPaginationLink buttonBlackAnimated borderRadiusTen"
                     {% if loginRequired %}disabled{% endif %}>{{ stagesNames[2] }} >></button>
             </div>
         </nav>

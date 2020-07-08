@@ -1,18 +1,26 @@
 <div class='teaseProductPrice'>
         <span class="teaseProductRegularPrice">
             {% if product.isVariable %}
-                {{ product.variable.price }}
+                {% if product.variable.isPricesDiffer %}
+                    {{ product.variable.minPrice|number_format(2, ',') }} - {{ product.variable.maxPrice|number_format(2, ',') }} zł
+                {% else %}
+                    {{ product.variable.minPrice|number_format(2, ',') }} zł
+                {% endif %}
             {% else %}
-                {{ product.price }}
+                {{ product.price|number_format(2, ',') }} zł
             {% endif %}
         </span>
-    {% if product.isVariable and product.variable.salePrice %}
+    {% if product.isVariable and product.variable.minSalePrice %}
         <span class="teaseProductSalePrice">
-            {{ product.variable.salePrice }}
+            {% if product.variable.isSalePricesDiffer %}
+                {{ product.variable.minSalePrice|number_format(2, ',') }} - {{ product.variable.maxSalePrice|number_format(2, ',') }} zł
+            {% else %}
+                {{ product.variable.minSalePrice|number_format(2, ',') }} zł
+            {% endif %}
         </span>
     {% elseif product.salePrice %}
         <span class="teaseProductSalePrice">
-            {{ product.salePrice }}
+            {{ product.salePrice|number_format(2, ',') }} zł
         </span>
     {% endif %}
 </div>

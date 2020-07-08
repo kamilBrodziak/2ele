@@ -1,7 +1,3 @@
-.orderWidget {
-
-}
-
 body.orderWidgetActive {
     overflow: hidden;
 }
@@ -10,11 +6,28 @@ body.orderWidgetActive {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
     //border: 10px groove #d35400;
     padding: 10px;
+    background: white;
+    
 }
 
 .orderWidgetCloseButton {
     height: 80px;
 }
+
+.orderWidgetNav {
+}
+
+.orderWidgetNextButtonContainer {
+    width: 50%;
+    min-width: 200px;
+    margin: 0 18px 0 auto;
+}
+
+.orderWidgetPaginationLink {
+    height: 80px;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+

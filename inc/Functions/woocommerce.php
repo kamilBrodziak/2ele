@@ -56,14 +56,14 @@ class ProductsController {
                     'src' => $post->thumbnail->src,
                     'alt' => $post->thumbnail->alt
                 ],
-                'price' => "".number_format((float)$product->get_regular_price(), 2)." zł",
+                'price' => number_format((float)$product->get_regular_price(), 2),
                 'isVariable' => $product->is_type('variable')
             ];
             if($productDetails['isVariable']) {
                 $productDetails['variable'] = $this->getVariableProductDetails($product);
             }
             if($product->is_on_sale()) {
-                $productDetails['salePrice'] = "".number_format((float)$product->get_sale_price(), 2)." zł";
+                $productDetails['salePrice'] = number_format((float)$product->get_sale_price(), 2);
             }
             $products[] = $productDetails;
         }
@@ -73,19 +73,19 @@ class ProductsController {
     private function getVariableProductDetails($product) {
         $minPrice = $product->get_variation_regular_price( 'min' );
         $maxPrice = $product->get_variation_regular_price( 'max' );
-        $price = $minPrice == $maxPrice ? "".number_format($minPrice, 2)." zł" :
-            "".number_format($minPrice, 2)." - ".number_format($maxPrice, 2)." zł";
 
         $variableDetails = [
-            'price' => $price
+            'isPricesDiffer' => $minPrice != $maxPrice,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice
         ];
 
         if($product->is_on_sale()) {
             $minSalePrice = $product->get_variation_sale_price( 'min' );
             $maxSalePrice = $product->get_variation_sale_price( 'max' );
-            $salePrice = $minSalePrice == $maxSalePrice ? "".number_format($minSalePrice, 2)." zł" :
-                "".number_format($minSalePrice, 2)." - ".number_format($maxSalePrice, 2)." zł";
-            $variableDetails['salePrice'] = $salePrice;
+            $variableDetails['isSalePricesDiffer'] = $minSalePrice != $maxSalePrice;
+            $variableDetails['minSalePrice'] = $minSalePrice;
+            $variableDetails['maxSalePrice'] = $maxSalePrice;
         }
 
         $variableDetails['variations'] = $this->getProductVariations($product);

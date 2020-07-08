@@ -9,7 +9,6 @@
             {% endfor %}
             </ul>
         {% endif %}
-
     </div>
     <table class="cartItems">
         <thead>
@@ -34,21 +33,21 @@
                     </a>
                 </td>
                 <td data-title="Produkt">
-                    <a href="{{ product.url }}">
+                    <a href="{{ product.url }}" class="blackLink">
                         <h3 class="cartItemTitle">{{ product.title }}</h3>
                     </a>
                 </td>
                 <td data-title="Cena">
                     <div class="cartItemPrice">
                         {% if product.regularPrice %}
-                            <span>{{ product.regularPrice }} zł</span>
+                            <span>{{ product.regularPrice|number_format(2, ',') }} zł</span>
                         {% endif %}
-                        <span>{{ product.price }} zł</span>
+                        <span>{{ product.price|number_format(2, ',') }} zł</span>
                     </div>
                 </td>
                 <td data-title="Ilość">
                     <label class="cartItemQuantityLabel">
-                        <input class="cartItemQuantity"
+                        <input class="cartItemQuantity gradientInput"
                                type=number min=1 max="{{ product.maxQuantity }}" value="{{ product.quantity }}" >
                     </label>
                 </td>
@@ -61,14 +60,19 @@
                     <a href="{{ product.removeUrl }}" class="cartItemRemove"></a>
                 </td>
             </tr>
+            <tr class="empty">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
     <footer class="cartSummary">
-        <h3 class="flexCenterCenter">Podsumowanie koszyka</h3>
+        <h3 class="header3Gradient">Podsumowanie koszyka</h3>
         <span class="cartTotal flexCenterCenter">Kwota: {{ cartTotal }} zł</span>
-{#        <div class="gradientButton">#}
-{#            <a href="{{ checkoutUrl }}" class="flexCenterCenter">Przejdź do zamówienia</a>#}
-{#        </div>#}
     </footer>
 </section>
