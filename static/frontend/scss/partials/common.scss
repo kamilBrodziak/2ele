@@ -222,7 +222,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     border-radius: 10px;
 }
 
-.buttonBlackAnimated {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit] {
     font-size: 2rem;
     font-weight: bold;
     height: 80px;

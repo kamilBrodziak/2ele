@@ -258,7 +258,7 @@ input:disabled {
   border-radius: 10px;
 }
 
-.buttonBlackAnimated {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit] {
   font-size: 2rem;
   font-weight: bold;
   height: 80px;
@@ -274,14 +274,14 @@ input:disabled {
   cursor: pointer;
   overflow: hidden;
 }
-.buttonBlackAnimated:disabled {
+.buttonBlackAnimated:disabled, .checkoutWidgetPayment button[type=submit]:disabled {
   cursor: not-allowed;
   color: #787878;
 }
-.buttonBlackAnimated:active {
+.buttonBlackAnimated:active, .checkoutWidgetPayment button[type=submit]:active {
   border: 4px groove #232323;
 }
-.buttonBlackAnimated:before, .buttonBlackAnimated:after {
+.buttonBlackAnimated:before, .buttonBlackAnimated:after, .checkoutWidgetPayment button[type=submit]:before, .checkoutWidgetPayment button[type=submit]:after {
   content: "";
   position: absolute;
   top: 0;
@@ -293,14 +293,14 @@ input:disabled {
   box-sizing: border-box;
   transition: 0.3s all ease;
 }
-.buttonBlackAnimated:not(:disabled):hover:before, .buttonBlackAnimated:not(:disabled):hover:after {
+.buttonBlackAnimated:not(:disabled):hover:before, .buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after {
   opacity: 1;
 }
-.buttonBlackAnimated:not(:disabled):hover:before {
+.buttonBlackAnimated:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before {
   background: linear-gradient(#1b04ef, #1b04ef) no-repeat center top/100% 4px;
   animation: 2s snake infinite;
 }
-.buttonBlackAnimated:not(:disabled):hover:after {
+.buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after {
   background: linear-gradient(#ff780a, #ff780a) no-repeat center bottom/100% 4px;
   animation: 2s snake infinite reverse linear;
 }
@@ -2217,8 +2217,11 @@ body.orderWidgetActive {
   text-align: center;
   table-layout: fixed;
 }
-.checkoutWidgetSummary .shop_table thead {
-  background: #8e8e8e;
+.checkoutWidgetSummary .shop_table thead tr {
+  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
+  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+  border-radius: 10px;
+  color: silver;
 }
 .checkoutWidgetSummary .shop_table thead th {
   font-size: 2.5rem;
@@ -2226,15 +2229,14 @@ body.orderWidgetActive {
 }
 .checkoutWidgetSummary .shop_table thead th:first-child {
   width: 50%;
+  border-radius: 10px 0 0 10px;
 }
 .checkoutWidgetSummary .shop_table thead th:last-child {
+  border-radius: 0 10px 10px 0;
   width: 50%;
 }
-.checkoutWidgetSummary .shop_table tbody tr:nth-child(2n+1) {
-  background: #bbbbbb;
-}
 .checkoutWidgetSummary .shop_table tbody tr:nth-child(2n) {
-  background: #d4d4d4;
+  background: #eeeeee;
 }
 .checkoutWidgetSummary .shop_table tbody td {
   padding: 20px 0;
@@ -2247,11 +2249,13 @@ body.orderWidgetActive {
   width: 200%;
 }
 .checkoutWidgetSummary .shop_table tfoot .cart-subtotal th, .checkoutWidgetSummary .shop_table tfoot .woocommerce-shipping-totals th, .checkoutWidgetSummary .shop_table tfoot .order-total th {
-  background: #8e8e8e;
+  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
+  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+  border-radius: 10px;
+  color: silver;
   font-size: 2.2rem;
 }
 .checkoutWidgetSummary .shop_table tfoot .cart-subtotal td, .checkoutWidgetSummary .shop_table tfoot .woocommerce-shipping-totals td, .checkoutWidgetSummary .shop_table tfoot .order-total td {
-  background: #d4d4d4;
   font-size: 2rem;
 }
 .checkoutWidgetSummary .shop_table tfoot #shipping_method {
@@ -2271,17 +2275,14 @@ body.orderWidgetActive {
 .checkoutWidgetSummary .shop_table tfoot .paczkomaty-shipping {
   font-size: 2rem;
 }
-.checkoutWidgetSummary .shop_table tfoot .paczkomaty-shipping td {
-  background: #d4d4d4;
-}
 .checkoutWidgetSummary .shop_table tfoot .paczkomaty-shipping #select2-paczkomat_id-container {
   line-height: 50px;
   height: 50px;
+  width: 100%;
 }
 .checkoutWidgetSummary .shop_table tfoot .paczkomaty-shipping .select2-selection {
   height: auto;
-  width: 50%;
-  min-width: 250px;
+  width: 100%;
 }
 .checkoutWidgetSummary .shop_table tfoot .paczkomaty-shipping .select2-selection__arrow {
   height: 50px;
@@ -2299,7 +2300,6 @@ body.orderWidgetActive {
 }
 
 .checkoutWidgetPayment {
-  background: #8e8e8e;
   text-align: center;
   font-size: 2rem;
   width: 90%;
@@ -2318,34 +2318,18 @@ body.orderWidgetActive {
 .checkoutWidgetPayment .payment_box {
   padding: 5px;
   margin: 5px;
-  background: #d4d4d4;
+  background: #eeeeee;
 }
 .checkoutWidgetPayment .place-order {
-  background: #d4d4d4;
   padding: 20px;
 }
 .checkoutWidgetPayment .woocommerce-form__label-for-checkbox span {
   padding: calc((50px - 2rem)/2) 0;
 }
 .checkoutWidgetPayment button[type=submit] {
-  border-radius: 5px;
-  color: silver;
-  width: 100%;
-  cursor: pointer;
-  font-size: 2rem;
-  border: 0 solid #d35400;
-  border-bottom-width: 5px;
-  transition: border-bottom-width 0.3s ease;
-  height: 100px;
-  outline: none;
-  margin: 20px 0;
-  background: linear-gradient(black, #242424, black);
-}
-.checkoutWidgetPayment button[type=submit]:not([disabled]):hover {
-  color: #727272;
-}
-.checkoutWidgetPayment button[type=submit]:active {
-  border-bottom-width: 0;
+  height: 100px !important;
+  margin: 20px 0 !important;
+  border-radius: 10px;
 }
 
 .checkoutWidgetNav {
