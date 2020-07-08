@@ -35,9 +35,11 @@
                         {% do action('woocommerce_checkout_after_customer_details') %}
                     </section>
                     <section class="checkoutWidgetSummary">
+                        <h3 class="header3Gradient">Podsumowanie i dostawa</h3>
                         {% do action('woocommerce_checkout_order_review') %}
                     </section>
                     <section class="checkoutWidgetPayment">
+                        <h3 class="header3Gradient">Płatność</h3>
                         {% do action( 'woocommerce_checkout_after_order_review' ) %}
                     </section>
                 </form>

@@ -5,7 +5,8 @@
     </label>
     <div class="searchResults"></div>
 {#    <input type="hidden" id="post_type" name="post_type" value="product" />#}
-    <div {% if searchType %}id='{{ searchType }}SearchSubmitContainer'{% endif %} class="gradientButton">
-        <input {% if searchType %}id='{{ searchType }}SearchSubmit'{% endif %} type="submit" value="Szukaj">
+    <div {% if searchType %}id='{{ searchType }}SearchSubmitContainer'{% endif %}>
+        <button {% if searchType %}id='{{ searchType }}SearchSubmit'{% endif %}
+                class="buttonBlackAnimated borderRadiusTen" type="submit">Szukaj</button>
     </div>
 </form>

@@ -98,7 +98,7 @@ input:disabled {
   display: none !important;
 }
 
-.header1Gradient, .header2Gradient, .header3Gradient {
+.header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3 {
   background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 6px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 6px;
   border-radius: 5px;
   color: silver;
@@ -118,7 +118,7 @@ input:disabled {
   font-size: 3rem;
 }
 
-.header3Gradient {
+.header3Gradient, .checkoutWidgetBilling h3 {
   padding: 12px 0 18px 0;
   font-size: 2.5rem;
 }
@@ -847,13 +847,6 @@ input:disabled {
   overflow-y: auto;
   position: relative;
 }
-#shopNav #shopNavList li {
-  height: auto;
-  padding: 1%;
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-}
 #shopNav #shopNavList li a {
   width: calc(100% - 7rem);
   display: flex;
@@ -894,6 +887,28 @@ input:disabled {
 #shopNav.shopNavDisplay #shopNavList {
   display: flex;
   overflow-y: auto;
+}
+
+.shopNavListItem {
+  height: auto;
+  padding: 1%;
+  width: 100%;
+  background: black;
+  margin: 10px 0 0 0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  flex-flow: row wrap;
+}
+.shopNavListItem:nth-child(odd) {
+  box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
+}
+.shopNavListItem:nth-child(even) {
+  box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
+}
+.shopNavListItem:hover {
+  box-shadow: none;
 }
 
 .shopNavDisplay {
@@ -949,27 +964,17 @@ input:disabled {
     opacity: 1;
   }
 
-  .shopNavListItem {
-    background: black;
-    margin: 10px 0 0 0;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
   .shopNavListItem a {
     justify-content: center;
   }
   .shopNavListItem:nth-child(odd) {
     transform: perspective(300px) rotateY(15deg);
-    box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
   }
   .shopNavListItem:nth-child(even) {
     transform: perspective(300px) rotateY(-15deg);
-    box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
   }
   .shopNavListItem:hover {
     transform: perspective(0) rotateY(0);
-    box-shadow: none;
   }
 }
 /*
@@ -1076,7 +1081,7 @@ input:disabled {
 }
 #shopSearch .searchFieldLabel {
   display: block;
-  width: calc(100% - 50px);
+  width: calc(100% - 100px);
   height: 100%;
 }
 #shopSearch .searchFieldLabel input {
@@ -1085,8 +1090,14 @@ input:disabled {
 }
 #shopSearch #shopSearchSubmitContainer {
   height: 50px;
-  width: 50px;
+  width: 100px;
   margin: 0 0 0 10px;
+}
+
+#shopSearchSubmit {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 @media screen and (min-height: 600px) and (min-width: 996px) {
@@ -2209,9 +2220,7 @@ body.orderWidgetActive {
 }
 
 .checkoutWidgetSummary .shop_table {
-  width: 90%;
-  min-width: 300px;
-  margin: 0 auto;
+  width: 100%;
   border-collapse: collapse;
   border: none;
   text-align: center;
@@ -2299,12 +2308,15 @@ body.orderWidgetActive {
   display: block;
 }
 
-.checkoutWidgetPayment {
-  text-align: center;
-  font-size: 2rem;
+.checkoutWidgetPayment, .checkoutWidgetSummary, .checkoutWidgetBilling {
   width: 90%;
   min-width: 300px;
   margin: 0 auto;
+}
+
+.checkoutWidgetPayment {
+  text-align: center;
+  font-size: 2rem;
 }
 .checkoutWidgetPayment .wc_payment_methods {
   list-style: none;

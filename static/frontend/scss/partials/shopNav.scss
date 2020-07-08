@@ -29,13 +29,6 @@ $menuItemAnchorFontSize: 3rem;
         position: relative;
 
         li {
-            height: auto;
-            padding: 1%;
-            width: 100%;
-            display: flex;
-            flex-flow: row wrap;
-            //overflow-x: hidden;
-
             a {
                 width: calc(100% - #{2 * $menuItemAnchorPadding + $menuItemAnchorFontSize});
                 display: flex;
@@ -85,6 +78,29 @@ $menuItemAnchorFontSize: 3rem;
             display: flex;
             overflow-y: auto;
         }
+    }
+}
+
+.shopNavListItem {
+    height: auto;
+    padding: 1%;
+    width: 100%;
+    background: black;
+    margin: 10px 0 0 0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    flex-flow: row wrap;
+    &:nth-child(odd) {
+        box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
+    }
+    
+    &:nth-child(even) {
+        box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
+    }
+    &:hover {
+        box-shadow: none;
     }
 }
 
@@ -149,26 +165,18 @@ $menuItemAnchorFontSize: 3rem;
     }
     
     .shopNavListItem {
-        background: black;
-        margin: 10px 0 0 0;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        white-space: nowrap;
         a {
             justify-content: center;
         }
         &:nth-child(odd) {
             transform: perspective(300px) rotateY(15deg);
-            box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
         }
         
         &:nth-child(even) {
             transform: perspective(300px) rotateY(-15deg);
-            box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
         }
         &:hover {
             transform: perspective(0) rotateY(0);
-            box-shadow: none;
         }
         
     }
@@ -296,7 +304,7 @@ $mobileNavSearchSubmitHeight: $mobileNavHeight - 2*$mobileNavSearchPadding;
     
     .searchFieldLabel {
         display: block;
-        width: calc(100% - #{$mobileNavSearchSubmitHeight});
+        width: calc(100% - #{2 * $mobileNavSearchSubmitHeight});
         height: 100%;
         
         input {
@@ -307,12 +315,17 @@ $mobileNavSearchSubmitHeight: $mobileNavHeight - 2*$mobileNavSearchPadding;
     
     #shopSearchSubmitContainer {
         height: $mobileNavSearchSubmitHeight;
-        width: $mobileNavSearchSubmitHeight;
+        width: 2 * $mobileNavSearchSubmitHeight;
         margin: 0 0 0 10px;
     }
 }
 
-
+#shopSearchSubmit {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    
+}
 
 @media screen and (min-height: 600px) and (min-width: 996px) {
     #shopSearch {

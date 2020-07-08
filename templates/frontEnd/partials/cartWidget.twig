@@ -53,7 +53,7 @@
                 </td>
                 <td data-title="Kwota">
                     <div class="cartItemTotal">
-                        <span>{{ product.price * product.quantity }} zł</span>
+                        <span>{{ (product.price * product.quantity)|number_format(2,',') }} zł</span>
                     </div>
                 </td>
                 <td data-title="Usunąć z koszyka?">
