@@ -1,0 +1,81 @@
+#accountPage {
+    margin: 20px 0;
+}
+
+#accountNavList {
+    flex-direction: column;
+}
+
+.accountNavListItem {
+    width: 80%;
+    min-width: 250px;
+}
+
+#accountPageContent {
+    font-size: 2rem;
+    width: 80%;
+    margin: 0 auto;
+    
+    .woocommerce-orders-table {
+        text-align: center;
+        th {
+            width: 20%;
+        }
+    }
+    table {
+        tfoot {
+            th, td {
+                width: 200%;
+            }
+        }
+    }
+    
+    .woocommerce-pagination .woocommerce-button {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
+}
+
+.accountDefault {
+    text-align: center;
+    
+    .woocommerce-Price-amount {
+        padding: 0 5px 0 0;
+    }
+    mark {
+        background: white;
+        font-weight: bold;
+    }
+}
+
+.accountAddresses, .accountViewOrder .addresses {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+}
+
+.accountAddress, .accountViewOrder .addresses > div {
+    width: 40%;
+    min-width: 200px;
+    text-align: center;
+}
+
+.accountEditAddress {
+    text-align: center;
+    input {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        font-size: 2rem;
+        height: 50px;
+    }
+    
+    button {
+        border-radius: 10px;
+    }
+}
+

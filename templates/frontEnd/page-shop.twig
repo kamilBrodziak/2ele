@@ -13,8 +13,12 @@
         </div>
     {% endblock %}
 
-    <div id="basketButton" class="flexCenterCenter">
-        <img src="{{ fn('getImgDir') }}/basket.png" alt="Basket icon">
-        <a href="{{ fn('wc_get_cart_url') }}" id="basketButtonSummary" class="flexCenterCenter">{{ fn('getCartProductsQuantity') }}</a>
+    <div id="cartButton" class="flexCenterCenter">
+        <figure id="cartButtonImgContainer" class="flexCenterCenter">
+            <img src="{{ fn('getImgDir') }}/cart2.webp" id="cartButtonImg" alt="Cart icon">
+        </figure>
+        <a href="{{ fn('wc_get_cart_url') }}" id="cartButtonSummary" class="flexCenterCenter">
+            <span id="cartButtonQuantity">{{ fn('getCartProductsQuantity') }}</span>
+        </a>
     </div>
 {% endblock %}

@@ -66,6 +66,38 @@ if(is_cart()) {
         }
     }
     if(isUserLogged()) {
+        $context['accountPageUrls'] = [];
+        $accountMenuItems = wc_get_account_menu_items();
+        foreach($accountMenuItems as $key => $value) {
+            $context['accountPageUrls'][$value] = wc_get_account_endpoint_url( $key );
+        }
+//        $context['addresses']['Adres rozliczeniowy'] = wc_get_account_formatted_address( 'billing', $customer_id);
+//        $context['addresses']['Adres do wysyłki'] = wc_get_account_formatted_address( 'shipping', $customer_id);
+        global $wp;
+        if(is_wc_endpoint_url( 'edit-address' ) ){
+            if( $wp->query_vars['edit-address'] != 'billing' && $wp->query_vars['edit-address'] != 'shipping') {
+                $customer_id = get_current_user_id();
+                foreach (['billing' => 'Adres rozliczeniowy', 'shipping' => 'Adres do wysyłki'] as $name => $title) {
+                    $context['addresses'][$title]['editUrl'] = wc_get_account_endpoint_url('edit-address') . $name;
+                    $context['addresses'][$title]['firstName'] = get_user_meta($customer_id, $name . '_first_name', true);
+                    $context['addresses'][$title]['lastName'] = get_user_meta($customer_id, $name . '_last_name', true);
+                    $context['addresses'][$title]['company'] = get_user_meta($customer_id, $name . '_company', true);
+                    $context['addresses'][$title]['address1'] = get_user_meta($customer_id, $name . '_address_1', true);
+                    $context['addresses'][$title]['address2'] = get_user_meta($customer_id, $name . '_address_2', true);
+                    $context['addresses'][$title]['postcode'] = get_user_meta($customer_id, $name . '_postcode', true);
+                    $context['addresses'][$title]['phone'] = get_user_meta($customer_id, $name . '_phone', true);
+                    $context['addresses'][$title]['city'] = get_user_meta($customer_id, $name . '_city', true);
+                    //            $context['addresses'][$title]['state'] = get_user_meta( $customer_id, $name . '_state', true );
+                    //            $context['addresses'][$title]['country'] = get_user_meta( $customer_id, $name . '_country', true );
+                }
+            } else {
+                $context['isEditAddress'] = true;
+            }
+        } else if(is_wc_endpoint_url('edit-account')) {
+            $context['isDetails'] = true;
+        } else if(is_wc_endpoint_url('view-order')) {
+            $context['isViewOrder'] = true;
+        }
         Timber::render(array('page-account.twig'), $context);
     } else {
         if(is_lost_password_page()) {

@@ -17,6 +17,7 @@
     grid-template-areas: "header" "main" "footer";
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
+    //overflow-x: hidden;
 
     #siteHeader {
         grid-area: header;

@@ -9,7 +9,6 @@ $( function() {
         vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
-
     let mobileNav = new MobileNav($('#shopNav'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
     mobileNav.addCloseButtonAnimation('changeMobileNavCloseButtonState');
     mobileNav.addCloseOnResizeEvent();
@@ -24,7 +23,7 @@ $( function() {
 
     let teaseProduct = new TeaseProducts($('.teaseProduct'), 'teaseProductAnchor');
     // teaseProduct.addTeaseProductDisplay();
-    teaseProduct.addForm('teaseProductForm', 'basketButtonSummary');
+    teaseProduct.addForm('teaseProductForm', 'cartButtonQuantity');
     // teaseProduct.addClosing();
 
     let customSelect = new CustomSelect();
@@ -44,7 +43,7 @@ $( function() {
     // loginPageLoginWidget.addRegisterAjax();
 
     let orderWidget = new OrderWidget($('<div id="#orderWidgetContainer" class="widget">'));
-    orderWidget.loadWidgetAjaxViaButton($('#basketButton'));
+    orderWidget.loadWidgetAjaxViaButton($('#cartButton'));
 
     let cartPageOrderWidget = new OrderWidget($('#cartPageCartWidgetContainer'));
     cartPageOrderWidget.withWidget();

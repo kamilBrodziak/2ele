@@ -232,38 +232,6 @@
 
 .checkoutWidgetSummary {
     .shop_table {
-        width: 100%;
-        border-collapse: collapse;
-        border: none;
-        text-align: center;
-        table-layout: fixed;
-        
-        thead {
-            tr {
-                background:
-                        $buttonGradient no-repeat top left / 100% calc(100% - 10px),
-                        $bgRepeatingGradient no-repeat bottom left / 100% 10px;
-                box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
-                border-radius: 10px;
-                color: silver;
-                
-            }
-            th {
-                font-size: 2.5rem;
-                padding: 20px 0;
-                
-                &:first-child {
-                    width: 50%;
-                    border-radius: 10px 0 0 10px;
-                }
-                
-                &:last-child {
-                    border-radius: 0 10px 10px 0;
-                    width: 50%;
-                }
-            }
-        }
-        
         tbody {
             tr {
                 &:nth-child(2n) {
@@ -279,28 +247,10 @@
         }
         
         tfoot {
-            .cart-subtotal, .woocommerce-shipping-totals, .order-total {
-                th, td {
-                    padding: 15px;
-                    display: block;
-                    clear:both;
-                    width: 200%;
-                }
-                th {
-                    background:
-                            $buttonGradient no-repeat top left / 100% calc(100% - 10px),
-                            $bgRepeatingGradient no-repeat bottom left / 100% 10px;
-                    box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
-                    border-radius: 10px;
-                    color: silver;
-                    font-size: 2.2rem;
-                }
-                
-                td {
-                    font-size: 2rem;
-
-                }
+            th, td {
+                width: 200%;
             }
+            
             #shipping_method {
                 list-style: none;
                 text-align: left;

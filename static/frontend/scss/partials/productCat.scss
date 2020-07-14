@@ -35,35 +35,49 @@
 =====================================================
 */
 
-#basketButton {
+#cartButton {
     position: fixed;
     bottom: 10px;
     right: 10px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #d35400;
-    border: 5px solid #171717;
+    background: $buttonGradient;
+    border: 4px groove #343434;
+    box-shadow: 0 0 5px 1px white;
     cursor: pointer;
     z-index: 100;
-    img {
-        width: 80%;
-        height: auto;
-        position: absolute;
-        top: 10%;
-        left: 10%;
-        z-index: 101;
-    }
+
 }
 
-#basketButtonSummary {
-    font-size: 2rem;
+#cartButtonImgContainer {
+    width: 100%;
+    height: 100%;
+}
+
+#cartButtonImg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#cartButtonSummary {
+    font-size: 1.6rem;
     font-weight: bold;
-    color: black;
-    //width: auto;
-    //height: auto;
     width: 100%;
     height: 100%;
     border-radius: 50%;
     z-index: 102;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: silver;
+    justify-content: flex-start;
+}
+
+#cartButtonQuantity {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0 5px 10px 15px;
+    transform: rotateZ(-1deg);
 }

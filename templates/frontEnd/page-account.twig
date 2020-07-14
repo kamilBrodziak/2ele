@@ -1,7 +1,48 @@
 {% extends 'page.twig' %}
 
 {% block pageContent %}
-    <div id='customWoocommerce'>
-        {{post.content}}
+    <div id="accountPage">
+        <nav id="accountNav">
+            <ul id="accountNavList" class="listStyleNone flexCenterCenter">
+                {% for name in accountPageUrls|keys %}
+                    <li class="accountNavListItem">
+                        <a href="{{ accountPageUrls[name] }}"
+                           class="buttonBlackAnimated flexCenterCenter borderRadiusTen">
+                            {{ name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        <section id="accountPageContent" class="wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
+            {% if addresses %}
+                <div class="accountAddresses">
+                    {% for name in addresses|keys %}
+                        <address class="accountAddress">
+                            <h3 class="header3Gradient">{{ name }}</h3>
+                            <a href="{{ addresses[name]['editUrl'] }}" class="blackLink">Edytuj</a>
+                            <p>{{ addresses[name]['firstName'] }} {{ addresses[name]['lastName'] }}</p>
+                            <p>{{ addresses[name]['company'] }}</p>
+                            <p>{{ addresses[name]['address1'] }}</p>
+                            <p>{{ addresses[name]['address2'] }}</p>
+                            <p>{{ addresses[name]['postcode'] }} {{ addresses[name]['city'] }}</p>
+                            <p>{{ addresses[name]['phone'] }}</p>
+                        </address>
+                    {% endfor %}
+                </div>
+            {% elseif isEditAddress or isDetails %}
+                <div class="accountEditAddress">
+                    {{post.content}}
+                </div>
+            {% elseif isViewOrder %}
+                <div class="accountViewOrder">
+                    {{post.content}}
+                </div>
+            {% else %}
+                <div class="accountDefault">
+                    {{post.content}}
+                </div>
+            {% endif %}
+        </section>
     </div>
 {% endblock %}

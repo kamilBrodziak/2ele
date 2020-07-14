@@ -38,11 +38,122 @@ $buttonGradient: linear-gradient(black, #242424, black);
     display: none !important;
 }
 
-.gradientSectionNav {
+.themeTable, .styledExternalTableContainer table {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    margin: 0 0 30px 0;
+    table-layout: fixed;
+    
+    .empty {
+        background: linear-gradient(to right, transparent 20%, rgb(255,120,10),rgb(27, 4, 239), transparent 80%);
+        td {
+            padding: 2px;
+        }
+    }
+    
+    thead {
+        tr {
+            border-radius: 10px;
+            box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+            background: $buttonGradient no-repeat top left / 100% calc(100% - 10px),
+                $bgRepeatingGradient no-repeat bottom left / 100% 10px;
+        }
+        
+        th {
+            &:first-child {
+                border-radius: 10px 0 0 10px;
+            }
+            
+            &:last-child {
+                border-radius: 0 10px 10px 0;
+            }
+            border-spacing: 15px 5px;
+            color: silver;
+            padding: 30px 0;
+            font-size: 2.2rem;
+        }
+    }
 
+    
+    tfoot {
+        tr {
+            th, td {
+                display: block;
+                clear: both;
+                box-sizing: border-box;
+                padding: 15px;
+            }
+            th {
+                background: $buttonGradient no-repeat top left / 100% calc(100% - 10px),
+                $bgRepeatingGradient no-repeat bottom left / 100% 10px;
+                box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+                border-radius: 10px;
+                color: silver;
+                font-size: 2.2rem;
+            }
+            
+            td {
+                font-size: 2rem;
+            }
+        }
+    }
 }
 
-.header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3 {
+@media only screen and (max-width: 700px) {
+    .themeTableMobile, .styledExternalTableContainerMobile table {
+        thead {
+            display: none;
+        }
+        
+        tr {
+            display: block;
+        }
+        
+        tbody tr:not(.empty) {
+            padding-bottom: 20px;
+        }
+        
+        .empty {
+            td:not(:first-child) {
+                display: none;
+            }
+            height: 4px;
+            margin: 10px 0;
+        }
+        tbody {
+            td {
+                position: relative;
+                min-height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 10px 0 calc(40% + 10px);
+        
+                &:before {
+                    content: attr(data-title) ": ";
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    top: 0;
+                    left: 0;
+                    width: 40%;
+                    height: 100%;
+                    background: $buttonGradient;
+                    color: silver;
+                    border-radius: 5px;
+                }
+            }
+        }
+        
+    }
+}
+
+.header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3,
+.accountEditAddress h3, .accountViewOrder h2, #thankyouPage h2 {
     background:
             $buttonGradient no-repeat top left / 100% calc(100% - 6px),
             $bgRepeatingGradient no-repeat bottom left / 100% 6px;
@@ -59,17 +170,17 @@ $buttonGradient: linear-gradient(black, #242424, black);
     font-size: 3.5rem;
 }
 
-.header2Gradient {
+.header2Gradient, #thankyouPage h2 {
     padding: 15px 0 25px 0;
     font-size: 3rem;
 }
 
-.header3Gradient, .checkoutWidgetBilling h3  {
+.header3Gradient, .checkoutWidgetBilling h3, .accountEditAddress h3, .accountViewOrder h2{
     padding: 12px 0 18px 0;
     font-size: 2.5rem;
 }
 
-.blackLink {
+.blackLink, .wcwpLinksContainer a {
     color: black;
     transition: all 0.1s ease;
     text-decoration: none;
@@ -137,7 +248,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
-.gradientInput {
+.gradientInput, .accountEditAddress input {
     background: linear-gradient(black, #242424, black);
     border: 2px solid silver;
     border-radius: 5px;
@@ -222,7 +333,8 @@ $buttonGradient: linear-gradient(black, #242424, black);
     border-radius: 10px;
 }
 
-.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit] {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit],
+#accountPageContent .woocommerce-pagination .woocommerce-button, .accountEditAddress button {
     font-size: 2rem;
     font-weight: bold;
     height: 80px;
@@ -397,7 +509,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
 }
 
 .loadingCenter {
-    @include loadingMixin(30px, 30px, 50%, 50%, black, translate(-50%, -50%), loadingCenter);
+    @include loadingMixin(30px, 30px, 50%, 50%, silver, translate(-50%, -50%), loadingCenter);
 }
 
 .loadingRight {

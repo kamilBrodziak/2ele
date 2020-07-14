@@ -98,7 +98,97 @@ input:disabled {
   display: none !important;
 }
 
-.header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3 {
+.themeTable, .styledExternalTableContainer table {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  margin: 0 0 30px 0;
+  table-layout: fixed;
+}
+.themeTable .empty, .styledExternalTableContainer table .empty {
+  background: linear-gradient(to right, transparent 20%, #ff780a, #1b04ef, transparent 80%);
+}
+.themeTable .empty td, .styledExternalTableContainer table .empty td {
+  padding: 2px;
+}
+.themeTable thead tr, .styledExternalTableContainer table thead tr {
+  border-radius: 10px;
+  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
+}
+.themeTable thead th, .styledExternalTableContainer table thead th {
+  border-spacing: 15px 5px;
+  color: silver;
+  padding: 30px 0;
+  font-size: 2.2rem;
+}
+.themeTable thead th:first-child, .styledExternalTableContainer table thead th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.themeTable thead th:last-child, .styledExternalTableContainer table thead th:last-child {
+  border-radius: 0 10px 10px 0;
+}
+.themeTable tfoot tr th, .themeTable tfoot tr td, .styledExternalTableContainer table tfoot tr th, .styledExternalTableContainer table tfoot tr td {
+  display: block;
+  clear: both;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.themeTable tfoot tr th, .styledExternalTableContainer table tfoot tr th {
+  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
+  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+  border-radius: 10px;
+  color: silver;
+  font-size: 2.2rem;
+}
+.themeTable tfoot tr td, .styledExternalTableContainer table tfoot tr td {
+  font-size: 2rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .themeTableMobile thead, .styledExternalTableContainerMobile table thead {
+    display: none;
+  }
+  .themeTableMobile tr, .styledExternalTableContainerMobile table tr {
+    display: block;
+  }
+  .themeTableMobile tbody tr:not(.empty), .styledExternalTableContainerMobile table tbody tr:not(.empty) {
+    padding-bottom: 20px;
+  }
+  .themeTableMobile .empty, .styledExternalTableContainerMobile table .empty {
+    height: 4px;
+    margin: 10px 0;
+  }
+  .themeTableMobile .empty td:not(:first-child), .styledExternalTableContainerMobile table .empty td:not(:first-child) {
+    display: none;
+  }
+  .themeTableMobile tbody td, .styledExternalTableContainerMobile table tbody td {
+    position: relative;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px 0 calc(40% + 10px);
+  }
+  .themeTableMobile tbody td:before, .styledExternalTableContainerMobile table tbody td:before {
+    content: attr(data-title) ": ";
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(black, #242424, black);
+    color: silver;
+    border-radius: 5px;
+  }
+}
+.header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3,
+.accountEditAddress h3, .accountViewOrder h2, #thankyouPage h2 {
   background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 6px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 6px;
   border-radius: 5px;
   color: silver;
@@ -113,23 +203,23 @@ input:disabled {
   font-size: 3.5rem;
 }
 
-.header2Gradient {
+.header2Gradient, #thankyouPage h2 {
   padding: 15px 0 25px 0;
   font-size: 3rem;
 }
 
-.header3Gradient, .checkoutWidgetBilling h3 {
+.header3Gradient, .checkoutWidgetBilling h3, .accountEditAddress h3, .accountViewOrder h2 {
   padding: 12px 0 18px 0;
   font-size: 2.5rem;
 }
 
-.blackLink {
+.blackLink, .wcwpLinksContainer a {
   color: black;
   transition: all 0.1s ease;
   text-decoration: none;
   font-style: italic;
 }
-.blackLink:hover, .blackLink:active {
+.blackLink:hover, .blackLink:active, .wcwpLinksContainer a:hover, .wcwpLinksContainer a:active {
   color: #5a5a5a;
 }
 
@@ -184,20 +274,20 @@ input:disabled {
   height: 50px;
 }
 
-.gradientInput {
+.gradientInput, .accountEditAddress input {
   background: linear-gradient(black, #242424, black);
   border: 2px solid silver;
   border-radius: 5px;
   color: silver;
   text-align: center;
 }
-.gradientInput:focus {
+.gradientInput:focus, .accountEditAddress input:focus {
   border: 4px solid #d35400;
 }
-.gradientInput.wrongInput {
+.gradientInput.wrongInput, .accountEditAddress input.wrongInput {
   border: 4px solid red;
 }
-.gradientInput.approvedInput {
+.gradientInput.approvedInput, .accountEditAddress input.approvedInput {
   border: 4px solid green;
 }
 
@@ -258,7 +348,8 @@ input:disabled {
   border-radius: 10px;
 }
 
-.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit] {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit],
+#accountPageContent .woocommerce-pagination .woocommerce-button, .accountEditAddress button {
   font-size: 2rem;
   font-weight: bold;
   height: 80px;
@@ -274,14 +365,18 @@ input:disabled {
   cursor: pointer;
   overflow: hidden;
 }
-.buttonBlackAnimated:disabled, .checkoutWidgetPayment button[type=submit]:disabled {
+.buttonBlackAnimated:disabled, .checkoutWidgetPayment button[type=submit]:disabled,
+#accountPageContent .woocommerce-pagination .woocommerce-button:disabled, .accountEditAddress button:disabled {
   cursor: not-allowed;
   color: #787878;
 }
-.buttonBlackAnimated:active, .checkoutWidgetPayment button[type=submit]:active {
+.buttonBlackAnimated:active, .checkoutWidgetPayment button[type=submit]:active,
+#accountPageContent .woocommerce-pagination .woocommerce-button:active, .accountEditAddress button:active {
   border: 4px groove #232323;
 }
-.buttonBlackAnimated:before, .buttonBlackAnimated:after, .checkoutWidgetPayment button[type=submit]:before, .checkoutWidgetPayment button[type=submit]:after {
+.buttonBlackAnimated:before, .buttonBlackAnimated:after, .checkoutWidgetPayment button[type=submit]:before, .checkoutWidgetPayment button[type=submit]:after,
+#accountPageContent .woocommerce-pagination .woocommerce-button:before,
+#accountPageContent .woocommerce-pagination .woocommerce-button:after, .accountEditAddress button:before, .accountEditAddress button:after {
   content: "";
   position: absolute;
   top: 0;
@@ -293,14 +388,18 @@ input:disabled {
   box-sizing: border-box;
   transition: 0.3s all ease;
 }
-.buttonBlackAnimated:not(:disabled):hover:before, .buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after {
+.buttonBlackAnimated:not(:disabled):hover:before, .buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after,
+#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:before,
+#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:after, .accountEditAddress button:not(:disabled):hover:before, .accountEditAddress button:not(:disabled):hover:after {
   opacity: 1;
 }
-.buttonBlackAnimated:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before {
+.buttonBlackAnimated:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before,
+#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:before, .accountEditAddress button:not(:disabled):hover:before {
   background: linear-gradient(#1b04ef, #1b04ef) no-repeat center top/100% 4px;
   animation: 2s snake infinite;
 }
-.buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after {
+.buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after,
+#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:after, .accountEditAddress button:not(:disabled):hover:after {
   background: linear-gradient(#ff780a, #ff780a) no-repeat center bottom/100% 4px;
   animation: 2s snake infinite reverse linear;
 }
@@ -397,8 +496,8 @@ input:disabled {
   width: 30px;
   height: 30px;
   box-sizing: border-box;
-  border: 6px solid black;
-  border-color: black transparent black transparent;
+  border: 6px solid silver;
+  border-color: silver transparent silver transparent;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: loadingCenter 1.2s linear infinite;
@@ -685,13 +784,12 @@ input:disabled {
 
 #hdrLogo {
   width: 100%;
-  height: 200px;
   margin: 20px 0 0 0;
+  height: auto;
 }
 
 @media screen and (min-width: 996px) {
   #hdrLogo {
-    height: 300px;
     margin: 0;
   }
 }
@@ -702,10 +800,20 @@ input:disabled {
 
 #hdrBannerContainer {
   width: 100%;
-  height: 100%;
   padding: 20px;
+  height: 180px;
 }
 
+@media screen and (min-width: 400px) {
+  #hdrBannerContainer {
+    height: 250px;
+  }
+}
+@media screen and (min-width: 600px) {
+  #hdrBannerContainer {
+    height: 320px;
+  }
+}
 #hdrBanner {
   max-width: 100%;
   max-height: 100%;
@@ -716,11 +824,16 @@ input:disabled {
   top: 10px;
   right: 10px;
   font-size: 2rem;
-  display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
+  display: none;
 }
 
+@media screen and (min-width: 600px) {
+  #hdrContactInfoList {
+    display: flex;
+  }
+}
 .hdrContactInfoListItem {
   padding: 0 10px;
 }
@@ -752,6 +865,7 @@ input:disabled {
 
 #ftrInfo {
   grid-area: ftrInfo;
+  text-align: center;
 }
 
 #ftrNav {
@@ -759,15 +873,9 @@ input:disabled {
 }
 
 #ftrNav, #ftrInfo {
-  color: silver;
   font-size: 2rem;
   padding: 30px 0;
-}
-#ftrNav a, #ftrInfo a {
   color: silver;
-}
-#ftrNav a:hover, #ftrInfo a:hover {
-  color: #727272;
 }
 
 #ftrInfoList, #ftrNavList {
@@ -789,14 +897,15 @@ input:disabled {
 }
 
 @media screen and (min-width: 600px) {
+  #ftrNavList li {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 800px) {
   #siteFooter {
     grid-template-areas: "ftrNav ftrInfo" "ftrCopyright ftrCopyright";
     grid-template-columns: 60% 40%;
     grid-template-rows: auto auto;
-  }
-
-  #ftrNavList li {
-    width: 50%;
   }
 }
 /*
@@ -1226,7 +1335,7 @@ input:disabled {
 .teaseProduct {
   text-align: center;
   padding: 9px;
-  background: repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef);
+  background: repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.2) 0px, rgba(55, 55, 55, 0.2) 28px, rgba(91, 91, 91, 0.2) 28px, rgba(91, 91, 91, 0.2) 66px, rgba(123, 123, 123, 0.2) 66px, rgba(123, 123, 123, 0.2) 77px, rgba(133, 133, 133, 0.2) 77px, rgba(133, 133, 133, 0.2) 111px, rgba(161, 161, 161, 0.2) 111px, rgba(161, 161, 161, 0.2) 128px, rgba(15, 15, 15, 0.2) 128px, rgba(15, 15, 15, 0.2) 156px, rgba(176, 176, 176, 0.2) 156px, rgba(176, 176, 176, 0.2) 173px, rgba(61, 61, 61, 0.2) 173px, rgba(61, 61, 61, 0.2) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.2) 0px, rgba(51, 51, 51, 0.2) 48px, rgba(165, 165, 165, 0.2) 48px, rgba(165, 165, 165, 0.2) 69px, rgba(6, 6, 6, 0.2) 69px, rgba(6, 6, 6, 0.2) 97px, rgba(249, 249, 249, 0.2) 97px, rgba(249, 249, 249, 0.2) 132px, rgba(158, 158, 158, 0.2) 132px, rgba(158, 158, 158, 0.2) 149px, rgba(194, 194, 194, 0.2) 149px, rgba(194, 194, 194, 0.2) 182px, rgba(84, 84, 84, 0.2) 182px, rgba(84, 84, 84, 0.2) 205px, rgba(105, 105, 105, 0.2) 205px, rgba(105, 105, 105, 0.2) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.2) 0px, rgba(253, 253, 253, 0.2) 24px, rgba(22, 22, 22, 0.2) 24px, rgba(22, 22, 22, 0.2) 36px, rgba(16, 16, 16, 0.2) 36px, rgba(16, 16, 16, 0.2) 79px, rgba(116, 116, 116, 0.2) 79px, rgba(116, 116, 116, 0.2) 99px, rgba(168, 168, 168, 0.2) 99px, rgba(168, 168, 168, 0.2) 143px, rgba(33, 33, 33, 0.2) 143px, rgba(33, 33, 33, 0.2) 157px, rgba(92, 92, 92, 0.2) 157px, rgba(92, 92, 92, 0.2) 177px, rgba(255, 255, 255, 0.2) 177px, rgba(255, 255, 255, 0.2) 189px), linear-gradient(90deg, #ff780a, #1b04ef);
   border-radius: 50px;
   box-shadow: 2px 2px 2px 2px #4b4b4b;
   width: 270px;
@@ -1391,35 +1500,50 @@ input:disabled {
     SHOP BASKET BUTTON
 =====================================================
 */
-#basketButton {
+#cartButton {
   position: fixed;
   bottom: 10px;
   right: 10px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #d35400;
-  border: 5px solid #171717;
+  background: linear-gradient(black, #242424, black);
+  border: 4px groove #343434;
+  box-shadow: 0 0 5px 1px white;
   cursor: pointer;
   z-index: 100;
 }
-#basketButton img {
-  width: 80%;
-  height: auto;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  z-index: 101;
+
+#cartButtonImgContainer {
+  width: 100%;
+  height: 100%;
 }
 
-#basketButtonSummary {
-  font-size: 2rem;
+#cartButtonImg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#cartButtonSummary {
+  font-size: 1.6rem;
   font-weight: bold;
-  color: black;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   z-index: 102;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: silver;
+  justify-content: flex-start;
+}
+
+#cartButtonQuantity {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0 5px 10px 15px;
+  transform: rotateZ(-1deg);
 }
 
 /*
@@ -1587,101 +1711,48 @@ input:disabled {
   font-size: 2rem;
 }
 
-.cartItems {
-  width: 100%;
-  height: auto;
-  text-align: center;
-  border-collapse: separate;
-  border-spacing: 0 15px;
-  margin: 0 0 30px 0;
-}
-.cartItems .empty {
-  background: linear-gradient(to right, transparent 20%, #ff780a, #1b04ef, transparent 80%);
-}
-.cartItems .empty td {
-  padding: 2px;
-}
-.cartItems thead tr {
-  border-radius: 10px;
-  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
-  background: repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
-}
-.cartItems thead th {
-  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px);
-  border-spacing: 15px 5px;
-  color: silver;
-  padding: 30px 0;
-  font-size: 2.2rem;
-}
-.cartItems thead th:first-child {
-  border-radius: 10px 0 0 10px;
-}
-.cartItems thead th:last-child {
-  border-radius: 0 10px 10px 0;
-}
-
 @media only screen and (max-width: 700px) {
-  .cartWidget table, .cartWidget thead, .cartWidget tbody, .cartWidget th, .cartWidget td, .cartWidget tr {
-    display: block;
-  }
-  .cartWidget thead tr {
-    display: none;
-  }
-  .cartWidget tbody tr:not(.empty) {
-    padding-bottom: 20px;
-  }
-  .cartWidget .empty {
-    height: 4px;
-    margin: 10px 0;
-  }
-  .cartWidget .empty td:not(:first-child) {
-    display: none;
-  }
-  .cartWidget td {
-    position: relative;
-    min-height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .cartWidget td:before {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(black, #242424, black);
-    color: silver;
-    border-radius: 5px;
-  }
-  .cartWidget td:first-of-type {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .cartItems td:first-of-type {
     width: 100%;
     margin: 5px 0;
+    padding: 0 10px;
   }
-  .cartWidget td:first-of-type a {
+  .cartItems td:first-of-type a {
     width: auto;
   }
-  .cartWidget td:not(:first-of-type) {
-    padding: 0 10px 0 calc(40% + 10px);
+  .cartItems td:first-of-type:before {
+    display: none;
   }
-  .cartWidget td:not(:first-of-type):before {
-    content: attr(data-title) ": ";
+  .cartItems th {
+    width: 20%;
+  }
+}
+@media only screen and (min-width: 700px) and (max-width: 1200px) {
+  .cartItems th {
+    font-size: 2rem !important;
+  }
+  .cartItems td {
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (min-width: 700px) {
+  .cartItems th:first-child {
+    width: 44%;
+  }
+  .cartItems th:not(:first-child):not(:last-child) {
+    width: 12%;
+  }
+  .cartItems th:last-child {
+    width: 20%;
   }
 }
 .cartItemImgTD {
-  width: 150px;
+  width: 120px;
 }
 
 .cartItemImgContainer {
-  height: 150px;
-  width: 150px;
+  height: 120px;
+  width: 120px;
 }
 
 .cartItemImg {
@@ -1957,6 +2028,79 @@ body.orderWidgetActive {
   padding: 10px;
 }
 
+#accountPage {
+  margin: 20px 0;
+}
+
+#accountNavList {
+  flex-direction: column;
+}
+
+.accountNavListItem {
+  width: 80%;
+  min-width: 250px;
+}
+
+#accountPageContent {
+  font-size: 2rem;
+  width: 80%;
+  margin: 0 auto;
+}
+#accountPageContent .woocommerce-orders-table {
+  text-align: center;
+}
+#accountPageContent .woocommerce-orders-table th {
+  width: 20%;
+}
+#accountPageContent table tfoot th, #accountPageContent table tfoot td {
+  width: 200%;
+}
+#accountPageContent .woocommerce-pagination .woocommerce-button {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.accountDefault {
+  text-align: center;
+}
+.accountDefault .woocommerce-Price-amount {
+  padding: 0 5px 0 0;
+}
+.accountDefault mark {
+  background: white;
+  font-weight: bold;
+}
+
+.accountAddresses, .accountViewOrder .addresses {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.accountAddress, .accountViewOrder .addresses > div {
+  width: 40%;
+  min-width: 200px;
+  text-align: center;
+}
+
+.accountEditAddress {
+  text-align: center;
+}
+.accountEditAddress input {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  font-size: 2rem;
+  height: 50px;
+}
+.accountEditAddress button {
+  border-radius: 10px;
+}
+
 #pageContact {
   font-size: 2rem;
 }
@@ -2196,31 +2340,6 @@ body.orderWidgetActive {
   min-width: 300px;
 }
 
-.checkoutWidgetSummary .shop_table {
-  width: 100%;
-  border-collapse: collapse;
-  border: none;
-  text-align: center;
-  table-layout: fixed;
-}
-.checkoutWidgetSummary .shop_table thead tr {
-  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
-  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
-  border-radius: 10px;
-  color: silver;
-}
-.checkoutWidgetSummary .shop_table thead th {
-  font-size: 2.5rem;
-  padding: 20px 0;
-}
-.checkoutWidgetSummary .shop_table thead th:first-child {
-  width: 50%;
-  border-radius: 10px 0 0 10px;
-}
-.checkoutWidgetSummary .shop_table thead th:last-child {
-  border-radius: 0 10px 10px 0;
-  width: 50%;
-}
 .checkoutWidgetSummary .shop_table tbody tr:nth-child(2n) {
   background: #eeeeee;
 }
@@ -2228,21 +2347,8 @@ body.orderWidgetActive {
   padding: 20px 0;
   font-size: 2rem;
 }
-.checkoutWidgetSummary .shop_table tfoot .cart-subtotal th, .checkoutWidgetSummary .shop_table tfoot .cart-subtotal td, .checkoutWidgetSummary .shop_table tfoot .woocommerce-shipping-totals th, .checkoutWidgetSummary .shop_table tfoot .woocommerce-shipping-totals td, .checkoutWidgetSummary .shop_table tfoot .order-total th, .checkoutWidgetSummary .shop_table tfoot .order-total td {
-  padding: 15px;
-  display: block;
-  clear: both;
+.checkoutWidgetSummary .shop_table tfoot th, .checkoutWidgetSummary .shop_table tfoot td {
   width: 200%;
-}
-.checkoutWidgetSummary .shop_table tfoot .cart-subtotal th, .checkoutWidgetSummary .shop_table tfoot .woocommerce-shipping-totals th, .checkoutWidgetSummary .shop_table tfoot .order-total th {
-  background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
-  box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
-  border-radius: 10px;
-  color: silver;
-  font-size: 2.2rem;
-}
-.checkoutWidgetSummary .shop_table tfoot .cart-subtotal td, .checkoutWidgetSummary .shop_table tfoot .woocommerce-shipping-totals td, .checkoutWidgetSummary .shop_table tfoot .order-total td {
-  font-size: 2rem;
 }
 .checkoutWidgetSummary .shop_table tfoot #shipping_method {
   list-style: none;
@@ -2340,24 +2446,24 @@ body.orderWidgetActive {
 #thankyouPage {
   width: 90%;
   margin: 20px auto;
-  background: linear-gradient(to bottom, #c2c2c2, #e2e2e2, #c2c2c2);
   text-align: center;
   font-size: 2rem;
 }
 #thankyouPage .woocommerce-order-overview {
   list-style: none;
 }
-#thankyouPage .woocommerce-table {
-  width: 100%;
+#thankyouPage .woocommerce-table tfoot th, #thankyouPage .woocommerce-table tfoot td {
+  width: 200%;
 }
-#thankyouPage a {
-  color: black;
-  transition: all 0.1s ease;
-  text-decoration: none;
-  font-style: italic;
+#thankyouPage .addresses {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
 }
-#thankyouPage a:hover, #thankyouPage a:active {
-  color: #5a5a5a;
+#thankyouPage .addresses > div {
+  width: 40%;
+  min-width: 200px;
+  text-align: center;
 }
 
 #wordpressDefault {

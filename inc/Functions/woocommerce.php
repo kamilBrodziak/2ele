@@ -44,7 +44,12 @@ class ProductsController {
         ];
         if($argsList['paged']) $args['paged'] = $argsList['paged'];
         if($argsList['product_cat']) $args['product_cat'] = $argsList['product_cat'];
-        if($argsList['s']) $args['s'] = $argsList['s'];
+        if($argsList['s']) {
+            $args['s'] = $argsList['s'];
+        } else {
+            $args['order'] = 'ASC';
+            $args['orderby'] = 'title';
+        }
         $posts = new Timber\PostQuery($args);
         foreach ($posts as $post) {
             $product = wc_get_product($post->id);

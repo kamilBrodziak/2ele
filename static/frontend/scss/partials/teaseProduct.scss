@@ -6,15 +6,11 @@
 .teaseProduct {
     text-align: center;
     padding: $productListTeaseProductHorizontalPadding;
-    background: $bgRepeatingGradient;
+    background: $bgRepeatingGradient2;
     border-radius: 50px;
     box-shadow:  2px 2px 2px 2px #4b4b4b;
     width: $productListTeaseProductWidth;
     height: auto;
-    //margin: 0 auto 20px auto;
-    //mask: linear-gradient(to left, red, white, red);
-    //background: white;
-    //background: linear-gradient(to right, #232323, #151515, #232323);
 }
 
 .teaseProductWrapper {
