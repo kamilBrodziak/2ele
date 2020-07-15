@@ -1,12 +1,12 @@
-<section class="orderWidget">
+<section class="orderWidget{% if isPopup and isPopup == "true" %} orderWidgetPopup{% endif %}">
     <div class="orderWidgetContentWrapper">
-        <h1 class="header1Gradient">Koszyk</h1>
-    {% set stagesNames = ['Koszyk', 'Logowanie', 'Dane zamówienia', 'Podsumowanie i dostawa', 'Płatność'] %}
         {% if isPopup and isPopup == "true" %}
-            <div class="orderWidgetCloseButtonContainer gradientButton">
-                <button class="orderWidgetCloseButton">Zamknij</button>
+            <div class="orderWidgetCloseButtonContainer">
+                <button class="orderWidgetCloseButton closeSign"></button>
             </div>
         {% endif %}
+        <h1 class="header1Gradient">Koszyk</h1>
+        {% set stagesNames = ['Koszyk', 'Logowanie', 'Dane zamówienia', 'Podsumowanie i dostawa', 'Płatność'] %}
         <ul class="orderWidgetStages listStyleNone stage0">
             <li class="orderWidgetStage current">Koszyk</li>
             <li class="orderWidgetStage">Logowanie</li>

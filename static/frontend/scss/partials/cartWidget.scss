@@ -85,10 +85,6 @@ $cartImgWidth: 120px;
     width: 50px;
     height: 50px;
     display: block;
-    background: linear-gradient(45deg, transparent calc(50% - 5px), #474646 calc(50% - 5px),#474646 50%,
-            #383838 50%, #383838 calc(50% + 5px), transparent calc(50% + 5px), transparent) no-repeat center / 100% 100%,
-    linear-gradient(-45deg, transparent calc(50% - 5px), #474646 calc(50% - 5px),#474646 50%, #383838 50%,
-                    #383838 calc(50% + 5px), transparent calc(50% + 5px), transparent) no-repeat center / 100% 100%;
     border-radius: 5px;
     margin: auto;
 }

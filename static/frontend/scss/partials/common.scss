@@ -342,7 +342,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     margin: 10px;
     background: white;
     color: silver;
-    border: 8px groove #343434;
+    border: 8px groove $grayBorderColor;
     background: $buttonGradient;
     transition: all 0.3s ease;
     position: relative;
@@ -356,7 +356,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
     
     &:active {
-        border: 4px groove #232323;
+        border: 4px groove $darkGrayBorderColor;
     }
     
     &:before, &:after {
@@ -551,6 +551,12 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
+.closeSign {
+    background: linear-gradient(45deg, transparent calc(50% - 5px), #474646 calc(50% - 5px),#474646 50%,
+            #2b2b2b 50%, #2b2b2b calc(50% + 5px), transparent calc(50% + 5px), transparent) no-repeat center / 80% 80%,
+    linear-gradient(-45deg, transparent calc(50% - 5px), #474646 calc(50% - 5px),#474646 50%, #2b2b2b 50%,
+                    #2b2b2b calc(50% + 5px), transparent calc(50% + 5px), transparent) no-repeat center / 80% 80%;
+}
 
 /*
 =====================================================
