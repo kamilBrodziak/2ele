@@ -12,9 +12,9 @@ body.orderWidgetActive {
 }
 
 .orderWidgetPopup {
-    border: 10px groove $grayBorderColor;
+    border: 10px groove $colorGray;
     border-radius: 10px;
-    box-shadow: 0 0 300px 30px $grayBorderColor;
+    box-shadow: 0 0 300px 30px $colorGray;
 }
 
 .orderWidgetCloseButton {

@@ -1,12 +1,12 @@
-<form {% if searchType %}id='{{ searchType }}Search'{% endif %} role='search' class="search" method="get" action="{{fn("home_url", '/')}}">
-    <label class="searchFieldLabel">
-        <input type="text" class="searchField gradientInput" name="s"
+{% set type = (searchType ~ 'Search')|default('search') %}
+<form id='{{ type }}' role='search' class="search" method="get" action="{{fn("home_url", '/')}}">
+    <label id="{{ type }}FieldLabel" class="searchFieldLabel">
+        <input type="text" id="{{ type }}Field" class="searchField gradientInput" name="s"
                placeholder="Szukaj..." value="{{ fn('the_search_query') }}">
     </label>
-    <div class="searchResults"></div>
-{#    <input type="hidden" id="post_type" name="post_type" value="product" />#}
-    <div {% if searchType %}id='{{ searchType }}SearchSubmitContainer'{% endif %}>
-        <button {% if searchType %}id='{{ searchType }}SearchSubmit'{% endif %}
+    <div id="{{ type }}Results" class="searchResults borderRadiusTen"></div>
+    <div {% if searchType %}id='{{ type }}SubmitContainer'{% endif %}>
+        <button {% if searchType %}id='{{ type }}Submit'{% endif %}
                 class="buttonBlackAnimated borderRadiusTen" type="submit">Szukaj</button>
     </div>
 </form>

@@ -1,0 +1,103 @@
+/*
+=====================================================
+    SHOP NAV LAYOUT
+=====================================================
+*/
+#shopNavWrapper {
+    display: flex;
+    flex-flow: column;
+    background: linear-gradient(45deg, black, #242424, black);
+    height: $mobileNavHeight;
+    box-shadow: 0 5px 12px 1px $colorLightGray;
+    &.shopNavDisplay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: calc(var(--vh, 1vh) * 100);
+        overflow-y: auto;
+    }
+}
+
+#shopNavListContainer {
+    width: 100%;
+    flex: 1;
+    display: none;
+}
+
+#shopNavWrapper.shopNavDisplay {
+    #shopNavListContainer {
+        display: flex;
+        overflow-y: auto;
+    }
+    
+    #shopNavMobileCloseButton {
+        .bar:first-child {
+            transform: translateY(#{($mobileNavHeight/2 - $mobileNavButtonsPaddingTop - $mobileNavCloseButtonBarHeight/2)}) rotate(45deg);
+        }
+        
+        .bar:nth-child(2) {
+            opacity: 0;
+    
+        }
+        
+        .bar:last-child {
+            transform: translateY(#{-($mobileNavHeight/2 - $mobileNavButtonsPaddingTop - $mobileNavCloseButtonBarHeight/2)}) rotate(-45deg);
+    
+        }
+    }
+}
+
+.shopNavDisplay {
+    overflow: hidden;
+}
+
+#shopNavTopContainer {
+    flex-flow: row;
+    height: $mobileNavHeight;
+}
+
+#shopNavMobileCloseButton {
+    display: flex;
+    flex-flow: column;
+    padding: $mobileNavButtonsPaddingTop $mobileNavButtonsPaddingTop;
+    height: $mobileNavHeight;
+    width: $mobileNavHeight;
+    justify-content: space-between;
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    
+    .bar {
+        display: block;
+        width: $mobileNavHeight * 3/4;
+        height: $mobileNavCloseButtonBarHeight;
+        border-radius: 5px;
+        background: silver;
+    }
+}
+
+@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+    #shopNavWrapper {
+        background: none;
+        box-shadow: none;
+    }
+    
+    #shopNavListContainer {
+        display: flex;
+        overflow: visible;
+    }
+    
+    #shopNavTopContainer {
+        height: auto;
+        background: black;
+        margin: 10px 0 0 0;
+        border-radius: 10px;
+        box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
+    }
+    
+    #shopNavMobileCloseButton {
+        display: none;
+    }
+}
+

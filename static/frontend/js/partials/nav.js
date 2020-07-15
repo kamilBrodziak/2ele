@@ -3,7 +3,6 @@ class MobileNav {
         this.nav = nav;
         this.showClass = showClass;
         this.closeButton = closeButton;
-        this.closeButtonAnimationClass = null;
         this.addCloseButton();
     }
 
@@ -18,18 +17,18 @@ class MobileNav {
         })
     }
 
-    addNavSubListExpandButton(button, subListClass, showClass, buttonAnimationClass) {
+    addNavSubListExpandButton(button, subListClass, expandClass) {
         let _this = this;
         button.each( function() {
             let b = $(this);
             $(this).on('click', function () {
                 let subList = b.parent().children('.' + subListClass);
-                if(subList.hasClass(showClass)) {
-                    b.removeClass(buttonAnimationClass);
-                    subList.removeClass(showClass);
+                if(subList.hasClass(expandClass)) {
+                    b.removeClass(expandClass);
+                    subList.removeClass(expandClass);
                 } else {
-                    b.addClass(buttonAnimationClass);
-                    subList.addClass(showClass);
+                    b.addClass(expandClass);
+                    subList.addClass(expandClass);
                 }
             })
         });
@@ -42,23 +41,13 @@ class MobileNav {
         });
     }
 
-    addCloseButtonAnimation(cssClass) {
-        this.closeButtonAnimationClass = cssClass;
-    }
-
     expandNav() {
         this.nav.addClass(this.showClass);
         $('body').addClass(this.showClass);
-        if(this.closeButtonAnimationClass && !this.closeButton.hasClass(this.closeButtonAnimationClass)) {
-            this.closeButton.addClass(this.closeButtonAnimationClass);
-        }
     }
 
     shrinkNav() {
         this.nav.removeClass(this.showClass);
         $('body').removeClass(this.showClass);
-        if(this.closeButtonAnimationClass) {
-            this.closeButton.removeClass(this.closeButtonAnimationClass);
-        }
     }
 }

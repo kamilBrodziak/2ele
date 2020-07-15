@@ -11,6 +11,11 @@
 */
 /*
 =====================================================
+    VARS - BREAKPOINTS
+=====================================================
+*/
+/*
+=====================================================
     VARS - NAV
 =====================================================
 */
@@ -135,41 +140,43 @@ input:disabled {
 .themeTable thead th:last-child, .styledExternalTableContainer table thead th:last-child {
   border-radius: 0 10px 10px 0;
 }
-.themeTable tfoot tr th, .themeTable tfoot tr td, .styledExternalTableContainer table tfoot tr th, .styledExternalTableContainer table tfoot tr td {
-  display: block;
-  clear: both;
-  box-sizing: border-box;
-  padding: 15px;
-}
 .themeTable tfoot tr th, .styledExternalTableContainer table tfoot tr th {
   background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 10px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 10px;
   box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
   border-radius: 10px;
   color: silver;
   font-size: 2.2rem;
+  padding: 15px;
 }
 .themeTable tfoot tr td, .styledExternalTableContainer table tfoot tr td {
   font-size: 2rem;
 }
 
+.styledExternalTableContainer tfoot th, .styledExternalTableContainer tfoot td {
+  display: block;
+  clear: both;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
 @media only screen and (max-width: 700px) {
-  .themeTableMobile thead, .styledExternalTableContainerMobile table thead {
+  .themeTableMobile thead, .styledExternalTableContainerMobile table:not(.order_details) thead {
     display: none;
   }
-  .themeTableMobile tr, .styledExternalTableContainerMobile table tr {
+  .themeTableMobile tr, .styledExternalTableContainerMobile table:not(.order_details) tr {
     display: block;
   }
-  .themeTableMobile tbody tr:not(.empty), .styledExternalTableContainerMobile table tbody tr:not(.empty) {
+  .themeTableMobile tbody tr:not(.empty), .styledExternalTableContainerMobile table:not(.order_details) tbody tr:not(.empty) {
     padding-bottom: 20px;
   }
-  .themeTableMobile .empty, .styledExternalTableContainerMobile table .empty {
+  .themeTableMobile .empty, .styledExternalTableContainerMobile table:not(.order_details) .empty {
     height: 4px;
     margin: 10px 0;
   }
-  .themeTableMobile .empty td:not(:first-child), .styledExternalTableContainerMobile table .empty td:not(:first-child) {
+  .themeTableMobile .empty td:not(:first-child), .styledExternalTableContainerMobile table:not(.order_details) .empty td:not(:first-child) {
     display: none;
   }
-  .themeTableMobile tbody td, .styledExternalTableContainerMobile table tbody td {
+  .themeTableMobile tbody td, .styledExternalTableContainerMobile table:not(.order_details) tbody td {
     position: relative;
     min-height: 50px;
     display: flex;
@@ -177,7 +184,7 @@ input:disabled {
     align-items: center;
     padding: 0 10px 0 calc(40% + 10px);
   }
-  .themeTableMobile tbody td:before, .styledExternalTableContainerMobile table tbody td:before {
+  .themeTableMobile tbody td:before, .styledExternalTableContainerMobile table:not(.order_details) tbody td:before {
     content: attr(data-title) ": ";
     position: absolute;
     display: flex;
@@ -193,7 +200,7 @@ input:disabled {
   }
 }
 .header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3,
-.accountEditAddress h3, .accountViewOrder h2, #thankyouPage h2 {
+#accountEditAddress h3, #thankyouPage h2, #orderReviewDetails h2 {
   background: linear-gradient(black, #242424, black) no-repeat top left/100% calc(100% - 6px), repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef) no-repeat bottom left/100% 6px;
   border-radius: 5px;
   color: silver;
@@ -213,7 +220,7 @@ input:disabled {
   font-size: 3rem;
 }
 
-.header3Gradient, .checkoutWidgetBilling h3, .accountEditAddress h3, .accountViewOrder h2 {
+.header3Gradient, .checkoutWidgetBilling h3, #accountEditAddress h3, #orderReviewDetails h2 {
   padding: 12px 0 18px 0;
   font-size: 2.5rem;
 }
@@ -279,20 +286,20 @@ input:disabled {
   height: 50px;
 }
 
-.gradientInput, .accountEditAddress input {
+.gradientInput, #accountEditAddress input {
   background: linear-gradient(black, #242424, black);
   border: 2px solid silver;
   border-radius: 5px;
   color: silver;
   text-align: center;
 }
-.gradientInput:focus, .accountEditAddress input:focus {
+.gradientInput:focus, #accountEditAddress input:focus {
   border: 4px solid #d35400;
 }
-.gradientInput.wrongInput, .accountEditAddress input.wrongInput {
+.gradientInput.wrongInput, #accountEditAddress input.wrongInput {
   border: 4px solid red;
 }
-.gradientInput.approvedInput, .accountEditAddress input.approvedInput {
+.gradientInput.approvedInput, #accountEditAddress input.approvedInput {
   border: 4px solid green;
 }
 
@@ -353,8 +360,7 @@ input:disabled {
   border-radius: 10px;
 }
 
-.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit],
-#accountPageContent .woocommerce-pagination .woocommerce-button, .accountEditAddress button {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit], #accountEditAddress button {
   font-size: 2rem;
   font-weight: bold;
   height: 80px;
@@ -370,18 +376,14 @@ input:disabled {
   cursor: pointer;
   overflow: hidden;
 }
-.buttonBlackAnimated:disabled, .checkoutWidgetPayment button[type=submit]:disabled,
-#accountPageContent .woocommerce-pagination .woocommerce-button:disabled, .accountEditAddress button:disabled {
+.buttonBlackAnimated:disabled, .checkoutWidgetPayment button[type=submit]:disabled, #accountEditAddress button:disabled {
   cursor: not-allowed;
   color: #787878;
 }
-.buttonBlackAnimated:active, .checkoutWidgetPayment button[type=submit]:active,
-#accountPageContent .woocommerce-pagination .woocommerce-button:active, .accountEditAddress button:active {
+.buttonBlackAnimated:active, .checkoutWidgetPayment button[type=submit]:active, #accountEditAddress button:active {
   border: 4px groove #232323;
 }
-.buttonBlackAnimated:before, .buttonBlackAnimated:after, .checkoutWidgetPayment button[type=submit]:before, .checkoutWidgetPayment button[type=submit]:after,
-#accountPageContent .woocommerce-pagination .woocommerce-button:before,
-#accountPageContent .woocommerce-pagination .woocommerce-button:after, .accountEditAddress button:before, .accountEditAddress button:after {
+.buttonBlackAnimated:before, .buttonBlackAnimated:after, .checkoutWidgetPayment button[type=submit]:before, .checkoutWidgetPayment button[type=submit]:after, #accountEditAddress button:before, #accountEditAddress button:after {
   content: "";
   position: absolute;
   top: 0;
@@ -393,18 +395,14 @@ input:disabled {
   box-sizing: border-box;
   transition: 0.3s all ease;
 }
-.buttonBlackAnimated:not(:disabled):hover:before, .buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after,
-#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:before,
-#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:after, .accountEditAddress button:not(:disabled):hover:before, .accountEditAddress button:not(:disabled):hover:after {
+.buttonBlackAnimated:not(:disabled):hover:before, .buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after, #accountEditAddress button:not(:disabled):hover:before, #accountEditAddress button:not(:disabled):hover:after {
   opacity: 1;
 }
-.buttonBlackAnimated:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before,
-#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:before, .accountEditAddress button:not(:disabled):hover:before {
+.buttonBlackAnimated:not(:disabled):hover:before, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:before, #accountEditAddress button:not(:disabled):hover:before {
   background: linear-gradient(#1b04ef, #1b04ef) no-repeat center top/100% 4px;
   animation: 2s snake infinite;
 }
-.buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after,
-#accountPageContent .woocommerce-pagination .woocommerce-button:not(:disabled):hover:after, .accountEditAddress button:not(:disabled):hover:after {
+.buttonBlackAnimated:not(:disabled):hover:after, .checkoutWidgetPayment button[type=submit]:not(:disabled):hover:after, #accountEditAddress button:not(:disabled):hover:after {
   background: linear-gradient(#ff780a, #ff780a) no-repeat center bottom/100% 4px;
   animation: 2s snake infinite reverse linear;
 }
@@ -751,6 +749,14 @@ input:disabled {
   position: relative;
   min-height: 100vh;
 }
+#siteContainer #siteMain #shopNav {
+  width: 100%;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
 #siteContainer #siteMain #siteMainContent {
   height: auto;
   width: 100%;
@@ -759,7 +765,7 @@ input:disabled {
   grid-area: footer;
 }
 
-@media screen and (min-height: 600px) and (min-width: 996px) {
+@media screen and (min-height: 750px) and (min-width: 996px) {
   #siteContainer {
     background: repeating-linear-gradient(45deg, rgba(55, 55, 55, 0.11) 0px, rgba(55, 55, 55, 0.11) 28px, rgba(91, 91, 91, 0.11) 28px, rgba(91, 91, 91, 0.11) 66px, rgba(123, 123, 123, 0.11) 66px, rgba(123, 123, 123, 0.11) 77px, rgba(133, 133, 133, 0.11) 77px, rgba(133, 133, 133, 0.11) 111px, rgba(161, 161, 161, 0.11) 111px, rgba(161, 161, 161, 0.11) 128px, rgba(15, 15, 15, 0.11) 128px, rgba(15, 15, 15, 0.11) 156px, rgba(176, 176, 176, 0.11) 156px, rgba(176, 176, 176, 0.11) 173px, rgba(61, 61, 61, 0.11) 173px, rgba(61, 61, 61, 0.11) 194px), repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.11) 0px, rgba(51, 51, 51, 0.11) 48px, rgba(165, 165, 165, 0.11) 48px, rgba(165, 165, 165, 0.11) 69px, rgba(6, 6, 6, 0.11) 69px, rgba(6, 6, 6, 0.11) 97px, rgba(249, 249, 249, 0.11) 97px, rgba(249, 249, 249, 0.11) 132px, rgba(158, 158, 158, 0.11) 132px, rgba(158, 158, 158, 0.11) 149px, rgba(194, 194, 194, 0.11) 149px, rgba(194, 194, 194, 0.11) 182px, rgba(84, 84, 84, 0.11) 182px, rgba(84, 84, 84, 0.11) 205px, rgba(105, 105, 105, 0.11) 205px, rgba(105, 105, 105, 0.11) 246px), repeating-linear-gradient(45deg, rgba(253, 253, 253, 0.11) 0px, rgba(253, 253, 253, 0.11) 24px, rgba(22, 22, 22, 0.11) 24px, rgba(22, 22, 22, 0.11) 36px, rgba(16, 16, 16, 0.11) 36px, rgba(16, 16, 16, 0.11) 79px, rgba(116, 116, 116, 0.11) 79px, rgba(116, 116, 116, 0.11) 99px, rgba(168, 168, 168, 0.11) 99px, rgba(168, 168, 168, 0.11) 143px, rgba(33, 33, 33, 0.11) 143px, rgba(33, 33, 33, 0.11) 157px, rgba(92, 92, 92, 0.11) 157px, rgba(92, 92, 92, 0.11) 177px, rgba(255, 255, 255, 0.11) 177px, rgba(255, 255, 255, 0.11) 189px), linear-gradient(90deg, #ff780a, #1b04ef);
   }
@@ -772,7 +778,13 @@ input:disabled {
     background: white;
   }
   #siteContainer #siteMain #siteMainContent {
-    width: calc(100% - 240px);
+    flex: 1;
+  }
+  #siteContainer #siteMain #shopNav {
+    width: 240px;
+    height: 100vh;
+    left: 90px;
+    padding: 0 20px;
   }
 }
 #pageTitle {
@@ -784,13 +796,16 @@ input:disabled {
   display: flex;
   flex-flow: column;
   background: linear-gradient(black, #242424, black);
-  width: 100%;
-  box-shadow: 0 0 12px 8px #3d3d3d;
   position: relative;
-  border-radius: 0 0 10px 10px;
   z-index: 10;
 }
 
+@media screen and (min-width: 996px) and (min-height: 750px) {
+  #hdrContainer {
+    box-shadow: 0 0 12px 8px #3d3d3d;
+    border-radius: 0 0 10px 10px;
+  }
+}
 #hdrLogo {
   width: 100%;
   margin: 20px 0 0 0;
@@ -919,69 +934,106 @@ input:disabled {
 }
 /*
 =====================================================
-    SHOP NAV
+    SHOP NAV LAYOUT
 =====================================================
 */
-#shopNav {
-  width: 100%;
+#shopNavWrapper {
+  display: flex;
+  flex-flow: column;
+  background: linear-gradient(45deg, black, #242424, black);
   height: 60px;
-  position: sticky;
-  display: flex;
-  top: 0;
-  left: 0;
-  flex-direction: column;
-  transition: all 0.3s ease;
-  z-index: 100;
-  background: linear-gradient(45deg, #232323, #343434, #232323);
+  box-shadow: 0 5px 12px 1px #3d3d3d;
 }
-#shopNav #shopNavList {
-  width: 100%;
-  height: calc(100% - 60px);
-  flex-direction: column;
-  display: none;
-  overflow-y: auto;
-  position: relative;
-}
-#shopNav #shopNavList li a {
-  width: calc(100% - 7rem);
-  display: flex;
-  height: 7rem;
-  align-items: center;
-  font-size: 3rem;
-  padding: 2rem 5%;
-}
-#shopNav #shopNavList li a:only-child {
-  width: 100%;
-}
-#shopNav #shopNavList li ul {
-  transition: all 0.3s ease;
-  background: linear-gradient(45deg, #232323, #343434, #232323);
-  width: 100%;
-  display: flex;
-  max-height: 0;
-  flex-direction: column;
-  overflow-y: hidden;
-}
-#shopNav #shopNavList li ul.showShopNavListItemSubList {
-  display: flex;
-  max-height: 200rem;
-}
-#shopNav #shopNavList li ul li {
-  padding: 1%;
-  height: auto;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-#shopNav.shopNavDisplay {
+#shopNavWrapper.shopNavDisplay {
   position: fixed;
   top: 0;
   left: 0;
   height: calc(var(--vh, 1vh) * 100);
+  overflow-y: auto;
 }
-#shopNav.shopNavDisplay #shopNavList {
+
+#shopNavListContainer {
+  width: 100%;
+  flex: 1;
+  display: none;
+}
+
+#shopNavWrapper.shopNavDisplay #shopNavListContainer {
   display: flex;
   overflow-y: auto;
+}
+#shopNavWrapper.shopNavDisplay #shopNavMobileCloseButton .bar:first-child {
+  transform: translateY(17.5px) rotate(45deg);
+}
+#shopNavWrapper.shopNavDisplay #shopNavMobileCloseButton .bar:nth-child(2) {
+  opacity: 0;
+}
+#shopNavWrapper.shopNavDisplay #shopNavMobileCloseButton .bar:last-child {
+  transform: translateY(-17.5px) rotate(-45deg);
+}
+
+.shopNavDisplay {
+  overflow: hidden;
+}
+
+#shopNavTopContainer {
+  flex-flow: row;
+  height: 60px;
+}
+
+#shopNavMobileCloseButton {
+  display: flex;
+  flex-flow: column;
+  padding: 7.5px 7.5px;
+  height: 60px;
+  width: 60px;
+  justify-content: space-between;
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+#shopNavMobileCloseButton .bar {
+  display: block;
+  width: 45px;
+  height: 10px;
+  border-radius: 5px;
+  background: silver;
+}
+
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  #shopNavWrapper {
+    background: none;
+    box-shadow: none;
+  }
+
+  #shopNavListContainer {
+    display: flex;
+    overflow: visible;
+  }
+
+  #shopNavTopContainer {
+    height: auto;
+    background: black;
+    margin: 10px 0 0 0;
+    border-radius: 10px;
+    box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
+  }
+
+  #shopNavMobileCloseButton {
+    display: none;
+  }
+}
+/*
+=====================================================
+    SHOP NAV LIST
+=====================================================
+*/
+#shopNavList {
+  height: auto;
+  width: 100%;
+  flex-flow: column;
+  position: relative;
 }
 
 .shopNavListItem {
@@ -990,47 +1042,70 @@ input:disabled {
   width: 100%;
   background: black;
   margin: 10px 0 0 0;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  white-space: nowrap;
   display: flex;
   flex-flow: row wrap;
-}
-.shopNavListItem:nth-child(odd) {
-  box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
-}
-.shopNavListItem:nth-child(even) {
-  box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
+  box-shadow: 2px 0 0 2px #3d3d3d, 2px 2px 2px white;
 }
 .shopNavListItem:hover {
-  box-shadow: none;
+  box-shadow: 2px 0 0 2px #2b2b2b;
 }
 
-.shopNavDisplay {
-  overflow: hidden;
-  width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);
+.shopNavListItemAnchor {
+  flex: 1;
+  display: flex;
+  padding: 1.5rem 5%;
+  align-items: center;
+  font-size: 3rem;
 }
 
-@media screen and (min-height: 600px) and (min-width: 996px) {
-  #shopNav {
-    height: 100vh;
-    width: 240px;
-    left: 90px;
-    background: none;
-    padding: 0 20px;
-  }
-  #shopNav #shopNavList {
-    display: flex;
-    overflow: visible;
-  }
-  #shopNav #shopNavList li {
+.shopNavListItemSubList {
+  background: linear-gradient(45deg, #232323, #343434, #232323);
+  width: 100%;
+  display: flex;
+  max-height: 0;
+  flex-flow: column;
+  overflow-y: hidden;
+}
+.shopNavListItemSubList.expand {
+  max-height: 200rem;
+}
+.shopNavListItemSubList li {
+  padding: 1%;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+}
+.shopNavListItemSubList li a {
+  padding: 1.5rem 5%;
+  font-size: 3rem;
+}
+
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  .shopNavListItem {
     position: relative;
   }
-  #shopNav #shopNavList li a {
-    width: 100%;
+  .shopNavListItem:nth-child(odd) {
+    transform: perspective(300px) rotateY(15deg);
+    box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
   }
-  #shopNav #shopNavList li ul {
+  .shopNavListItem:nth-child(even) {
+    transform: perspective(300px) rotateY(-15deg);
+    box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
+  }
+  .shopNavListItem:hover {
+    transform: perspective(0) rotateY(0);
+    box-shadow: none;
+  }
+  .shopNavListItem:hover ul {
+    display: flex;
+  }
+
+  .shopNavListItemAnchor {
+    justify-content: center;
+  }
+
+  .shopNavListItemSubList {
     flex-flow: row wrap;
     position: absolute;
     top: 0;
@@ -1040,86 +1115,60 @@ input:disabled {
     width: 400px;
     max-height: none;
     height: auto;
-    opacity: 0;
     display: none;
-    transform: none;
   }
-  #shopNav #shopNavList li ul li {
+  .shopNavListItemSubList li {
     flex: 1 0 calc(50% - 10px);
     box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
     background: black;
     border-radius: 10px;
     margin: 0 10px 10px 0;
   }
-  #shopNav #shopNavList li ul li a {
-    padding: 5% 0;
-  }
-  #shopNav #shopNavList li:hover ul {
-    display: flex;
-    opacity: 1;
-  }
-
-  .shopNavListItem a {
-    justify-content: center;
-  }
-  .shopNavListItem:nth-child(odd) {
-    transform: perspective(300px) rotateY(15deg);
-  }
-  .shopNavListItem:nth-child(even) {
-    transform: perspective(300px) rotateY(-15deg);
-  }
-  .shopNavListItem:hover {
-    transform: perspective(0) rotateY(0);
-  }
 }
 /*
 =====================================================
-    SHOP NAV TOP CONTAINER
+    SHOP NAV EXPAND BUTTON
 =====================================================
 */
-#shopNavTopContainer {
-  flex-direction: row;
-  height: 60px;
-}
-
-#shopNavMobileCloseButton {
-  display: flex;
-  flex-direction: column;
-  padding: 7.5px 7.5px;
-  height: 60px;
-  width: 60px;
-  justify-content: space-between;
+.shopNavListItemSubListExpandButton {
+  width: 6rem;
+  height: 6rem;
   background: #232323;
-}
-
-.shopNavMobileBars {
-  height: 10px;
-  width: 45px;
   border-radius: 5px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  border: 2px solid #3d3d3d;
+  border-style: outset;
+}
+.shopNavListItemSubListExpandButton:after, .shopNavListItemSubListExpandButton:before {
+  width: 50%;
+  height: 0.75rem;
   background: silver;
+  border-radius: 5px;
   transition: all 0.3s ease;
+  content: "";
+}
+.shopNavListItemSubListExpandButton:before {
+  transform: rotate(45deg) translateX(30%);
+}
+.shopNavListItemSubListExpandButton:after {
+  transform: rotate(-45deg) translateX(-30%);
+}
+.shopNavListItemSubListExpandButton.expand {
+  border-style: inset;
+}
+.shopNavListItemSubListExpandButton.expand:before {
+  transform: rotate(-45deg) translateX(30%);
+}
+.shopNavListItemSubListExpandButton.expand:after {
+  transform: rotate(45deg) translateX(-30%);
 }
 
-.changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar1 {
-  transform: translateY(17.5px) rotate(45deg);
-}
-.changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar2 {
-  opacity: 0;
-}
-.changeMobileNavCloseButtonState #shopNavMobileCloseButtonBar3 {
-  transform: translateY(-17.5px) rotate(-45deg);
-}
-
-@media screen and (min-height: 600px) and (min-width: 996px) {
-  #shopNavTopContainer {
-    height: 120px;
-    background: black;
-    margin: 10px 0 0 0;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 1px 2px 0 1px #3d3d3d, 2px 2px 8px white;
-  }
-  #shopNavTopContainer #shopNavMobileCloseButton {
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  .shopNavListItemSubListExpandButton {
     display: none;
   }
 }
@@ -1131,92 +1180,53 @@ input:disabled {
 #shopSearch {
   height: 100%;
   padding: 5px;
-  width: calc(100% - 60px);
+  flex: 1;
   display: flex;
   flex-flow: row;
   position: relative;
 }
-#shopSearch .searchResultsInfo {
+
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  #shopSearch {
+    flex-flow: column;
+  }
+}
+#shopSearchFieldLabel {
   display: block;
-  font-size: 2rem;
-  padding: 20px 10px;
-}
-#shopSearch .searchResults {
-  position: absolute;
-  text-align: center;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  overflow-y: auto;
-  display: none;
-  background: #383838;
-  z-index: 101;
-}
-#shopSearch .searchResults.active {
-  display: block;
-}
-#shopSearch .searchResultsList {
-  display: flex;
-  flex-direction: column;
-  max-height: 300px;
-  height: auto;
-}
-#shopSearch .searchResultsListItem {
-  padding: 10px;
-}
-#shopSearch .searchResultsListItem:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-#shopSearch .searchResultAnchor {
-  width: 100%;
-  height: auto;
-  color: silver;
-  font-size: 2rem;
-  padding: 15px 0;
-}
-#shopSearch .searchFieldLabel {
-  display: block;
-  width: calc(100% - 100px);
+  flex: 1;
   height: 100%;
 }
-#shopSearch .searchFieldLabel input {
+
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  #shopSearchFieldLabel {
+    width: 100%;
+    height: 50px;
+    padding: 0 0 5px 0;
+  }
+}
+#shopSearchField {
   width: 100%;
   height: 100%;
 }
-#shopSearch #shopSearchSubmitContainer {
-  height: 50px;
-  width: 100px;
+
+#shopSearchSubmitContainer {
+  height: 100%;
+  width: auto;
+}
+
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  #shopSearchSubmitContainer {
+    width: 100%;
+  }
+}
+#shopSearchSubmit {
+  height: 100%;
+  width: 86px;
   margin: 0 0 0 10px;
 }
 
-#shopSearchSubmit {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
-
-@media screen and (min-height: 600px) and (min-width: 996px) {
-  #shopSearch {
-    height: 100%;
-    width: 100%;
-    flex-flow: column;
-  }
-  #shopSearch .searchResults {
-    top: 0;
-    left: 100%;
-    width: 200%;
-  }
-  #shopSearch .searchFieldLabel {
-    display: block;
-    width: 100%;
-    height: calc(100% - 50px);
-    padding: 0 0 5px 0;
-  }
-  #shopSearch .searchFieldLabel input {
-    width: 100%;
-    height: 100%;
-  }
-  #shopSearch #shopSearchSubmitContainer {
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  #shopSearchSubmit {
     height: 50px;
     width: 100%;
     margin: 0;
@@ -1224,41 +1234,53 @@ input:disabled {
 }
 /*
 =====================================================
-    SHOP NAV EXPAND BUTTON
+    SHOP SEARCH - RESULTS
 =====================================================
 */
-.shopNavListItemSubListExpandButton {
-  width: 7rem;
-  height: 7rem;
-  background: #232323;
-  border-radius: 5px;
+#shopSearchResults {
+  position: absolute;
+  text-align: center;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  display: none;
+  background: linear-gradient(45deg, black, #242424, black);
+  z-index: 101;
+}
+#shopSearchResults.active {
+  display: block;
+}
+#shopSearchResults .searchResultsInfo {
+  display: block;
+  font-size: 2rem;
+  padding: 20px 10px;
+}
+#shopSearchResults .searchResultsList {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-flow: column;
+  max-height: 300px;
+  height: auto;
 }
-.shopNavListItemSubListExpandButton .shopNavListItemSubListExpandBars {
-  width: 50%;
-  height: 0.75rem;
-  background: silver;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+#shopSearchResults .searchResultsListItem {
+  padding: 10px;
 }
-.shopNavListItemSubListExpandButton .shopNavListItemSubListExpandBars:first-child {
-  transform: rotate(45deg) translateX(30%);
+#shopSearchResults .searchResultsListItem:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
-.shopNavListItemSubListExpandButton .shopNavListItemSubListExpandBars:last-child {
-  transform: rotate(-45deg) translateX(-30%);
-}
-.shopNavListItemSubListExpandButton.shopNavListItemSubListExpandButtonAnimation .shopNavListItemSubListExpandBars:first-child {
-  transform: rotate(-45deg) translateX(30%);
-}
-.shopNavListItemSubListExpandButton.shopNavListItemSubListExpandButtonAnimation .shopNavListItemSubListExpandBars:last-child {
-  transform: rotate(45deg) translateX(-30%);
+#shopSearchResults .searchResultAnchor {
+  width: 100%;
+  height: auto;
+  color: silver;
+  font-size: 2rem;
+  padding: 15px 0;
 }
 
-@media screen and (min-height: 600px) and (min-width: 996px) {
-  .shopNavListItemSubListExpandButton {
-    display: none;
+@media screen and (min-height: 750px) and (min-width: 996px) {
+  #shopSearchResults {
+    top: 0;
+    left: 100%;
+    width: 200%;
   }
 }
 /*
@@ -1922,147 +1944,12 @@ body.orderWidgetActive {
   font-size: 2rem;
 }
 
-#customWoocommerce {
-  font-size: 2rem;
-  padding: 20px;
-  text-align: center;
-}
-#customWoocommerce h2 {
-  font-size: 3rem;
-}
-#customWoocommerce input {
-  height: 50px;
-}
-#customWoocommerce input[type=checkbox], #customWoocommerce input[type=radio] {
-  width: 50px;
-  height: 50px;
-}
-#customWoocommerce input:not([type=checkbox]):not([type=radio]) {
-  width: 50%;
-  min-width: 200px;
-}
-#customWoocommerce .woocommerce-form-row, #customWoocommerce .form-row {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-}
-#customWoocommerce .woocommerce-privacy-policy-text, #customWoocommerce #billing_country_field, #customWoocommerce #shipping_country_field {
-  display: flex;
-  justify-content: center;
-}
-#customWoocommerce .woocommerce-privacy-policy-text > *, #customWoocommerce #billing_country_field > *, #customWoocommerce #shipping_country_field > * {
-  width: 50%;
-  min-width: 200px;
-}
-#customWoocommerce .woocommerce-input-wrapper {
-  width: 100%;
-}
-#customWoocommerce .woocommerce-input-wrapper textarea {
-  width: 50%;
-  min-width: 200px;
-  height: 100px;
-  resize: vertical;
-}
-#customWoocommerce .woocommerce-button, #customWoocommerce .select2-container {
-  height: 50px;
-  width: 50%;
-  min-width: 200px;
-}
-#customWoocommerce table {
-  margin: 0 auto;
-}
-#customWoocommerce #shipping_method {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  list-style: none;
-}
-#customWoocommerce #shipping_method li {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  width: 100%;
-}
-#customWoocommerce #shipping_method li label {
-  padding-left: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#customWoocommerce .wc_payment_methods {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  list-style: none;
-}
-#customWoocommerce .wc_payment_methods li {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  width: 50%;
-  min-width: 200px;
-}
-#customWoocommerce .wc_payment_methods li label {
-  padding-left: 15px;
-}
-#customWoocommerce button {
-  width: 50%;
-  min-width: 200px;
-  height: 50px;
-}
-#customWoocommerce .about_paypal {
-  display: none;
-}
-#customWoocommerce .woocommerce-MyAccount-navigation ul {
-  list-style: none;
-  padding: 0 10%;
-}
-#customWoocommerce .woocommerce-MyAccount-navigation ul li {
-  height: 60px;
-  margin-bottom: 10px;
-}
-#customWoocommerce .woocommerce-EditAccountForm > p:last-child {
-  width: 50%;
-  min-width: 200px;
-  margin: 10px auto;
-}
-#customWoocommerce .woocommerce-EditAccountForm > p:last-child button {
-  width: 100%;
-  cursor: pointer;
-  height: 60px;
-  font-size: 2rem;
-}
-#customWoocommerce button {
-  border-radius: 5px;
-  background: linear-gradient(black, #242424, black);
-  box-sizing: border-box;
-  cursor: pointer;
-  color: silver;
-  border: 0 solid #d35400;
-  border-bottom-width: 5px;
-  transition: border-bottom-width 0.3s ease;
-  height: 80px;
-}
-#customWoocommerce button:active {
-  border-bottom-width: 0;
-}
-#customWoocommerce input, #customWoocommerce textarea {
-  background: linear-gradient(black, #242424, black);
-  border: 2px solid silver;
-  border-radius: 5px;
-  color: silver;
-  text-align: center;
-}
-#customWoocommerce textarea {
-  padding: 10px;
-}
-
 #accountPage {
   margin: 20px 0;
 }
 
 #accountNavList {
-  flex-direction: column;
+  flex-flow: column;
 }
 
 .accountNavListItem {
@@ -2075,58 +1962,32 @@ body.orderWidgetActive {
   width: 80%;
   margin: 0 auto;
 }
-#accountPageContent .woocommerce-orders-table {
-  text-align: center;
-}
-#accountPageContent .woocommerce-orders-table th {
-  width: 20%;
-}
-#accountPageContent table tfoot th, #accountPageContent table tfoot td {
-  width: 200%;
-}
-#accountPageContent .woocommerce-pagination .woocommerce-button {
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-}
 
-.accountDefault {
-  text-align: center;
-}
-.accountDefault .woocommerce-Price-amount {
-  padding: 0 5px 0 0;
-}
-.accountDefault mark {
+#accountDefault mark {
   background: white;
   font-weight: bold;
 }
 
-.accountAddresses, .accountViewOrder .addresses {
+#accountAddresses {
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
 }
 
-.accountAddress, .accountViewOrder .addresses > div {
+.accountAddress {
   width: 40%;
   min-width: 200px;
   text-align: center;
 }
 
-.accountEditAddress {
-  text-align: center;
-}
-.accountEditAddress input {
+#accountEditAddress input {
   display: block;
   width: 90%;
   margin: 0 auto;
   font-size: 2rem;
   height: 50px;
 }
-.accountEditAddress button {
+#accountEditAddress button {
   border-radius: 10px;
 }
 
@@ -2477,22 +2338,6 @@ body.orderWidgetActive {
   margin: 20px auto;
   text-align: center;
   font-size: 2rem;
-}
-#thankyouPage .woocommerce-order-overview {
-  list-style: none;
-}
-#thankyouPage .woocommerce-table tfoot th, #thankyouPage .woocommerce-table tfoot td {
-  width: 200%;
-}
-#thankyouPage .addresses {
-  display: flex;
-  justify-content: space-around;
-  flex-flow: row wrap;
-}
-#thankyouPage .addresses > div {
-  width: 40%;
-  min-width: 200px;
-  text-align: center;
 }
 
 #wordpressDefault {

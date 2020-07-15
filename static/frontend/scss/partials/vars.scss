@@ -3,10 +3,22 @@
     VARS - COLORS
 =====================================================
 */
-$darkGrayBorderColor: #232323;
-$grayBorderColor: #343434;
-$orangeBgColor: #ff780a;
-$blueBgColor: #1b04ef;
+$colorDarkGray: #232323;
+$colorGray: #343434;
+$colorOrange: #ff780a;
+$colorBlue: #1b04ef;
+$colorLightGray: #3d3d3d;
+
+/*
+=====================================================
+    VARS - BREAKPOINTS
+=====================================================
+*/
+$breakDesktop: 996px;
+$breakTablet: 600px;
+$breakNavHeight: 750px;
+$breakTable: 700px;
+
 
 /*
 =====================================================
@@ -16,6 +28,13 @@ $blueBgColor: #1b04ef;
 $desktopNavPadding: 20px;
 $desktopNavWidth: 200px + 2 * $desktopNavPadding;
 $mobileNavHeight: 100px;
+$mobileNavHeight: 60px;
+$menuItemAnchorPadding: 1.5rem;
+$menuItemAnchorFontSize: 3rem;
+$mobileNavButtonsPaddingTop: $mobileNavHeight / 8;
+$mobileNavCloseButtonBarHeight: $mobileNavHeight / 6;
+$mobileNavSearchPadding: 5px;
+$mobileNavSearchSubmitWidth: 86px;
 
 /*
 =====================================================
@@ -79,8 +98,8 @@ $bgRepeatingGradient2:
                 rgba(33, 33, 33, 0.2) 143px, rgba(33, 33, 33, 0.2) 157px,
                 rgba(92, 92, 92, 0.2) 157px, rgba(92, 92, 92, 0.2) 177px,
                 rgba(255, 255, 255, 0.2) 177px, rgba(255, 255, 255, 0.2) 189px),
-        linear-gradient(90deg, $orangeBgColor,$blueBgColor);
-$shadowGrayColor: #3d3d3d;
+        linear-gradient(90deg, $colorOrange, $colorBlue);
+
 
 /*
 =====================================================

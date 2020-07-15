@@ -2,44 +2,23 @@
 
 {% block pageContent %}
     <div id="accountPage">
-        <nav id="accountNav">
-            <ul id="accountNavList" class="listStyleNone flexCenterCenter">
-                {% for name in accountPageUrls|keys %}
-                    <li class="accountNavListItem">
-                        <a href="{{ accountPageUrls[name] }}"
-                           class="buttonBlackAnimated flexCenterCenter borderRadiusTen">
-                            {{ name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
-        <section id="accountPageContent" class="wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
+        {% include 'partials/account/menu.twig' %}
+        <section id="accountPageContent">
             {% if addresses %}
-                <div class="accountAddresses">
-                    {% for name in addresses|keys %}
-                        <address class="accountAddress">
-                            <h3 class="header3Gradient">{{ name }}</h3>
-                            <a href="{{ addresses[name]['editUrl'] }}" class="blackLink">Edytuj</a>
-                            <p>{{ addresses[name]['firstName'] }} {{ addresses[name]['lastName'] }}</p>
-                            <p>{{ addresses[name]['company'] }}</p>
-                            <p>{{ addresses[name]['address1'] }}</p>
-                            <p>{{ addresses[name]['address2'] }}</p>
-                            <p>{{ addresses[name]['postcode'] }} {{ addresses[name]['city'] }}</p>
-                            <p>{{ addresses[name]['phone'] }}</p>
-                        </address>
-                    {% endfor %}
-                </div>
+                {% include 'partials/account/addresses.twig' %}
             {% elseif isEditAddress or isDetails %}
-                <div class="accountEditAddress">
+                <div id="accountEditAddress" class="textAlignCenter wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
                     {{post.content}}
                 </div>
+            {% elseif isOrders %}
+                {% include 'partials/account/orders.twig' %}
             {% elseif isViewOrder %}
-                <div class="accountViewOrder">
-                    {{post.content}}
+                <div id="accountViewOrder" class="themeTable themeTableMobile">
+                    {% include 'partials/account/order.twig' %}
+{#                    {{post.content}}#}
                 </div>
             {% else %}
-                <div class="accountDefault">
+                <div id="accountDefault" class="textAlignCenter wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
                     {{post.content}}
                 </div>
             {% endif %}

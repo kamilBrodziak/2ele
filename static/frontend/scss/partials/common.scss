@@ -80,12 +80,6 @@ $buttonGradient: linear-gradient(black, #242424, black);
     
     tfoot {
         tr {
-            th, td {
-                display: block;
-                clear: both;
-                box-sizing: border-box;
-                padding: 15px;
-            }
             th {
                 background: $buttonGradient no-repeat top left / 100% calc(100% - 10px),
                 $bgRepeatingGradient no-repeat bottom left / 100% 10px;
@@ -93,6 +87,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
                 border-radius: 10px;
                 color: silver;
                 font-size: 2.2rem;
+                padding: 15px;
             }
             
             td {
@@ -102,8 +97,17 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
-@media only screen and (max-width: 700px) {
-    .themeTableMobile, .styledExternalTableContainerMobile table {
+.styledExternalTableContainer tfoot {
+    th, td {
+        display: block;
+        clear: both;
+        box-sizing: border-box;
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: $breakTable) {
+    .themeTableMobile, .styledExternalTableContainerMobile table:not(.order_details) {
         thead {
             display: none;
         }
@@ -153,7 +157,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
 }
 
 .header1Gradient, .header2Gradient, .header3Gradient, .checkoutWidgetBilling h3,
-.accountEditAddress h3, .accountViewOrder h2, #thankyouPage h2 {
+#accountEditAddress h3, #thankyouPage h2, #orderReviewDetails h2 {
     background:
             $buttonGradient no-repeat top left / 100% calc(100% - 6px),
             $bgRepeatingGradient no-repeat bottom left / 100% 6px;
@@ -175,7 +179,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     font-size: 3rem;
 }
 
-.header3Gradient, .checkoutWidgetBilling h3, .accountEditAddress h3, .accountViewOrder h2{
+.header3Gradient, .checkoutWidgetBilling h3, #accountEditAddress h3, #orderReviewDetails h2{
     padding: 12px 0 18px 0;
     font-size: 2.5rem;
 }
@@ -248,7 +252,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
-.gradientInput, .accountEditAddress input {
+.gradientInput, #accountEditAddress input {
     background: linear-gradient(black, #242424, black);
     border: 2px solid silver;
     border-radius: 5px;
@@ -333,8 +337,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     border-radius: 10px;
 }
 
-.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit],
-#accountPageContent .woocommerce-pagination .woocommerce-button, .accountEditAddress button {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit], #accountEditAddress button {
     font-size: 2rem;
     font-weight: bold;
     height: 80px;
@@ -342,7 +345,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     margin: 10px;
     background: white;
     color: silver;
-    border: 8px groove $grayBorderColor;
+    border: 8px groove $colorGray;
     background: $buttonGradient;
     transition: all 0.3s ease;
     position: relative;
@@ -356,7 +359,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
     
     &:active {
-        border: 4px groove $darkGrayBorderColor;
+        border: 4px groove $colorDarkGray;
     }
     
     &:before, &:after {

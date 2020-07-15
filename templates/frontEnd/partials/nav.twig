@@ -1,10 +1,13 @@
-<div id="shopNavTopContainer" class="flexCenterCenter">
-    {% include 'partials/search/searchForm.twig' with {'searchType': navType } %}
-    <div id='shopNavMobileCloseButton' class="flexCenterCenter">
-        <div id='shopNavMobileCloseButtonBar1' class='shopNavMobileBars'></div>
-        <div id='shopNavMobileCloseButtonBar2' class='shopNavMobileBars'></div>
-        <div id='shopNavMobileCloseButtonBar3' class='shopNavMobileBars'></div>
+<div id="shopNavWrapper" class="transitionEase">
+    <div id="shopNavTopContainer" class="flexCenterCenter transitionEase">
+        {% include 'partials/search/searchForm.twig' with {'searchType': navType } %}
+        <button id='shopNavMobileCloseButton' class="flexCenterCenter">
+            <span class='bar transitionEase'></span>
+            <span class='bar transitionEase'></span>
+            <span class='bar transitionEase'></span>
+        </button>
+    </div>
+    <div id="shopNavListContainer">
+        {% include 'partials/menu.twig' with {'items': menu.get_items, 'menuType': navType, 'navItemAnimation': ''} %}
     </div>
 </div>
-{% include 'partials/menu.twig' with {'items': menu.get_items, 'menuType': navType, 'navItemAnimation': ''} %}
-

@@ -3,7 +3,7 @@
     grid-template-areas: "ftrNav" "ftrInfo" "ftrCopyright";
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto;
-    box-shadow: 0 0 8px 4px $shadowGrayColor;
+    box-shadow: 0 0 8px 4px $colorLightGray;
     border-radius: 10px 10px 0 0;
     z-index: 10;
     background: linear-gradient(to bottom, #232323, #343434, #232323);

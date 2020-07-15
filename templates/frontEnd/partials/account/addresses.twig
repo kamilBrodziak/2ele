@@ -1,0 +1,21 @@
+<div id="accountAddresses">
+    {% for name in addresses|keys %}
+        <address class="accountAddress">
+            <h3 class="header3Gradient">{{ name }}</h3>
+            {% if addresses[name]['editUrl'] %}
+            <a href="{{ addresses[name]['editUrl'] }}" class="blackLink">Edytuj</a>
+            {% endif %}
+            <p>{{ addresses[name]['firstName'] }} {{ addresses[name]['lastName'] }}</p>
+            <p>{{ addresses[name]['company'] }}</p>
+            <p>{{ addresses[name]['address1'] }}</p>
+            <p>{{ addresses[name]['address2'] }}</p>
+            <p>{{ addresses[name]['postcode'] }} {{ addresses[name]['city'] }}</p>
+            {% if addresses[name]['phone'] %}
+                <p>{{ addresses[name]['phone'] }}</p>
+            {% endif %}
+            {% if addresses[name]['email'] %}
+                <p>{{ addresses[name]['email'] }}</p>
+            {% endif %}
+        </address>
+    {% endfor %}
+</div>

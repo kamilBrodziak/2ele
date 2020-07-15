@@ -1,0 +1,44 @@
+<section id="orderReview">
+    <h2 class="header1Gradient">Szczegóły zamówienia #{{ order.id }}</h2>
+    <table id="orderReviewTable" class="themeTable themeTableMobile">
+        <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Ilość</th>
+            <th>Cena</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order.items %}
+            <tr>
+                <td data-title="Produkt">
+                    {% if item.url %}
+                        <a href="{{ item.url }}" class="blackLink">{{ item.title }}</a>
+                    {% else %}
+                        {{ item.title }}
+                    {% endif %}
+                </td>
+                <td data-title="Ilość">{{ item.quantity }}</td>
+                <td data-title="Kwota">{{ item.subtotal }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            {% for detail in order.details %}
+                <tr>
+                    <th colspan="3">{{ detail.label }}</th>
+                </tr>
+                <tr>
+                    <td colspan="3">{{ detail.value }}</td>
+                </tr>
+            {% endfor %}
+        </tfoot>
+    </table>
+
+    {% if order.addresses %}
+        <div id="orderReviewDetails">
+            {% do action( 'woocommerce_order_details_after_order_table', orderObj ) %}
+            {% include 'partials/account/addresses.twig' with {'addresses': order.addresses} %}
+        </div>
+    {% endif %}
+</section>

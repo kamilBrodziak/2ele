@@ -1,0 +1,35 @@
+<div id="accountOrders" class="textAlignCenter">
+    <table class="themeTable themeTableMobile">
+        <thead>
+        <tr>
+            {% for columnName in ordersTable.columnNames %}
+                <th>{{ columnName }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in ordersTable.orders %}
+            <tr>
+                <td data-title="{{ ordersTable.columnNames[0] }}">
+                    <a href="{{ order.url }}" class="blackLink">#{{ order.number }}</a>
+                </td>
+                <td data-title="{{ ordersTable.columnNames[1] }}">
+                    <time datetime="{{ order.datetime }}">{{ order.date }}</time>
+                </td>
+                <td data-title="{{ ordersTable.columnNames[2] }}">
+                    {{ order.status }}
+                </td>
+                <td data-title="{{ ordersTable.columnNames[3] }}">
+                    {{ order.total }}za {{ order.count }} {% if order.count == 1 %} rzecz {% else %} rzeczy {% endif %}
+                </td>
+                <td data-title="{{ ordersTable.columnNames[4] }}">
+                    {% for action in order.actions|keys %}
+                        <a href="{{ order.actions[action] }}" class="blackLink">{{ action }}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include ['partials/pagination.twig'] %}
+</div>

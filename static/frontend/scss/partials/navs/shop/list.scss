@@ -1,0 +1,161 @@
+/*
+=====================================================
+    SHOP NAV LIST
+=====================================================
+*/
+#shopNavList {
+    height: auto;
+    width: 100%;
+    flex-flow: column;
+    position: relative;
+}
+
+.shopNavListItem {
+    height: auto;
+    padding: 1%;
+    width: 100%;
+    background: black;
+    margin: 10px 0 0 0;
+    display: flex;
+    flex-flow: row wrap;
+    box-shadow: 2px 0 0 2px #3d3d3d, 2px 2px 2px white;
+    
+    &:hover {
+        box-shadow: 2px 0 0 2px #2b2b2b;
+    }
+}
+
+.shopNavListItemAnchor {
+    flex: 1;
+    display: flex;
+    padding: $menuItemAnchorPadding 5%;
+    align-items: center;
+    font-size: $menuItemAnchorFontSize;
+}
+
+.shopNavListItemSubList {
+    background: linear-gradient(45deg, #232323, #343434, #232323);
+    width: 100%;
+    display: flex;
+    max-height: 0;
+    flex-flow: column;
+    overflow-y: hidden;
+    
+    &.expand {
+        max-height: 200rem;
+    }
+    
+    li {
+        padding: 1%;
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        a {
+            padding: $menuItemAnchorPadding 5%;
+            font-size: $menuItemAnchorFontSize;
+        }
+    }
+}
+
+@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+    .shopNavListItem {
+        position: relative;
+        &:nth-child(odd) {
+            transform: perspective(300px) rotateY(15deg);
+            box-shadow: -2px 1px 0 2px #3d3d3d, -2px 2px 8px white;
+        }
+        
+        &:nth-child(even) {
+            transform: perspective(300px) rotateY(-15deg);
+            box-shadow: 2px 1px 0 2px #3d3d3d, 2px 2px 8px white;
+        }
+        
+        &:hover {
+            transform: perspective(0) rotateY(0);
+            box-shadow: none;
+        }
+        
+        &:hover ul {
+            display: flex;
+        }
+    }
+    
+    .shopNavListItemAnchor {
+        justify-content: center;
+    }
+    
+    .shopNavListItemSubList {
+        flex-flow: row wrap;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        padding: 0 0 0 20px;
+        background: none;
+        width: 400px;
+        max-height: none;
+        height: auto;
+        display: none;
+        
+        li {
+            flex: 1 0 calc(50% - 10px);
+            box-shadow: 1px 2px 0 1px $colorLightGray, 2px 2px 8px white;
+            background: black;
+            border-radius: 10px;
+            margin: 0 10px 10px 0;
+        }
+    }
+}
+
+/*
+=====================================================
+    SHOP NAV EXPAND BUTTON
+=====================================================
+*/
+.shopNavListItemSubListExpandButton {
+    width: 2 * $menuItemAnchorPadding + $menuItemAnchorFontSize;
+    height: 2 * $menuItemAnchorPadding + $menuItemAnchorFontSize;
+    background: $colorDarkGray;
+    border-radius: 5px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid $colorLightGray;
+    border-style: outset;
+    
+    &:after, &:before {
+        width: 50%;
+        height: $menuItemAnchorFontSize / 4;
+        background: silver;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        content: '';
+    }
+    
+    &:before {
+        transform: rotate(45deg) translateX(30%);
+    }
+    
+    &:after {
+        transform: rotate(-45deg) translateX(-30%);
+    }
+    
+    &.expand {
+        border-style: inset;
+        &:before {
+            transform: rotate(-45deg) translateX(30%);
+        }
+        
+        &:after {
+            transform: rotate(45deg) translateX(-30%);
+        }
+    }
+}
+
+@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+    .shopNavListItemSubListExpandButton {
+        display: none;
+    }
+}

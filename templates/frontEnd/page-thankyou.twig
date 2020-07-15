@@ -1,7 +1,8 @@
 {% extends 'page.twig' %}
 
 {% block pageContent %}
-    <div id='thankyouPage' class="styledExternalTableContainer wcwpLinksContainer">
-        {{post.content}}
+    <div id='thankyouPage'>
+        Dziękujemy. Twoje zamówienie zostało przez nas odebrane.
+        {% include 'partials/account/order.twig' %}
     </div>
 {% endblock %}

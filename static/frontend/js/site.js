@@ -9,12 +9,10 @@ $( function() {
         vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
-    let mobileNav = new MobileNav($('#shopNav'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
-    mobileNav.addCloseButtonAnimation('changeMobileNavCloseButtonState');
+    let mobileNav = new MobileNav($('#shopNavWrapper'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
     mobileNav.addCloseOnResizeEvent();
     mobileNav.addNavSubListExpandButton($('.shopNavListItemSubListExpandButton'),
-        'shopNavListItemSubList', 'showShopNavListItemSubList',
-        'shopNavListItemSubListExpandButtonAnimation');
+        'shopNavListItemSubList', 'expand');
 
     let ajaxPagination = new AjaxPagination($('.paginationLink'), 'shopPageProductListWidget');
     ajaxPagination.addAjaxPagination();

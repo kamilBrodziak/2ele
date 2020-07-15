@@ -1,0 +1,12 @@
+<nav id="accountNav">
+    <ul id="accountNavList" class="listStyleNone flexCenterCenter">
+        {% for name in accountPageUrls|keys %}
+            <li class="accountNavListItem">
+                <a href="{{ accountPageUrls[name] }}"
+                   class="buttonBlackAnimated flexCenterCenter borderRadiusTen">
+                    {{ name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

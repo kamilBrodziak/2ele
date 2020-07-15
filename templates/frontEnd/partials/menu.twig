@@ -1,15 +1,12 @@
 {% if menu %}
     {% set type = (menuType ~ 'NavList')|default('navList') %}
-	<ul {% if menuType %}id='{{ menuType }}NavList'{% endif %} class='navList listStyleNone'>
+	<ul {% if menuType %}id='{{ type }}'{% endif %} class='navList listStyleNone'>
 		{% for item in items %}
-			<li class='{{ type }}Item {{ navItemAnimation }}'>
-				<a class='textAlignCenter colorSilver fontBold' href='{{ item.link }}'>{{ item.title }}</a>
+			<li class='{{ type }}Item {{ navItemAnimation }} transitionEase borderRadiusTen'>
+				<a class='{{ type }}ItemAnchor textAlignCenter colorSilver fontBold' href='{{ item.link }}'>{{ item.title }}</a>
                 {% if item.children %}
-                    <div class="{{ type }}ItemSubListExpandButton">
-                        <div id='{{ type }}ItemSubListExpandBar1' class='{{ type }}ItemSubListExpandBars'></div>
-                        <div id='{{ type }}ItemSubListExpandBar2' class='{{ type }}ItemSubListExpandBars'></div>
-                    </div>
-                    <ul class='{{ type }}ItemSubList navList listStyleNone'>
+                    <button class="{{ type }}ItemSubListExpandButton"></button>
+                    <ul class='{{ type }}ItemSubList navList listStyleNone transitionEase'>
                         {% for children in item.children %}
                             <li class='{{ navItemAnimation }}'>
                                 <a class='textAlignCenter colorSilver flexCenterCenter fontBold'

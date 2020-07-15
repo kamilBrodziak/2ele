@@ -4,12 +4,6 @@
 =====================================================
 */
 
-//$bgGradient:
-//        radial-gradient(circle at 0%,
-//                rgba(45, 45, 45, 0.1), rgba(45, 45, 45, 0.3) 50%,
-//                rgba(25, 25, 25, 0.5) 75%, transparent 75%),
-//        rgb(89, 14, 189);
-
 #siteContainer {
     width: 100%;
     height: 100%;
@@ -17,11 +11,9 @@
     grid-template-areas: "header" "main" "footer";
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
-    //overflow-x: hidden;
 
     #siteHeader {
         grid-area: header;
-        //background: linear-gradient(45deg, #232323, #343434, #232323);
     }
 
     #siteMain {
@@ -29,9 +21,16 @@
         display: flex;
         flex-direction: column;
         position: relative;
-        //background: linear-gradient(45deg, #d0d0d0, white, #d0d0d0);
         min-height: 100vh;
-
+        
+        #shopNav {
+            width: 100%;
+            height: $mobileNavHeight;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 99;
+        }
 
         #siteMainContent {
             height: auto;
@@ -44,7 +43,7 @@
     }
 }
 
-@media screen and (min-height: 600px) and (min-width: 996px) {
+@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #siteContainer {
         background: $bgRepeatingGradient;
         #siteMain {
@@ -55,11 +54,13 @@
             box-shadow: 0 0 10px 5px #232323;
             background: white;
             #siteMainContent {
-                width: calc(100% - #{$desktopNavWidth});
-                //width: calc(100% - 200px);
-                //margin: 0 0 0 -100px;
-                //background: white;
-                //box-shadow: 0 0 10px 5px #232323;
+                flex: 1;
+            }
+            #shopNav {
+                width: $desktopNavWidth;
+                height: 100vh;
+                left: 90px;
+                padding: 0 $desktopNavPadding;
             }
         }
     }
