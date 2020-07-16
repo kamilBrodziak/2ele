@@ -1,16 +1,3 @@
-#pageContact {
-    font-size: 2rem;
-}
-
-#pageContactList {
-    a {
-        color: black;
-        &:hover {
-            color: #383838;
-        }
-    }
-}
-
 #pageContactForm {
     padding: 5% 10%;
     display: flex;
@@ -35,35 +22,23 @@
         }
     }
     
-    label {
+    .contactFormLabel {
         width: 100%;
         padding-bottom: 20px;
-        
-        span {
-            display: block;
-            width: 100%;
-        }
-        
-        input {
-            height: 50px;
-            width: 100%;
-            font-size: 2rem;
-        }
-        
-        textarea {
-            width: 100%;
-            height: 150px;
-            font-size: 2rem;
-            resize: vertical;
-            padding-top: 5px;
-        }
     }
     
-    .contactFormSubmitContainer {
+    .contactFormLabelTitle {
+        display: block;
         width: 100%;
-        height: 80px;
-        input {
-            font-size: 2.5rem;
-        }
+    }
+    
+    .contactFormInput {
+        height: 50px;
+        width: 100%;
+    }
+    
+    .contactFormTextarea {
+        width: 100%;
+        height: 250px;
     }
 }

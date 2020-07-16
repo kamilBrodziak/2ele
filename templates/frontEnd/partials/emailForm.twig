@@ -9,33 +9,35 @@
         <span class="flexCenterCenter textAlignCenter colorSilver">Wystąpił problem z Twoją wiadomością, spróbuj ponownie</span>
     </div>
 
-    <label {% if location %}id='{{ location }}ContactFormNameLabel' {% endif %} class='contactFormNameLabel'>
-        <span>Twoje imię*</span>
+    <label {% if location %}id='{{ location }}ContactFormNameLabel' {% endif %} class='contactFormNameLabel contactFormLabel'>
+        <span class="contactFormLabelTitle">Twoje imię*</span>
         <input type='text' name='name' pattern='[a-zA-Z0-9 ]+' maxlength='50'
-               class="contactFormName gradientInput"
+               class="contactFormName contactFormInput gradientInput"
                oninvalid='this.setCustomValidity("Wprowadź poprawne imię używając tylko liter.")'
                title='Wprowadź poprawne imię używając tylko liter.'
                oninput='this.setCustomValidity("")'
                placeholder='Twoje imię*' required>
     </label>
 
-    <label {% if location %}id='{{ location }}ContactFormEmailLabel' {% endif %}class='contactFormEmailLabel'>
-        <span>Twój email*</span>
+    <label {% if location %}id='{{ location }}ContactFormEmailLabel' {% endif %}class='contactFormEmailLabel contactFormLabel'>
+        <span class="contactFormLabelTitle">Twój email*</span>
         <input type='email' name='email' maxlength='80' placeholder='Twój email*'
-               class="contactFormEmail gradientInput"
+               class="contactFormEmail contactFormInput gradientInput"
                pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$' required
                title='Wprowadź poprawny email, przykład: przyklad@przyklad.przyklad'
                oninvalid='this.setCustomValidity("Wprowadź poprawny email, przykład: przyklad@przyklad.przyklad")'
                oninput='this.setCustomValidity("")'>
     </label>
 
-    <label {% if location %}id='{{ location }}ContactFormMessageLabel' {% endif %}class='contactFormMessageLabel'>
-        <span>Twoja wiadomość*</span>
-        <textarea name='message' class="contactFormMessage gradientInput"
+    <label {% if location %}id='{{ location }}ContactFormMessageLabel' {% endif %}class='contactFormMessageLabel contactFormLabel'>
+        <span class="contactFormLabelTitle">Twoja wiadomość*</span>
+        <textarea name='message' class="contactFormMessage contactFormTextarea gradientInput"
                   maxlength='1000' placeholder='Wiadomość*' rows=7 required></textarea>
     </label>
-    <div class="contactFormSubmitContainer gradientButton">
-        <input {% if location %}id='{{ location }}ContactFormSubmit' {% endif %}
-               class='contactFormSubmit blackGradientSubmit' name='submit' type='submit' value='Wyślij'>
+    <div class="contactFormSubmitContainer">
+        <button {% if location %}id='{{ location }}ContactFormSubmit' {% endif %}
+               class='contactFormSubmit buttonBlackAnimated borderRadiusTen' name='submit' type='submit'>
+            Wyślij
+        </button>
     </div>
 </form>

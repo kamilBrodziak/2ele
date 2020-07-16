@@ -1,19 +1,12 @@
 {% extends 'base.twig' %}
 
 {% block content %}
-    <article id='pageArticle'>
-        <header id='pageHeader'>
-            <h1 id='pageTitle' class='textAlignCenter flexCenterCenter'>{{post.title}}</h1>
-        </header>
-        <section id='pageContent'>
-            {{ post.content }}
-            <section id='pageContact' class='textAlignCenter'>
-                <ul id='pageContactList' class='fontBold'>
-                    <li>Email: <a href="mailto:{{ site.admin_email }}">{{ site.admin_email }}</a></li>
-                    <li>Phone: <a href="tel:+48785807958">(+48) 785 807 958</a></li>
-                </ul>
-                {% include 'partials/emailForm.twig' with {'location': 'page'}%}
-            </section>
-        </section>
-    </article>
+    <div id='contactPage'>
+        {{ post.content }}
+        <ul id='contactPageList' class='fontBold listStyleNone textAlignCenter'>
+            <li>Email: <a href="mailto:{{ site.admin_email }}" class="blackLink">{{ site.admin_email }}</a></li>
+            <li>Phone: <a href="tel:+48785807958" class="blackLink">(+48) 785 807 958</a></li>
+        </ul>
+        {% include 'partials/emailForm.twig' with {'location': 'page'}%}
+    </div>
 {% endblock %}

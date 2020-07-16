@@ -10,18 +10,19 @@ body.orderWidgetActive {
     padding: 10px;
     background: white;
 }
+.orderWidgetPopUpHeader {
+    display: flex;
+    margin: 0 0 30px 0;
+}
+.orderWidgetPopUpHeader h1 {
+    flex: 1;
+    margin: 0;
+}
 
 .orderWidgetPopup {
     border: 10px groove $colorGray;
     border-radius: 10px;
     box-shadow: 0 0 300px 30px $colorGray;
-}
-
-.orderWidgetCloseButton {
-    height: 80px;
-}
-
-.orderWidgetNav {
 }
 
 .orderWidgetNextButtonContainer {
@@ -37,10 +38,8 @@ body.orderWidgetActive {
 }
 
 .orderWidgetCloseButtonContainer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px;
+    width: 50px;
+    margin: auto 0 auto 30px;
 }
 
 .orderWidgetCloseButton {

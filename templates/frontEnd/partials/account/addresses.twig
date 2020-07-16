@@ -1,6 +1,6 @@
 <div id="accountAddresses">
     {% for name in addresses|keys %}
-        <address class="accountAddress">
+        <address class="accountAddress textAlignCenter">
             <h3 class="header3Gradient">{{ name }}</h3>
             {% if addresses[name]['editUrl'] %}
             <a href="{{ addresses[name]['editUrl'] }}" class="blackLink">Edytuj</a>

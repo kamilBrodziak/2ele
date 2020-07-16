@@ -1,95 +1,50 @@
 /*
 =====================================================
-    SINGLE PRODUCT PAGE - TEASE PRODUCT
+    SINGLE PRODUCT PAGE
 =====================================================
 */
 #singleProduct {
-    .teaseProduct {
-        width: 100%;
-    }
-    
-    .teaseProductHeader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .teaseProductTitle {
-        padding: 10px 0;
-        font-size: 3rem;
-    }
-    
-    .teaseProductWrapper {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .teaseProductPictureContainer {
-        height: $singleProductTeaseProductPictureWidth;
-        width: $singleProductTeaseProductPictureWidth;
-    }
+    display: flex;
+    flex-flow: column;
 }
-
-@media screen and (min-width: 600px) {
-    #singleProduct {
-        .teaseProductWrapper {
-            display: grid;
-            grid-template-areas: "tHeader tMain" "tHeader tFooter";
-            grid-template-columns: $singleProductTeaseProductPictureWidth 1fr;
-            grid-template-rows: 1fr auto;
-        }
-        
-        .teaseProductPicture {
-            border-radius: 50px;
-        }
-    
-        .teaseProductHeader {
-            grid-area: tHeader;
-        }
-    
-        .teaseProductMain {
-            grid-area: tMain;
-        }
-        .teaseProductFooter {
-            grid-area: tFooter;
-        }
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    #singleProduct {
-        $singleProductTeaseProductPictureWidth: 400px;
-    
-        .teaseProductPictureContainer {
-            height: $singleProductTeaseProductPictureWidth;
-            width: $singleProductTeaseProductPictureWidth;
-        }
-    
-        .teaseProductWrapper {
-            grid-template-columns: $singleProductTeaseProductPictureWidth 1fr;
-        }
-    }
-}
-
-/*
-=====================================================
-    SINGLE PRODUCT PAGE - DESCRIPTION
-=====================================================
-*/
 
 #singleProductDescription {
-    width: 80%;
-    margin: 0 auto;
-    background: $bgRepeatingGradient;
-    padding: 0 9px 9px 9px;
-    border-radius: 0 0 50px 50px;
-    box-shadow: 2px 2px 2px 2px #4b4b4b;
+    padding: 0 20px;
 }
 
-#singleProductDescriptionWrapper {
-    background: white;
-    box-shadow: inset 2px 2px 2px 2px #4b4b4b;
-    padding: 10px 20px;
-    border-radius: 0 0 50px 50px;
-    font-size: 2rem;
+#singleProductDescriptionContent {
+    padding: 0 20px;
 }
+
+@media screen and (min-width: 500px) {
+    #singleProductTeaseContainer {
+        .teaseProduct {
+            width: 400px;
+        }
+        .teaseProductPictureContainer {
+            width: 100%;
+            height: 380px;
+        }
+    }
+}
+
+@media screen and (min-width: 1350px) {
+    #singleProduct {
+        flex-flow: row;
+    }
+    #singleProductTeaseContainer {
+        width: auto;
+        height: auto;
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
+    
+    #singleProductDescriptionHeader {
+        margin: 0 0 20px 0;
+    }
+    #singleProductDescription {
+        flex: 1;
+    }
+}
+

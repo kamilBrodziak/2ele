@@ -33,8 +33,16 @@ a {
     cursor: pointer;
 }
 
+textarea {
+    font-size: 2rem;
+    padding: 10px 0 0 0;
+    resize: vertical;
+}
+
 input {
     outline: none;
+    font-size: 2rem;
+    padding: 15px 0;
 
     &[type='submit'] {
         cursor: pointer;

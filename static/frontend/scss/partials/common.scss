@@ -172,6 +172,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
 .header1Gradient {
     padding: 20px 0 30px 0;
     font-size: 3.5rem;
+    margin: 0 0 20px 0;
 }
 
 .header2Gradient, #thankyouPage h2 {
@@ -252,7 +253,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
-.gradientInput, #accountEditAddress input {
+.gradientInput, .styledExternalInputContainer input {
     background: linear-gradient(black, #242424, black);
     border: 2px solid silver;
     border-radius: 5px;
@@ -270,6 +271,11 @@ $buttonGradient: linear-gradient(black, #242424, black);
     &.approvedInput {
         border: 4px solid green;
     }
+}
+
+.imgContainer img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .gradientCheckbox {
@@ -337,7 +343,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     border-radius: 10px;
 }
 
-.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit], #accountEditAddress button {
+.buttonBlackAnimated, .checkoutWidgetPayment button[type=submit], .styledExternalButtonContainer button{
     font-size: 2rem;
     font-weight: bold;
     height: 80px;

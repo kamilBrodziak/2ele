@@ -1,0 +1,10 @@
+<section id="siteMainFloatingButtons">
+    <div id="cartButton" class="flexCenterCenter">
+        <figure id="cartButtonImgContainer" class="flexCenterCenter imgContainer">
+            <img src="{{ fn('getImgDir') }}/cart2.webp" id="cartButtonImg" alt="Cart icon">
+        </figure>
+        <a href="{{ fn('wc_get_cart_url') }}" id="cartButtonSummary" class="flexCenterCenter">
+            <span id="cartButtonQuantity">{{ fn('getCartProductsQuantity') }}</span>
+        </a>
+    </div>
+</section>

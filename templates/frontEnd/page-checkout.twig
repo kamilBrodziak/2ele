@@ -1,9 +1,11 @@
-{% extends 'page.twig' %}
+{% extends 'base.twig' %}
 
-{% block pageContent %}
+{% block content %}
     <div id='checkoutPage'>
         {#        {{post.content}}#}
         {#        {{ fn('getShippingMethods') }}#}
         {% include ['partials/checkoutWidget.twig'] %}
     </div>
+{% endblock %}
+{% block floatingButtons %}
 {% endblock %}

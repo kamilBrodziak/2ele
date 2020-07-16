@@ -20,7 +20,7 @@
                     {{ order.status }}
                 </td>
                 <td data-title="{{ ordersTable.columnNames[3] }}">
-                    {{ order.total }}za {{ order.count }} {% if order.count == 1 %} rzecz {% else %} rzeczy {% endif %}
+                    {{ order.total }} za {{ order.count }} {% if order.count == 1 %} rzecz {% else %} rzeczy {% endif %}
                 </td>
                 <td data-title="{{ ordersTable.columnNames[4] }}">
                     {% for action in order.actions|keys %}

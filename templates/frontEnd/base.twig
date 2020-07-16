@@ -1,5 +1,5 @@
 {% block html_head_container %}
-    {% include 'partials/html-header.twig' %}
+    {% include 'partials/base/html-header.twig' %}
         {% block head %}
         {% endblock %}
         </head>
@@ -7,25 +7,45 @@
 	<body class='{{body_class}}' data-template='base.twig'>
         <div id='siteContainer'>
             {% block header %}
-                <header id='siteHeader' class='hashGradient'>
-                    {% include 'partials/header.twig' %}
+                <header id='siteHeader'>
+                    {% include 'partials/base/header.twig' %}
                 </header>
             {% endblock %}
             <main id="siteMain">
                 <nav id="shopNav" class="transitionEase">
                     {% block nav %}
-                        {% include 'partials/nav.twig' with {'navType': 'shop'} %}
+                        {% include 'partials/base/nav.twig' with {'navType': 'shop'} %}
                     {% endblock %}
                 </nav>
                 <section id="siteMainContent">
-                    {% block content %}
-                        Sorry, no content
-                    {% endblock %}
+                    {% if title %}
+                        <header id='pageHeader'>
+                            <h1 id='pageTitle' class='header1Gradient'>{{ title }}</h1>
+                        </header>
+                    {% elseif post.title %}
+                        <header id='pageHeader'>
+                            <h1 id='pageTitle' class='header1Gradient'>{{ post.title }}</h1>
+                        </header>
+                    {% endif %}
+                    <div id='pageContent'>
+                        {% block content %}
+                            <div id="wordpressDefault">
+                                {% if post.content %}
+                                    {{post.content}}
+                                {% else %}
+                                    Przepraszamy, ta strona nie zawiera obecnie treści.
+                                {% endif %}
+                            </div>
+                        {% endblock %}
+                    </div>
                 </section>
             </main>
+            {% block floatingButtons %}
+                {% include 'partials/base/floatingButtons.twig' %}
+            {% endblock %}
             {% block footer %}
                 <footer id='siteFooter' class='hashGradient'>
-                    {% include 'partials/footer.twig' %}
+                    {% include 'partials/base/footer.twig' %}
                 </footer>
                 {{ function('wp_footer') }}
             {% endblock %}

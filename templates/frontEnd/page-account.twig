@@ -1,13 +1,13 @@
-{% extends 'page.twig' %}
+{% extends 'base.twig' %}
 
-{% block pageContent %}
+{% block content %}
     <div id="accountPage">
         {% include 'partials/account/menu.twig' %}
         <section id="accountPageContent">
             {% if addresses %}
                 {% include 'partials/account/addresses.twig' %}
             {% elseif isEditAddress or isDetails %}
-                <div id="accountEditAddress" class="textAlignCenter wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
+                <div id="accountEditAddress" class="textAlignCenter wcwpLinksContainer styledExternalButtonContainer styledExternalInputContainer styledExternalTableContainer styledExternalTableContainerMobile">
                     {{post.content}}
                 </div>
             {% elseif isOrders %}
@@ -18,7 +18,7 @@
 {#                    {{post.content}}#}
                 </div>
             {% else %}
-                <div id="accountDefault" class="textAlignCenter wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
+                <div id="accountDefault" class="styledExternalInputContainer styledExternalButtonContainer textAlignCenter wcwpLinksContainer styledExternalTableContainer styledExternalTableContainerMobile">
                     {{post.content}}
                 </div>
             {% endif %}
