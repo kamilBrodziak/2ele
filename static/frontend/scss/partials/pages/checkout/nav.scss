@@ -1,0 +1,23 @@
+.checkoutWidgetNav {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+    div {
+        width: 100%;
+        button, a {
+            height: 80px;
+        }
+        &:only-child {
+            margin: 0 0 auto 0;
+        }
+    }
+}
+
+@media only screen and (min-width: $breakTablet) {
+    .checkoutWidgetNav {
+        div {
+            width: 45%;
+        }
+    }
+}

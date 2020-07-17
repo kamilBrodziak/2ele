@@ -93,16 +93,11 @@ class CheckoutWidget {
             }
         }
         const startingStage = this.stagesNames.length === 3 ? 2 : 1;
-        for(let i = startingStage; i < this.stages.length; ++i) {
-            if(this.stages[i].hasClass('current'))
-                this.stages[i].removeClass('current');
-            if(this.orderWidgetStages.hasClass('stage' + i))
-                this.orderWidgetStages.removeClass('stage' + i);
-            if(this.stage + startingStage === i) {
-                this.orderWidgetStages.addClass('stage' + i);
-                this.stages[i].addClass('current');
-            }
+        $(this.stages).each((i, el) => {$(el).removeClass('active'); $(el).removeClass('current')});
+        for(let i = 0; i <= this.stage + startingStage; ++i) {
+            this.stages[i].addClass('active');
         }
+        this.stages[this.stage + startingStage].addClass('current');
 
         this.stagesNodes[this.stage].removeClass('hide');
     }

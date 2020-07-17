@@ -1,0 +1,30 @@
+.checkoutWidgetPayment {
+    .wc_payment_methods {
+        list-style: none;
+        padding: 20px;
+    }
+    
+    .wc_payment_method {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+    
+    .payment_box {
+        padding: 5px;
+        margin: 5px;
+        background: #f5f5f5;
+    }
+    
+    .woocommerce-form__label-for-checkbox {
+        span {
+            padding: calc((50px - 2rem)/2) 0;
+        }
+    }
+    
+    button {
+        height: 100px !important;
+        margin: 20px 0 !important;
+        border-radius: 10px;
+    }
+}

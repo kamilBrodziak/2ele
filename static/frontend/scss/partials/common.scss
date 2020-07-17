@@ -185,7 +185,8 @@ $buttonGradient: linear-gradient(black, #242424, black);
     font-size: 2.5rem;
 }
 
-.blackLink, .wcwpLinksContainer a {
+.blackLink, .wcwpLinksContainer a,
+.styledExternalLinksContainer a:not(.checkoutWidgetPreviousLink):not(.loginWidgetNavLoginButton):not(.loginWidgetNavRegisterButton) {
     color: black;
     transition: all 0.1s ease;
     text-decoration: none;
@@ -253,7 +254,7 @@ $buttonGradient: linear-gradient(black, #242424, black);
     }
 }
 
-.gradientInput, .styledExternalInputContainer input {
+.gradientInput, .styledExternalInputContainer input:not([type=checkbox]):not([type=radio]), .styledExternalInputContainer textarea {
     background: linear-gradient(black, #242424, black);
     border: 2px solid silver;
     border-radius: 5px;
@@ -278,7 +279,8 @@ $buttonGradient: linear-gradient(black, #242424, black);
     max-height: 100%;
 }
 
-.gradientCheckbox {
+.gradientCheckbox, .styledExternalCheckboxContainer input[type=checkbox],
+.styledExternalCheckboxContainer input[type=radio]{
     background: linear-gradient(black, #242424, black);
     border: 2px solid silver;
     border-radius: 5px;
@@ -670,12 +672,12 @@ $buttonGradient: linear-gradient(black, #242424, black);
     animation-delay: 1s;
 }
 
-@keyframes pulse {
+@keyframes warning {
     20% {
-        box-shadow: 0 0 20px 20px rgba(204,169,44, 0);
+        box-shadow: 0 0 20px 20px red;
     }
     30%, 100% {
-        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 red;
     }
 }
 

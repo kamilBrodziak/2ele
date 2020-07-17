@@ -1,5 +1,5 @@
 <section class="checkoutWidget">
-    <div class="checkoutWidgetContentWrapper">
+    <div class="checkoutWidgetContentWrapper styledExternalLinksContainer">
         {% if isUserLoggedIn == false %}
             {% set stagesNames = ['Koszyk', 'Logowanie', 'Formularz', 'Dostawa', 'Podsumowanie'] %}
         {% else %}
@@ -24,21 +24,21 @@
 {#                {% endfilter %}#}
 {#            </section>#}
             {% if loginRequired %}
-                <span class="checkoutWidgetLoginRequired">Musisz się zalogować zanim przejdziesz dalej!</span>
+                <span class="checkoutWidgetLoginRequired textAlignCenter">Musisz się zalogować zanim przejdziesz dalej!</span>
             {% else %}
                 <form name="checkout" method="post" class="checkout woocommerce-checkout" action="{{ fn('getCheckoutUrl') }}"
                       enctype="multipart/form-data">
-                    <section class="checkoutWidgetBilling">
+                    <section class="checkoutWidgetBilling textAlignCenter styledExternalInputContainer styledExternalCheckboxContainer">
                         {% do action('woocommerce_checkout_before_customer_details') %}
                         {% do action('woocommerce_checkout_billing') %}
                         {% do action('woocommerce_checkout_shipping') %}
                         {% do action('woocommerce_checkout_after_customer_details') %}
                     </section>
-                    <section class="checkoutWidgetSummary styledExternalTableContainer">
+                    <section class="checkoutWidgetSummary styledExternalTableContainer styledExternalCheckboxContainer">
                         <h3 class="header3Gradient">Podsumowanie i dostawa</h3>
                         {% do action('woocommerce_checkout_order_review') %}
                     </section>
-                    <section class="checkoutWidgetPayment">
+                    <section class="checkoutWidgetPayment textAlignCenter styledExternalCheckboxContainer">
                         <h3 class="header3Gradient">Płatność</h3>
                         {% do action( 'woocommerce_checkout_after_order_review' ) %}
                     </section>

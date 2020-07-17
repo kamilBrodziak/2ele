@@ -1,0 +1,31 @@
+.checkoutWidgetBilling {
+    h3 {
+        font-size: 3rem;
+    }
+    
+    p {
+        margin: 5px 0 10px 0;
+    }
+    
+    label {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    span {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    
+    input:not([type=checkbox]), textarea {
+        width: 80%;
+        min-width: 250px;
+    }
+    
+    .woocommerce-form__label-for-checkbox {
+        span {
+            padding: calc((50px - 3rem)/2) 0;
+        }
+    }
+}

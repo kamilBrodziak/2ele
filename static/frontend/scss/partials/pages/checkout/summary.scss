@@ -1,0 +1,53 @@
+.checkoutWidgetSummary {
+    .shop_table {
+        tbody {
+            tr {
+                &:nth-child(2n) {
+                    background: #eeeeee;
+                }
+            }
+            td {
+                padding: 20px 0;
+            }
+        }
+        tfoot {
+            th, td {
+                width: 200%;
+            }
+        }
+    }
+    
+    #shipping_method {
+        list-style: none;
+        text-align: left;
+        display: inline-block;
+        
+        li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 5px 0;
+            
+            label {
+                flex: 1;
+            }
+        }
+    }
+    .paczkomaty-shipping {
+        .select2-container {
+            width: 100% !important;
+        }
+        
+        .select2-selection {
+            height: 50px;
+            span {
+                height: 50px;
+                line-height: 50px;
+            }
+        }
+        #open-geowidget {
+            margin: 10px 0 0 0;
+            display: block;
+        }
+    }
+}
