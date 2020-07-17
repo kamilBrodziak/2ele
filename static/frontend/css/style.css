@@ -43,6 +43,11 @@ html {
     font-size: 10px;
   }
 }
+button {
+  cursor: pointer;
+  outline: none;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -999,11 +1004,6 @@ input:disabled {
     grid-template-rows: auto auto;
   }
 }
-/*
-=====================================================
-    SHOP NAV LAYOUT
-=====================================================
-*/
 #shopNavWrapper {
   display: flex;
   flex-flow: column;
@@ -1055,10 +1055,8 @@ input:disabled {
   height: 60px;
   width: 60px;
   justify-content: space-between;
-  outline: none;
   border: none;
   background: none;
-  cursor: pointer;
 }
 #shopNavMobileCloseButton .bar {
   display: block;
@@ -1090,11 +1088,6 @@ input:disabled {
     display: none;
   }
 }
-/*
-=====================================================
-    SHOP NAV LIST
-=====================================================
-*/
 #shopNavList {
   height: auto;
   width: 100%;
@@ -1204,8 +1197,6 @@ input:disabled {
   display: flex;
   flex-flow: row;
   align-items: center;
-  outline: none;
-  cursor: pointer;
   border: 2px solid #3d3d3d;
   border-style: outset;
 }
@@ -1238,11 +1229,6 @@ input:disabled {
     display: none;
   }
 }
-/*
-=====================================================
-    SHOP SEARCH
-=====================================================
-*/
 #shopSearch {
   height: 100%;
   padding: 5px;
@@ -1588,22 +1574,6 @@ input:disabled {
   height: auto;
 }
 
-/*
-=====================================================
-    LOGIN WIDGET
-=====================================================
-*/
-.loginWidget {
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-}
-
-/*
-=====================================================
-    LOGIN WIDGET - NOTICES
-=====================================================
-*/
 .loginWidgetNotices {
   padding: 10px 5%;
 }
@@ -1619,23 +1589,14 @@ input:disabled {
   font-size: 2rem;
 }
 
-/*
-=====================================================
-    LOGIN WIDGET - NAV
-=====================================================
-*/
 .loginWidgetNav {
-  border: 5px solid black;
-  border-width: 0 0 2px 0;
-  padding: 0 0 2px 0;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
+  box-shadow: 0 4px 0 -2px black;
 }
 
 .loginWidgetNavList {
-  width: 300px;
+  width: 50%;
+  min-width: 250px;
+  max-width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1643,94 +1604,66 @@ input:disabled {
 }
 
 .loginWidgetNavListItem {
-  width: 140px;
-  background: linear-gradient(#242424 70%, black);
-  border-radius: 20px 20px 5px 5px;
-  font-size: 2rem;
+  width: 49%;
 }
-.loginWidgetNavListItem.active {
-  background: linear-gradient(#393939 70%, #242424);
+.loginWidgetNavListItem a {
+  height: 60px;
+  border-radius: 20px 20px 5px 5px;
 }
 .loginWidgetNavListItem.active a {
+  box-shadow: inset 0 0 30px 0 rgba(255, 255, 255, 0.3);
   cursor: default;
 }
-.loginWidgetNavListItem.active a:hover {
-  color: silver;
-}
 .loginWidgetNavListItem.active a:active {
-  border-bottom-width: 5px;
+  border: 8px groove #343434;
 }
-
-/*
-=====================================================
-    LOGIN WIDGET - SECTIONS COMMON
-=====================================================
-*/
-.registerFormSubmit, .loginFormSubmit {
-  height: 80px !important;
+.loginWidgetNavListItem.active a:before, .loginWidgetNavListItem.active a:after {
+  display: none;
 }
 
 .registerFormNotices, .loginFormNotices {
-  font-size: 2rem;
   padding: 0 0 10px 0;
 }
 .registerFormNotices strong, .loginFormNotices strong {
   display: none;
 }
-.loginWidgetSectionTitle {
-  width: 100%;
-}
 
-/*
-=====================================================
-    LOGIN WIDGET - LOGIN
-=====================================================
-*/
-.loginWidgetLogin {
-  padding: 20px 10%;
-  text-align: center;
-}
-
-@media screen and (min-width: 996px) {
-  .loginWidgetLogin {
-    padding: 20px 20%;
-  }
-}
-.lostPasswordLink {
-  font-size: 2rem;
-}
-
-/*
-=====================================================
-    LOGIN WIDGET - REGISTER
-=====================================================
-*/
-.loginWidgetRegister {
+.loginWidgetSection {
   padding: 20px 10%;
 }
 
 @media screen and (min-width: 996px) {
-  .loginWidgetRegister {
+  .loginWidgetSection {
     padding: 20px 20%;
   }
 }
-/*
-=====================================================
-    CART
-=====================================================
-*/
-.cartWidget {
-  width: 100%;
-  height: auto;
-  padding: 10px 20px;
-  font-size: 2rem;
+.cartItemImgContainer {
+  height: 200px;
+  width: 200px;
+}
+
+.cartItemQuantity {
+  height: 50px;
+  width: 50px;
+}
+
+.cartItemRemove {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: auto;
+}
+
+.cartSummary {
+  width: 50%;
+  min-width: 200px;
+  margin: 0 0 20px auto;
 }
 
 @media only screen and (max-width: 700px) {
   .cartItems td:first-of-type {
     width: 100%;
-    margin: 5px 0;
-    padding: 0 10px;
+    padding: 10px;
   }
   .cartItems td:first-of-type a {
     width: auto;
@@ -1738,19 +1671,18 @@ input:disabled {
   .cartItems td:first-of-type:before {
     display: none;
   }
-  .cartItems th {
-    width: 20%;
-  }
 }
 @media only screen and (min-width: 700px) and (max-width: 1200px) {
-  .cartItems th {
-    font-size: 2rem !important;
-  }
   .cartItems td {
     font-size: 1.6rem;
   }
 }
 @media only screen and (min-width: 700px) {
+  .cartItemImgContainer {
+    height: 120px;
+    width: 120px;
+  }
+
   .cartItems th:first-child {
     width: 44%;
   }
@@ -1761,42 +1693,6 @@ input:disabled {
     width: 20%;
   }
 }
-.cartItemImgTD {
-  width: 120px;
-}
-
-.cartItemImgContainer {
-  height: 120px;
-  width: 120px;
-}
-
-.cartItemQuantity {
-  height: 50px;
-  width: 50px;
-  text-align: center;
-}
-
-.cartItemRemove {
-  width: 50px;
-  height: 50px;
-  display: block;
-  border-radius: 5px;
-  margin: auto;
-}
-
-.cartSummary {
-  width: 50%;
-  min-width: 200px;
-  margin: 0 0 0 auto;
-}
-.cartSummary span {
-  height: 2em;
-}
-.cartSummary a {
-  height: 5em;
-  font-size: 2.5rem;
-}
-
 body.orderWidgetActive {
   overflow: hidden;
 }
@@ -1811,9 +1707,7 @@ body.orderWidgetActive {
 
 .orderWidgetPopUpHeader {
   display: flex;
-  margin: 0 0 30px 0;
 }
-
 .orderWidgetPopUpHeader h1 {
   flex: 1;
   margin: 0;
@@ -1821,20 +1715,18 @@ body.orderWidgetActive {
 
 .orderWidgetPopup {
   border: 10px groove #343434;
-  border-radius: 10px;
   box-shadow: 0 0 300px 30px #343434;
 }
 
 .orderWidgetNextButtonContainer {
   width: 50%;
   min-width: 200px;
-  margin: 0 18px 0 auto;
+  margin: 0 0 0 auto;
 }
 
 .orderWidgetPaginationLink {
-  height: 80px;
   width: 100%;
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
 }
 
 .orderWidgetCloseButtonContainer {
@@ -1846,15 +1738,8 @@ body.orderWidgetActive {
   width: 50px;
   height: 50px;
   border: none;
-  outline: none;
-  cursor: pointer;
 }
 
-/*
-=====================================================
-    SINGLE PRODUCT PAGE
-=====================================================
-*/
 #singleProduct {
   display: flex;
   flex-flow: column;

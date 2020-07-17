@@ -6,35 +6,31 @@ body.orderWidgetActive {
     width: 100%;
     height: 100%;
     overflow: auto;
-    //border: 10px groove #d35400;
     padding: 10px;
     background: white;
 }
 .orderWidgetPopUpHeader {
     display: flex;
-    margin: 0 0 30px 0;
-}
-.orderWidgetPopUpHeader h1 {
-    flex: 1;
-    margin: 0;
+    h1 {
+        flex: 1;
+        margin: 0;
+    }
 }
 
 .orderWidgetPopup {
     border: 10px groove $colorGray;
-    border-radius: 10px;
     box-shadow: 0 0 300px 30px $colorGray;
 }
 
 .orderWidgetNextButtonContainer {
     width: 50%;
     min-width: 200px;
-    margin: 0 18px 0 auto;
+    margin: 0 0 0 auto;
 }
 
 .orderWidgetPaginationLink {
-    height: 80px;
     width: 100%;
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
 }
 
 .orderWidgetCloseButtonContainer {
@@ -46,7 +42,5 @@ body.orderWidgetActive {
     width: 50px;
     height: 50px;
     border: none;
-    outline: none;
-    cursor: pointer;
 }
 

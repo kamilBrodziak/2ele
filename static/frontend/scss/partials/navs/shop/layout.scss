@@ -1,8 +1,3 @@
-/*
-=====================================================
-    SHOP NAV LAYOUT
-=====================================================
-*/
 #shopNavWrapper {
     display: flex;
     flex-flow: column;
@@ -63,10 +58,8 @@
     height: $mobileNavHeight;
     width: $mobileNavHeight;
     justify-content: space-between;
-    outline: none;
     border: none;
     background: none;
-    cursor: pointer;
     
     .bar {
         display: block;

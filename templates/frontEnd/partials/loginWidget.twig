@@ -1,14 +1,14 @@
 <section class="loginWidget">
-    <nav class="loginWidgetNav">
+    <nav class="loginWidgetNav flexCenterCenter">
         <ul class="loginWidgetNavList">
-            <li class="loginWidgetNavListItem gradientButton{% if whichPageShow == 'login' %} active{% endif %}"
+            <li class="loginWidgetNavListItem{% if whichPageShow == 'login' %} active{% endif %}"
                 data-section="loginWidgetLogin">
-                <a href="{{ accountUrl }}" class="loginWidgetNavLoginButton"
+                <a href="{{ accountUrl }}" class="loginWidgetNavLoginButton flexCenterCenter buttonBlackAnimated"
                    {% if whichPageShow == 'login' %}disabled {% endif %}>Logowanie</a>
             </li>
-            <li class="loginWidgetNavListItem gradientButton{% if whichPageShow == 'register' %} active{% endif %}"
+            <li class="loginWidgetNavListItem{% if whichPageShow == 'register' %} active{% endif %}"
                 data-section="loginWidgetRegister">
-                <a href="{{ accountUrl }}?page=register" class="loginWidgetNavRegisterButton"
+                <a href="{{ accountUrl }}?page=register" class="loginWidgetNavRegisterButton flexCenterCenter buttonBlackAnimated"
                    {% if whichPageShow == 'register' %}disabled {% endif %}>Rejestracja</a>
             </li>
         </ul>
@@ -22,7 +22,7 @@
             </ul>
         {% endif %}
     </section>
-    <section class="loginWidgetLogin loginWidgetSection{% if whichPageShow == 'register' %} hide{% endif %}">
+    <section class="loginWidgetLogin textAlignCenter loginWidgetSection{% if whichPageShow == 'register' %} hide{% endif %}">
         <h2 class="loginWidgetSectionTitle header2Gradient">Logowanie</h2>
         <form method="post" class="loginForm">
             <div class="loginFormNotices flexCenterCenter">{{ loginNotices }}</div>
