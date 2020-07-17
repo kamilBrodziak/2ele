@@ -1524,20 +1524,6 @@ input:disabled {
   height: auto;
 }
 
-/*
-=====================================================
-    PRODUCT LIST WIDGET
-=====================================================
-*/
-.productListPagination {
-  height: auto;
-}
-
-.productListWidget {
-  height: auto;
-  width: 100%;
-  font-size: 2rem;
-}
 .productListWidget .productList {
   padding: 2rem 0;
   height: auto;
@@ -1545,33 +1531,6 @@ input:disabled {
   grid-template-columns: repeat(auto-fill, 270px);
   grid-gap: 1rem;
   justify-content: space-around;
-}
-
-/*
-=====================================================
-    PRODUCT WIDGET
-=====================================================
-*/
-#productWidget {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  z-index: 1000;
-  color: silver;
-}
-
-#productWidgetContainer {
-  background: rgba(0, 0, 0, 0.8);
-  width: 90%;
-  height: 90%;
-  margin: 5vh 5vw;
-}
-
-.addToCartForm label {
-  height: auto;
 }
 
 .loginWidgetNotices {

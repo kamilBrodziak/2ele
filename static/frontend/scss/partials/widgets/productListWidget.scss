@@ -1,0 +1,11 @@
+.productListWidget {
+    .productList {
+        padding: 2rem 0;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, $productListTeaseProductWidth);
+        grid-gap: 1rem;
+        justify-content: space-around;
+    }
+}
+
