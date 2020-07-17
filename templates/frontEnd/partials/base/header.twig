@@ -1,11 +1,9 @@
 <div id="hdrContainer">
-    <h1 id='hdrLogo'>
+    <figure id="hdrLogoContainer" class="imgContainer">
         <a id='hdrLogoLink' class='colorSilver flexCenterCenter textAlignCenter' href='{{site.url}}' rel='home'>
-            <figure id="hdrBannerContainer" class="imgContainer">
-                <img id="hdrBanner" src="{{ fn('getImgDir') }}/logo2.webp" alt="2ele.pl Logo">
-            </figure>
+                <img id="hdrLogo" src="{{ fn('getImgDir') }}/logo2.webp" alt="2ele.pl Logo">
         </a>
-    </h1>
+    </figure>
     <ul id="hdrContactInfoList" class="listStyleNone">
         <li class="hdrContactInfoListItem"><a href="tel:+48785807958" class="silverLink">(+48) 785 807 958</a></li>
         <li class="hdrContactInfoListItem"><a href="mailto:{{ site.admin_email }}" class="silverLink">{{ site.admin_email }}</a></li>

@@ -1,32 +1,18 @@
 #siteFooter{
-    display: grid;
-    grid-template-areas: "ftrNav" "ftrInfo" "ftrCopyright";
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto auto;
+    display: flex;
+    flex-flow: column;
     box-shadow: 0 0 8px 4px $colorLightGray;
     border-radius: 10px 10px 0 0;
     z-index: 10;
-    background: linear-gradient(to bottom, #232323, #343434, #232323);
-    
+    background: $buttonGradient;
 }
 
-#ftrInfo {
-    grid-area: ftrInfo;
-    text-align: center;
-}
-
-#ftrNav {
-    grid-area: ftrNav;
-}
 #ftrNav, #ftrInfo {
-    font-size: 2rem;
     padding: 30px 0;
-    color: silver
 }
 
 #ftrInfoList, #ftrNavList {
     width: 80%;
-    list-style: none;
     flex-flow: row wrap;
     li {
         width: 100%;
@@ -36,7 +22,6 @@
 
 #ftrCopyright {
     background: linear-gradient(to bottom, #727272, silver, #727272);
-    color: black;
     font-size: 1.6rem;
     padding: 5px;
     grid-area: ftrCopyright;
@@ -55,6 +40,14 @@
         grid-template-areas: "ftrNav ftrInfo" "ftrCopyright ftrCopyright";
         grid-template-columns: 60% 40%;
         grid-template-rows: auto auto;
+    }
+    
+    #ftrInfo {
+        grid-area: ftrInfo;
+    }
+    
+    #ftrNav {
+        grid-area: ftrNav;
     }
 }
 
