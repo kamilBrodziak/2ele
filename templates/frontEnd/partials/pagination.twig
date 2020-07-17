@@ -1,10 +1,10 @@
 {% if pagination.pages is not empty %}
-    <nav class="pagination">
-        <ul class="paginationList">
+    <nav class="pagination flexCenterCenter">
+        <ul class="paginationList listStyleNone">
             {% if currentPage > 1 %}
                 <li>
                     <a href="{{ pagination.prev.link }}" data-page="{{ currentPage - 1 }}"
-                       class="paginationElement paginationLink prev flexCenterCenter"><</a>
+                       class="paginationElement paginationLink prev transitionEase fontBold flexCenterCenter colorSilver"><</a>
                 </li>
             {% endif %}
             {% set isNext = false %}
@@ -12,18 +12,15 @@
                 {% if page.link %}
                     <li>
                         <a href="{{ page.link }}" data-page="{{ page.title }}"
-                           class="paginationElement paginationLink paginationLinkNum {% if isNext %}nextNum{% else %}prevNum{% endif %} flexCenterCenter">
+                           class="paginationElement paginationLink transitionEase paginationLinkNum colorSilver {% if isNext %}next{% else %}prev{% endif %} flexCenterCenter">
                             {{ page.title }}</a>
                     </li>
                 {% elseif page.title|number_format == currentPage %}
                     {% set isNext = true %}
                     <li>
-                        <span class="paginationElement current flexCenterCenter">{{ page.title }}</span>
+                        <span class="paginationElement current fontBold flexCenterCenter colorSilver">{{ page.title }}</span>
                     </li>
                 {% else %}
-                    <li>
-                        <span class="paginationElement dots {% if isNext %}nextDots{% else %}prevDots{% endif %} flexCenterCenter">{{ page.title }}</span>
-                    </li>
                 {% endif %}
             {% endfor %}
 {#            <li class="paginationPageInput gradientButton">#}
@@ -36,7 +33,7 @@
             {% if currentPage < pagination.pages|last.title|number_format %}
                 <li>
                     <a href="{{ pagination.next.link }}" data-page="{{ currentPage + 1 }}"
-                       class="paginationElement paginationLink next flexCenterCenter">></a>
+                       class="paginationElement paginationLink next fontBold transitionEase colorSilver flexCenterCenter">></a>
                 </li>
             {% endif %}
         </ul>
