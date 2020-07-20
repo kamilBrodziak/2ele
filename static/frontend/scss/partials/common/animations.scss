@@ -1,0 +1,8 @@
+@keyframes warning {
+    20% {
+        box-shadow: 0 0 20px 20px red;
+    }
+    30%, 100% {
+        box-shadow: 0 0 0 0 red;
+    }
+}

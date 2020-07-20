@@ -1,0 +1,117 @@
+.themeTable, .styledExternalTableContainer table {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    margin: 0 0 30px 0;
+    table-layout: fixed;
+    
+    .empty {
+        background: linear-gradient(to right, transparent 20%, rgb(255,120,10),rgb(27, 4, 239), transparent 80%);
+        td {
+            padding: 2px;
+        }
+    }
+    
+    thead {
+        tr {
+            border-radius: 10px;
+            box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+            background: var(--gradientBlack) no-repeat top left / 100% calc(100% - 10px),
+            var(--bgRepeatingGradient) no-repeat bottom left / 100% 10px;
+        }
+        
+        th {
+            &:first-child {
+                border-radius: 10px 0 0 10px;
+            }
+            
+            &:last-child {
+                border-radius: 0 10px 10px 0;
+            }
+            border-spacing: 15px 5px;
+            color: silver;
+            padding: 30px 0;
+            font-size: 2.2rem;
+        }
+    }
+    
+    
+    tfoot {
+        tr {
+            th {
+                background: var(--gradientBlack) no-repeat top left / 100% calc(100% - 10px),
+                var(--bgRepeatingGradient) no-repeat bottom left / 100% 10px;
+                box-shadow: 1px 2px 2px 1px #3d3d3d, 2px 2px 8px white;
+                border-radius: 10px;
+                color: silver;
+                font-size: 2.2rem;
+                padding: 15px;
+            }
+            
+            td {
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.styledExternalTableContainer tfoot {
+    th, td {
+        display: block;
+        clear: both;
+        box-sizing: border-box;
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: $breakTable) {
+    .themeTableMobile, .styledExternalTableContainerMobile table:not(.order_details) {
+        thead {
+            display: none;
+        }
+        
+        tr {
+            display: block;
+        }
+        
+        tbody tr:not(.empty) {
+            padding-bottom: 20px;
+        }
+        
+        .empty {
+            td:not(:first-child) {
+                display: none;
+            }
+            height: 4px;
+            margin: 10px 0;
+        }
+        tbody {
+            td {
+                position: relative;
+                min-height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 10px 0 calc(40% + 10px);
+                
+                &:before {
+                    content: attr(data-title) ": ";
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    top: 0;
+                    left: 0;
+                    width: 40%;
+                    height: 100%;
+                    background: var(--gradientBlack);
+                    color: silver;
+                    border-radius: 5px;
+                }
+            }
+        }
+        
+    }
+}

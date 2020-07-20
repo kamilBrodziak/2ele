@@ -4,7 +4,7 @@
     box-shadow: 0 0 8px 4px $colorLightGray;
     border-radius: 10px 10px 0 0;
     z-index: 10;
-    background: $buttonGradient;
+    background: var(--gradientBlack);
 }
 
 #ftrNav, #ftrInfo {
@@ -24,7 +24,6 @@
     background: linear-gradient(to bottom, #727272, silver, #727272);
     font-size: 1.6rem;
     padding: 5px;
-    grid-area: ftrCopyright;
 }
 
 @media screen and (min-width: 600px) {
@@ -37,17 +36,15 @@
 
 @media screen and (min-width: 800px) {
     #siteFooter {
-        grid-template-areas: "ftrNav ftrInfo" "ftrCopyright ftrCopyright";
-        grid-template-columns: 60% 40%;
-        grid-template-rows: auto auto;
+        flex-flow: row wrap;
     }
     
     #ftrInfo {
-        grid-area: ftrInfo;
+        width: 40%;
     }
     
     #ftrNav {
-        grid-area: ftrNav;
+        width: 60%;
     }
 }
 

@@ -1,0 +1,111 @@
+.successScreen, .errorScreen {
+    position: relative;
+    &:before, &:after {
+        display: block;
+        position: absolute;
+    }
+    
+    &:before {
+        content: '';
+        background: rgba(0, 0, 0, 0.6);
+        top: 0;
+        left: 0;
+        z-index: 200;
+        height: 100%;
+        width: 100%;
+    }
+    
+    &:after {
+        width: 100px;
+        height: 100px;
+        content: '\2713';
+        z-index: 201;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: lightgreen;
+        font-size: 5rem;
+    }
+}
+
+.errorScreen {
+    &:after {
+        content: 'X';
+        color: darkred;
+    }
+}
+
+@mixin loadingMixin($width, $height, $top, $left, $color, $translate, $animation: none, $content: ''){
+    position: relative;
+    
+    &:after {
+        background: none;
+        display: block;
+        position: absolute;
+        top: $top;
+        left: $left;
+        z-index: 201;
+        content: $content;
+        width: $width;
+        height: $height;
+        box-sizing: border-box;
+        border: 6px solid $color;
+        border-color: $color transparent $color transparent;
+        border-radius: 50%;
+        transform: $translate;
+        animation: $animation 1.2s linear infinite;
+    }
+    @if $animation != none {
+        @keyframes #{$animation} {
+            0% {
+                transform: $translate rotate(0deg);
+            }
+            100% {
+                transform: $translate rotate(360deg);
+            }
+        }
+    }
+}
+
+.loadingCenter {
+    @include loadingMixin(30px, 30px, 50%, 50%, silver, translate(-50%, -50%), loadingCenter);
+}
+
+.loadingRight {
+    @include loadingMixin(30px, 30px, 50%, calc(100% - 5px), silver, translate(-100%, -50%), loadingRight);
+}
+
+.loadingScreen {
+    @include loadingMixin(64px, 64px, 50%, 50%, silver, translate(-50%, -50%), loadingCenter);
+    &:before {
+        display: block;
+        content: '';
+        background: rgba(0, 0, 0, 0.6);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 200;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.successRight {
+    position: relative;
+    
+    &:after {
+        font-size: 3rem;
+        color: green;
+        background: none;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: calc(100% - 5px);
+        z-index: 201;
+        content: '\2713';
+        width: auto;
+        height: auto;
+        box-sizing: border-box;
+        transform: translate(-100%, -50%);
+    }
+}

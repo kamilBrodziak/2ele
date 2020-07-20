@@ -1,0 +1,85 @@
+.verticalLabels {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0 0 20px 0;
+    
+    * {
+        text-align: center;
+    }
+    
+    span {
+        display: block;
+        width: 100%;
+    }
+    
+    input {
+        display: block;
+        width: 100%;
+        height: 50px;
+    }
+}
+
+.horizontalCheckboxLabels {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: auto;
+    font-size: 2rem;
+    text-align: left;
+    margin: 0 auto 20px auto;
+    
+    span {
+        display: block;
+        width: calc(100% - 70px);
+        padding: 10px 0 0 0;
+    }
+    
+    input {
+        display: block;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.gradientInput, .styledExternalInputContainer input:not([type=checkbox]):not([type=radio]), .styledExternalInputContainer textarea {
+    background: var(--gradientBlack);
+    border: 2px solid silver;
+    border-radius: 5px;
+    color: silver;
+    text-align: center;
+    
+    &:focus {
+        border: 4px solid #d35400;
+    }
+    
+    &.wrongInput {
+        border: 4px solid red;
+    }
+    
+    &.approvedInput {
+        border: 4px solid green;
+    }
+}
+
+.gradientCheckbox, .styledExternalCheckboxContainer input[type=checkbox],
+.styledExternalCheckboxContainer input[type=radio]{
+    background: var(--gradientBlack);
+    border: 2px solid silver;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    
+    &:checked {
+        font-size: 2rem;
+        background: radial-gradient(silver, #b4b4b4) no-repeat center / 70% 70%,
+        var(--gradientBlack);
+    }
+    
+}

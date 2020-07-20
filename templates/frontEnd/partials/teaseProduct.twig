@@ -1,10 +1,10 @@
-<article class="teaseProduct">
+<article class="teaseProduct textAlignCenter">
     <div class="teaseProductWrapper">
         <header class="teaseProductHeader">
             {% if isSingleProductPage == false %}
                 <a class='teaseProductAnchor textAlignCenter' href='{{ product.link }}' data-product_id="{{ product.id }}">
                     {% include ['partials/teaseProduct/teaseProductPicture.twig'] %}
-                    <h3 class='teaseProductTitle'>{{ product.title }}</h3>
+                    <h3 class='teaseProductTitle overflowHidden'>{{ product.title }}</h3>
                 </a>
             {% else %}
                 {% include ['partials/teaseProduct/teaseProductPicture.twig'] %}

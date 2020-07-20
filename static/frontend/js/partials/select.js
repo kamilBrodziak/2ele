@@ -6,10 +6,10 @@ class CustomSelect {
     showSelect() {
         let _this = this;
         $('body').on('click', '.customSelect', function(e) {
-            let isClosed = $(this).find('.customSelectItemsContainer').hasClass('customSelectHide')
+            let isClosed = $(this).find('.customSelectItemsContainer').hasClass('hide')
             _this.hideSelect();
             if(isClosed) {
-                $(this).find('.customSelectItemsContainer').removeClass('customSelectHide');
+                $(this).find('.customSelectItemsContainer').removeClass('hide');
                 $(this).find('.customSelectSelected').addClass('selectArrowActive');
             }
 
@@ -47,7 +47,7 @@ class CustomSelect {
     }
 
     hideSelect() {
-        $('.customSelectItemsContainer').addClass('customSelectHide');
+        $('.customSelectItemsContainer').addClass('hide');
         $('.selectArrowActive').removeClass('selectArrowActive');
     }
 }

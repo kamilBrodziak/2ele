@@ -1,0 +1,56 @@
+.customSelect {
+    height: auto;
+    position: relative;
+}
+
+.customSelectSelected {
+    height: 55px;
+    font-size: 1.8rem;
+    position: relative;
+    border-radius: 5px;
+    background: var(--gradientBlack);
+    &:after {
+        position: absolute;
+        content: "";
+        top: calc(50% - 4px);
+        right: 5px;
+        width: 0;
+        height: 0;
+        border: 8px solid transparent;
+        border-color: #fff transparent transparent transparent;
+    }
+    &.selectArrowActive:after {
+        border-color: transparent transparent #fff transparent;
+        top: calc(50% - 12px);
+    }
+}
+
+/*style the items (options), including the selected item:*/
+.customSelectItem,.customSelectSelected {
+    padding: 8px 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.customSelectItemsContainer {
+    position: absolute;
+    border-radius: 5px;
+    background: var(--gradientBlack);
+    border-bottom: 5px solid $colorOrange;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 98;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.customSelectItem {
+    padding: 15px 5px;
+    border: 0 solid silver;
+    border-width: 1px 0;
+}
+
+.customSelectItem:hover, .sameAsSelected {
+    background-color: rgba(255, 255, 255, 0.1);
+}

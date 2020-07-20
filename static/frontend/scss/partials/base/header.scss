@@ -1,7 +1,7 @@
 #hdrContainer {
     display: flex;
     flex-flow: column;
-    background: $buttonGradient;
+    background: var(--gradientBlack);
     position: relative;
     z-index: 10;
 }

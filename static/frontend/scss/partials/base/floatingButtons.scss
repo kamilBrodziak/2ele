@@ -11,7 +11,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: $buttonGradient;
+    background: var(--gradientBlack);
     border: 4px groove #343434;
     box-shadow: 0 0 5px 1px white;
 }

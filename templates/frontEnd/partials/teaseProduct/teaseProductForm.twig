@@ -2,15 +2,15 @@
     <label class="teaseProductFormQuantityLabel">
         <span>Ilość:</span>
         <input type="number" name="quantity" min="1" max="{{ product.maxQuantity }}"
-               value="1" class="teaseProductFormQuantity gradientInput">
+               value="1" class="teaseProductFormQuantity gradientInput textAlignCenter">
     </label>
     {% if product.isVariable and product.variable.variations != [] %}
         <div class="customSelect">
             <span>{{ product.variable.variations[0].variationLabel|capitalize }}:</span>
-            <div class="customSelectSelected" data-variation_id="">Wybierz opcję</div>
-            <div class="customSelectItemsContainer customSelectHide">
+            <div class="customSelectSelected colorSilver flexCenterCenter" data-variation_id="">Wybierz opcję</div>
+            <div class="customSelectItemsContainer hide">
                 {% for variation in product.variable.variations %}
-                    <div class="customSelectItem" data-variation_id="{{ variation.id }}"
+                    <div class="customSelectItem colorSilver" data-variation_id="{{ variation.id }}"
                          data-image_src="{{ variation.imageSrc }}" data-image_alt="{{ variation.imageAlt }}"
                          data-max_quantity="{{ variation.maxQuantity }}"
                          data-price="{{ variation.price }}">{{ variation.name }}</div>

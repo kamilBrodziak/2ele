@@ -1,27 +1,15 @@
-/*
-=====================================================
-    TEASE PRODUCT - DEFAULT VALUES FOR PRODUCT LIST WIDGET
-=====================================================
-*/
 .teaseProduct {
-    text-align: center;
     padding: $productListTeaseProductHorizontalPadding;
-    background: $bgRepeatingGradient2;
+    background: var(--bgRepeatingGradient);
     border-radius: 50px;
-    box-shadow:  2px 2px 2px 2px #4b4b4b;
+    box-shadow: 2px 2px 2px 2px #4b4b4b, inset 0 0 10px $colorDarkGray;
     width: $productListTeaseProductWidth;
-    height: auto;
 }
 
 .teaseProductWrapper {
     background: white;
     border-radius: 50px;
-    box-shadow:  inset 2px 2px 2px 2px #4b4b4b;
-}
-
-.teaseProductAnchor {
-    width: 100%;
-    height: auto;
+    box-shadow: inset 2px 2px 2px 2px #4b4b4b;
 }
 
 .teaseProductHeader {
@@ -34,29 +22,11 @@
     width: $productListTeaseProductPictureWidth;
     padding: 10px;
     border-radius: 50px 50px 0 0;
-    overflow: hidden;
-    position: relative;
-}
-
-.teaseProductTitleS {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: auto;
-    width: calc(100% - 20px);
-    background: rgba(255, 255, 255, 0.6);
-    margin: 0 10px;
-    color: black;
-    text-shadow: 1px 1px 10px #4c4c4c;
-    display: none;
 }
 
 .teaseProductTitle {
-    overflow: hidden;
-    //display: none;
     text-overflow: ellipsis;
     white-space: nowrap;
-    position: relative;
     font-size: 2rem;
     padding: 0 8px;
     color: black;
@@ -66,7 +36,6 @@
     height: auto;
     font-size: 1.8rem;
     span {
-        width: auto;
         &:not(:only-child) {
             &:first-child {
                 text-decoration: line-through;
@@ -86,37 +55,27 @@
     justify-content: center;
     width: 100%;
     
-    input {
-        width: 100%;
-        height: 55px;
-        text-align: center;
-    }
     span {
         display: block;
         font-size: 2rem;
     }
     
-    .teaseProductFormQuantityLabel {
-        width: 55px;
-        height: auto;
-    }
-    
     .customSelect {
         width: calc(100% - 55px - 24px);
-        height: auto;
         margin: 0 0 0 4px;
-        .customSelectSelected {
-            height: 55px;
-            font-size: 1.8rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
     }
-    
-    .teaseProductFormSubmitLabel {
-        width: 100%;
-        height: auto;
-    }
+}
+
+.teaseProductFormQuantityLabel {
+    height: auto;
+}
+
+.teaseProductFormQuantity {
+    width: 55px;
+    height: 55px;
+}
+
+.teaseProductFormSubmitLabel {
+    width: 100%;
 }
 

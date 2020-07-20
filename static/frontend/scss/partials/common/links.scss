@@ -1,0 +1,17 @@
+.blackLink, .styledExternalLinksContainer a, .silverLink {
+    color: black;
+    transition: all 0.1s ease;
+    text-decoration: none;
+    font-style: italic;
+    
+    &:hover, &:active {
+        color: #5a5a5a;
+    }
+}
+
+.silverLink {
+    color: silver;
+    &:hover, &:active {
+        color: #5c5c5c;
+    }
+}
