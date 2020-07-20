@@ -26,7 +26,7 @@
     padding: 5px;
 }
 
-@media screen and (min-width: 600px) {
+@media all and (min-width: 600px) {
     #ftrNavList {
         li {
             width: 50%;
@@ -34,7 +34,7 @@
     }
 }
 
-@media screen and (min-width: 800px) {
+@media all and (min-width: 800px) {
     #siteFooter {
         flex-flow: row wrap;
     }

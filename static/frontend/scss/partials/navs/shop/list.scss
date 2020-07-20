@@ -53,7 +53,7 @@
     }
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     .shopNavListItem {
         position: relative;
         &:nth-child(odd) {
@@ -147,7 +147,7 @@
     }
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     .shopNavListItemSubListExpandButton {
         display: none;
     }

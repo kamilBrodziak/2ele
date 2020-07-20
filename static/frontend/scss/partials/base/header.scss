@@ -6,7 +6,7 @@
     z-index: 10;
 }
 
-@media screen and (min-width: $breakDesktop) and (min-height: $breakNavHeight) {
+@media all and (min-width: $breakDesktop) and (min-height: $breakNavHeight) {
     #hdrContainer {
         box-shadow: 0 0 12px 8px $colorLightGray;
         border-radius: 0 0 10px 10px;
@@ -19,13 +19,13 @@
     height: 180px;
 }
 
-@media screen and (min-width: 400px) {
+@media all and (min-width: 400px) {
     #hdrLogoContainer {
         height: 250px;
     }
 }
 
-@media screen and (min-width: 600px) {
+@media all and (min-width: 600px) {
     #hdrLogoContainer {
         height: 320px;
     }
@@ -39,7 +39,7 @@
     display: none;
 }
 
-@media screen and (min-width: $breakDesktop) {
+@media all and (min-width: $breakDesktop) {
     #hdrContactInfoList {
         display: flex;
         position: absolute;

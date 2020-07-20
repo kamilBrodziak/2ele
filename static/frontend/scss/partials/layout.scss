@@ -28,7 +28,7 @@
     }
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #siteContainer {
         background: var(--bgRepeatingGradient);
         #siteMain {

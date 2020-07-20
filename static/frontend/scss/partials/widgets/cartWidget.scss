@@ -21,7 +21,7 @@
     margin: 0 0 20px auto;
 }
 
-@media only screen and (max-width: 700px) {
+@media all and (max-width: 700px) {
     .cartItems {
         td {
             &:first-of-type {
@@ -39,14 +39,14 @@
     }
 }
 
-@media only screen and (min-width: 700px) and (max-width: 1200px) {
+@media all and (min-width: 700px) and (max-width: 1200px) {
     .cartItems {
         td {
             font-size: 1.6rem;
         }
     }
 }
-@media only screen and (min-width: 700px) {
+@media all and (min-width: 700px) {
     .cartItemImgContainer {
         height: 120px;
         width: 120px;

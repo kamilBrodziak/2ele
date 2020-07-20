@@ -62,7 +62,7 @@
     height: calc(var(--vh, 1vh) * 100);
 }
 
-@media screen and (min-width: 996px) {
+@media all and (min-width: 996px) {
     .widget {
         width: 90vw;
         height: 90vh;

@@ -66,7 +66,7 @@
     }
 }
 
-@media only screen and (max-width: $breakTable) {
+@media all and (max-width: $breakTable) {
     .themeTableMobile, .styledExternalTableContainerMobile table:not(.order_details) {
         thead {
             display: none;

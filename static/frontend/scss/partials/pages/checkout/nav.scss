@@ -14,7 +14,7 @@
     }
 }
 
-@media only screen and (min-width: $breakTablet) {
+@media all and (min-width: $breakTablet) {
     .checkoutWidgetNav {
         div {
             width: 45%;

@@ -7,7 +7,7 @@
     position: relative;
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #shopSearch {
         flex-flow: column;
     }
@@ -19,7 +19,7 @@
     height: 100%;
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #shopSearchFieldLabel {
         width: 100%;
         height: 50px;
@@ -38,7 +38,7 @@
 
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #shopSearchSubmitContainer {
         width: 100%;
     }
@@ -50,7 +50,7 @@
     margin: 0 0 0 10px;
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #shopSearchSubmit {
         height: 50px;
         width: 100%;
@@ -107,7 +107,7 @@
     }
 }
 
-@media screen and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
+@media all and (min-height: $breakNavHeight) and (min-width: $breakDesktop) {
     #shopSearchResults {
         top: 0;
         left: 100%;
