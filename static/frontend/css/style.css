@@ -196,6 +196,10 @@ input:disabled {
   background: radial-gradient(silver, #b4b4b4) no-repeat center/70% 70%, var(--gradientBlack);
 }
 
+.gradientCheckbox:checked, .styledExternalCheckboxContainer input[type=checkbox]:checked {
+  background: linear-gradient(60deg, transparent calc(50% - 4px), silver calc(50% - 2px), silver calc(50% + 2px), transparent calc(50% + 4px)) no-repeat 13% 82%/50% 40%, linear-gradient(-60deg, transparent calc(50% - 4px), silver calc(50% - 2px), silver calc(50% + 2px), transparent calc(50% + 4px)) no-repeat 78% 50%/50% 70%, var(--gradientBlack);
+}
+
 .themeTable, .styledExternalTableContainer table {
   width: 100%;
   height: auto;
