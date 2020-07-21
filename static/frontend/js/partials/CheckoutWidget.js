@@ -20,8 +20,8 @@ class CheckoutWidget {
         this.widget = this.container.find('.checkoutWidget');
         this.cartLink = this.widget.find('.checkoutWidgetPreviousLink');
         this.stage = 0;
-        this.widget.find('.orderWidgetStage').each(() => {
-            _this.stages.push($(this));
+        this.widget.find('.orderWidgetStage').each((i, el) => {
+            _this.stages.push($(el));
         });
         this.previousButton = this.widget.find('.checkoutWidgetPreviousButton');
         this.nextButton = this.widget.find('.checkoutWidgetNextButton');
@@ -69,7 +69,6 @@ class CheckoutWidget {
             if(!cartLinkContainer.hasClass(hideClass))
                 cartLinkContainer.addClass(hideClass);
         }
-
         if(this.stage + 1 === this.stagesNames.length) {
             nextContainer.addClass(hideClass);
         } else {

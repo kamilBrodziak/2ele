@@ -38,7 +38,7 @@ class TeaseProducts {
     }
 
     addForm(formClass, basketID) {
-        $('body').on('submit', '.' + formClass, (e) => {
+        $('body').on('submit', '.' + formClass, function(e) {
             e.preventDefault();
             const form = $(this);
             const productID = form.data('product_id'),

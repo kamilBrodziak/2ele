@@ -12,7 +12,7 @@ $( function() {
     search.addAjaxSearch();
     search.closingSearchResultEvent();
 
-    
+
     const contactPageForm = $('#pageContactForm');
     if(contactPageForm.length) {
         const emailFormHandler = new EmailFormHandler(contactPageForm );

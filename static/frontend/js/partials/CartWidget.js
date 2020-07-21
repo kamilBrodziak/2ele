@@ -39,10 +39,10 @@ class CartWidget {
 
     addRemoveItemButton() {
         const _this = this;
-        this.cartItemsRemoves.each(() => {
-            $(this).on('click', (e) => {
+        this.cartItemsRemoves.each((i, el) => {
+            $(el).on('click', (e) => {
                 e.preventDefault();
-                const cartItem = $(this).closest('.' + _this.cartItemClass),
+                const cartItem = $(el).closest('.' + _this.cartItemClass),
                         data = {
                             productKey: cartItem.data('product_key'),
                             action: 'removeProductFromCart'
@@ -54,10 +54,10 @@ class CartWidget {
 
     addQuantityChangeInput() {
         const _this = this;
-        this.cartItemsQuantities.each(() => {
-            $(this).on('keyup focusout', (e) => {
+        this.cartItemsQuantities.each((i, el) => {
+            $(el).on('keyup focusout', (e) => {
                 e.preventDefault();
-                const input = $(this);
+                const input = $(el);
                 if(e.type === "keyup" && e.keyCode === 13){
                     input.blur();
                 }

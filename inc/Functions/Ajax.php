@@ -50,9 +50,7 @@ function addProductToCart() {
     $productID = $_POST['productID'];
     $quantity = $_POST['quantity'];
     $variationID = $_POST['variationID'];
-    $result = '';
     if($variationID) {
-//        WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
         $result = WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
     } else {
         $result = WC()->cart->add_to_cart((int)$productID, (int)$quantity);

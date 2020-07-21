@@ -2,7 +2,6 @@
 
 {% block products %}
     <div id="shopPageProductListWidget" data-search="{{ searchQuery }}">
-        <h1 class="header1Gradient">Wyniki wyszukiwania dla: {{ searchQuery }}</h1>
-        {% include ['partials/productListWidget.twig'] %}
+        {% include ['partials/widgets/productListWidget.twig'] %}
     </div>
 {% endblock %}
