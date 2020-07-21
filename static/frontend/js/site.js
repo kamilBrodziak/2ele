@@ -1,65 +1,76 @@
 $( function() {
-    // let parallax = new ParallaxBgPicture($('.parallaxBg'));
-    // parallax.toggleParallax();
-    let emailFormHandler = new EmailFormHandler($('#pageContactForm'), "sendUserEmail","pageContactFormSuccessInfo" );
-    emailFormHandler.submitEvent();
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    $(window).on('resize', function (e) {
+    $(window).on('resize', () => {
         vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
-    let mobileNav = new MobileNav($('#shopNavWrapper'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
+    const mobileNav = new MobileNav($('#shopNavWrapper'), 'shopNavDisplay', $('#shopNavMobileCloseButton'));
     mobileNav.addCloseOnResizeEvent();
-    mobileNav.addNavSubListExpandButton($('.shopNavListItemSubListExpandButton'),
-        'shopNavListItemSubList', 'expand');
-
-    let ajaxPagination = new AjaxPagination($('.paginationLink'), 'shopPageProductListWidget');
-    ajaxPagination.addAjaxPagination();
-    ajaxPagination.addAjaxInputPagination();
-
-
-    let teaseProduct = new TeaseProducts($('.teaseProduct'), 'teaseProductAnchor');
-    // teaseProduct.addTeaseProductDisplay();
-    teaseProduct.addForm('teaseProductForm', 'cartButtonQuantity');
-    // teaseProduct.addClosing();
-
-    let customSelect = new CustomSelect();
-    customSelect.showSelect();
-    customSelect.hideSelectWhenClickedOutsideSelect();
-
-    // let cartWidget = new CartWidget($('#cartPageCartWidgetContainer'));
-    // cartWidget.withWidget();
-    let search = new Search('shopSearch');
+    mobileNav.addNavSubListExpandButton($('.shopNavListItemSubListExpandButton'),'shopNavListItemSubList', 'expand');
+    const search = new Search('shopSearch');
     search.addAjaxSearch();
     search.closingSearchResultEvent();
-    let loginPageLoginWidgetContainer = $('#accountPageLoginWidgetContainer');
-    let loginPageLoginWidget = new LoginWidget(loginPageLoginWidgetContainer);
-    loginPageLoginWidget.withWidget(true);
-    // loginPageLoginWidget.addNav('loginWidgetNavListItem', 'loginWidgetNavList');
-    // loginPageLoginWidget.addRegisterValidation();
-    // loginPageLoginWidget.addRegisterAjax();
 
-    let orderWidget = new OrderWidget($('<div id="#orderWidgetContainer" class="widget">'));
-    orderWidget.loadWidgetAjaxViaButton($('#cartButton'));
+    
+    const contactPageForm = $('#pageContactForm');
+    if(contactPageForm.length) {
+        const emailFormHandler = new EmailFormHandler(contactPageForm );
+        emailFormHandler.submitEvent();
+    }
 
-    let cartPageOrderWidget = new OrderWidget($('#cartPageCartWidgetContainer'));
-    cartPageOrderWidget.withWidget();
+
+    const shopProductListWidget = $('#shopPageProductListWidget');
+    if(shopProductListWidget.length) {
+        const ajaxPagination = new AjaxPagination(shopProductListWidget, 'shopPageProductListWidget');
+        ajaxPagination.addAjaxPagination();
+        // ajaxPagination.addAjaxInputPagination();
+    }
+
+
+    const teaseProductEl = $('.teaseProduct');
+    if(teaseProductEl.length) {
+        const teaseProduct = new TeaseProducts(teaseProductEl, 'teaseProductAnchor');
+        // teaseProduct.addTeaseProductDisplay();
+        teaseProduct.addForm('teaseProductForm', 'cartButtonQuantity');
+        // teaseProduct.addClosing();
+        const customSelect = new CustomSelect();
+        customSelect.showSelect();
+        customSelect.hideSelectWhenClickedOutsideSelect();
+    }
+
+
+    const loginPageLoginWidgetContainer = $('#accountPageLoginWidgetContainer');
+    if(loginPageLoginWidgetContainer.length) {
+        const loginPageLoginWidget = new LoginWidget(loginPageLoginWidgetContainer);
+        loginPageLoginWidget.withWidget(true);
+    }
+
+
+    const cartPageOrderWidgetContainer  = $('#cartPageCartWidgetContainer');
+    if(cartPageOrderWidgetContainer.length) {
+        const cartPageOrderWidget = new OrderWidget(cartPageOrderWidgetContainer);
+        cartPageOrderWidget.withWidget();
+    }
+
+
+    const cartButton = $('#cartButton');
+    if(cartButton.length) {
+        const orderWidget = new OrderWidget($('<div id="#orderWidgetContainer" class="widget">'));
+        orderWidget.loadWidgetAjaxViaButton(cartButton);
+    }
+
 
     const checkoutPage = $('#checkoutPage');
     if(checkoutPage.length) {
-        let checkoutPageCartWidget = new CheckoutWidget(checkoutPage);
-        checkoutPageCartWidget.withWidget();
+        const checkoutPageCheckoutWidget = new CheckoutWidget(checkoutPage);
+        checkoutPageCheckoutWidget.withWidget();
     }
-
-    // orderWidget.orderShow('basketButton');
-    // orderWidget.addCloseWhenClickOutside();
-    // orderWidget.addCloseButton('orderWidgetCloseButton');
 
 });
 
 function addInputMinMaxTesting(input) {
-    let min = input.attr('min'), max = input.attr('max'), val = input.val();
+    const min = input.attr('min'), max = input.attr('max'), val = input.val();
     if (max && parseInt(val) > parseInt(max)) {
         input.val(max);
     } else if (min && parseInt(val) < parseInt(min)) {
@@ -82,106 +93,4 @@ function ajaxCall(data, beforeSendFunc, errorFunc, successFunc) {
         error: errorFunc,
         success: successFunc
     });
-}
-
-
-
-
-
-
-
-
-
-class EmailFormHandler {
-    constructor(form, phpHandlerFuncName, successInfoId) {
-        this.form = form;
-        this.phpHandlerFuncName = phpHandlerFuncName;
-        this.successInfoId = successInfoId;
-    }
-
-    submitEvent() {
-        let self = this;
-        self.form.on('submit', function (e) {
-            e.preventDefault();
-            let form = self.form,
-                name = form.find('.contactFormName').val(),
-                email = form.find('.contactFormEmail').val(),
-                message = form.find('.contactFormMessage').val(),
-                ajaxUrl = form.data('url');
-            self.sendEmail(name, email, message, ajaxUrl);
-        });
-    }
-
-    sendEmail(name, email, message, ajaxUrl) {
-        let self = this;
-        $.ajax({
-            url: ajaxUrl,
-            type: 'post',
-            data: {
-                name: name,
-                email: email,
-                message: message,
-                action: self.phpHandlerFuncName
-            },
-            beforeSend: function(response) {
-                self.form.addClass('loadingScreen');
-                self.form.find("#ftrContactFormSubmit").prop("disabled", true);
-            },
-            error: function (response) {
-                console.log(response);
-                self.form.removeClass('loadingScreen');
-                self.displayMessage("contactFormFailInfo");
-                self.form.find("#ftrContactFormSubmit").prop("disabled", false)
-            },
-            success: function (response) {
-                console.log(response);
-                console.log(message);
-                self.form.removeClass('loadingScreen');
-                self.displayMessage("contactFormSuccessInfo");
-                self.form.find("#ftrContactFormSubmit").prop("disabled", false)
-            }
-        });
-    }
-
-    displayMessage(messageClass) {
-        let successInfoElement = this.form.find("." + messageClass);
-        successInfoElement.css("display", "flex");
-        setTimeout(function() {
-            successInfoElement.css("display", "none");
-        }, 2000);
-    }
-}
-
-class ParallaxBgPicture {
-    constructor(parallaxBgDOM) {
-        this.parallaxBgDOM = parallaxBgDOM;
-        this.parallaxBgInitialPosY = 0;
-        this.adjustParallaxWhenBrowserResize();
-    }
-
-    setParallaxBgPosY() {
-        this.parallaxBgInitialPosY = parseFloat($("header").css('height'));
-    }
-
-    adjustParallaxWhenBrowserResize() {
-        let self = this;
-        $(window).resize(function() {
-            self.setParallaxBgPosY();
-            self.scrollParallax(parseFloat($(window).scrollTop()));
-        });
-    }
-
-    toggleParallax() {
-        let self = this;
-        this.setParallaxBgPosY();
-        this.scrollParallax($(window).scrollTop());
-        $(window).scroll(function() {
-            self.scrollParallax(this.scrollY);
-        });
-    }
-
-    scrollParallax(scrollY) {
-        let newBgPosY = this.parallaxBgInitialPosY - scrollY > 0 ? this.parallaxBgInitialPosY - scrollY : 0;
-        this.parallaxBgDOM.css("background-position-y", newBgPosY);
-    }
 }

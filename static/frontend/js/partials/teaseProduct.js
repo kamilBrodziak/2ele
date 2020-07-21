@@ -4,33 +4,33 @@ class TeaseProducts {
         this.anchorClass = anchorClass;
     }
 
-    addTeaseProductDisplay() {
-        let _this = this;
-        $('body').on('click', "." + this.anchorClass, function (e) {
-            e.preventDefault();
-            let productID = $(this).data('product_id');
-
-            // $.ajax({
-            //     url: ajaxPaginationParams.ajaxUrl,
-            //     type: 'POST',
-            //     data: {
-            //         productID: productID,
-            //         action: 'addProductWidget'
-            //     },
-            //     beforeSend: function(response) {
-            //
-            //     },
-            //     error: function(response) {
-            //     },
-            //     success: function (response) {
-            //         $('#siteContainer').append(response);
-            //     }
-            // });
-        });
-    }
+    // addTeaseProductDisplay() {
+    //     let _this = this;
+    //     $('body').on('click', "." + this.anchorClass, function (e) {
+    //         e.preventDefault();
+    //         let productID = $(this).data('product_id');
+    //
+    //         $.ajax({
+    //             url: ajaxPaginationParams.ajaxUrl,
+    //             type: 'POST',
+    //             data: {
+    //                 productID: productID,
+    //                 action: 'addProductWidget'
+    //             },
+    //             beforeSend: function(response) {
+    //
+    //             },
+    //             error: function(response) {
+    //             },
+    //             success: function (response) {
+    //                 $('#siteContainer').append(response);
+    //             }
+    //         });
+    //     });
+    // }
 
     addClosing() {
-        $('body').on('click', function(e) {
+        $('body').on('click', (e) => {
             if($(e.target).attr('id') !== 'productWidgetContainer') {
                 $('#productWidget').remove();
             }
@@ -38,7 +38,7 @@ class TeaseProducts {
     }
 
     addForm(formClass, basketID) {
-        $('body').on('submit', '.' + formClass, function (e) {
+        $('body').on('submit', '.' + formClass, (e) => {
             e.preventDefault();
             const form = $(this);
             const productID = form.data('product_id'),
@@ -54,14 +54,14 @@ class TeaseProducts {
                     variationID: variationID,
                     action: 'addProductToCart'
                 },
-                beforeSend: function(response) {
+                beforeSend: () => {
                     teaseProduct.addClass('loadingScreen')
                 },
-                error: function(response) {
+                error: (response) => {
                     console.log(response);
                     teaseProduct.removeClass('loadingScreen')
                 },
-                success: function (response) {
+                success: (response) => {
                     teaseProduct.removeClass('loadingScreen');
                     const basket = $('#' + basketID);
                     let resultClass = '';

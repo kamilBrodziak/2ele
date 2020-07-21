@@ -1,48 +1,46 @@
 class AjaxPagination {
-    constructor(buttons, containerID) {
-        this.buttons = buttons;
+    constructor(container, containerID) {
         this.containerID = containerID;
-        this.container = $('#' + containerID);
+        this.container = container;
         this.firstPageChange = true;
     }
 
     addAjaxPagination() {
-        let _this = this;
-        $('body').on('click', '#' + _this.containerID + ' .paginationLink', function (e) {
+        const _this = this;
+        $('body').on('click', '#' + _this.containerID + ' .paginationLink', (e) => {
             e.preventDefault();
-            let page = parseInt($(this).data('page'));
+            const page = parseInt($(this).data('page'));
             _this.changePage(page);
         });
     }
-
-    addAjaxInputPagination() {
-        let _this = this;
-        $('body').on('keyup focusout','#' + _this.containerID +  ' .paginationInput', function (e) {
-            e.preventDefault();
-            let input = $(this);
-            if((e.type === "keyup" && input.val() !== "" && e.keyCode === 13) || e.type==="focusout") {
-                $.when(addInputMinMaxTesting(input)).done(function () {
-                    _this.changePage(input.val());
-                })
-            }
-        });
-    }
+    // input page change, currently commented in html
+    // addAjaxInputPagination() {
+    //     const _this = this;
+    //     $('body').on('keyup focusout','#' + _this.containerID +  ' .paginationInput', (e) => {
+    //         e.preventDefault();
+    //         const input = $(this);
+    //         if((e.type === "keyup" && input.val() !== "" && e.keyCode === 13) || e.type==="focusout") {
+    //             $.when(addInputMinMaxTesting(input)).done(() => {
+    //                 _this.changePage(input.val());
+    //             })
+    //         }
+    //     });
+    // }
 
     changePage(page) {
-        let _this = this;
+        const _this = this,
+            data = {
+                page: page,
+                maxPage: ajaxPaginationParams.maxPage,
+                action: 'changePage'
+            },
+            category = _this.container.data('category'),
+            search = _this.container.data('search');
 
         if(this.firstPageChange) {
             window.history.pushState({"html":this.container.html(),"pageTitle":document.title},"");
             this.firstPageChange = false;
         }
-
-        let data = {
-            page: page,
-            maxPage: ajaxPaginationParams.maxPage,
-            action: 'changePage'
-        }
-        let category = _this.container.data('category');
-        let search = _this.container.data('search');
         if (category) {
             data.category = category;
         }
@@ -53,14 +51,10 @@ class AjaxPagination {
     }
 
     reloadPageAjax(data, page) {
-        let _this = this;
-        let pageUrl = window.location.href.split('?')[0];
-        let queryParams = window.location.href.split('?')[1];
-        if(!queryParams) {
-            queryParams = "";
-        }else {
-            queryParams = "?" + queryParams;
-        }
+        const _this = this, loadingClass = 'loadingScreen';
+        let pageUrl = window.location.href.split('?')[0],
+            queryParams = window.location.href.split('?')[1];
+        queryParams = !queryParams ? "" : "?" + queryParams;
         if(page === 1) {
             pageUrl = pageUrl.replace(/page\/[0-9]+(\/)?/, "");
         } else {
@@ -72,17 +66,17 @@ class AjaxPagination {
         }
         pageUrl += queryParams;
 
-        let beforeSendFunc = (response) => {
-            _this.container.addClass('loadingScreen');
+        const beforeSendFunc = () => {
+            _this.container.addClass(loadingClass);
         }, errorFunc = (response) => {
-            _this.container.removeClass('loadingScreen');
+            _this.container.removeClass(loadingClass);
             console.log(response);
         }, successFunc = (response) => {
-            _this.container.removeClass('loadingScreen');
+            _this.container.removeClass(loadingClass);
             _this.container.empty().append(response);
             window.document.title = window.document.title.toString().replace('-', '- strona ' + page + ' -');
             window.history.pushState({"html":_this.container.html(),"pageTitle":window.document.title},"", pageUrl);
-            window.onpopstate = function(e){
+            window.onpopstate = (e) => {
                 if(e.state){
                     _this.container.empty().append(e.state.html);
                     document.title = e.state.pageTitle;

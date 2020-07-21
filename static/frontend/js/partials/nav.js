@@ -7,8 +7,8 @@ class MobileNav {
     }
 
     addCloseButton() {
-        let _this = this;
-        this.closeButton.on('click', function () {
+        const _this = this;
+        this.closeButton.on('click', () => {
             if(_this.nav.hasClass(_this.showClass)) {
                 _this.shrinkNav();
             } else {
@@ -18,11 +18,10 @@ class MobileNav {
     }
 
     addNavSubListExpandButton(button, subListClass, expandClass) {
-        let _this = this;
-        button.each( function() {
-            let b = $(this);
-            $(this).on('click', function () {
-                let subList = b.parent().children('.' + subListClass);
+        button.each( () => {
+            const b = $(this);
+            b.on('click', () => {
+                const subList = b.parent().children('.' + subListClass);
                 if(subList.hasClass(expandClass)) {
                     b.removeClass(expandClass);
                     subList.removeClass(expandClass);
@@ -35,8 +34,8 @@ class MobileNav {
     }
 
     addCloseOnResizeEvent() {
-        let _this = this;
-        $(window).on('resize', function() {
+        const _this = this;
+        $(window).on('resize',() => {
             _this.shrinkNav();
         });
     }

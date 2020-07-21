@@ -26,7 +26,7 @@ function changePage() {
     ]);
 
 
-    Timber::render('partials/productListWidget.twig', $context);
+    Timber::render('partials/widgets/productListWidget.twig', $context);
     die();
 }
 add_action('wp_ajax_nopriv_changePage', 'changePage');
@@ -40,7 +40,7 @@ function addProductWidget() {
     $context['product'] = $product;
     // Restore the context and loop back to the main query loop.
     wp_reset_postdata();
-    Timber::render('partials/productWidget.twig', $context);
+    Timber::render('partials/widgets/productWidget.twig', $context);
     die();
 }
 add_action('wp_ajax_nopriv_addProductWidget', 'addProductWidget');
@@ -137,7 +137,7 @@ function loadOrderWidgetAjax() {
     }
 
 //    $context['nextUrl'] = $_POST['nextUrl'];
-    Timber::render('partials/orderWidget.twig', $context);
+    Timber::render('partials/widgets/orderWidget.twig', $context);
 //    wp_enqueue_script(plugins_url() . '/woocommerce/assets/js/frontend/checkout.min.js');
     die();
 }
@@ -153,11 +153,9 @@ add_action('wp_ajax_loadOrderWidgetAjax', 'loadOrderWidgetAjax');
 function loadCartWidgetAjax() {
     $context = Timber::context();
     $context = loadCartIntoContext($context);
-    if($_POST['notices']) {
-        $context['cartNotices'][] = $_POST['notices'];
-    }
+    $context['cartNotices'] = getCartQuantityNotices($context['products']);
     wp_reset_postdata();
-    Timber::render('partials/cartWidget.twig', $context);
+    Timber::render('partials/widgets/cartWidget.twig', $context);
 }
 add_action('wp_ajax_nopriv_loadCartWidgetAjax', 'loadCartWidgetAjax');
 add_action('wp_ajax_loadCartWidgetAjax', 'loadCartWidgetAjax');
@@ -201,7 +199,7 @@ function loadLoginWidgetAjax() {
         $context['whichPageShow'] = 'login';
         $context['lostPasswordPage'] = wp_lostpassword_url();
         $context['showPrivileges'] = 'true';
-        Timber::render('partials/loginWidget.twig');
+        Timber::render('partials/widgets/loginWidget.twig');
     }
     die();
 }

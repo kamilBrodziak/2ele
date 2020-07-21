@@ -21,11 +21,11 @@
         <section class="orderWidgetStageContent">
 
             {% if stage == 0 %}
-                {% include ['partials/cartWidget.twig'] %}
+                {% include ['partials/widgets/cartWidget.twig'] %}
             {% elseif stage == 1 %}
-                {% include ['partials/loginWidget.twig'] %}
+                {% include ['partials/widgets/loginWidget.twig'] %}
             {% elseif stage == 2 %}
-                {% include ['partials/checkoutWidget.twig'] %}
+                {% include ['partials/widgets/checkoutWidget.twig'] %}
             {% elseif stage == 3 %}
 
             {% elseif stage == 4 %}

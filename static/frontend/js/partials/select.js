@@ -4,9 +4,9 @@ class CustomSelect {
     }
 
     showSelect() {
-        let _this = this;
-        $('body').on('click', '.customSelect', function(e) {
-            let isClosed = $(this).find('.customSelectItemsContainer').hasClass('hide')
+        const _this = this, body = $('body');
+        body.on('click', '.customSelect', function(e) {
+            const isClosed = $(this).find('.customSelectItemsContainer').hasClass('hide')
             _this.hideSelect();
             if(isClosed) {
                 $(this).find('.customSelectItemsContainer').removeClass('hide');
@@ -15,31 +15,29 @@ class CustomSelect {
 
         });
 
-        $('body').on('click', '.customSelectItem', function() {
-            let teaseProduct = $(this).closest('.teaseProduct');
-            let customSelectSelected = teaseProduct.find('.customSelectSelected');
+        body.on('click', '.customSelectItem', function(e) {
+            const teaseProduct = $(this).closest('.teaseProduct'), selectedClass = 'sameAsSelected';
+            const customSelectSelected = teaseProduct.find('.customSelectSelected'),
+                teaseProductQuantity = teaseProduct.find('.teaseProductFormQuantity'),
+                quantity = parseInt($(this).data('max_quantity'));
             customSelectSelected.html($(this).html());
             customSelectSelected.data('variation_id', $(this).data('variation_id'));
             teaseProduct.find('.teaseProductFormSubmit').removeAttr('disabled');
             teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
-            let teaseProductQuantity = teaseProduct.find('.teaseProductFormQuantity');
-            let quantity = parseInt($(this).data('max_quantity'));
             if(quantity <= 99) {
                 teaseProductQuantity.attr('max', quantity);
             }
             if(parseInt(teaseProductQuantity.val()) > quantity) {
                 teaseProductQuantity.val(quantity);
             }
-            $(this).siblings('.sameAsSelected').removeClass('sameAsSelected');
-            $(this).addClass('sameAsSelected');
-            // $('.customSelect select option[selected="selected"]').removeAttr('selected');
-            // $('.customSelect select option[value="' + $(this).data('variation_id') + '"]').attr('selected', 'selected');
+            $(this).siblings('.' + selectedClass).removeClass(selectedClass);
+            $(this).addClass(selectedClass);
         })
     }
 
     hideSelectWhenClickedOutsideSelect() {
-        let _this = this;
-        $('body').on('click', function (e) {
+        const _this = this;
+        $('body').on('click', (e) => {
             if(!e.target.className.includes('customSelectSelected')) {
                 _this.hideSelect();
             }

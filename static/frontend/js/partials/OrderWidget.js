@@ -1,3 +1,4 @@
+// NOT FULLY WORKING, PREPARED FOR FUTURE FULL MULTISTEP CHECKOUT BUILT FROM SCRATCH
 class OrderWidget {
     constructor(widgetContainer = null) {
         // ORDER WIDGET
@@ -25,7 +26,6 @@ class OrderWidget {
         }
 
         this.widget = this.widgetContainer.find('.orderWidget');
-        // this.widgetContainer.addClass('.' + this.widgetActiveClass);
         this.widgetSection = this.widget.find('.orderWidgetStageContent');
         this.loading = false;
         this.active = true;
@@ -77,33 +77,30 @@ class OrderWidget {
     }
 
     loadWidgetAjax(isReload = false) {
-        const _this = this;
+        const _this = this, loadingWidgetClass = 'loadingScreen', loadingButtonClass = 'loadingCenter';
         const data = {
             action: 'loadOrderWidgetAjax',
             isPopup: _this.isPopup,
             stage: _this.stage
-        }, beforeSendFunc = (response) => {
+        }, beforeSendFunc = () => {
             if(isReload) {
-                _this.contentWrapper.addClass('loadingScreen');
+                _this.contentWrapper.addClass(loadingWidgetClass);
             } else if(_this.cartButton) {
-                _this.cartButton.addClass('loadingCenter');
+                _this.cartButton.addClass(loadingButtonClass);
             }
 
         }, errorFunc = (response) => {
             console.log(response);
             if(isReload) {
-                _this.contentWrapper.removeClass('loadingScreen')
+                _this.contentWrapper.removeClass(loadingWidgetClass)
             } else if(_this.cartButton) {
-                _this.cartButton.removeClass('loadingCenter');
+                _this.cartButton.removeClass(loadingButtonClass);
             }
         }, successFunc = (response) => {
-            // if(!_this.isPopup) {
-            //     _this.widgetContainer.empty();
-            // }
             if(isReload) {
-                _this.contentWrapper.removeClass('loadingScreen')
+                _this.contentWrapper.removeClass(loadingWidgetClass)
             } else if(_this.cartButton) {
-                _this.cartButton.removeClass('loadingCenter');
+                _this.cartButton.removeClass(loadingButtonClass);
             }
             _this.widgetContainer.empty().append(response);
             _this.widgetContainer.addClass(_this.widgetActiveClass);
@@ -127,13 +124,12 @@ class OrderWidget {
         const _this = this;
         this.isPopup = true;
         this.cartButton = cartButton;
-        this.cartButton.on('click', function (e) {
+        this.cartButton.on('click', (e) => {
             // _this.stage = 0;
             e.preventDefault();
             if(!_this.active && !_this.loading) {
                 _this.loading = true;
                 _this.stage = 0;
-                // data.stage = _this.stage;
                 _this.loadWidgetAjax();
             }
         });
@@ -141,7 +137,7 @@ class OrderWidget {
 
     addCloseWhenClickOutside() {
         const _this = this;
-        $('body').on('click', function(e) {
+        $('body').on('click', (e) => {
             if(_this.active && _this.widget.has(e.target).length === 0) {
                 _this.close();
             }
@@ -150,7 +146,7 @@ class OrderWidget {
 
     addCloseButton() {
         const _this = this;
-        this.closeButton.on('click', function(e) {
+        this.closeButton.on('click', (e) => {
             e.preventDefault();
             _this.close();
         })
@@ -165,14 +161,14 @@ class OrderWidget {
     addPagination() {
         const _this = this;
         if(this.previousButton) {
-            this.previousButton.on('click', function(e) {
+            this.previousButton.on('click', (e) => {
                 e.preventDefault();
                 _this.stage = _this.stage - 1;
                 _this.changeStage();
             })
         }
         if(this.nextButton) {
-            this.nextButton.on('click', function(e) {
+            this.nextButton.on('click', (e) => {
                 e.preventDefault();
                 _this.stage = _this.stage + 1;
                 _this.changeStage();
@@ -182,10 +178,6 @@ class OrderWidget {
 
 
     changeStage() {
-        if(this.currentSectionWidget) {
-            this.currentSectionWidget.unbindEvents();
-        }
-
         this.loadWidgetAjax(true);
     }
 }

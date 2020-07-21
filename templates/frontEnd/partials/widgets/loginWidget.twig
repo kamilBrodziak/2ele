@@ -64,7 +64,9 @@
                 <div>
                     <input type='text' name="username" required autocomplete="username"
                            class="registerFormUsernameInput gradientInput"
-                           value="{% if registerUsername %}registerUsername{% endif %}">
+                           value="{% if registerUsername %}registerUsername{% endif %}"
+                           data-unique_message="Konto o podanej nazwie użytkownika już istnieje"
+                           data-regex_message="Nazwa użytkownika nie może być pusta oraz nie może zawierać znaku @.">
                 </div>
                 <span class="inputNotice"></span>
             </label>
@@ -73,7 +75,10 @@
                 <div>
                     <input type="email" name="email" required autocomplete="email"
                            class="registerFormEmailInput gradientInput"
-                           value="{% if registerEmail %}registerEmail{% endif %}">
+                           value="{% if registerEmail %}registerEmail{% endif %}"
+                           data-match_message="Wprowadzone adresy mailowe różnią się!"
+                           data-unique_message="Konto o podanym adresie mailowym już istnieje!"
+                           data-regex_message="Podaj poprawny adres mailowy. Musi spełniać format: przyklad@przyklad.przyklad">
                 </div>
                 <span class="inputNotice"></span>
             </label>
@@ -89,7 +94,9 @@
                 <span>Hasło *</span>
                 <div>
                     <input type="password" name="password" required autocomplete="new-password"
-                           class="registerFormPasswordInput gradientInput">
+                           class="registerFormPasswordInput gradientInput"
+                           data-match_message="Wprowadzone hasła różnią się!"
+                           data-regex_message="Hasło nie może być puste">
                 </div>
                 <span class="inputNotice"></span>
             </label>

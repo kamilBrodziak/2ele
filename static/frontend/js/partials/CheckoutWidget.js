@@ -10,23 +10,22 @@ class CheckoutWidget {
         this.cartLink = null;
         this.loginWidget = null;
         this.stages = [];
-        this.orderWidgetStages = null;
     }
 
     withWidget() {
         const _this = this;
+        if(this.widget) {
+            this.widget.remove();
+        }
         this.widget = this.container.find('.checkoutWidget');
         this.cartLink = this.widget.find('.checkoutWidgetPreviousLink');
         this.stage = 0;
-        this.orderWidgetStages = this.widget.find('.orderWidgetStages');
-        this.widget.find('.orderWidgetStage').each(function () {
+        this.widget.find('.orderWidgetStage').each(() => {
             _this.stages.push($(this));
         });
-        this.stages[0].addClass('passed');
         this.previousButton = this.widget.find('.checkoutWidgetPreviousButton');
         this.nextButton = this.widget.find('.checkoutWidgetNextButton');
         this.stagesNames = ['Formularz', 'Podsumowanie i dostawa', 'Płatność'];
-        // this.stagesNodes = [this.widget.find('#customer_details'), this.widget.find('#order_review')];
         this.stagesNodes = [this.widget.find('.checkoutWidgetBilling'), this.widget.find('.checkoutWidgetSummary'),
             this.widget.find('.checkoutWidgetPayment')];
         const loginWidgetContainer = $('.checkoutWidgetLoginContainer');
@@ -42,63 +41,50 @@ class CheckoutWidget {
     }
 
     addPagination() {
-        const _this = this;
-        if(this.previousButton) {
-            this.previousButton.on('click', function(e) {
+        const _this = this, buttons = [this.previousButton, this.nextButton];
+        $(buttons).each((i, el) => {
+            $(el).on('click', (e) => {
                 e.preventDefault();
-                _this.stage = _this.stage - 1;
+                _this.stage = (i === 0) ? _this.stage - 1 : _this.stage + 1;
                 _this.changeStage();
             })
-        }
-        if(this.nextButton) {
-            this.nextButton.on('click', function(e) {
-                e.preventDefault();
-                _this.stage = _this.stage + 1;
-                _this.changeStage();
-            })
-        }
+        });
     }
 
 
     changeStage() {
         $("html, body").animate({scrollTop:0}, 400);
-        const previousContainer = this.previousButton.parent(),
+        const hideClass = 'hide', activeClass = 'active', currentClass = 'current',
+            previousContainer = this.previousButton.parent(),
             nextContainer = this.nextButton.parent(),
             cartLinkContainer = this.cartLink.parent();
         if(this.stage === 0) {
-            previousContainer.addClass('hide');
-            if(cartLinkContainer.hasClass('hide')) {
-                cartLinkContainer.removeClass('hide');
-            }
+            previousContainer.addClass(hideClass);
+            if(cartLinkContainer.hasClass(hideClass))
+                cartLinkContainer.removeClass(hideClass);
         } else {
-            if(previousContainer.hasClass('hide'))
-                previousContainer.removeClass('hide');
+            if(previousContainer.hasClass(hideClass))
+                previousContainer.removeClass(hideClass);
             this.previousButton.html("<< " + this.stagesNames[this.stage - 1]);
-            if(!cartLinkContainer.hasClass('hide'))
-                cartLinkContainer.addClass('hide');
+            if(!cartLinkContainer.hasClass(hideClass))
+                cartLinkContainer.addClass(hideClass);
         }
 
         if(this.stage + 1 === this.stagesNames.length) {
-            nextContainer.addClass('hide');
+            nextContainer.addClass(hideClass);
         } else {
-            if(nextContainer.hasClass('hide'))
-                nextContainer.removeClass('hide');
+            if(nextContainer.hasClass(hideClass))
+                nextContainer.removeClass(hideClass);
             this.nextButton.html(this.stagesNames[this.stage + 1] + " >>");
         }
-
-
-        for(let i = 0; i < this.stagesNodes.length; ++i) {
-            if(!this.stagesNodes[i].hasClass('hide') && this.stage !== i) {
-                this.stagesNodes[i].addClass('hide');
-            }
-        }
+        for(let i = 0; i < this.stagesNodes.length; ++i)
+            if(!this.stagesNodes[i].hasClass(hideClass) && this.stage !== i)
+                this.stagesNodes[i].addClass(hideClass);
         const startingStage = this.stagesNames.length === 3 ? 2 : 1;
-        $(this.stages).each((i, el) => {$(el).removeClass('active'); $(el).removeClass('current')});
-        for(let i = 0; i <= this.stage + startingStage; ++i) {
-            this.stages[i].addClass('active');
-        }
-        this.stages[this.stage + startingStage].addClass('current');
-
-        this.stagesNodes[this.stage].removeClass('hide');
+        $(this.stages).each((i, el) => {$(el).removeClass(activeClass); $(el).removeClass(currentClass)});
+        for(let i = 0; i <= this.stage + startingStage; ++i)
+            this.stages[i].addClass(activeClass);
+        this.stages[this.stage + startingStage].addClass(currentClass);
+        this.stagesNodes[this.stage].removeClass(hideClass);
     }
 }
