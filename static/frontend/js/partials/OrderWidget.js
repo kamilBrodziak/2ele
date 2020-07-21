@@ -22,7 +22,7 @@ class OrderWidget {
 
     withWidget() {
         if(this.widget) {
-            this.unbindEvents();
+            this.widget.remove();
         }
 
         this.widget = this.widgetContainer.find('.orderWidget');
@@ -59,9 +59,6 @@ class OrderWidget {
             this.nextButton = nextButton;
         }
 
-        if(this.currentSectionWidget) {
-            this.currentSectionWidget.unbindEvents();
-        }
         switch (this.stage) {
             case 0:
                 this.currentSectionWidget = new CartWidget(this.widgetSection);
@@ -111,13 +108,6 @@ class OrderWidget {
 
         };
         ajaxCall(data, beforeSendFunc, errorFunc, successFunc);
-    }
-
-    unbindEvents() {
-        if(this.isPopup) {
-            this.closeButton.off('click');
-            this.widgetContainer.off('click');
-        }
     }
 
     loadWidgetAjaxViaButton(cartButton) {

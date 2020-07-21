@@ -16,7 +16,7 @@ class DashboardController extends BaseController {
 	public AdminCallbacks $callbacks;
 	public string $pageSlug = '';
 	public function register() {
-		$this->pageSlug = 'themeNameDashboard'; // admin page of theme
+		$this->pageSlug = '2eleTheme'; // admin page of theme
 		$this->settings = new SettingsApi();
 		$this->callbacks = new AdminCallbacks();
 		$this->setPages();
@@ -28,12 +28,12 @@ class DashboardController extends BaseController {
 	    // dashboard theme page
 	    $this->pages = [
 		    [
-			    'pageTitle' => 'themeName Dashboard',
-			    'menuTitle' => 'themeName',
+			    'pageTitle' => '2ele Theme Dashboard',
+			    'menuTitle' => '2eleTheme',
 			    'capability' => 'manage_options',
 			    'menuSlug' => $this->pageSlug,
 			    'callback' => array($this->callbacks, 'dashboard'),
-			    'iconUrl' => 'dashicons-chart-area',
+			    'iconUrl' => 'dashicons-art',
 			    'position' => 110
 		    ]
 	    ];
