@@ -68,7 +68,7 @@ class Enqueue extends BaseController {
 
 //        wp_enqueue_script('woocommerce');
 //        wp_enqueue_script('wc-checkout');
-        wp_register_script('siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), null, true );
+        wp_register_script('siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), '3.0.2', true);
         global $wp_query;
         wp_localize_script( 'siteJS-defer', 'ajaxPaginationParams', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -78,7 +78,7 @@ class Enqueue extends BaseController {
             'firstPage' => strtok(get_pagenum_link(1), '?')
         ) );
         wp_enqueue_script('siteJS-defer');
-        wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.min.css', null, null);
+        wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.css', null, '3.0.6', 'all');
         wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );
     }

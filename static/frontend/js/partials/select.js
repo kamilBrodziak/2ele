@@ -16,14 +16,16 @@ class CustomSelect {
         });
 
         body.on('click', '.customSelectItem', function(e) {
-            const teaseProduct = $(this).closest('.teaseProduct'), selectedClass = 'sameAsSelected';
+            const selected = $(this);
+            const teaseProduct = selected.closest('.teaseProduct'), selectedClass = 'sameAsSelected';
             const customSelectSelected = teaseProduct.find('.customSelectSelected'),
                 teaseProductQuantity = teaseProduct.find('.teaseProductFormQuantity'),
-                quantity = parseInt($(this).data('max_quantity'));
-            customSelectSelected.html($(this).html());
+                quantity = parseInt(selected.data('max_quantity'));
+            customSelectSelected.html(selected.html());
             customSelectSelected.data('variation_id', $(this).data('variation_id'));
             teaseProduct.find('.teaseProductFormSubmit').removeAttr('disabled');
-            teaseProduct.find('.teaseProductPicture').attr('src', $(this).data('image_src'));
+            teaseProduct.find('.teaseProductPicture').attr('src', selected.data('image_src'));
+            teaseProduct.find('.teaseProductPicture').siblings('source').each((i, el) => {$(el).attr('srcset', selected.data('image_src'))});
             if(quantity <= 99) {
                 teaseProductQuantity.attr('max', quantity);
             }

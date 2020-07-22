@@ -270,7 +270,11 @@ function userLoginAjax() {
 //           } else {
             $user = wp_signon($credentials, false);
             if(is_wp_error($user)) {
-                echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
+                if($user->get_error_code() == 'too_many_retries') {
+                    echo $user->get_error_message();
+                } else {
+                    echo 'Niepoprawna nazwa użytkownika, email bądź hasło. Spróbuj ponownie lub użyj opcji "Zapomniałem hasła"';
+                }
             } else {
                 wp_set_current_user($user);
                 echo 'success';

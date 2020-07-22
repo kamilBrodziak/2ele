@@ -12,7 +12,7 @@
         </header>
         <main class="teaseProductMain">
             {% if isSingleProductPage == true %}
-                <h3 class='teaseProductTitle'>{{ product.title }}</h3>
+                <h3 class='teaseProductTitle overflowHidden'>{{ product.title }}</h3>
             {% endif %}
             {% include ['partials/teaseProduct/teaseProductPrice.twig'] %}
         </main>

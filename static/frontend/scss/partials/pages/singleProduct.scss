@@ -13,6 +13,7 @@
 
 @media all and (min-width: 500px) {
     #singleProductTeaseContainer {
+        align-items: flex-start;
         .teaseProduct {
             width: 400px;
         }

@@ -18,8 +18,8 @@ class MobileNav {
     }
 
     addNavSubListExpandButton(button, subListClass, expandClass) {
-        button.each( () => {
-            const b = $(this);
+        button.each( (i, el) => {
+            const b = $(el);
             b.on('click', () => {
                 const subList = b.parent().children('.' + subListClass);
                 if(subList.hasClass(expandClass)) {
