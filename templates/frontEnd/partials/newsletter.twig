@@ -1,28 +1,33 @@
-{% if newsletterTitle %}
-<h4 {% if location %}id='{{ location }}NewsletterTitle' {% endif %}class='newsletterTitle'>{{ newsletterTitle }}</h4>
-{% endif %}
-{% if newsletterSubtitle %}
-<h5 {% if location %}id='{{ location }}NewsletterSubtitle' {% endif %}class='newsletterSubtitle'>{{ newsletterSubtitle }}</h5>
-{% endif %}
-{% if newsletterDescription %}
-    <div {% if location %}id='{{ location }}NewsletterDescription' {% endif %}class='newsletterDescription'>{{ newsletterDescription }}</div>
-{% endif %}
-<form method='post' action='{{ formAction }}' {% if location %}id='{{ location }}NewsletterForm' {% endif %}class='newsletterForm'>
-    <label {% if location %}id='{{ location }}NewsletterNameLabel' {% endif %}class='newsletterNameLabel'>
-        Your name*:
-        <input name='name' type='text' required pattern='[a-zA-Z0-9 ]+' placeholder='Your name*'
-               oninvalid='this.setCustomValidity("Insert your name using only letters.")'
-               title='Insert proper name using only letters.'
-               oninput='setCustomValidity("")'>
-    </label>
-    <label {% if location %}id='{{ location }}NewsletterEmailLabel' {% endif %}class='newsletterEmailLabel'>
-        Your email*:
-        <input name='email' type='email' required
-               pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$' placeholder='Your email*'
-               title='Insert proper email, example: example@example.example'
-               oninvalid='this.setCustomValidity("Insert proper email, example: example@example.example")'
-               oninput='setCustomValidity("")'>
-    </label>
-    <input {% if location %}id='{{ location }}NewsletterSubmitButton' {% endif %}
-           class='newsletterSubmitButton blackGradientSubmit' type='submit' value='Sign up'>
-</form>
+<section id="hdrNewsletter" class="colorSilver flexCenterCenter textAlignCenter">
+    {% if newsletter.title %}
+    <h4 id='hdrNewsletterTitle'>{{ newsletter.title }}</h4>
+    {% endif %}
+    <form method='post' action='{{ newsletter.action }}' id='hdrNewsletterForm' class="flexCenterCenter">
+        {% if newsletter.name %}
+            <label id='hdrNewsletterNameLabel' data-before="">
+                <span>{{ newsletter.name.label }}</span>
+                <input name='name' type='text' required pattern='[a-zA-Z ]+'
+                       placeholder='Twoje imię...'
+                       id="hdrNewsletterNameInput"
+                       oninvalid='this.setCustomValidity("Podaj swoje imię używając tylko liter.")'
+                       title='Insert proper name using only letters.'
+                       class="gradientInput"
+                       oninput='setCustomValidity("")'>
+            </label>
+        {% endif %}
+        <label id='hdrNewsletterEmailLabel'>
+            <span>{{ newsletter.email.label }}</span>
+            <input name='email' type='email' required
+                   id="hdrNewsletterEmailInput"
+                   pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$'
+                   placeholder='Twój email...'
+                   title='Podaj poprawny email, przykład: przyklad@przyklad.przyklad'
+                   oninvalid='this.setCustomValidity("Podaj poprawny email, przykład: przyklad@przyklad.przyklad")'
+                   class="gradientInput"
+                   oninput='setCustomValidity("")'>
+        </label>
+        <button id="hdrNewsletterSubmit" class="flexCenterCenter buttonBlackAnimated borderRadiusTen">
+            {{ newsletter.button.text }}
+        </button>
+    </form>
+</section>

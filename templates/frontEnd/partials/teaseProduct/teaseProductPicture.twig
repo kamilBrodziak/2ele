@@ -1,6 +1,7 @@
 <picture class='teaseProductPictureContainer overflowHidden flexCenterCenter imgContainer'>
-    <source srcset="{{ product.thumbnail.src }}" type="image/webp">
-    <source srcset="{{ product.thumbnail.src }}" type="image/png">
-    <source srcset="{{ product.thumbnail.src }}" type="image/jpeg">
-    <img class='teaseProductPicture' src='{{ product.thumbnail.src }}' alt='{{ product.thumbnail.alt }}'/>
+    <source srcset="{{ product.thumbnail.src }}.webp" type="image/webp">
+    <img class='teaseProductPicture' src='{{ product.thumbnail.src }}'
+         srcset="{{ product.thumbnail.src }}"
+         data-default="{{ product.thumbnail.src }}"
+         alt='{{ product.thumbnail.alt }}'/>
 </picture>

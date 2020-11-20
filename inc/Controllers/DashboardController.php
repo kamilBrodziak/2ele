@@ -43,17 +43,52 @@ class DashboardController extends BaseController {
 	    // features section
 	    $sections = [
             [
-                'id' => '',
-                'title' => 'Plugin features enable',
+                'id' => '2eleThemeNewsletter',
+                'title' => 'Theme newsletter in header enable',
+                'callback' => 'eleThemeNewsletterSection',
                 'fields' => [
                     [
-                        'id' => 'feature1',
-                        'title' => 'Enable .. feature?',
+                        'id' => '2eleThemeNewsletterEnable',
+                        'title' => 'Enable newsletter?',
                         'fieldType' => 'checkbox',
                         'args' => [
                             'class' => 'uiToggle'
                         ]
+                    ],
+                    [
+                        'id' => '2eleThemeNewsletterTitle',
+                        'title' => 'Newsletter text',
+                        'fieldType' => 'text'
+                    ],
+                    [
+                        'id' => '2eleThemeNewsletterAction',
+                        'title' => 'Newsletter action',
+                        'fieldType' => 'text'
+                    ],
+                    [
+                        'id' => '2eleThemeNewsletterEmailLabel',
+                        'title' => 'Newsletter email label',
+                        'fieldType' => 'text'
+                    ],
+                    [
+                        'id' => '2eleThemeNewsletterNameEnable',
+                        'title' => 'Enable name in newsletter?',
+                        'fieldType' => 'checkbox',
+                        'args' => [
+                            'class' => 'uiToggle'
+                        ]
+                    ],
+                    [
+                        'id' => '2eleThemeNewsletterNameLabel',
+                        'title' => 'Name label',
+                        'fieldType' => 'text'
+                    ],
+                    [
+                        'id' => '2eleThemeNewsletterSubmitText',
+                        'title' => 'Submit text',
+                        'fieldType' => 'text'
                     ]
+
                 ]
             ]
         ];

@@ -74,7 +74,7 @@ class SettingsApi {
 				'group' => $pageSlug,
 				'id' => $section['id'],
 				'title' => $section['title'],
-				'callback' => array($this->settingsCallbacks, $section['id']),
+				'callback' => array($this->settingsCallbacks, $section['callback']),
 				'pageSlug' => $pageSlug,
 				'fields' => []
 			];

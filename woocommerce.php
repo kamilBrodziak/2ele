@@ -2,6 +2,11 @@
 $context            = Timber::context();
 global $productsController;
 
+
+//$categories = get_terms('product_cat');
+//foreach ($categories as $key => $category) {
+//    var_dump($category->name);
+//}
 if ( is_singular( 'product' ) ) {
     $post = Timber::get_post();
 	$context['post']    = $post;
@@ -20,6 +25,7 @@ if ( is_singular( 'product' ) ) {
 //    $posts = Timber::get_posts();
 //    $context['products'] = $posts;
 //    if ( is_product_category() || is_shop()) {
+//        $time1 = round(microtime(true) * 1000);
         $queried_object = get_queried_object();
         $term_id = $queried_object->term_id;
         $context['title'] = single_term_title( '', false );
@@ -28,16 +34,24 @@ if ( is_singular( 'product' ) ) {
             'paged' => $context['currentPage']
         ];
         if(is_product_category()) {
-
-            $context['category'] = get_term( $term_id, 'product_cat' )->slug;
-            $args['product_cat'] = $context['category'];
+            $category = get_term( $term_id, 'product_cat' );
+            $context['category'] = [
+                'slug' => $category->slug,
+                'description' => $category->description
+            ];
+//            $context['category'] = get_term( $term_id, 'product_cat' )->slug;
+            $args['product_cat'] = $category->slug;
+        } else {
+            $args['exclude_category'] = 'Sprzęt';
         }
-        $context['products'] = $productsController->loadProductsFromDB($args);
+
+    $context['products'] = $productsController->loadProductsFromDB($args);
+//    $time2 = round(microtime(true) * 1000);
+//    var_dump(($time2 - $time1)/1000);
 //    }
     $context['pagination'] = Timber::get_pagination([
         'end_size'     => 1,
         'mid_size'     => 2
     ]);
-
 	Timber::render( 'page-shop.twig', $context );
 }

@@ -97,6 +97,7 @@ class FormValidation {
         }
         if(disKeys.length)
             input.on('keydown', (e) => {
+                clearTimeout(typingTimer);
                 for(let key of disKeys)
                     if(e.key === key) {
                         keyPassed = false;
@@ -125,16 +126,20 @@ class FormValidation {
                 typingTimer = setTimeout(() => {
                     ajaxCall({'action': 'isUserUnique', 'type': properties.inputName,'value':val},
                         () => inputContainer.addClass(loadingClass),
-                        inputContainer.removeClass(loadingClass),
+                        () => inputContainer.removeClass(loadingClass),
                         (response) => {inputContainer.removeClass(loadingClass);
                             validateFunc(response === 'true', response === 'true' ? '' : testUnique.message)})
-                }, 800);
+                }, 1000);
             } else {
                 validateFunc(true, '');
             }
 
-            if(testMatch.isParent)
+            if(testMatch.isParent && !testUnique) {
+                console.log('test');
                 validateFunc(isMatch, isMatch ? '' : testMatch.message, testMatch.matchingInput, testMatch.matchingInputName);
+
+            }
+
 
         })
     }

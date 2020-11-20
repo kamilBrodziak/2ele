@@ -44,6 +44,17 @@ class ProductsController {
         ];
         if($argsList['paged']) $args['paged'] = $argsList['paged'];
         if($argsList['product_cat']) $args['product_cat'] = $argsList['product_cat'];
+        if($argsList['exclude_category']) {
+            $args['tax_query'] = [
+                [
+                    'taxonomy' => 'product_cat',
+                    'field' => 'slug',
+                    'terms' => $argsList['exclude_category'],
+                    'operator' => 'NOT IN'
+                ]
+            ];
+        }
+
         if($argsList['s']) {
             $args['s'] = $argsList['s'];
         } else {
@@ -230,11 +241,11 @@ function getShippingMethods() {
         $chosen_method = isset(WC()->session->chosen_shipping_methods[$i]) ? WC()->session->chosen_shipping_methods[$i] : '';
 //        var_dump($package['rates']);
         foreach ($package['rates'] as $j => $rate) {
-            var_dump($rate->id);
-            var_dump($rate->instance_id);
-            var_dump($rate->label);
+//            var_dump($rate->id);
+//            var_dump($rate->instance_id);
+//            var_dump($rate->label);
 //            var_dump($rate->)
-            var_dump($rate->cost);
+//            var_dump($rate->cost);
         }
     }
 //    var_dump(WC()->session->chosen_shipping_methods);

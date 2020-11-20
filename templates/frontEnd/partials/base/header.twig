@@ -7,9 +7,12 @@
         </picture>
     </a>
     <ul id="hdrContactInfoList" class="listStyleNone">
-        <li class="hdrContactInfoListItem"><a href="tel:+48785807958" class="silverLink">(+48) 785 807 958</a></li>
+{#        <li class="hdrContactInfoListItem"><a href="tel:+48785807958" class="silverLink">(+48) 785 807 958</a></li>#}
         <li class="hdrContactInfoListItem"><a href="mailto:{{ site.admin_email }}" class="silverLink">{{ site.admin_email }}</a></li>
     </ul>
+    {% if newsletter %}
+        {% include 'partials/newsletter.twig' %}
+    {% endif %}
     <nav id="hdrMenu">
         <ul id="hdrMenuList" class="listStyleNone flexCenterCenter">
             <li class="hdrMenuListItem">

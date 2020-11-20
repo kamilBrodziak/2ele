@@ -1,0 +1,10 @@
+#shopCategoryDescription {
+
+}
+
+@media all and (min-width: $breakDesktop) {
+    #shopCategoryDescription {
+        width: 80%;
+        margin: 0 auto;
+    }
+}

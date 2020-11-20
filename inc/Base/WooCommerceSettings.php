@@ -18,6 +18,7 @@ class WooCommerceSettings {
         add_filter( 'woocommerce_checkout_fields' , [$this,'overrideCheckoutFields'] );
         add_filter( 'woocommerce_billing_fields' , [$this,'overrideBillingFields'] );
         add_filter( 'woocommerce_shipping_fields' , [$this,'overrideShippingFields'] );
+        add_filter('woocommerce_product_data_store_cpt_get_products_query', [$this,'excludeCategory'], 10, 2);
     }
     function overrideCheckoutFields( $fields ) {
         unset($fields['billing']['billing_country']);
@@ -27,7 +28,13 @@ class WooCommerceSettings {
 
     function overrideBillingFields( $fields ) {
         unset($fields['billing_country']);
-        unset($fields['billing_email']);
+        array_splice($fields, 3, 0,  [
+            'nip' => [
+                'type' => 'text',
+                'label' => __('NIP', 'woocommerce'),
+                'required' => false
+            ]
+        ]);
         return $fields;
     }
 
@@ -35,6 +42,19 @@ class WooCommerceSettings {
         unset($fields['shipping_country']);
         unset($fields['shipping_email']);
         return $fields;
+    }
+
+    function excludeCategory($query, $query_vars) {
+        var_dump($query_vars);
+        if (!empty($query_vars['exclude_category'])) {
+            $query['tax_query'][] = array(
+                'taxonomy' => 'product_cat',
+                'field'    => 'slug',
+                'terms'    => $query_vars['exclude_category'], // Use the value of previous block of code
+                'operator' => 'NOT IN',
+            );
+        }
+        return $query;
     }
 
     public function actions() {

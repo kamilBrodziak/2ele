@@ -8,6 +8,6 @@
         </button>
     </div>
     <div id="shopNavListContainer">
-        {% include 'partials/menu.twig' with {'items': menu.get_items, 'menuType': navType, 'navItemAnimation': ''} %}
+        {% include 'partials/menu.twig' with {'items': menu.main.get_items, 'menuType': navType, 'navItemAnimation': ''} %}
     </div>
 </div>

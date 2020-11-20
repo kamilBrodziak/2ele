@@ -90,12 +90,6 @@ class SettingsCallbacks {
 
 
 //	public function kBPMainSettingsSection() {}
-    public function kBPFeaturesSection() {}
-	public function kBPPopUpHeaderSection() {}
-	public function kBPPopUpSubheaderSection() {}
-	public function kBPPopUpDescriptionSection() {}
-	public function kBPPopUpImageSection() {}
-    public function kBPPopUpStyleSection() {}
-    public function kBPPopUpFormSection() {}
-    public function kBPPopUpModeSection(){}
+    public function eleThemeNewsletterSection() {}
+
 }

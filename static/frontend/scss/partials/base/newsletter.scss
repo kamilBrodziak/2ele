@@ -1,0 +1,76 @@
+#hdrNewsletter {
+    flex-direction: column;
+    padding: 0 10px 0 10px;
+}
+
+#hdrNewsletterTitle {
+    padding: 0 0 10px 0;
+    font-size: 2.2rem;
+}
+
+#hdrNewsletterForm {
+    flex-flow: column;
+    gap: 10px;
+    input {
+        height: 45px;
+    }
+    span {
+        display: block;
+        padding: 0 0 5px 0;
+    }
+}
+
+#hdrNewsletterEmailInput {
+    margin: calc(2.2rem) 0 0 0;
+    width: 300px;
+}
+
+#hdrNewsletterNameInput {
+    width: 300px;
+}
+
+#hdrNewsletterSubmit {
+    width: 300px;
+}
+
+#hdrNewsletterSubmit {
+    height: 55px;
+    margin: 0;
+}
+
+@media all and (min-width: 450px) {
+    #hdrNewsletterForm {
+        span {
+            display: inline;
+            padding: 0;
+        }
+    }
+}
+
+
+@media all and (min-width: 700px) {
+    #hdrNewsletterForm {
+        gap: 10px;
+        flex-flow: row;
+        align-items: flex-end;
+        span {
+            display: block;
+            padding: 0 0 5px 0;
+        }
+    }
+    
+    #hdrNewsletterNameInput {
+        width: 150px;
+    }
+    
+    #hdrNewsletterEmailInput {
+        width: 300px;
+        margin: 0;
+    }
+    
+    #hdrNewsletterSubmit {
+        height: 55px;
+        width: 200px;
+        margin: 0;
+    }
+}

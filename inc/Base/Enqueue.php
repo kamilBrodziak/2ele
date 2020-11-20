@@ -16,20 +16,6 @@ class Enqueue extends BaseController {
         add_action('wp_enqueue_scripts', array($this, 'enqueueFrontEnd'));
     }
 
-    function addAsyncOrDefer($tag, $handle) {
-        if(!is_admin()) {
-            if (strpos($handle, 'async') !== false) {
-                return str_replace('<script ', '<script async ', $tag);
-            } else if (strpos($handle, 'defer') !== false) {
-                return str_replace('<script ', '<script defer="defer" ', $tag);
-            } else {
-                return $tag;
-            }
-        } else {
-            return $tag;
-        }
-    }
-
     function enqueueAdmin($hook) {
 //        if('themeNameDashboard' == $hook) {
 //            wp_enqueue_media();
@@ -68,17 +54,17 @@ class Enqueue extends BaseController {
 
 //        wp_enqueue_script('woocommerce');
 //        wp_enqueue_script('wc-checkout');
-        wp_register_script('siteJS-defer', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), '3.0.2', true);
+        wp_register_script('siteJS', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), '3.0.5', true);
         global $wp_query;
-        wp_localize_script( 'siteJS-defer', 'ajaxPaginationParams', array(
+        wp_localize_script( 'siteJS', 'ajaxPaginationParams', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'posts' => json_encode( $wp_query->query_vars ),
             'currentPage' => $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] : 1,
             'maxPage' => $wp_query->max_num_pages,
             'firstPage' => strtok(get_pagenum_link(1), '?')
         ) );
-        wp_enqueue_script('siteJS-defer');
-        wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.css', null, '3.0.6', 'all');
+        wp_enqueue_script('siteJS');
+        wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.css', null, '3.0.7', 'all');
         wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );
     }

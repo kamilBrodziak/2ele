@@ -5,6 +5,11 @@
         {{post.content}}
     {% endblock %}
     {% block products %}
+        {% if category.description %}
+            <div id="shopCategoryDescription" class="textAlignCenter">
+                {{ category.description }}
+            </div>
+        {% endif %}
         <div id="shopPageProductListWidget" data-category="{{ title }}">
             {% include ['partials/widgets/productListWidget.twig'] %}
         </div>

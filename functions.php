@@ -54,14 +54,44 @@ class StarterSite extends Timber\Site {
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
         remove_action('template_redirect', 'rest_output_link_header', 11, 0);
+        foreach ( array( 'pre_term_description' ) as $filter ) {
+            remove_filter( $filter, 'wp_filter_kses' );
+        }
+        foreach ( array( 'term_description' ) as $filter ) {
+            remove_filter( $filter, 'wp_kses_data' );
+        }
     }
 
     public function registerPostTypes() {}
     public function registerTaxonomies() {}
 
     public function addToContext( $context ) {
-        $context['menu']  = new Timber\Menu('main');
+        $context['menu'] = [
+            'main' => new Timber\Menu('main'),
+            'footer' => new Timber\Menu('footer')
+        ];
         $context['site']  = $this;
+        $newsletterOptions = get_option('2eleTheme');
+        $newsletterEnabled = isset($newsletterOptions['2eleThemeNewsletterEnable']) ? $newsletterOptions['2eleThemeNewsletterEnable'] : false;
+        if($newsletterEnabled) {
+            $context['newsletter'] = [
+                'title' => isset($newsletterOptions['2eleThemeNewsletterTitle']) ? $newsletterOptions['2eleThemeNewsletterTitle'] : '',
+                'action' => isset($newsletterOptions['2eleThemeNewsletterAction']) ? $newsletterOptions['2eleThemeNewsletterAction'] : '',
+                'email' => [
+                    'label' => isset($newsletterOptions['2eleThemeNewsletterEmailLabel']) ? $newsletterOptions['2eleThemeNewsletterEmailLabel'] : ''
+                ],
+                'button' => [
+                    'text' => isset($newsletterOptions['2eleThemeNewsletterSubmitText']) ? $newsletterOptions['2eleThemeNewsletterSubmitText'] : ''
+                ]
+            ];
+            $nameEnabled = isset($newsletterOptions['2eleThemeNewsletterAction']) ? $newsletterOptions['2eleThemeNewsletterAction'] : false;
+            if($nameEnabled) {
+                $context['newsletter']['name'] = [
+                    'label' => isset($newsletterOptions['2eleThemeNewsletterNameLabel']) ? $newsletterOptions['2eleThemeNewsletterNameLabel'] : ''
+                ];
+            }
+        }
+
         return $context;
     }
 
@@ -88,7 +118,11 @@ class StarterSite extends Timber\Site {
                               'audio',
                           )
         );
-        add_theme_support( 'menus' );
+//        add_theme_support( 'menus' );
+        register_nav_menus( array(
+            'main' => 'Main menu',
+            'footer' => 'Footer menu'
+        ) );
         add_theme_support( 'woocommerce' );
     }
 
