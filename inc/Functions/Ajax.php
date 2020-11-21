@@ -299,3 +299,38 @@ function userLogoutAjax() {
 
 add_action('wp_ajax_nopriv_userLogoutAjax', 'userLogoutAjax');
 add_action('wp_ajax_userLogoutAjax', 'userLogoutAjax');
+
+function addCoupon() {
+    $couponCode = $_POST['coupon'];
+    $cart = WC()->cart;
+    wc_clear_notices();
+
+    $result = $cart->apply_coupon($couponCode);
+    if($result == true) {
+        $context = Timber::context();
+        $context = loadCartTotalsIntoContext($context);
+        echo json_encode([
+            'result' => true,
+            'message' => 'Kupon pomyślnie dodany do koszyka.',
+            'cartTotals' => Timber::compile('partials/widgets/cart/totals.twig', $context)
+        ]);
+    } else {
+        $messages = "<ul class='listStyleNone textAlignCenter'>";
+        foreach (wc_get_notices()['error'] as $notice) {
+            $messages .= "<li>" . $notice['notice'] . "</li>";
+        }
+        $messages .= "</ul>";
+        $response = [
+            'result' => false,
+            'message' => $messages
+        ];
+        echo json_encode($response);
+        wc_clear_notices();
+    }
+
+    die();
+}
+
+add_action('wp_ajax_nopriv_addCoupon', 'addCoupon');
+add_action('wp_ajax_addCoupon', 'addCoupon');
+

@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "timber/timber": "dev-master"
+        "timber/timber": "dev-master",
+      "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

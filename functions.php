@@ -146,7 +146,38 @@ function loadCartIntoContext($context) {
     $context['cartNotices'] = getCartQuantityNotices($context['products']);
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
+    $context = loadCartTotalsIntoContext($context);
     $context['stage'] = 0;
+    return $context;
+}
+
+function loadCartTotalsIntoContext($context, $cart = null) {
+    if(is_null($cart)) $cart = WC()->cart;
+    $cartTotals = [];
+    $cartTotals[] = [
+        'name' => 'Suma:',
+        'value' => number_format($cart->get_subtotal(), 2, ',', ' ') . ' zł'
+    ];
+//    $context['cartSubtotal'] = [$cart->get_subtotal()];
+    $cartSubtotalAfterDiscount = $cart->get_cart_contents_total();
+    $couponDiscount = $cart->get_discount_total();
+    if($couponDiscount != 0) {
+//        $context['couponDiscount'] = $couponDiscount;
+        $cartTotals[] = [
+            'result' => true,
+            'name' => 'Zniżka za kupony:',
+            'value' => number_format($couponDiscount, 2, ',', ' ') . ' zł'
+        ];
+    }
+    if($cartSubtotalAfterDiscount != $context['cartSubtotal']) {
+//        $context['cartSubtotalAfterDiscount'] = $cartSubtotalAfterDiscount;
+        $cartTotals[] = [
+            'result' => false,
+            'name' => 'Do zapłaty (bez dostawy):',
+            'value' => number_format($cartSubtotalAfterDiscount, 2, ',', ' ') . ' zł'
+        ];
+    }
+    $context['cartTotals'] = $cartTotals;
     return $context;
 }
 

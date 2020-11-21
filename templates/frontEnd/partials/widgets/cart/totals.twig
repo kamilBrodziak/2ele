@@ -1,0 +1,18 @@
+<h3 class="header3Gradient">Podsumowanie koszyka</h3>
+<table id="cartTotalsTable">
+    {% for total in cartTotals %}
+        <tr>
+            <th>{{ total.name }}</th>
+            <td>{{ total.value }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{#<p id="cartTotalWithoutDiscounts" class="cartTotal flexCenterCenter">Suma: {{ cartSubtotal }} zł</p>#}
+{#{% if couponDiscount %}#}
+{#    <p id="cartCouponDiscount">Zniżka za kupony: {{ couponDiscount }} zł</p>#}
+{#{% endif %}#}
+{#{% if cartSubtotalAfterDiscount %}#}
+{#    <p id="cartTotal">Do zapłaty: {{ cartSubtotalAfterDiscount }} zł</p>#}
+{#{% endif %}#}
+{#<p id="cartProductDiscount">Zniżka za produkty:  zł</p>#}

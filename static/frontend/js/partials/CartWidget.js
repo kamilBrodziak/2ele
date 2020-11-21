@@ -5,6 +5,8 @@ class CartWidget {
         this.cartItemClass = 'cartItem';
         this.cartItemsRemoves = null;
         this.cartItemsQuantities = null;
+        this.couponForm = widgetContainer.find('#cartCouponForm');
+
     }
 
     withWidget() {
@@ -16,10 +18,50 @@ class CartWidget {
         this.cartItemsQuantities = this.widget.find('.cartItemQuantity');
         this.addRemoveItemButton();
         this.addQuantityChangeInput();
+        this.addCouponCode();
     }
 
     loadWidgetAjax() {
         this.reloadWidgetAjax(data);
+    }
+
+    addCouponCode() {
+        console.log('test');
+        const couponSection = this.widgetContainer.find('#cartCoupon');
+        const couponForm = couponSection.find('#cartCouponForm');
+        const couponInput = couponForm.find('#cartCouponInput');
+        const couponSubmit = couponForm.find('#cartCouponSubmit');
+        const couponMessage = couponSection.find('#cartCouponMessage');
+        const cartTotals = this.widgetContainer.find('#cartTotals');
+        couponSubmit.attr('disabled', true);
+        couponInput.on('input', () => {
+            const disabled = couponInput.val() === '';
+            couponSubmit.attr('disabled', disabled);
+        })
+
+        couponForm.on('submit', (e) => {
+            e.preventDefault();
+            ajaxCall(
+                {
+                    action: 'addCoupon',
+                    coupon: couponInput.val()
+                },
+                () => {
+                    couponSection.addClass('loadingScreen');
+                }, (response) => {
+                    couponSection.removeClass('loadingScreen');
+                    console.log(response);
+                }, (response) => {
+                    couponSection.removeClass('loadingScreen');
+                    const result = JSON.parse(response);
+                    if(result.result) {
+                        cartTotals.empty();
+                        cartTotals.append(result.cartTotals);
+                    }
+                    couponMessage.html(result.message);
+                });
+        })
+
     }
 
     reloadWidgetAjax(data) {

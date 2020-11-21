@@ -72,7 +72,18 @@
         </tbody>
     </table>
     <footer class="cartSummary">
-        <h3 class="header3Gradient">Podsumowanie koszyka</h3>
-        <span class="cartTotal flexCenterCenter">Kwota: {{ cartTotal }} zł</span>
+        <section id="cartCoupon">
+            <h3 class="header3Gradient">Masz kupon rabatowy?</h3>
+            <div id="cartCouponMessage"></div>
+            <form id="cartCouponForm" method="post">
+                <label id="cartCouponLabel">
+                    <input name="coupon_code" placeholder="Wpisz tutaj kupon..." type="text" id="cartCouponInput" class="gradientInput">
+                </label>
+                <button type="submit" id="cartCouponSubmit" class="buttonBlackAnimated borderRadiusTen" name="apply_coupon">Aktywuj</button>
+            </form>
+        </section>
+        <section id="cartTotals">
+            {% include 'partials/widgets/cart/totals.twig' %}
+        </section>
     </footer>
 </section>

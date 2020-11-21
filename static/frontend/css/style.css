@@ -1436,6 +1436,30 @@ input:disabled {
     width: 20%;
   }
 }
+#cartCouponLabel {
+  width: 100%;
+  display: block;
+}
+
+#cartCouponInput, #cartCouponMessage {
+  width: calc(100% - 20px);
+  margin: 0 10px;
+}
+
+#cartTotalsTable {
+  table-layout: fixed;
+  width: calc(100% - 20px);
+  margin: 0 10px;
+}
+#cartTotalsTable th {
+  padding: 5px 5px 5px 0;
+  text-align: right;
+}
+#cartTotalsTable td {
+  padding: 5px 0 5px 5px;
+  text-align: left;
+}
+
 .loginWidgetNotices {
   padding: 10px 5%;
 }

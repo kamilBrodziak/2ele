@@ -67,6 +67,28 @@
     }
 }
 
+#cartCouponLabel {
+    width: 100%;
+    display: block;
+}
 
+#cartCouponInput, #cartCouponMessage {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+}
+
+#cartTotalsTable {
+    table-layout: fixed;
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    th {
+        padding: 5px 5px 5px 0;
+        text-align: right;
+    }
+    td {
+        padding: 5px 0 5px 5px;
+        text-align: left;
+    }
+}
 
 
