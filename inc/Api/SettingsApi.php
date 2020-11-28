@@ -1,11 +1,11 @@
 <?php
 /**
- * @package kBPlug
+ * @package 2eleTheme
  */
 
-namespace Inc\Api;
+namespace eleTheme\Inc\Api;
 
-use Inc\Api\Callbacks\SettingsCallbacks;
+use eleTheme\Inc\Api\Callbacks\SettingsCallbacks;
 
 class SettingsApi {
 	public $adminPages = [];

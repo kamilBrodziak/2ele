@@ -1,14 +1,14 @@
 <?php
 /**
- * @package starterWordpressTheme
+ * @package 2eleTheme
  */
 
-namespace Inc\Controllers;
+namespace eleTheme\Inc\Controllers;
 
 
-use Inc\Base\BaseController;
-use Inc\Api\SettingsApi;
-use Inc\Api\Callbacks\AdminCallbacks;
+use eleTheme\Inc\Base\BaseController;
+use eleTheme\Inc\Api\SettingsApi;
+use eleTheme\Inc\Api\Callbacks\AdminCallbacks;
 
 class DashboardController extends BaseController {
 	public SettingsApi $settings;

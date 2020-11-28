@@ -1,6 +1,8 @@
 <?php
-
-namespace Inc\Base;
+/**
+ * @package 2eleTheme
+ */
+namespace eleTheme\Inc\Base;
 
 class WooCommerceSettings {
 
@@ -28,13 +30,13 @@ class WooCommerceSettings {
 
     function overrideBillingFields( $fields ) {
         unset($fields['billing_country']);
-        array_splice($fields, 3, 0,  [
-            'nip' => [
-                'type' => 'text',
-                'label' => __('NIP', 'woocommerce'),
-                'required' => false
-            ]
-        ]);
+//        array_splice($fields, 3, 0,  [
+//            'nip' => [
+//                'type' => 'text',
+//                'label' => __('NIP', 'woocommerce'),
+//                'required' => false
+//            ]
+//        ]);
         return $fields;
     }
 

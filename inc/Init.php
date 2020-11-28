@@ -1,9 +1,9 @@
 <?php
 /**
- * @package starterWordpressTheme
+ * @package 2eleTheme
  */
 
-namespace Inc;
+namespace eleTheme\Inc;
 
 final class Init {
     public static function registerServices() {

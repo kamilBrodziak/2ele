@@ -1,5 +1,8 @@
 <?php
-namespace Inc\Api\Callbacks;
+/**
+ * @package 2eleTheme
+ */
+namespace eleTheme\Inc\Api\Callbacks;
 
 class SettingsCallbacks {
 	public $settingsSections;

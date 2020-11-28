@@ -1,20 +1,21 @@
 <?php
 /**
- * @package starterWordpressTheme
+ * @package 2eleTheme
  */
 
-namespace Inc\Base;
+namespace eleTheme\Inc\Base;
 
 
 class BaseController {
     public $themePath;
-    public $pluginUrl;
-    public $plugin;
+    public $themeUrl;
 
     public function __construct() {
-        $this->themePath = plugin_dir_path(dirname(__FILE__, 2));
-        $this->pluginUrl = plugin_dir_url(dirname(__FILE__, 2));
-        $this->plugin = plugin_basename(dirname(__FILE__, 3)) . '/' . plugin_basename(dirname(__FILE__, 3)) . '.php';
+//        $this->themePath = plugin_dir_path(dirname(__FILE__, 2));
+        $this->themePath = get_template_directory();
+        $this->themeUrl = get_template_directory_uri();
+//        $this->pluginUrl = plugin_dir_url(dirname(__FILE__, 2));
+//        $this->plugin = plugin_basename(dirname(__FILE__, 3)) . '/' . plugin_basename(dirname(__FILE__, 3)) . '.php';
     }
 
     // is feature activated

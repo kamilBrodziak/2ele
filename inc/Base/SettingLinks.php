@@ -1,9 +1,9 @@
 <?php
 /**
- * @package starterWordpressTheme
+ * @package 2eleTheme
  */
 
-namespace Inc\Base;
+namespace eleTheme\Inc\Base;
 
 
 class SettingLinks extends BaseController {

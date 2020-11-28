@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package 2eleTheme
+ */
 class ProductsController {
     private $productsPerPage = 20;
 

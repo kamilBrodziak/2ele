@@ -1,6 +1,6 @@
 <?php
 /**
- * @package starterWordpressTheme
+ * @package 2eleTheme
  */
 
 function changePage() {

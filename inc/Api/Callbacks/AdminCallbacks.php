@@ -1,12 +1,12 @@
 <?php
 /**
- * @package kBPlug
+ * @package 2eleTheme
  */
 
-namespace Inc\Api\Callbacks;
+namespace eleTheme\Inc\Api\Callbacks;
 
 
-use Inc\Base\BaseController;
+use eleTheme\Inc\Base\BaseController;
 
 class AdminCallbacks extends BaseController {
 	public function dashboard() {
@@ -14,6 +14,6 @@ class AdminCallbacks extends BaseController {
 	}
 
 	public function userExperience() {
-	    return require_once("$this->themePath/templates/backend/dashboard.php");
+	    return require_once("$this->themePath/static/backend/dashboard.php");
     }
 }

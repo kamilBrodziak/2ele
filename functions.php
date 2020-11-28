@@ -1,6 +1,6 @@
 <?php
 /**
- * @package starterWordpressTheme
+ * @package 2eleTheme
  */
 
 //defined('ABSPATH') or die( 'Hey, you can\t access this file!' );
@@ -84,7 +84,7 @@ class StarterSite extends Timber\Site {
                     'text' => isset($newsletterOptions['2eleThemeNewsletterSubmitText']) ? $newsletterOptions['2eleThemeNewsletterSubmitText'] : ''
                 ]
             ];
-            $nameEnabled = isset($newsletterOptions['2eleThemeNewsletterAction']) ? $newsletterOptions['2eleThemeNewsletterAction'] : false;
+            $nameEnabled = isset($newsletterOptions['2eleThemeNewsletterNameEnable']) ? $newsletterOptions['2eleThemeNewsletterNameEnable'] : false;
             if($nameEnabled) {
                 $context['newsletter']['name'] = [
                     'label' => isset($newsletterOptions['2eleThemeNewsletterNameLabel']) ? $newsletterOptions['2eleThemeNewsletterNameLabel'] : ''
@@ -134,8 +134,8 @@ class StarterSite extends Timber\Site {
 }
 new StarterSite();
 
-if(class_exists('Inc\\Init')) {
-    Inc\Init::registerServices();
+if(class_exists('eleTheme\\Inc\\Init')) {
+    eleTheme\Inc\Init::registerServices();
 }
 
 require get_template_directory() . '/inc/Functions/Ajax.php';
