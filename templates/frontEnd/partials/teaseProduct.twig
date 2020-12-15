@@ -1,13 +1,17 @@
-<article class="teaseProduct textAlignCenter">
+<article class="teaseProduct textAlignCenter" data-error_message = 'X'>
     <div class="teaseProductWrapper">
         <header class="teaseProductHeader">
             {% if isSingleProductPage == false %}
                 <a class='teaseProductAnchor textAlignCenter' href='{{ product.link }}' data-product_id="{{ product.id }}">
-                    {% include ['partials/teaseProduct/teaseProductPicture.twig'] %}
+                    {% include ['partials/teaseProduct/teaseProductPicture.twig'] with {'img': product.thumbnail } %}
                     <h3 class='teaseProductTitle overflowHidden'>{{ product.title }}</h3>
                 </a>
             {% else %}
-                {% include ['partials/teaseProduct/teaseProductPicture.twig'] %}
+                {% if product.gallery and product.gallery is not empty %}
+                    {% include ['partials/teaseProduct/teaseProductGallery.twig'] %}
+                {% else %}
+                    {% include ['partials/teaseProduct/teaseProductPicture.twig'] with {'img': product.thumbnail } %}
+                {% endif %}
             {% endif %}
         </header>
         <main class="teaseProductMain">

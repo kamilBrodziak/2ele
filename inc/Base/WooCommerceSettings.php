@@ -47,7 +47,6 @@ class WooCommerceSettings {
     }
 
     function excludeCategory($query, $query_vars) {
-        var_dump($query_vars);
         if (!empty($query_vars['exclude_category'])) {
             $query['tax_query'][] = array(
                 'taxonomy' => 'product_cat',

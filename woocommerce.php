@@ -12,7 +12,7 @@ if ( is_singular( 'product' ) ) {
 	$context['post']    = $post;
 
 	$context['product'] = $productsController->loadProductFromDB($context['post']->ID);
-	$context['product']['title'] = $post->title;
+    $context['product']['title'] = $post->title;
     $context['product']['link'] = $post->link;
 	$context['product']['thumbnail'] = [
 	    'src' => $post->thumbnail->src,
@@ -26,19 +26,24 @@ if ( is_singular( 'product' ) ) {
 //    $context['products'] = $posts;
 //    if ( is_product_category() || is_shop()) {
 //        $time1 = round(microtime(true) * 1000);
-        $queried_object = get_queried_object();
-        $term_id = $queried_object->term_id;
+
         $context['title'] = single_term_title( '', false );
         $context['currentPage'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
         $args = [
             'paged' => $context['currentPage']
         ];
         if(is_product_category()) {
+            $queried_object = get_queried_object();
+            $term_id = $queried_object->term_id;
             $category = get_term( $term_id, 'product_cat' );
             $context['category'] = [
                 'slug' => $category->slug,
                 'description' => $category->description
             ];
+            if($context['category']['slug'] == 'sprzet' && !is_user_logged_in()) {
+                Timber::render( '404.twig', $context );
+                die();
+            }
 //            $context['category'] = get_term( $term_id, 'product_cat' )->slug;
             $args['product_cat'] = $category->slug;
         } else {

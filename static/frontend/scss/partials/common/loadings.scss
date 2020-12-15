@@ -30,8 +30,12 @@
 
 .errorScreen {
     &:after {
-        content: 'X';
-        color: darkred;
+        font-size: 3rem;
+        width: 100%;
+        text-align: center;
+        height: auto;
+        content: attr(data-error_message);
+        color: red;
     }
 }
 

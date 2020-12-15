@@ -41,7 +41,7 @@ class Enqueue extends BaseController {
 
         wp_deregister_script('jquery');
         wp_deregister_script( 'wp-embed' );
-        wp_register_script('jquery-defer', includes_url('/js/jquery/jquery.min.js'),false, '3.5.1', true);
+        wp_register_script('jquery', includes_url('/js/jquery/jquery.min.js'),false, '3.5.1', true);
         wp_dequeue_style( 'wc-block-style' );
         if(!is_checkout()) {
             wp_deregister_script('woocommerce');
@@ -50,11 +50,11 @@ class Enqueue extends BaseController {
         } else {
 //            wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, '3.5.1', false);
         }
-        wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.min.js'), NULL, '3.5.1', false);
+        wp_enqueue_script('jquery');
 
 //        wp_enqueue_script('woocommerce');
 //        wp_enqueue_script('wc-checkout');
-        wp_register_script('siteJS', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), '3.1.0', true);
+        wp_register_script('siteJS', get_template_directory_uri() . '/static/frontend/js/site.min.js', array('jquery'), '3.2', true);
         global $wp_query;
         wp_localize_script( 'siteJS', 'ajaxPaginationParams', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -64,7 +64,7 @@ class Enqueue extends BaseController {
             'firstPage' => strtok(get_pagenum_link(1), '?')
         ) );
         wp_enqueue_script('siteJS');
-        wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.min.css', null, '3.1.0', 'all');
+        wp_enqueue_style('siteStyle', get_template_directory_uri() . '/static/frontend/css/style.css', null, "3.2", 'all');
         wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );
     }

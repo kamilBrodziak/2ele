@@ -1,7 +1,8 @@
-<picture class='teaseProductPictureContainer overflowHidden flexCenterCenter imgContainer'>
-    <source srcset="{{ product.thumbnail.src }}.webp" type="image/webp">
-    <img class='teaseProductPicture' src='{{ product.thumbnail.src }}'
-         srcset="{{ product.thumbnail.src }}"
-         data-default="{{ product.thumbnail.src }}"
-         alt='{{ product.thumbnail.alt }}'/>
+<picture class='{% if pictureClass %}{{ pictureClass }} {% endif %}teaseProductPictureContainer overflowHidden
+flexCenterCenter imgContainer'>
+    <source srcset="{{ img.src }}.webp" type="image/webp">
+    <img class='teaseProductPicture' src='{{ img.src }}'
+         srcset="{{ img.src }}"
+         data-default="{{ img.src }}"
+         alt='{{ img.alt }}'/>
 </picture>

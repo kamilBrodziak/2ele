@@ -2,6 +2,7 @@
     {% set type = (menuType ~ 'NavList')|default('navList') %}
 	<ul {% if menuType %}id='{{ type }}'{% endif %} class='navList listStyleNone'>
 		{% for item in items %}
+            {% if item.title|lower != 'sprzęt' or user.loggedIn %}
 			<li class='{{ type }}Item {{ navItemAnimation }} transitionEase borderRadiusTen'>
 				<a class='{{ type }}ItemAnchor textAlignCenter colorSilver fontBold' href='{{ item.link }}'>{{ item.title }}</a>
                 {% if item.children %}
@@ -16,6 +17,7 @@
                     </ul>
                 {% endif %}
 			</li>
+            {% endif %}
 		{% endfor %}
 	</ul>
 {% endif %}

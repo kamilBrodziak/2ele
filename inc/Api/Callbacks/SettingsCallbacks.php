@@ -16,7 +16,9 @@ class SettingsCallbacks {
 			foreach ($section['fields'] as $field) {
 				if($field['fieldType'] == 'checkbox') {
 					$output[$field['id']] = isset($input[$field['id']]) ? true : false;
-				} else if($field['fieldType'] == 'text' || $field['fieldType'] == 'textarea' || $field['fieldType'] == 'image') {
+				} else if($field['fieldType'] == 'text' || $field['fieldType'] == 'currency' ||
+                    $field['fieldType'] == 'textarea' || $field['fieldType'] == 'image' ||
+                    $field['fieldType'] == 'list') {
 					$output[$field['id']] = isset($input[$field['id']]) ? sanitize_text_field($input[$field['id']]) : '';
 				} else if($field['fieldType'] == 'number' || $field['fieldType'] == 'numbersSeparated') {
 				    $output[$field['id']] = $input[$field['id']];
@@ -46,7 +48,8 @@ class SettingsCallbacks {
 		$optionName = $args['optionName'];
 		$text = get_option($optionName);
 		$value = (isset($text[$name])) ? ($text[$name] ? $text[$name] : '') : '';
-		echo '<input type="text" name="' . $optionName . '[' . $name . ']' . '" value="' . $value . '" >';
+		echo '<input type="text" name="' . $optionName . '[' . $name . ']' . '" value="' . $value . '" >' .
+             "<p>${args['label']}</p>";
 	}
 
     public function numberField($args) {
@@ -56,6 +59,27 @@ class SettingsCallbacks {
         $text = get_option($optionName);
         $value = (isset($text[$name])) ? ($text[$name] ? $text[$name] : 0) : 0;
         echo '<input type="number" name="' . $optionName . '[' . $name . ']' . '" value="' . $value . '" min=0 >';
+    }
+
+    public function currencyField($args) {
+	    $name = $args['labelFor'];
+	    $optionName = $args['optionName'];
+	    $text = get_option($optionName);
+	    $value = (!empty($text[$name])) ? $text[$name] : "";
+	    echo "<input type='text' name='${optionName}[${name}]' value='$value'
+	            pattern='^[1-9][0-9]+(.[0-9]{2})?$' />" . "<p>${args['label']}</p>";
+    }
+
+    public function listField($args) {
+        $name = $args['labelFor'];
+        //		$classes = $args['class'];
+        $optionName = $args['optionName'];
+        $text = get_option($optionName);
+        $label = $args['label'];
+        $value = (isset($text[$name])) ? ($text[$name] ? $text[$name] : '') : '';
+        echo "<input type='text' name='${optionName}[${name}]' value='${value}' pattern='^[a-zA-Z ]+([;]{1}[a-zA-Z ]+)*$'
+             title='Write only natural numbers, separate each by ; or without it, if it`s only one number'>" .
+            "<p>${label}</p>";
     }
 
     public function numbersSeparatedField($args) {
@@ -94,5 +118,6 @@ class SettingsCallbacks {
 
 //	public function kBPMainSettingsSection() {}
     public function eleThemeNewsletterSection() {}
+    public function eleThemeGiftsSection() {}
 
 }

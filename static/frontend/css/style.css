@@ -349,8 +349,12 @@ input:disabled {
 }
 
 .errorScreen:after {
-  content: "X";
-  color: darkred;
+  font-size: 3rem;
+  width: 100%;
+  text-align: center;
+  height: auto;
+  content: attr(data-error_message);
+  color: red;
 }
 
 .loadingCenter {
@@ -1460,6 +1464,10 @@ input:disabled {
   text-align: left;
 }
 
+.cartItemRegularPrice {
+  text-decoration: line-through;
+}
+
 .loginWidgetNotices {
   padding: 10px 5%;
 }
@@ -1915,6 +1923,75 @@ body.orderWidgetActive {
     flex: 1;
   }
 }
+.teaseProductGalleryContainer {
+  display: flex;
+  position: relative;
+  width: calc(100% - 4px);
+  margin: 0 0 0 4px;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 50px 50px 0 0;
+}
+.teaseProductGalleryContainer .teaseProductGalleryPicture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(0);
+}
+.teaseProductGalleryContainer .teaseProductGalleryPicture.left {
+  transform: translateX(-100%);
+}
+.teaseProductGalleryContainer .teaseProductGalleryPicture.right {
+  transform: translateX(100%);
+}
+
+.teaseProductGalleryButton {
+  position: absolute;
+  flex-direction: column;
+  width: 50px;
+  height: 100%;
+  top: 0;
+  background: none;
+  border: none;
+}
+.teaseProductGalleryButton span {
+  display: block;
+  width: 45px;
+  height: 10px;
+  border-radius: 5px;
+  background: transparent;
+  transition: all 0.1s ease;
+}
+.teaseProductGalleryButton span:first-child {
+  transform: translateY(-50%);
+}
+.teaseProductGalleryButton span:last-child {
+  transform: translateY(50%);
+}
+.teaseProductGalleryButton:hover span {
+  background: silver;
+}
+
+.teaseProductGalleryPrev {
+  left: 0;
+}
+.teaseProductGalleryPrev span:first-child {
+  transform: translateY(-8px) rotateZ(-45deg);
+}
+.teaseProductGalleryPrev span:last-child {
+  transform: translateY(8px) rotateZ(45deg);
+}
+
+.teaseProductGalleryNext {
+  right: 0;
+}
+.teaseProductGalleryNext span:first-child {
+  transform: translateY(-8px) rotateZ(45deg);
+}
+.teaseProductGalleryNext span:last-child {
+  transform: translateY(8px) rotateZ(-45deg);
+}
+
 #wordpressDefault h2 {
   text-align: center;
   font-size: 2.5rem;

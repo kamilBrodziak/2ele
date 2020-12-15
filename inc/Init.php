@@ -19,6 +19,7 @@ final class Init {
         return [
             Base\WooCommerceSettings::class,
 	        Controllers\DashboardController::class,
+            Controllers\GiftController::class,
             Controllers\UserExperiencePageController::class,
 	        Base\Enqueue::class,
             Base\SettingLinks::class,

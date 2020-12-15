@@ -40,7 +40,7 @@
                 <td data-title="Cena">
                     <div class="cartItemPrice">
                         {% if product.regularPrice %}
-                            <span>{{ product.regularPrice|number_format(2, ',') }} zł</span>
+                            <span class="cartItemRegularPrice">{{ product.regularPrice|number_format(2, ',') }} zł</span>
                         {% endif %}
                         <span>{{ product.price|number_format(2, ',') }} zł</span>
                     </div>
@@ -72,9 +72,15 @@
         </tbody>
     </table>
     <footer class="cartSummary">
+        {% if gift.enabled %}
+            <section id="cartGift">
+                <h3 class="header3Gradient">Odbierz prezent</h3>
+                <div id="cartGiftMessage" class="textAlignCenter">{{ gift.message }}</div>
+            </section>
+        {% endif %}
         <section id="cartCoupon">
             <h3 class="header3Gradient">Masz kupon rabatowy?</h3>
-            <div id="cartCouponMessage"></div>
+            <div id="cartCouponMessage" class="textAlignCenter"></div>
             <form id="cartCouponForm" method="post">
                 <label id="cartCouponLabel">
                     <input name="coupon_code" placeholder="Wpisz tutaj kupon..." type="text" id="cartCouponInput" class="gradientInput">

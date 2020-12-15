@@ -41,3 +41,77 @@
     }
 }
 
+.teaseProductGalleryContainer {
+    display: flex;
+    position: relative;
+    width: calc(100% - 4px);
+    margin: 0 0 0 4px;
+    height: 380px;
+    overflow: hidden;
+    border-radius: 50px 50px 0 0;
+    .teaseProductGalleryPicture {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(0);
+        &.left {
+            transform: translateX(-100%);
+        }
+        &.right {
+            transform: translateX(100%);
+        }
+    }
+}
+
+.teaseProductGalleryButton {
+    position: absolute;
+    flex-direction: column;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    background: none;
+    border: none;
+    span {
+        display: block;
+        width: 45px;
+        height: 10px;
+        border-radius: 5px;
+        background: transparent;
+        transition: all 0.1s ease;
+        
+        &:first-child {
+            transform: translateY(-50%);
+        }
+        
+        &:last-child {
+            transform: translateY(50%);
+        }
+    }
+    
+    &:hover span {
+        background: silver;
+    }
+}
+
+.teaseProductGalleryPrev {
+    left: 0;
+    span:first-child {
+        transform: translateY(-8px) rotateZ(-45deg);
+    }
+    
+    span:last-child {
+        transform: translateY(8px) rotateZ(45deg);
+    }
+}
+
+.teaseProductGalleryNext {
+    right: 0;
+    span:first-child {
+        transform: translateY(-8px) rotateZ(45deg);
+    }
+    
+    span:last-child {
+        transform: translateY(8px) rotateZ(-45deg);
+    }
+}
+

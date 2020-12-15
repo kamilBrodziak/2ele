@@ -1,0 +1,58 @@
+<div class="teaseProductGalleryContainer">
+    {% set images = product.gallery %}
+    {% if images|length < 3 %}
+        {% set images = images|merge(images) %}
+    {% endif %}
+{#    <picture class='teaseProductGalleryPicture teaseProductPictureContainer overflowHidden flexCenterCenter imgContainer'>#}
+{#        <source srcset="{{ product.thumbnail.src }}.webp" type="image/webp">#}
+{#        <img class='teaseProductPicture' src='{{ product.thumbnail.src }}'#}
+{#             srcset="{{ product.thumbnail.src }}"#}
+{#             data-default="{{ product.thumbnail.src }}"#}
+{#             alt='{{ product.thumbnail.alt }}'/>#}
+{#    </picture>#}
+    {% if images and images is not empty %}
+        {% set length = images|length %}
+        {% set ind = 0 %}
+        {% for img in images %}
+            {% set pictureClass = (ind < length/2) ? 'teaseProductGalleryPicture left' :
+                (ind > length/2 ? 'teaseProductGalleryPicture right' : 'teaseProductGalleryPicture active') %}
+            {% include 'partials/teaseProduct/teaseProductPicture.twig' with {'img': img,
+                'pictureClass': pictureClass } %}
+            {% set ind = ind + 1 %}
+        {% endfor %}
+{#        {% for i in [length-2,length-1,0,1,2%length] %}#}
+{#            {% set img = images[i] %}#}
+{#            {% set pictureClass = (ind < 2) ? 'teaseProductGalleryPicture left' : #}
+{#                (ind > 2 ? 'teaseProductGalleryPicture right' : 'teaseProductGalleryPicture active') %}#}
+{#            {% include 'partials/teaseProduct/teaseProductPicture.twig' with {'img': img,#}
+{#                'pictureClass': pictureClass } %}#}
+{#            {% set ind = ind + 1 %}#}
+{#        {% endfor %}#}
+
+{#        {% for i in [0, 1] %}#}
+{#            #}
+{#        {% endfor %}#}
+{#        {% for i in 0..3 %}#}
+{#            {% set img = images[i % images|length] %}#}
+{#            {% include 'partials/teaseProduct/teaseProductPicture.twig' with {'img': img,#}
+{#                'pictureClass': 'teaseProductGalleryPicture' } %}#}
+{#        {% endfor %}#}
+{#        {% for img in product.gallery %}#}
+{#            <picture class='teaseProductGalleryPicture teaseProductPictureContainer overflowHidden flexCenterCenter imgContainer'>#}
+{#                <source srcset="{{ img.src }}.webp" type="image/webp">#}
+{#                <img class='teaseProductPicture' src='{{ img.src }}'#}
+{#                     srcset="{{ img.src }}"#}
+{#                     data-default="{{ img.src }}"#}
+{#                     alt='{{ img.alt }}'/>#}
+{#            </picture>#}
+{#        {% endfor %}#}
+        <button class="teaseProductGalleryPrev teaseProductGalleryButton flexCenterCenter">
+            <span></span>
+            <span></span>
+        </button>
+        <button class="teaseProductGalleryNext teaseProductGalleryButton flexCenterCenter">
+            <span></span>
+            <span></span>
+        </button>
+    {% endif %}
+</div>

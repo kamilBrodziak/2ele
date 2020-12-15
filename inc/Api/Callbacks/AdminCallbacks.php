@@ -16,4 +16,8 @@ class AdminCallbacks extends BaseController {
 	public function userExperience() {
 	    return require_once("$this->themePath/static/backend/dashboard.php");
     }
+
+    public function gifts() {
+	    return require_once("$this->themePath/static/backend/gifts.php");
+    }
 }

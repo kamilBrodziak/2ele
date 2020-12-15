@@ -50,15 +50,35 @@ function addProductToCart() {
     $productID = $_POST['productID'];
     $quantity = $_POST['quantity'];
     $variationID = $_POST['variationID'];
+    $cart = WC()->cart;
     if($variationID) {
-        $result = WC()->cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
+        $result = $cart->add_to_cart((int)$productID, (int)$quantity, (int)$variationID);
     } else {
-        $result = WC()->cart->add_to_cart((int)$productID, (int)$quantity);
+        $result = $cart->add_to_cart((int)$productID, (int)$quantity);
     }
     if($result) {
-        echo WC()->cart->get_cart_contents_count();
+        echo $cart->get_cart_contents_count();
     } else {
-        echo "false";
+        $notInStorage = false;
+        foreach ($cart->get_cart() as $cartItem) {
+            if($productID == $cartItem['product_id']) {
+
+                $quantity = $cartItem['quantity'];
+                $stockQuantity = $cartItem['data']->get_stock_quantity();
+                if($stockQuantity - $quantity <= 0) {
+                    $quantityName = ($quantity > 4) ? "sztuk" : ($quantity > 1 ? "sztuki" : "sztuka");
+                    $stockQuantityName = ($quantity > 4) ? "sztuk" : ($quantity > 1 ? "sztuki" : "sztuka");
+                    $t = $quantityName == "sztuki" ? "są" : "jest";
+                    $tS = $stockQuantityName == "sztuki" ? "są już" : 'jest już';
+                    echo "Na magazynie $t obecnie $stockQuantity $stockQuantityName tego produktu 
+                    a w Twoim koszyku $tS $quantity $quantityName. Nie możesz dodać więcej sztuk tego produktu.";
+                    $notInStorage = true;
+                }
+            }
+        }
+        if(!$notInStorage) {
+            echo "Wystąpił błąd. Spróbuj ponownie, jeśli to nie pomoże - odśwież stronę.";
+        }
     }
 
     die();
@@ -73,7 +93,7 @@ function sendUserEmail() {
 
 //	echo $name . ',' . $email . ',' . $message;
     $to = get_bloginfo('admin_email');
-    $subject = "Szczęśliwy związek formularz kontaktowy - $name";
+    $subject = "2ele formularz kontaktowy - $name";
     $headers[] = "From: " . get_bloginfo('name') . " <$to>";
     $headers[] = "Reply-To: $name <$email>";
     $headers[] = 'Content-Type: text/html: charset=UTF-8';

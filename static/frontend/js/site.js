@@ -75,6 +75,11 @@ $( function() {
         checkoutPageCheckoutWidget.withWidget();
     }
 
+    const gallery = $('.teaseProductGalleryContainer');
+    if(gallery.length) {
+        const galleryO = new Gallery(gallery);
+    }
+
     // const hdrNewsletter = $('#hdrNewsletter');
     // if(hdrNewsletter.length) {
     //     const newsletter = new Newsletter(hdrNewsletter);

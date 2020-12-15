@@ -21,12 +21,22 @@ class ProductsController {
 
     public function loadProductFromDB($id) {
         $product = wc_get_product($id);
+        $galleryIDs = $product->get_gallery_image_ids();
+        $gallery = [];
+        if(count($galleryIDs) > 0) {
+            array_unshift($galleryIDs, $product->get_image_id());
+            foreach ($galleryIDs as $id) {
+                $img = wp_get_attachment_url($id);
+                $alt = get_post_meta( $id, '_wp_attachment_image_alt', true);
+                $gallery[] = ['src' => $img, 'alt' => $alt];
+            }
+        }
         $productDetails = [
             'id' => $id,
             'price' => $product->get_regular_price(),
-            'isVariable' => $product->is_type('variable')
+            'isVariable' => $product->is_type('variable'),
+            'gallery' => $gallery
         ];
-
         if($productDetails['isVariable']) {
             $productDetails['variable'] = $this->getVariableProductDetails($product);
         }
@@ -45,9 +55,9 @@ class ProductsController {
             'posts_per_page' => $this->productsPerPage,
             'post_status' => 'publish'
         ];
-        if($argsList['paged']) $args['paged'] = $argsList['paged'];
-        if($argsList['product_cat']) $args['product_cat'] = $argsList['product_cat'];
-        if($argsList['exclude_category']) {
+        if(!empty($argsList['paged'])) $args['paged'] = $argsList['paged'];
+        if(!empty($argsList['product_cat'])) $args['product_cat'] = $argsList['product_cat'];
+        if(!empty($argsList['exclude_category'])) {
             $args['tax_query'] = [
                 [
                     'taxonomy' => 'product_cat',
@@ -57,8 +67,14 @@ class ProductsController {
                 ]
             ];
         }
-
-        if($argsList['s']) {
+        $args['meta_query'] = [
+            [
+                'key' => '_stock_status',
+                'value' => ['instock', 'onbackorder'],
+                'compare' => 'IN'
+            ],
+        ];
+        if(!empty($argsList['s'])) {
             $args['s'] = $argsList['s'];
         } else {
             $args['order'] = 'ASC';
@@ -80,6 +96,8 @@ class ProductsController {
             ];
             if($productDetails['isVariable']) {
                 $productDetails['variable'] = $this->getVariableProductDetails($product);
+            } else {
+                $productDetails['maxQuantity'] = $product->backorders_allowed() ? 99 : $product->get_stock_quantity();
             }
             if($product->is_on_sale()) {
                 $productDetails['salePrice'] = number_format((float)$product->get_sale_price(), 2);
@@ -155,46 +173,159 @@ function getCartQuantityNotices($products) {
     return $cartNotices;
 }
 
-function getCart() {
-    $cartItems = WC()->cart->get_cart();
-    $products = [];
-    foreach($cartItems as $item => $values) {
-        $product = wc_get_product($values['product_id']);
-        $productDetails = [
-            'id' => $values['product_id'],
-            'quantity' => $values['quantity'],
-            'url' => get_permalink($values['product_id']),
-            'key' => $values['key'],
-            'removeUrl' => wc_get_cart_remove_url($values['key']),
-        ];
-        if($product->is_type('variable')) {
-            $variationID = $values['variation_id'];
-            $product = wc_get_product($variationID);
-            $productDetails['variationID'] = $variationID;
-        }
+function getCart($gift = null) {
+    $cart = WC()->cart;
 
-        if($product->managing_stock()) {
-            $quantity = $product->get_stock_quantity();
-            $quantity = $quantity >= 0 ? $quantity : 0;
-            if($product->backorders_allowed()) {
-                $productDetails['maxQuantity'] = 999;
-                $productDetails['maxQuantityNotBackorder'] = $quantity;
-            } else {
-                $productDetails['maxQuantity'] = $quantity;
+    $products = [];
+    $cartItems = $cart->get_cart();
+    foreach($cartItems as $key => $values) {
+        $products[] = getCartProductDetails($values, $values['data']);
+    }
+
+    if(!empty($gift) && !empty($gift['enabled']) && $gift['enabled']) {
+        $total = 0;
+        $categoryIDs = [];
+        foreach ($gift['excludeCategories'] as $category) {
+            if($category != "") {
+                $categoryIDs[] = get_term_by( 'slug', $category, 'product_cat' )->term_id;
             }
         }
-        $productDetails['price'] = $product->get_price();
-        $productDetails['title'] = $product->get_name();
-        if($product->is_on_sale()) {
-            $productDetails['regularPrice'] = $product->get_regular_price();
+        $userLoggedIn = is_user_logged_in();
+        foreach ($cartItems as $key => $values) {
+            if($values['product_id'] == $gift['ID']) {
+                $cart->remove_cart_item($key);
+                $ind = 0;
+                foreach ($products as $product) {
+                    if($product['id'] == $gift['ID']) {
+                        unset($products[$ind]);
+                    }
+                    $ind++;
+                }
+                continue;
+            }
+            $product = $values['data'];
+            $productCategoryIDs = $product->get_category_ids();
+            if($product->is_type('variation')) {
+                $parent = wc_get_product($product->get_parent_id());
+                $productCategoryIDs = $parent->get_category_ids();
+            }
+            if(count(array_diff($productCategoryIDs, $categoryIDs)) == count($productCategoryIDs)) {
+                $price = floatval(floatval($product->get_price()) * $values['quantity']);
+                $total += $price;
+            }
         }
-        $productImgID = $product->get_image_id();
-        $productDetails['imgSrc'] = wp_get_attachment_image_url($productImgID , 'full' );
-        $productDetails['imgAlt'] = get_post_meta($productImgID, '_wp_attachment_image_alt', TRUE);
-        $products[] = $productDetails;
+        $minimumTotalSpent = $total > $gift['cartTotal'];
+        $hasNotBoughtItem = $userLoggedIn && !has_bought_items(get_current_user_id(), $gift['ID']);
+        if(!$minimumTotalSpent) {
+            $gift['message'] = sprintf($gift['messages']['minimumTotal'], $gift['cartTotal'] . "zł", implode(", ", $gift['excludeCategories']));
+        } else if(!$userLoggedIn) {
+            $gift['message'] = $gift['messages']['notLogged'];
+        } else if(!$hasNotBoughtItem) {
+            $product = wc_get_product($gift['ID']);
+            $gift['message'] = sprintf($gift['messages']['alreadyAcquired'], $product->get_name());
+        } else {
+            $key = $cart->add_to_cart($gift['ID']);
+            $cartItem = $cart->get_cart_item($key);
+            $product = $cartItem['data'];
+            $details = getCartProductDetails($cartItem, $product);
+            $details['maxQuantity'] = 1;
+            $cart->calculate_totals();
+            $products[] = $details;
+            $gift['message'] = sprintf($gift['messages']['success'], $product->get_name());
+        }
     }
-    return $products;
-//    return WC()->cart->get_cart_contents();
+
+
+    return ['products' => $products, 'gift' => $gift];
+}
+
+function getGiftDetails() {
+    $gift = ['enabled' => false];
+    $options = get_option('2eleThemeGift');
+    if(!empty($options['2eleThemeGiftsEnable']) && $options['2eleThemeGiftsEnable']) {
+        $gift = [
+            'enabled' => true,
+            'ID' => $options['2eleThemeGiftsID'],
+            'cartTotal' => floatval($options['2eleThemeGiftsCartTotal']),
+            'excludeCategories' => explode(";", $options['2eleThemeGiftsExcludedCategories']),
+            'messages' => [
+                'notLogged' => $options['2eleThemeGiftsNotLoggedInText'],
+                'alreadyAcquired' => $options['2eleThemeGiftsAlreadyAcquiredText'] ,
+                'minimumTotal' => $options['2eleThemeGiftsMinimumCartTotalText'] ,
+                'success' => $options['2eleThemeGiftsAddedText']
+            ]
+        ];
+    }
+    return $gift;
+}
+
+function has_bought_items( $user_var = 0,  $product_ids = 0 ) {
+    global $wpdb;
+
+    // Based on user ID (registered users)
+    if ( is_numeric( $user_var) ) {
+        $meta_key     = '_customer_user';
+        $meta_value   = $user_var == 0 ? (int) get_current_user_id() : (int) $user_var;
+    }
+    // Based on billing email (Guest users)
+    else {
+        $meta_key     = '_billing_email';
+        $meta_value   = sanitize_email( $user_var );
+    }
+
+    $paid_statuses    = array_map( 'esc_sql', wc_get_is_paid_statuses() );
+    $product_ids      = is_array( $product_ids ) ? implode(',', $product_ids) : $product_ids;
+
+    $line_meta_value  = $product_ids !=  ( 0 || '' ) ? 'AND woim.meta_value IN ('.$product_ids.')' : 'AND woim.meta_value != 0';
+
+    // Count the number of products
+    $count = $wpdb->get_var( "
+        SELECT COUNT(p.ID) FROM {$wpdb->prefix}posts AS p
+        INNER JOIN {$wpdb->prefix}postmeta AS pm ON p.ID = pm.post_id
+        INNER JOIN {$wpdb->prefix}woocommerce_order_items AS woi ON p.ID = woi.order_id
+        INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS woim ON woi.order_item_id = woim.order_item_id
+        WHERE p.post_status IN ( 'wc-" . implode( "','wc-", $paid_statuses ) . "' )
+        AND pm.meta_key = '$meta_key'
+        AND pm.meta_value = '$meta_value'
+        AND woim.meta_key IN ( '_product_id', '_variation_id' ) $line_meta_value 
+    " );
+
+    // Return true if count is higher than 0 (or false)
+    return $count > 0;
+}
+
+function getCartProductDetails($values, $product) {
+    $productDetails = [
+        'id' => $values['product_id'],
+        'quantity' => $values['quantity'],
+        'url' => get_permalink($values['product_id']),
+        'key' => $values['key'],
+        'removeUrl' => wc_get_cart_remove_url($values['key']),
+    ];
+    if($product->is_type('variable')) {
+        $variationID = $values['variation_id'];
+        $productDetails['variationID'] = $variationID;
+    }
+
+    if($product->managing_stock()) {
+        $quantity = $product->get_stock_quantity();
+        $quantity = $quantity >= 0 ? $quantity : 0;
+        if($product->backorders_allowed()) {
+            $productDetails['maxQuantity'] = 999;
+            $productDetails['maxQuantityNotBackorder'] = $quantity;
+        } else {
+            $productDetails['maxQuantity'] = $quantity;
+        }
+    }
+    $productDetails['price'] = $product->get_price();
+    $productDetails['title'] = $product->get_name();
+    if($product->is_on_sale()) {
+        $productDetails['regularPrice'] = $product->get_regular_price();
+    }
+    $productImgID = $product->get_image_id();
+    $productDetails['imgSrc'] = wp_get_attachment_image_url($productImgID , 'full' );
+    $productDetails['imgAlt'] = get_post_meta($productImgID, '_wp_attachment_image_alt', TRUE);
+    return $productDetails;
 }
 
 

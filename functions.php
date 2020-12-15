@@ -40,6 +40,10 @@ class StarterSite extends Timber\Site {
         add_action( 'after_setup_theme', array( $this, 'themeSupports' ) );
         add_filter( 'timber/context', array( $this, 'addToContext' ) );
         add_filter( 'timber/twig', array( $this, 'addToTwig' ) );
+        add_filter( 'wp_setup_nav_menu', function( \stdClass $item ) {
+            $item->_invalid = is_user_logged_in();
+            return $item;
+        } );
         add_action( 'init', array( $this, 'registerPostTypes' ) );
         add_action( 'init', array( $this, 'registerTaxonomies' ) );
         $this->removeWordpressUnnecessaryActions();
@@ -70,6 +74,19 @@ class StarterSite extends Timber\Site {
             'main' => new Timber\Menu('main'),
             'footer' => new Timber\Menu('footer')
         ];
+        $context['user'] = [
+            'loggedIn' => is_user_logged_in()
+        ];
+//        if(!is_user_logged_in()) {
+//            $ind = 0;
+//            foreach ($context['menu']['main']->get_items() as $item) {
+//                if($item->title == 'Sprzęt') {
+//                    unset($context['menu']['main']->items[$ind]);
+//                    break;
+//                }
+//                $ind++;
+//            }
+//        }
         $context['site']  = $this;
         $newsletterOptions = get_option('2eleTheme');
         $newsletterEnabled = isset($newsletterOptions['2eleThemeNewsletterEnable']) ? $newsletterOptions['2eleThemeNewsletterEnable'] : false;
@@ -142,7 +159,10 @@ require get_template_directory() . '/inc/Functions/Ajax.php';
 require get_template_directory() . '/inc/Functions/woocommerce.php';
 
 function loadCartIntoContext($context) {
-    $context['products'] = getCart();
+    $gift = getGiftDetails();
+    $cart = getCart($gift);
+    $context['products'] = $cart['products'];
+    $context['gift'] = $cart['gift'];
     $context['cartNotices'] = getCartQuantityNotices($context['products']);
     $context['checkoutUrl'] = getCheckoutUrl();
     $context['cartTotal'] = getCartTotal();
@@ -151,17 +171,18 @@ function loadCartIntoContext($context) {
     return $context;
 }
 
+
 function loadCartTotalsIntoContext($context, $cart = null) {
     if(is_null($cart)) $cart = WC()->cart;
     $cartTotals = [];
-    $cartTotals[] = [
-        'name' => 'Suma:',
-        'value' => number_format($cart->get_subtotal(), 2, ',', ' ') . ' zł'
-    ];
 //    $context['cartSubtotal'] = [$cart->get_subtotal()];
     $cartSubtotalAfterDiscount = $cart->get_cart_contents_total();
     $couponDiscount = $cart->get_discount_total();
     if($couponDiscount != 0) {
+        $cartTotals[] = [
+            'name' => 'Suma:',
+            'value' => number_format($cart->get_subtotal(), 2, ',', ' ') . ' zł'
+        ];
 //        $context['couponDiscount'] = $couponDiscount;
         $cartTotals[] = [
             'result' => true,
@@ -169,14 +190,13 @@ function loadCartTotalsIntoContext($context, $cart = null) {
             'value' => number_format($couponDiscount, 2, ',', ' ') . ' zł'
         ];
     }
-    if($cartSubtotalAfterDiscount != $context['cartSubtotal']) {
+
 //        $context['cartSubtotalAfterDiscount'] = $cartSubtotalAfterDiscount;
-        $cartTotals[] = [
-            'result' => false,
-            'name' => 'Do zapłaty (bez dostawy):',
-            'value' => number_format($cartSubtotalAfterDiscount, 2, ',', ' ') . ' zł'
-        ];
-    }
+    $cartTotals[] = [
+        'result' => false,
+        'name' => 'Do zapłaty (bez dostawy):',
+        'value' => number_format($cartSubtotalAfterDiscount, 2, ',', ' ') . ' zł'
+    ];
     $context['cartTotals'] = $cartTotals;
     return $context;
 }

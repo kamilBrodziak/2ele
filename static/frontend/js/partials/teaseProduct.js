@@ -64,18 +64,20 @@ class TeaseProducts {
                 success: (response) => {
                     teaseProduct.removeClass('loadingScreen');
                     const basket = $('#' + basketID);
+                    let time = 2000;
                     let resultClass = '';
-                    if(response === 'false') {
-                        console.log('Wystąpił problem');
-                        resultClass = 'errorScreen';
-                    } else {
+                    if(!isNaN(response)) {
                         basket.html(response);
                         resultClass = 'successScreen';
+                    } else {
+                        time = 3500;
+                        resultClass = 'errorScreen';
+                        teaseProduct.attr('data-error_message', response);
                     }
                     teaseProduct.addClass(resultClass);
                     window.setTimeout(function () {
                         teaseProduct.removeClass(resultClass);
-                    }, 2000)
+                    }, time)
                 }
             });
         });
